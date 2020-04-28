@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import { useQuery, gql } from '@apollo/client';
 import ProductGridList from '../ProductGridList';
@@ -47,9 +47,6 @@ const AsignProducts = () => {
   return (
     <>
       <h2>Elige los zapatos</h2>
-      <Link href='/dataclient'>
-        <a>Datos Cliente</a>
-      </Link>
       <CardBadge />
       <ProductGridList products={zapatos} />
     </>

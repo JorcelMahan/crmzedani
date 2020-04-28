@@ -4,39 +4,13 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import SideBar from '../components/SideBar';
-import ClientData from '../components/ClientData';
-import Button from '@material-ui/core/Button';
-import Link from 'next/link';
-import PromotoraData from '../components/PromotoraData';
-import { useMutation, gql } from '@apollo/client';
-import VentasContext from '../context/ventas/VentasContext';
-const ADD_VENTA = gql`
-  mutation addVenta($input: VentasInput) {
-    addVenta(input: $input)
-  }
-`;
+import SideBar from '../SideBar';
+import ClientData from '../ClientData';
+import PromotoraData from '../PromotoraData';
+
 const DataClient = () => {
   const [tipoCliente, settipoCliente] = useState('client');
-  const ventasContext = useContext(VentasContext);
-  const { products, promotora, total } = ventasContext;
-  const [addVenta] = useMutation(ADD_VENTA);
-  const handleClick = async () => {
-    console.log('entre');
-    try {
-      await addVenta({
-        variables: {
-          input: {
-            productos: products,
-            idPromotora: promotora,
-            total,
-          },
-        },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   const handleChange = (e) => {
     settipoCliente(e.target.value);
   };
@@ -65,12 +39,6 @@ const DataClient = () => {
           </RadioGroup>
         </FormControl>
         {tipoCliente === 'client' ? <ClientData /> : <PromotoraData />}
-        <Button variant='outlined' color='default' onClick={handleClick}>
-          Confirmar
-        </Button>
-        {/* <Link href='/checkout'>
-          
-        </Link> */}
       </div>
     </SideBar>
   );

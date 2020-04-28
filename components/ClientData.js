@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Select from 'react-select';
 import NewClient from './NewClient';
+import VentasContext from '../context/ventas/VentasContext';
 import { useQuery, gql } from '@apollo/client';
 const GET_CLIENTES = gql`
   query getClientes {
@@ -14,6 +15,11 @@ const GET_CLIENTES = gql`
 const ClientData = () => {
   const { loading, error, data } = useQuery(GET_CLIENTES);
   const [client, setclient] = useState('');
+  const ventasContext = useContext(VentasContext);
+  const { selectCliente } = ventasContext;
+  useEffect(() => {
+    selectCliente(client.id);
+  }, [client]);
   if (loading) return 'Loading...';
   if (error) return 'Erroor';
   const { getClientes } = data;
