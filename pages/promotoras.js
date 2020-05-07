@@ -4,6 +4,8 @@ import { useQuery, gql } from '@apollo/client';
 import Router from 'next/router';
 import PromotorasToolbar from '../components/Promotoras/PromotorasToolbar';
 import PromotoraTable from '../components/Promotoras/PromotoraTable';
+import { useSearch } from '../hooks/useSearch';
+
 const GET_PROMOTORAS = gql`
   {
     promotoras {
@@ -26,26 +28,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const editPromotora = (id) => {
-  Router.push({
-    pathname: '/editPromotora/[id]',
-    query: {
-      id,
-    },
-  });
-};
-
-export default function SimpleTable() {
+const WrapperPromotoras = ({ promotoras }) => {
   const classes = useStyles();
-  const { loading, error, data } = useQuery(GET_PROMOTORAS);
-  if (loading) return 'loading...';
-  if (error) return 'error...';
+  const { query, setQuery, filteredItems } = useSearch(promotoras, 'nombres');
+
   return (
     <div className={classes.root}>
-      <PromotorasToolbar />
+      <PromotorasToolbar query={query} setQuery={setQuery} />
       <div className={classes.content}>
-        <PromotoraTable promotoras={data.promotoras} />
+        <PromotoraTable promotoras={filteredItems} />
       </div>
     </div>
   );
+};
+function promotoras() {
+  const { loading, error, data } = useQuery(GET_PROMOTORAS);
+  if (loading) return 'loading...';
+  if (error) return 'error...';
+  const { promotoras } = data;
+  return <WrapperPromotoras promotoras={promotoras} />;
 }
+export default promotoras;

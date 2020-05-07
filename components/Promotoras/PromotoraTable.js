@@ -26,6 +26,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
 }));
+const editPromotora = (id) => {
+  Router.push({
+    pathname: '/editPromotora/[id]',
+    query: {
+      id,
+    },
+  });
+};
 const PromotoraTable = (props) => {
   const { promotoras, className, users, ...rest } = props;
 

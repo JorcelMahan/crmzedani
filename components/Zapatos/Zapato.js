@@ -11,33 +11,27 @@ const Sizes = ({ tallas }) => {
     <>
       {sizes.map((s, i) => {
         s = Number(s) ? s : 0;
-        return (
-          <TableCell key={`${i}-${s}`} align='right'>
-            {s}
-          </TableCell>
-        );
+        return <TableCell key={`${i}-${s}`}>{s}</TableCell>;
       })}
     </>
   );
 };
-const Zapato = ({ zapato, i }) => {
+const Zapato = ({ zapato, i, classes }) => {
   const { codigo, image, color, stock, tallas } = zapato;
   return (
-    <TableRow>
-      <TableCell component='th' scope='row'>
-        {i}
-      </TableCell>
-      <TableCell align='right'>
+    <TableRow hover className={classes.tableRow}>
+      <TableCell>{i}</TableCell>
+      <TableCell>
         <Avatar alt={codigo} variant='square' src={image} />
       </TableCell>
-      <TableCell align='right'>{codigo}</TableCell>
-      <TableCell align='right'>{color}</TableCell>
+      <TableCell>{codigo}</TableCell>
+      <TableCell>{color}</TableCell>
       <Sizes tallas={tallas} />
-      <TableCell align='right'>{stock}</TableCell>
-      <TableCell align='right'>
+      <TableCell>{stock}</TableCell>
+      <TableCell>
         <Edit />
       </TableCell>
-      <TableCell align='right'>DELETE</TableCell>
+      <TableCell>DELETE</TableCell>
     </TableRow>
   );
 };

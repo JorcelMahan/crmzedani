@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const PromotorasToolbar = (props) => {
-  const { className, ...rest } = props;
+  const { className, query, setQuery, ...rest } = props;
   const classes = useStyles();
   return (
     <div {...rest} className={clsx(classes.root, className)}>
@@ -40,6 +40,8 @@ const PromotorasToolbar = (props) => {
         <SearchInput
           className={classes.searchInput}
           placeholder='Buscar promotora'
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
         />
       </div>
     </div>
