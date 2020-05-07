@@ -25,7 +25,7 @@ const Zapato = ({ zapato, i }) => {
   return (
     <TableRow>
       <TableCell component='th' scope='row'>
-        {++i}
+        {i}
       </TableCell>
       <TableCell align='right'>
         <Avatar alt={codigo} variant='square' src={image} />

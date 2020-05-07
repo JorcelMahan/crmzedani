@@ -26,7 +26,9 @@ function NavigationPromotora() {
       className={classes.root}
     >
       <Link href='/newPromotora'>
-        <BottomNavigationAction label='Nueva' icon={<PlusOne />} />
+        <a>
+          <BottomNavigationAction label='Nueva' icon={<PlusOne />} />
+        </a>
       </Link>
       <BottomNavigationAction label='Habilitadas' icon={<FavoriteIcon />} />
       <BottomNavigationAction label='Desabilitads' icon={<LocationOnIcon />} />

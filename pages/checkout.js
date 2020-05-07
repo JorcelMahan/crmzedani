@@ -13,10 +13,36 @@ import Review from '../components/ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
 import { useMutation, gql } from '@apollo/client';
+import SideBar from '../components/SideBar';
 
 const ADD_VENTA = gql`
   mutation addVenta($input: VentasInput) {
     addVenta(input: $input)
+  }
+`;
+const GET_VENTAS = gql`
+  query ventas {
+    ventas {
+      id
+      total
+      fechaDeCompra
+      productos {
+        codigo
+        color
+        precioPublico
+        image
+        sizeSale
+        quantity
+      }
+      cliente {
+        nitoci
+        razonSocial
+      }
+      idPromotora {
+        nombres
+        apellidos
+      }
+    }
   }
 `;
 
@@ -75,7 +101,17 @@ export default function Checkout() {
   const router = useRouter();
   const ventasContext = useContext(VentasContext);
   const { products, promotora, total, cliente, resetState } = ventasContext;
-  const [addVenta] = useMutation(ADD_VENTA);
+  const [addVenta] = useMutation(ADD_VENTA, {
+    update(cache, { data: { addVenta } }) {
+      const { ventas } = cache.readQuery({ query: GET_VENTAS });
+      cache.writeQuery({
+        query: GET_VENTAS,
+        data: {
+          ventas: [...ventas, addVenta],
+        },
+      });
+    },
+  });
 
   const handleClick = async () => {
     try {
@@ -105,52 +141,53 @@ export default function Checkout() {
   };
 
   return (
-    <React.Fragment>
-      <CssBaseline />
-
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Typography component='h1' variant='h4' align='center'>
-            Checkout
-          </Typography>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <React.Fragment>
-            {getStepContent(activeStep)}
-            <div className={classes.buttons}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Back
-                </Button>
-              )}
-              {activeStep === steps.length - 1 ? (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleClick}
-                  className={classes.button}
-                >
-                  Confirmar Venta
-                </Button>
-              ) : (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  Next
-                </Button>
-              )}
-            </div>
-          </React.Fragment>
-        </Paper>
-      </main>
-    </React.Fragment>
+    <SideBar>
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Typography component='h1' variant='h4' align='center'>
+              Checkout
+            </Typography>
+            <Stepper activeStep={activeStep} className={classes.stepper}>
+              {steps.map((label) => (
+                <Step key={label}>
+                  <StepLabel>{label}</StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+            <React.Fragment>
+              {getStepContent(activeStep)}
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                )}
+                {activeStep === steps.length - 1 ? (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleClick}
+                    className={classes.button}
+                  >
+                    Confirmar Venta
+                  </Button>
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleNext}
+                    className={classes.button}
+                  >
+                    Next
+                  </Button>
+                )}
+              </div>
+            </React.Fragment>
+          </Paper>
+        </main>
+      </React.Fragment>
+    </SideBar>
   );
 }

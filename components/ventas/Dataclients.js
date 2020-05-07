@@ -21,7 +21,7 @@ const DataClient = () => {
         <FormControl component='fieldset'>
           <FormLabel component='legend'>Tipo de cliente</FormLabel>
           <RadioGroup
-            aria-labe='tipoClient'
+            aria-label='tipoClient'
             name='tipoCliente'
             value={tipoCliente}
             onChange={handleChange}

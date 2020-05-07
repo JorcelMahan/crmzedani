@@ -2,15 +2,20 @@ import { ApolloProvider } from '@apollo/client';
 import client from '../config/apollo';
 //theme
 import { ThemeProvider } from '@material-ui/styles';
-import theme from '../components/ui/theme';
+import theme from '../theme/index';
 import VentasState from '../context/ventas/VentasState';
-import SideBar from '../components/SideBar';
+// styles
+import '../assets/index.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import Main from '../layouts/Main/Main';
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <VentasState>
-          <Component {...pageProps} />
+          <Main>
+            <Component {...pageProps} />
+          </Main>
         </VentasState>
       </ThemeProvider>
     </ApolloProvider>

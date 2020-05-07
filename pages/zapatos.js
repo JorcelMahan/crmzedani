@@ -1,9 +1,11 @@
 import React from 'react';
 
-import SideBar from '../components/SideBar';
 import { useQuery, gql } from '@apollo/client';
 import Router from 'next/router';
-import ListZapatos from '../components/ListZapatos';
+import ListZapatos from '../components/Zapatos/ListZapatos';
+import ZapatoToolbar from '../components/Zapatos/ZapatoToolbar';
+import { makeStyles } from '@material-ui/core/styles';
+import { useSearch } from '../hooks/useSearch';
 const GET_ZAPATOS = gql`
   query Zapatos {
     zapatos {
@@ -47,16 +49,63 @@ const GET_ZAPATOS = gql`
 //     },
 //   });
 // };
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(3),
+  },
 
-export default function SimpleTable() {
+  content: {
+    marginTop: theme.spacing(2),
+  },
+}));
+
+const WrapperZapatos = ({ zapatos }) => {
+  const classes = useStyles();
+  const { query, setQuery, filteredItems } = useSearch(zapatos, 'codigo');
+
+  const csvData = [
+    [
+      '#',
+      'codigo',
+      'color',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31',
+      '32',
+      '33',
+      '34',
+      '35',
+      '36',
+      '37',
+      '38',
+      '39',
+      '40',
+      '41',
+      '42',
+      '43',
+      '44',
+      '45',
+      'stock',
+    ],
+  ];
+  return (
+    <div className={classes.root}>
+      <ZapatoToolbar csvData={csvData} query={query} setQuery={setQuery} />
+      <div className={classes.content}>
+        <ListZapatos zapatos={filteredItems} csvData={csvData} />
+      </div>
+    </div>
+  );
+};
+function zapatos() {
   const { loading, error, data } = useQuery(GET_ZAPATOS);
+
   if (loading) return 'loading...';
   if (error) return 'error...';
   const { zapatos } = data;
 
-  return (
-    <SideBar>
-      <ListZapatos zapatos={zapatos} />
-    </SideBar>
-  );
+  return <WrapperZapatos zapatos={zapatos} />;
 }
+export default zapatos;

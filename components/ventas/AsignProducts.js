@@ -1,8 +1,8 @@
-import React from 'react';
+import React from './node_modules/react';
 
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql } from './node_modules/@apollo/client';
 import ProductGridList from '../ProductGridList';
-import Link from 'next/link';
+import Link from './node_modules/next/link';
 import CardBadge from '../CardBadge';
 const GET_ZAPATOS = gql`
   query Zapatos {
