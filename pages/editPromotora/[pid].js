@@ -1,6 +1,6 @@
 import React from 'react';
+import Main from '../layouts/Main/Main';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -94,7 +94,7 @@ const EditPromotora = () => {
   };
   const { promotora } = data;
   return (
-    <Layout>
+    <Main>
       <div className={classes.paper}>
         <h2>New Promotora</h2>
         <Formik
@@ -202,7 +202,7 @@ const EditPromotora = () => {
           }}
         </Formik>
       </div>
-    </Layout>
+    </Main>
   );
 };
 

@@ -1,11 +1,12 @@
 import React from 'react';
-
+import Main from '../layouts/Main/Main';
 import { useQuery, gql } from '@apollo/client';
 import Router from 'next/router';
 import ListZapatos from '../components/Zapatos/ListZapatos';
 import ZapatoToolbar from '../components/Zapatos/ZapatoToolbar';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSearch } from '../hooks/useSearch';
+
 const GET_ZAPATOS = gql`
   query Zapatos {
     zapatos {
@@ -106,6 +107,10 @@ function zapatos() {
   if (error) return 'error...';
   const { zapatos } = data;
 
-  return <WrapperZapatos zapatos={zapatos} />;
+  return (
+    <Main>
+      <WrapperZapatos zapatos={zapatos} />
+    </Main>
+  );
 }
 export default zapatos;

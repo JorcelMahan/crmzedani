@@ -5,6 +5,15 @@ import clsx from 'clsx';
 import Footer from './components/Footer/Footer';
 import TopBar from './components/TopBar/TopBar';
 import SideBar from './components/Sidebar/Sidebar';
+import { useQuery, gql } from '@apollo/client';
+import { useRouter } from 'next/router';
+const GET_USER = gql`
+  query getUser {
+    getUser {
+      name
+    }
+  }
+`;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +30,10 @@ const useStyles = makeStyles((theme) => ({
     height: '100%',
   },
 }));
+
 const Main = ({ children }) => {
+  const { loading, error, data } = useQuery(GET_USER);
+  const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -36,6 +48,14 @@ const Main = ({ children }) => {
     setOpenSidebar(false);
   };
   const shouldOpenSidebar = isDesktop ? true : openSidebar;
+  if (loading) return 'Loading...';
+  if (error) return `Error ${error.message}`;
+  if (!data.getUser) return router.push('/login');
+  const { name } = data.getUser;
+  const closeSession = () => {
+    localStorage.removeItem('token');
+    router.push('/login');
+  };
   return (
     <div
       className={clsx({
@@ -43,7 +63,7 @@ const Main = ({ children }) => {
         [classes.shiftContent]: isDesktop,
       })}
     >
-      <TopBar onSidebarOpen={handleSidebarOpen} />
+      <TopBar onSidebarOpen={handleSidebarOpen} closeSession={closeSession} />
       <SideBar
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}

@@ -1,5 +1,4 @@
 import React from 'react';
-import SideBar from '../components/SideBar';
 import { useQuery, gql } from '@apollo/client';
 import {
   TableContainer,
@@ -10,6 +9,8 @@ import {
   TableBody,
 } from '@material-ui/core';
 import Link from 'next/link';
+import Main from '../layouts/Main/Main';
+
 const GET_VENTAS = gql`
   query ventas {
     ventas {
@@ -42,7 +43,7 @@ const Ventas = () => {
   if (error) return `Error, ${error}`;
   const { ventas } = data;
   return (
-    <SideBar>
+    <Main>
       <h2>Ventas</h2>
       <Link href='/checkout'>
         <a>Nueva Venta</a>
@@ -90,7 +91,7 @@ const Ventas = () => {
           </TableBody>
         </Table>
       </TableContainer>
-    </SideBar>
+    </Main>
   );
 };
 

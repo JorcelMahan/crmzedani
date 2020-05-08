@@ -13,8 +13,7 @@ import Review from '../components/ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
 import { useMutation, gql } from '@apollo/client';
-import SideBar from '../components/SideBar';
-
+import Main from '../layouts/Main/Main';
 const ADD_VENTA = gql`
   mutation addVenta($input: VentasInput) {
     addVenta(input: $input)
@@ -141,53 +140,51 @@ export default function Checkout() {
   };
 
   return (
-    <SideBar>
-      <React.Fragment>
-        <CssBaseline />
-        <main className={classes.layout}>
-          <Paper className={classes.paper}>
-            <Typography component='h1' variant='h4' align='center'>
-              Checkout
-            </Typography>
-            <Stepper activeStep={activeStep} className={classes.stepper}>
-              {steps.map((label) => (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-            <React.Fragment>
-              {getStepContent(activeStep)}
-              <div className={classes.buttons}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} className={classes.button}>
-                    Back
-                  </Button>
-                )}
-                {activeStep === steps.length - 1 ? (
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={handleClick}
-                    className={classes.button}
-                  >
-                    Confirmar Venta
-                  </Button>
-                ) : (
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    Next
-                  </Button>
-                )}
-              </div>
-            </React.Fragment>
-          </Paper>
-        </main>
-      </React.Fragment>
-    </SideBar>
+    <Main>
+      <CssBaseline />
+      <main className={classes.layout}>
+        <Paper className={classes.paper}>
+          <Typography component='h1' variant='h4' align='center'>
+            Checkout
+          </Typography>
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map((label) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <>
+            {getStepContent(activeStep)}
+            <div className={classes.buttons}>
+              {activeStep !== 0 && (
+                <Button onClick={handleBack} className={classes.button}>
+                  Back
+                </Button>
+              )}
+              {activeStep === steps.length - 1 ? (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleClick}
+                  className={classes.button}
+                >
+                  Confirmar Venta
+                </Button>
+              ) : (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleNext}
+                  className={classes.button}
+                >
+                  Next
+                </Button>
+              )}
+            </div>
+          </>
+        </Paper>
+      </main>
+    </Main>
   );
 }

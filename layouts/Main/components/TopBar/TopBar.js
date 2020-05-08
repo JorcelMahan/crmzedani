@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const TopBar = (props) => {
-  const { className, onSidebarOpen, ...rest } = props;
+  const { className, onSidebarOpen, closeSession, ...rest } = props;
   const classes = useStyles();
   const [notifications] = useState([]);
 
@@ -40,7 +40,11 @@ const TopBar = (props) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton className={classes.signOutButton} color='inherit'>
+          <IconButton
+            className={classes.signOutButton}
+            color='inherit'
+            onClick={closeSession}
+          >
             <InputIcon />
           </IconButton>
         </Hidden>

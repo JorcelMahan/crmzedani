@@ -47,6 +47,11 @@ const Sidebar = (props) => {
       href: '/zapatos',
       icon: <ShoppingBasketIcon />,
     },
+    {
+      title: 'Ventas',
+      href: '/ventas',
+      icon: <ShoppingBasketIcon />,
+    },
   ];
   return (
     <Drawer

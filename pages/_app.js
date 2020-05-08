@@ -7,15 +7,13 @@ import VentasState from '../context/ventas/VentasState';
 // styles
 import '../assets/index.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import Main from '../layouts/Main/Main';
+// import Main from '../layouts/Main/Main';
 const MyApp = ({ Component, pageProps }) => {
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
         <VentasState>
-          <Main>
-            <Component {...pageProps} />
-          </Main>
+          <Component {...pageProps} />
         </VentasState>
       </ThemeProvider>
     </ApolloProvider>

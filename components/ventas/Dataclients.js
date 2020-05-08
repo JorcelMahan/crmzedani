@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -6,7 +6,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import SideBar from '../SideBar';
 import ClientData from '../ClientData';
-import PromotoraData from '../PromotoraData';
+import PromotoraData from '../Promotoras/PromotoraData';
 
 const DataClient = () => {
   const [tipoCliente, settipoCliente] = useState('client');

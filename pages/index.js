@@ -21,7 +21,11 @@ const Home = () => {
   // if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error</p>;
   // if (!data.promotoras) return router.push('/login');
-  return <h1>from home</h1>;
+  return (
+    <Main>
+      <h1>from home</h1>
+    </Main>
+  );
 };
 
 export default Home;
