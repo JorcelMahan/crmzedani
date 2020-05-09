@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Select from 'react-select';
+import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql } from '@apollo/client';
 import VentasContext from '../../context/ventas/VentasContext';
 const GET_PROMOTORAS = gql`
@@ -14,22 +15,29 @@ const GET_PROMOTORAS = gql`
     }
   }
 `;
-
+const useStyles = makeStyles((theme) => ({
+  boxProm: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gap: '1rem',
+  },
+}));
 const PromotoraData = () => {
+  const classes = useStyles();
   const { loading, error, data } = useQuery(GET_PROMOTORAS);
   const [selectedPromotora, setselectPromotora] = useState('');
   const ventasContext = useContext(VentasContext);
   const { selectPromotora } = ventasContext;
   useEffect(() => {
-    selectPromotora(selectedPromotora.id);
+    selectPromotora(selectedPromotora);
   }, [selectedPromotora]);
 
   if (loading) return 'Loading';
   if (error) return 'error';
   const { promotoras } = data;
   return (
-    <div>
-      <h2>Datos promotora</h2>
+    <div className={classes.boxProm}>
+      <h2>Datos Promotora</h2>
       <Select
         onChange={(op) => setselectPromotora(op)}
         options={promotoras}

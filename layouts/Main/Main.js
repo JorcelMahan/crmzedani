@@ -68,6 +68,7 @@ const Main = ({ children }) => {
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}
+        name={name}
       />
       <main className={classes.content}>
         {children}

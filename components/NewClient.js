@@ -8,13 +8,32 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { useFormik } from 'formik';
 import { useMutation, gql } from '@apollo/client';
 
+const GET_CLIENTES = gql`
+  query getClientes {
+    getClientes {
+      id
+      razonSocial
+      nitoci
+    }
+  }
+`;
 const NEW_CLIENTE = gql`
   mutation newCliente($input: ClienteInput) {
     newCliente(input: $input)
   }
 `;
 function NewClient() {
-  const [newCliente] = useMutation(NEW_CLIENTE);
+  const [newCliente] = useMutation(NEW_CLIENTE, {
+    update(cache, { data: { newCliente } }) {
+      const { getClientes } = cache.readQuery({ query: GET_CLIENTES });
+      cache.writeQuery({
+        query: GET_CLIENTES,
+        data: {
+          getClientes: [...getClientes, newCliente],
+        },
+      });
+    },
+  });
 
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {

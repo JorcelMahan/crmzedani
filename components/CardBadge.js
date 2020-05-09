@@ -26,8 +26,8 @@ export default function CardBadge() {
     );
   }, [products, amount]);
   return (
-    <IconButton aria-label='cart'>
-      <StyledBadge badgeContent={amount} color='secondary'>
+    <IconButton aria-label='cart' color='inherit'>
+      <StyledBadge badgeContent={amount}>
         <ShoppingCartIcon />
       </StyledBadge>
     </IconButton>

@@ -6,6 +6,7 @@ import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
 import InputIcon from '@material-ui/icons/Input';
 import { makeStyles } from '@material-ui/styles';
 import Link from 'next/link';
+import CardBadge from '../../../../components/CardBadge';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,13 @@ const useStyles = makeStyles((theme) => ({
   signOutButton: {
     marginLeft: theme.spacing(1),
   },
+  logoText: {
+    color: 'white',
+    fontSize: '1.5rem',
+  },
+  defaultLink: {
+    color: 'white',
+  },
 }));
 const TopBar = (props) => {
   const { className, onSidebarOpen, closeSession, ...rest } = props;
@@ -27,19 +35,22 @@ const TopBar = (props) => {
     <AppBar {...rest} className={clsx(classes.root, className)}>
       <Toolbar>
         <Link href='/'>
-          <a>Image logo</a>
+          <a className={classes.logoText}>ZEDANI</a>
         </Link>
         <div className={classes.flexGrow} />
         <Hidden>
-          <IconButton color='inherit'>
+          <Link href='/checkout'>
+            <a className={classes.defaultLink}>
+              <CardBadge />
+            </a>
+          </Link>
+          {/* <IconButton color='inherit'>
             <Badge
               badgeContent={notifications.length}
               color='primary'
               variant='dot'
-            >
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
+            ></Badge>
+          </IconButton> */}
           <IconButton
             className={classes.signOutButton}
             color='inherit'

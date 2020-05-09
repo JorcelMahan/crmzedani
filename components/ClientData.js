@@ -3,6 +3,8 @@ import Select from 'react-select';
 import NewClient from './NewClient';
 import VentasContext from '../context/ventas/VentasContext';
 import { useQuery, gql } from '@apollo/client';
+import { makeStyles } from '@material-ui/core/styles';
+
 const GET_CLIENTES = gql`
   query getClientes {
     getClientes {
@@ -12,19 +14,37 @@ const GET_CLIENTES = gql`
     }
   }
 `;
+
+const useStyles = makeStyles((theme) => ({
+  boxNewClient: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gap: '1rem',
+  },
+}));
 const ClientData = () => {
-  const { loading, error, data } = useQuery(GET_CLIENTES);
+  const classes = useStyles();
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_CLIENTES
+  );
   const [client, setclient] = useState('');
   const ventasContext = useContext(VentasContext);
   const { selectCliente } = ventasContext;
   useEffect(() => {
-    selectCliente(client.id);
-  }, [client]);
+    selectCliente(client);
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [client, startPolling, stopPolling]);
+
   if (loading) return 'Loading...';
   if (error) return 'Erroor';
   const { getClientes } = data;
   return (
-    <div>
+    <div className={classes.boxNewClient}>
+      <h2>Datos Cliente</h2>
+      <NewClient />
       <Select
         onChange={(op) => setclient(op)}
         options={getClientes}
@@ -33,9 +53,6 @@ const ClientData = () => {
         getOptionLabel={(op) => `${op.nitoci} ${op.razonSocial}`}
         noOptionsMessage={() => 'No hay resultados'}
       />
-      <br />
-      Nuevo Cliente
-      <NewClient />
     </div>
   );
 };

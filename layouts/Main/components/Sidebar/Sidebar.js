@@ -6,6 +6,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import SidebarNav from './SidebarNav/SidebarNav';
 import clsx from 'clsx';
+import Profile from './Profile/Profile';
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Sidebar = (props) => {
-  const { open, variant, onClose, className, ...rest } = props;
+  const { open, variant, onClose, className, name, ...rest } = props;
   const classes = useStyles();
   const pages = [
     {
@@ -62,6 +63,7 @@ const Sidebar = (props) => {
       variant={variant}
     >
       <div {...rest} className={clsx(classes.root, className)}>
+        <Profile name={name} />
         <Divider className={classes.divider} />
         <SidebarNav className={classes.nav} pages={pages} />
       </div>

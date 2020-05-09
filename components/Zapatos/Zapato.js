@@ -3,6 +3,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Edit from '@material-ui/icons/Edit';
+import ModalZapato from './ModalZapato';
 
 const Sizes = ({ tallas }) => {
   let sizes = Object.values(tallas);
@@ -31,7 +32,9 @@ const Zapato = ({ zapato, i, classes }) => {
       <TableCell>
         <Edit />
       </TableCell>
-      <TableCell>DELETE</TableCell>
+      <TableCell>
+        <ModalZapato zapato={zapato} />
+      </TableCell>
     </TableRow>
   );
 };

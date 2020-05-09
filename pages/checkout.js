@@ -7,7 +7,6 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import AsignProducts from '../components/ventas/AsignProducts';
 import Dataclients from '../components/ventas/Dataclients';
 import Review from '../components/ventas/Review';
 import { useRouter } from 'next/router';
@@ -79,15 +78,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Elije los productos', 'Datos del comprador', 'Revisa la orden'];
+const steps = ['Datos del comprador', 'Revisa la orden'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AsignProducts />;
-    case 1:
       return <Dataclients />;
-    case 2:
+    case 1:
       return <Review />;
     default:
       throw new Error('Unknown step');
@@ -118,8 +115,8 @@ export default function Checkout() {
         variables: {
           input: {
             productos: products,
-            idPromotora: promotora,
-            cliente,
+            idPromotora: promotora.id,
+            cliente: client.id,
             total,
           },
         },

@@ -55,7 +55,7 @@ const ListZapatos = (props) => {
                   <TableCell>45</TableCell>
                   <TableCell>Stock</TableCell>
                   <TableCell>Editar</TableCell>
-                  <TableCell>Eliminar</TableCell>
+                  <TableCell>Vender</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

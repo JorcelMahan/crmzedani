@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Main from '../layouts/Main/Main';
 import { useQuery, gql } from '@apollo/client';
 import Router from 'next/router';
@@ -101,8 +101,15 @@ const WrapperZapatos = ({ zapatos }) => {
   );
 };
 function zapatos() {
-  const { loading, error, data } = useQuery(GET_ZAPATOS);
-
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_ZAPATOS
+  );
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
   if (loading) return 'loading...';
   if (error) return 'error...';
   const { zapatos } = data;
