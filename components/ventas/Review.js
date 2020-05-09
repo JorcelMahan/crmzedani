@@ -5,18 +5,28 @@ import Close from '@material-ui/icons/Close';
 import VentasContext from '../../context/ventas/VentasContext';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
-
+import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
   boxReview: {
-    border: '1px solid blue',
     display: 'flex',
     flexDirection: 'column',
+    fontSize: '1.2em',
+  },
+  boxData: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'space-around',
   },
   boxProducts: {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    border: '1px solid red',
+    marginBottom: '0.6rem',
+    '& *': {
+      flex: '1 1 0px',
+      textAlign: 'center',
+    },
   },
   boxActions: {
     width: '30%',
@@ -25,9 +35,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   total: {
-    alignSelf: 'end',
-    justifySelf: 'end',
-    width: '100%',
+    alignSelf: 'flex-end',
   },
 }));
 
@@ -50,25 +58,37 @@ const Review = () => {
   return (
     <div className={classes.boxReview}>
       <h3>Confirma los datos</h3>
-      <div>
+      <div className={classes.boxData}>
         <p>
           NIT:
-          {promotora !== null && promotora !== '' && promotora !== undefined
-            ? promotora.nit
-            : cliente.nitoci}
+          <b style={{ paddingLeft: '1rem' }}>
+            {promotora !== null && promotora !== '' && promotora !== undefined
+              ? promotora.nit
+              : cliente.nitoci}
+          </b>
         </p>
         <p>
           RazonSocial:
-          {promotora !== null && promotora !== '' && promotora !== undefined
-            ? promotora.razonSocial
-            : cliente.razonSocial}
+          <b style={{ paddingLeft: '1rem' }}>
+            {promotora !== null && promotora !== '' && promotora !== undefined
+              ? promotora.razonSocial
+              : cliente.razonSocial}
+          </b>
         </p>
       </div>
       {products.length > 0 ? (
         products.map((product) => (
           <div key={product.id} className={classes.boxProducts}>
-            <Avatar src={product.image} alt={product.codigo} variant='square' />
-            <p>{product.codigo}</p>
+            <div>
+              <Avatar
+                src={product.image}
+                alt={product.codigo}
+                variant='square'
+              />
+            </div>
+            <p>
+              {product.codigo} {product.color} {product.sizeSale}
+            </p>
             <div className={classes.boxActions}>
               <button onClick={() => restQuantity(product.id)}>
                 <Remove style={{ fontSize: '1em' }} />
@@ -77,16 +97,24 @@ const Review = () => {
               <button onClick={() => addQuantity(product.id)}>
                 <Add style={{ fontSize: '1em' }} />
               </button>
-              <button onClick={(e) => removeProduct(product.id)}>
-                <Close style={{ fontSize: '1em', color: 'red' }} />
-              </button>
             </div>
+            <p>Bs {product.quantity * product.precioPublico}</p>
+            <Button
+              onClick={(e) => removeProduct(product.id)}
+              color='primary'
+              variant='contained'
+              size='small'
+            >
+              <Close style={{ fontSize: '1em' }} />
+            </Button>
           </div>
         ))
       ) : (
         <p>La lista de venta esta vacia, seleccione productos.</p>
       )}
-      <p className={classes.total}>Total: {total}</p>
+      <p className={classes.total}>
+        Total: <b>{total}</b>
+      </p>
     </div>
   );
 };

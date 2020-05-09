@@ -12,7 +12,6 @@ import Review from '../components/ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
 import { useMutation, gql } from '@apollo/client';
-import Main from '../layouts/Main/Main';
 const ADD_VENTA = gql`
   mutation addVenta($input: VentasInput) {
     addVenta(input: $input)
@@ -137,7 +136,7 @@ export default function Checkout() {
   };
 
   return (
-    <Main>
+    <>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -182,6 +181,6 @@ export default function Checkout() {
           </>
         </Paper>
       </main>
-    </Main>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Main from '../layouts/Main/Main';
 import { makeStyles } from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
 const GET_VENTAS = gql`
@@ -44,13 +43,11 @@ const Ventas = () => {
   if (error) return `Error, ${error}`;
   const { ventas } = data;
   return (
-    <Main>
-      <div className={classes.root}>
-        <div className={classes.content}>
-          <VentasTable ventas={ventas} />
-        </div>
+    <div className={classes.root}>
+      <div className={classes.content}>
+        <VentasTable ventas={ventas} />
       </div>
-    </Main>
+    </div>
   );
 };
 

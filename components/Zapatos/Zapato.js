@@ -12,7 +12,15 @@ const Sizes = ({ tallas }) => {
     <>
       {sizes.map((s, i) => {
         s = Number(s) ? s : 0;
-        return <TableCell key={`${i}-${s}`}>{s}</TableCell>;
+        return (
+          <TableCell key={`${i}-${s}`}>
+            {s === 0 ? (
+              <span style={{ color: 'red' }}>{s}</span>
+            ) : (
+              <span style={{ color: 'blue' }}>{s}</span>
+            )}
+          </TableCell>
+        );
       })}
     </>
   );

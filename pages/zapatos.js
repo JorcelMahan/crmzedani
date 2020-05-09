@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import Main from '../layouts/Main/Main';
 import { useQuery, gql } from '@apollo/client';
 import Router from 'next/router';
 import ListZapatos from '../components/Zapatos/ListZapatos';
@@ -110,14 +109,10 @@ function zapatos() {
       stopPolling();
     };
   }, [startPolling, stopPolling]);
-  if (loading) return 'loading...';
+  if (loading) return 'Cargando...';
   if (error) return 'error...';
   const { zapatos } = data;
 
-  return (
-    <Main>
-      <WrapperZapatos zapatos={zapatos} />
-    </Main>
-  );
+  return <WrapperZapatos zapatos={zapatos} />;
 }
 export default zapatos;

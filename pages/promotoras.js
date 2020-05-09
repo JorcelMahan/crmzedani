@@ -5,7 +5,7 @@ import Router from 'next/router';
 import PromotorasToolbar from '../components/Promotoras/PromotorasToolbar';
 import PromotoraTable from '../components/Promotoras/PromotoraTable';
 import { useSearch } from '../hooks/useSearch';
-import Main from '../layouts/Main/Main';
+import Loading from '../components/Loading';
 
 const GET_PROMOTORAS = gql`
   {
@@ -44,13 +44,9 @@ const WrapperPromotoras = ({ promotoras }) => {
 };
 function promotoras() {
   const { loading, error, data } = useQuery(GET_PROMOTORAS);
-  if (loading) return 'loading...';
+  if (loading) return <Loading />;
   if (error) return 'error...';
   const { promotoras } = data;
-  return (
-    <Main>
-      <WrapperPromotoras promotoras={promotoras} />
-    </Main>
-  );
+  return <WrapperPromotoras promotoras={promotoras} />;
 }
 export default promotoras;
