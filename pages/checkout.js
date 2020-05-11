@@ -7,7 +7,7 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Dataclients from '../components/ventas/Dataclients';
+import DataClients from '../components/Ventas/DataClients';
 import Review from '../components/ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
@@ -82,7 +82,7 @@ const steps = ['Datos del comprador', 'Revisa la orden'];
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <Dataclients />;
+      return <DataClients />;
     case 1:
       return <Review />;
     default:
