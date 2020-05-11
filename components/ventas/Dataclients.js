@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
 }));
-const DataClient = () => {
+const Dataclients = () => {
   const [tipoCliente, settipoCliente] = useState('client');
   const classes = useStyles();
   const handleChange = (e) => {
@@ -51,4 +51,4 @@ const DataClient = () => {
   );
 };
 
-export default DataClient;
+export default Dataclients;
