@@ -8,7 +8,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DataClients from '../components/Ventas/DataClients';
-import Review from '../components/ventas/Review';
+import Review from '../components/Ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
 import { useMutation, gql } from '@apollo/client';
@@ -90,7 +90,7 @@ function getStepContent(step) {
   }
 }
 
-export default function Checkout() {
+function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const router = useRouter();
@@ -184,3 +184,4 @@ export default function Checkout() {
     </>
   );
 }
+export default Checkout;
