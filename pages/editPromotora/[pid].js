@@ -94,7 +94,7 @@ const EditPromotora = () => {
   const { promotora } = data;
   return (
     <div className={classes.paper}>
-      <h2>New Promotora</h2>
+      <h2>EDIT Promotora</h2>
       <Formik
         enableReinitialize
         initialValues={promotora}

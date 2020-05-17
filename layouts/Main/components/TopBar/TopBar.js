@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const TopBar = (props) => {
   const { className, onSidebarOpen, closeSession, ...rest } = props;
+
   const classes = useStyles();
   const [notifications] = useState([]);
 

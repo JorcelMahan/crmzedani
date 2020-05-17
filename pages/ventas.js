@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
+
 const GET_VENTAS = gql`
   query ventas {
     ventas {

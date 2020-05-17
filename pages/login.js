@@ -12,7 +12,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-
 const AUTH_USER = gql`
   mutation authUser($input: AuthInput) {
     authUser(input: $input) {

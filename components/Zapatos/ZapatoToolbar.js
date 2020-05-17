@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
 import SearchInput from '../SearchInput/SearchInput';
 import { CSVLink, CSVDownload } from 'react-csv';
-
+import Link from 'next/link';
 const useStyles = makeStyles((theme) => ({
   root: {},
   row: {
@@ -50,9 +50,11 @@ const ZapatoToolbar = (props) => {
             Exportar
           </CSVLink>
         </Button>
-        <Button color='primary' variant='contained'>
-          Add product
-        </Button>
+        <Link href='/new-zapato'>
+          <Button color='primary' variant='contained'>
+            Add Zapato
+          </Button>
+        </Link>
       </div>
       <div className={classes.row}>
         <SearchInput

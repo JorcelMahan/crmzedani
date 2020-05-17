@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUp() {
+function signup() {
   //router
   const router = useRouter();
   // mutation
@@ -123,7 +123,7 @@ function SignUp() {
                 label='Rol'
                 name='rol'
                 autoComplete='lname'
-                value={formik.values.lastName}
+                value={formik.values.rol}
                 onChange={formik.handleChange}
               />
             </Grid>
@@ -177,4 +177,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default signup;

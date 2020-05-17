@@ -110,7 +110,7 @@ function zapatos() {
     };
   }, [startPolling, stopPolling]);
   if (loading) return 'Cargando...';
-  if (error) return 'error...';
+  if (error) return `Error ${error.message}`;
   const { zapatos } = data;
 
   return <WrapperZapatos zapatos={zapatos} />;

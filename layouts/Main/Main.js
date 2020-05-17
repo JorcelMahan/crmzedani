@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import Footer from './components/Footer/Footer';
 import TopBar from './components/TopBar/TopBar';
 import SideBar from './components/Sidebar/Sidebar';
-import { useQuery, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
+import { useQuery, gql } from '@apollo/client';
 const GET_USER = gql`
   query getUser {
     getUser {
@@ -14,7 +14,6 @@ const GET_USER = gql`
     }
   }
 `;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     paddingTop: 56,
@@ -39,6 +38,7 @@ const Main = ({ children }) => {
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
     defaultMatches: true,
   });
+
   const [openSidebar, setOpenSidebar] = useState(false);
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -49,8 +49,11 @@ const Main = ({ children }) => {
   };
   const shouldOpenSidebar = isDesktop ? true : openSidebar;
   if (loading) return 'Loading...';
-  if (error) return `Error ${error.message}`;
-  if (!data.getUser) return router.push('/login');
+  // if (error) return `Error ${error.message}`;
+  if (!data.getUser) {
+    router.push('/login');
+    return null;
+  }
   const { name } = data.getUser;
   const closeSession = () => {
     localStorage.removeItem('token');

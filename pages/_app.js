@@ -21,6 +21,17 @@ const MyApp = ({ Component, pageProps, router }) => {
       </ApolloProvider>
     );
   }
+  if (router.pathname.startsWith('/sign-up')) {
+    return (
+      <ApolloProvider client={client}>
+        <ThemeProvider theme={theme}>
+          <VentasState>
+            <Component {...pageProps} />
+          </VentasState>
+        </ThemeProvider>
+      </ApolloProvider>
+    );
+  }
   return (
     <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>

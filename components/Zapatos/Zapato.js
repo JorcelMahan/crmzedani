@@ -4,6 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Edit from '@material-ui/icons/Edit';
 import ModalZapato from './ModalZapato';
+import Router from 'next/router';
 
 const Sizes = ({ tallas }) => {
   let sizes = Object.values(tallas);
@@ -25,8 +26,16 @@ const Sizes = ({ tallas }) => {
     </>
   );
 };
+const editShoe = (id) => {
+  Router.push({
+    pathname: '/editshoe/[id]',
+    query: {
+      id,
+    },
+  });
+};
 const Zapato = ({ zapato, i, classes }) => {
-  const { codigo, image, color, stock, tallas } = zapato;
+  const { codigo, image, color, stock, tallas, id } = zapato;
   return (
     <TableRow hover className={classes.tableRow}>
       <TableCell>{i}</TableCell>
@@ -38,7 +47,7 @@ const Zapato = ({ zapato, i, classes }) => {
       <Sizes tallas={tallas} />
       <TableCell>{stock}</TableCell>
       <TableCell>
-        <Edit />
+        <Edit onClick={() => editShoe(id)} />
       </TableCell>
       <TableCell>
         <ModalZapato zapato={zapato} />
