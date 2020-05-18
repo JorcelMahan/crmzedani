@@ -1,6 +1,6 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { List, ListItem, Button, colors } from '@material-ui/core';
+import { List, ListItem, colors } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import Link from 'next/link';
 
@@ -39,19 +39,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomRouterLink = forwardRef((props, ref) => {
-  const classes = useStyles();
-  return (
-    <div ref={ref} style={{ flexGrow: 1 }}>
-      <Link href={props.href}>
-        <a>
-          <div className={classes.icon}>{props.icon}</div>
-          {/* {props.title} */}
-        </a>
-      </Link>
-    </div>
-  );
-});
 const SidebarNav = (props) => {
   const { pages, className, ...rest } = props;
 
@@ -73,9 +60,3 @@ const SidebarNav = (props) => {
 };
 
 export default SidebarNav;
-// <Link href={page.href}>
-//   <a className={classes.button} activeclassname={classes.active}>
-//     <div className={classes.icon}>{page.icon}</div>
-//     {page.title}
-//   </a>
-// </Link>;

@@ -190,7 +190,14 @@ const NewZapato = () => {
                   value={formik.values.tipo}
                   onChange={formik.handleChange}
                 >
-                  {['hombre', 'mujer', 'seguridad', 'niño', 'niña'].map((e) => (
+                  {[
+                    'hombre',
+                    'mujer',
+                    'seguridad',
+                    'niño',
+                    'niña',
+                    'enfermera',
+                  ].map((e) => (
                     <MenuItem key={e} value={e}>
                       {e}
                     </MenuItem>
@@ -301,6 +308,17 @@ const NewZapato = () => {
                   't34',
                   't35',
                 ].map((el) => (
+                  <TextField
+                    id={`tallas[${el}]`}
+                    label={el}
+                    key={el}
+                    type='number'
+                    value={formik.values.tallas[el]}
+                    onChange={formik.handleChange}
+                  />
+                ))}
+              {formik.values.tipo === 'enfermera' &&
+                ['t33', 't34', 't35', 't36', 't37', 't38', 't39'].map((el) => (
                   <TextField
                     id={`tallas[${el}]`}
                     label={el}

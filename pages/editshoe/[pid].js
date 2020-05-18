@@ -191,13 +191,18 @@ const WrapperZapatp = ({ zapato, id }) => {
                       value={props.values.tipo}
                       onChange={props.handleChange}
                     >
-                      {['hombre', 'mujer', 'seguridad', 'niño', 'niña'].map(
-                        (e) => (
-                          <MenuItem key={e} value={e}>
-                            {e}
-                          </MenuItem>
-                        )
-                      )}
+                      {[
+                        'hombre',
+                        'mujer',
+                        'seguridad',
+                        'niño',
+                        'niña',
+                        'enfermera',
+                      ].map((e) => (
+                        <MenuItem key={e} value={e}>
+                          {e}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </FormControl>
                 </fieldset>
@@ -290,6 +295,10 @@ const WrapperZapatp = ({ zapato, id }) => {
                       't33',
                       't34',
                       't35',
+                      't36',
+                      't37',
+                      't38',
+                      't39',
                     ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}
@@ -311,6 +320,25 @@ const WrapperZapatp = ({ zapato, id }) => {
                       't33',
                       't34',
                       't35',
+                    ].map((el) => (
+                      <TextField
+                        id={`tallas[${el}]`}
+                        label={el}
+                        key={el}
+                        type='number'
+                        value={props.values.tallas[el]}
+                        onChange={props.handleChange}
+                      />
+                    ))}
+                  {props.values.tipo === 'enfermera' &&
+                    [
+                      't33',
+                      't34',
+                      't35',
+                      't36',
+                      't37',
+                      't38',
+                      't38',
                     ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}
