@@ -3,7 +3,7 @@ import { useQuery, gql } from '@apollo/client';
 import ListZapatos from '../components/Zapatos/ListZapatos';
 import ZapatoToolbar from '../components/Zapatos/ZapatoToolbar';
 import { makeStyles } from '@material-ui/core/styles';
-import { useSearch } from '../hooks/useSearch';
+import { useSearch, useFilterBy } from '../hooks/useSearch';
 
 const GET_ZAPATOS = gql`
   query Zapatos {

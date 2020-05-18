@@ -318,7 +318,16 @@ const NewZapato = () => {
                   />
                 ))}
               {formik.values.tipo === 'enfermera' &&
-                ['t33', 't34', 't35', 't36', 't37', 't38', 't39'].map((el) => (
+                [
+                  't33',
+                  't34',
+                  't35',
+                  't36',
+                  't37',
+                  't38',
+                  't39',
+                  't40',
+                ].map((el) => (
                   <TextField
                     id={`tallas[${el}]`}
                     label={el}

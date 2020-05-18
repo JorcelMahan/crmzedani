@@ -338,7 +338,8 @@ const WrapperZapatp = ({ zapato, id }) => {
                       't36',
                       't37',
                       't38',
-                      't38',
+                      't39',
+                      't40',
                     ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}
