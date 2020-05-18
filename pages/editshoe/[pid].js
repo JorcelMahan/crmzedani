@@ -258,6 +258,7 @@ const WrapperZapatp = ({ zapato, id }) => {
                     ))}
                   {props.values.tipo === 'seguridad' &&
                     [
+                      't34',
                       't35',
                       't36',
                       't37',
@@ -330,12 +331,25 @@ const WrapperZapatp = ({ zapato, id }) => {
                 </fieldset>
                 <fieldset className={classes.fieldset}>
                   <legend>Otros</legend>
-                  <TextField
-                    id='almacen'
-                    label='Almacen'
-                    value={props.values.almacen ? props.values.almacen : ''}
-                    onChange={props.handleChange}
-                  />
+                  <FormControl>
+                    <InputLabel id='almacen'>Almacen</InputLabel>
+                    <Select
+                      id='almacen'
+                      name='almacen'
+                      labelId='almacen'
+                      required
+                      value={props.values.almacen ? props.values.almacen : ''}
+                      onChange={props.handleChange}
+                    >
+                      {['sopocachi', 'san miguel', 'miraflores', 'llojeta'].map(
+                        (e) => (
+                          <MenuItem key={e} value={e}>
+                            {e}
+                          </MenuItem>
+                        )
+                      )}
+                    </Select>
+                  </FormControl>
                   <div>
                     <img
                       src={image}

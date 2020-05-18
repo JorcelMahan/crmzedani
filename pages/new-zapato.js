@@ -3,15 +3,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import { useFormik } from 'formik';
 import axios from 'axios';
 import {
   FormControl,
   InputLabel,
-  Input,
-  FormHelperText,
   TextField,
   Select,
   MenuItem,
@@ -249,6 +247,7 @@ const NewZapato = () => {
                 ))}
               {formik.values.tipo === 'seguridad' &&
                 [
+                  't34',
                   't35',
                   't36',
                   't37',
@@ -321,12 +320,26 @@ const NewZapato = () => {
             </fieldset>
             <fieldset className={classes.fieldset}>
               <legend>Otros</legend>
-              <TextField
-                id='almacen'
-                label='Almacen'
-                value={formik.values.almacen}
-                onChange={formik.handleChange}
-              />
+
+              <FormControl>
+                <InputLabel id='almacen'>Almacen</InputLabel>
+                <Select
+                  id='almacen'
+                  name='almacen'
+                  labelId='almacen'
+                  required
+                  value={formik.values.almacen}
+                  onChange={formik.handleChange}
+                >
+                  {['sopocachi', 'san miguel', 'miraflores', 'llojeta'].map(
+                    (e) => (
+                      <MenuItem key={e} value={e}>
+                        {e}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
               <div>
                 <img
                   src={image}

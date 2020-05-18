@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import Router from 'next/router';
 import ListZapatos from '../components/Zapatos/ListZapatos';
 import ZapatoToolbar from '../components/Zapatos/ZapatoToolbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +15,7 @@ const GET_ZAPATOS = gql`
       almacen
       color
       precioPublico
+      tipo
       tallas {
         t27
         t28
@@ -40,15 +40,6 @@ const GET_ZAPATOS = gql`
     }
   }
 `;
-
-// const editPromotora = (id) => {
-//   Router.push({
-//     pathname: '/editPromotora/[id]',
-//     query: {
-//       id,
-//     },
-//   });
-// };
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -90,6 +81,7 @@ const WrapperZapatos = ({ zapatos }) => {
       'stock',
     ],
   ];
+
   return (
     <div className={classes.root}>
       <ZapatoToolbar csvData={csvData} query={query} setQuery={setQuery} />
@@ -99,6 +91,28 @@ const WrapperZapatos = ({ zapatos }) => {
     </div>
   );
 };
+// const BeforeWraper = ({ zapatos }) => {
+//   const [elem, setfilter] = useState('');
+
+//   const handleFilter = (e) => {
+//     setfilter(e.target.value);
+//   };
+//   return (
+//     <>
+//       <select value={elem} onChange={(e) => handleFilter(e)}>
+//         <option value=''>Todos</option>
+//         <option value='hombre'>Hombre</option>
+//         <option value='mujer'>Dama</option>
+//         <option value='seguridad'>Seguridad</option>
+//       </select>
+//       <WrapperZapatos
+//         zapatos={
+//           elem === '' ? zapatos : zapatos.filter((shoe) => shoe.tipo === elem)
+//         }
+//       />
+//     </>
+//   );
+// };
 function zapatos() {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS
