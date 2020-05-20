@@ -27,7 +27,7 @@ const ListZapatos = (props) => {
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
-            <Table>
+            <Table stickyHeader aria-label='sticky table'>
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>

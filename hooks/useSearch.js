@@ -13,13 +13,14 @@ export const useSearch = (items, x) => {
 };
 
 export const useFilterBy = (items, x, initialValue) => {
-  const [query, setQuery] = useState(initialValue);
-  const [filteredItems, setfilteredItems] = useState(items);
+  const [field, setfield] = useState(initialValue);
+  const [filteredElem, setfilteredElem] = useState(items);
   useMemo(() => {
-    const result = items.filter((item) => {
-      return `${item[x]}`.toLowerCase().includes(query.toLowerCase());
-    });
-    setfilteredItems(result);
-  }, [items, query]);
-  return { query, setQuery, filteredItems };
+    const result =
+      field === 'todos'
+        ? items
+        : items.filter((item) => `${item[x]}` === field);
+    setfilteredElem(result);
+  }, [items, field]);
+  return { field, setfield, filteredElem };
 };

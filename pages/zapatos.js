@@ -52,7 +52,12 @@ const useStyles = makeStyles((theme) => ({
 
 const WrapperZapatos = ({ zapatos }) => {
   const classes = useStyles();
-  const { query, setQuery, filteredItems } = useSearch(zapatos, 'codigo');
+  const { field, setfield, filteredElem } = useFilterBy(
+    zapatos,
+    'tipo',
+    'todos'
+  );
+  const { query, setQuery, filteredItems } = useSearch(filteredElem, 'codigo');
 
   const csvData = [
     [
@@ -84,35 +89,20 @@ const WrapperZapatos = ({ zapatos }) => {
 
   return (
     <div className={classes.root}>
-      <ZapatoToolbar csvData={csvData} query={query} setQuery={setQuery} />
+      <ZapatoToolbar
+        csvData={csvData}
+        query={query}
+        setQuery={setQuery}
+        field={field}
+        setfield={setfield}
+      />
       <div className={classes.content}>
         <ListZapatos zapatos={filteredItems} csvData={csvData} />
       </div>
     </div>
   );
 };
-// const BeforeWraper = ({ zapatos }) => {
-//   const [elem, setfilter] = useState('');
 
-//   const handleFilter = (e) => {
-//     setfilter(e.target.value);
-//   };
-//   return (
-//     <>
-//       <select value={elem} onChange={(e) => handleFilter(e)}>
-//         <option value=''>Todos</option>
-//         <option value='hombre'>Hombre</option>
-//         <option value='mujer'>Dama</option>
-//         <option value='seguridad'>Seguridad</option>
-//       </select>
-//       <WrapperZapatos
-//         zapatos={
-//           elem === '' ? zapatos : zapatos.filter((shoe) => shoe.tipo === elem)
-//         }
-//       />
-//     </>
-//   );
-// };
 function zapatos() {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS

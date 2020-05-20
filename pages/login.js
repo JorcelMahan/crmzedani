@@ -77,10 +77,9 @@ function Login() {
         localStorage.setItem('token', token);
 
         // delete message
-        setTimeout(() => {
-          setMsg(null);
-          router.push('/');
-        }, 3000);
+        setMsg(null);
+        router.push('/');
+
         // redirect to dashboard
       } catch (error) {
         setMsg(error.message.replace('GraphQL error:', ''));

@@ -114,8 +114,8 @@ function Checkout() {
         variables: {
           input: {
             productos: products,
-            idPromotora: promotora.id,
-            cliente: client.id,
+            idPromotora: promotora.id ? promotora.id : null,
+            cliente: cliente.id ? cliente.id : null,
             total,
           },
         },
