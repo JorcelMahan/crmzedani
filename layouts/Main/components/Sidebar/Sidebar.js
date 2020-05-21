@@ -44,11 +44,6 @@ const Sidebar = (props) => {
       icon: <PeopleIcon />,
     },
     {
-      title: 'Productos',
-      href: '/zapatos',
-      icon: <ShoppingBasketIcon />,
-    },
-    {
       title: 'Ventas',
       href: '/ventas',
       icon: <ShoppingBasketIcon />,

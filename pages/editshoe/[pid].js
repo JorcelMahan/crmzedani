@@ -112,7 +112,6 @@ const WrapperZapatp = ({ zapato, id }) => {
       precioPublico,
       almacen,
       tallas,
-      stock,
     } = values;
     try {
       await editZapato({
@@ -134,7 +133,7 @@ const WrapperZapatp = ({ zapato, id }) => {
           },
         },
       });
-      router.push('/zapatos');
+      router.push(`/${almacen}`);
     } catch (error) {
       console.log(error);
     }
