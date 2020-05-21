@@ -3,21 +3,18 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-
 import Button from '@material-ui/core/Button';
 import { useFormik } from 'formik';
 import axios from 'axios';
-import {
-  FormControl,
-  InputLabel,
-  TextField,
-  Select,
-  MenuItem,
-} from '@material-ui/core';
-
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Alert from '@material-ui/lab/Alert';
+
 const ADD_ZAPATO = gql`
   mutation addZapato($input: ZapatoInput) {
     addZapato(input: $input)
@@ -62,7 +59,7 @@ const NewZapato = () => {
       costo: '',
       descuentoPromotora: '',
       precioPublico: '',
-      almacen: '',
+      almacen: 'miraflores',
       tallas: {
         t27: 0,
         t28: 0,
@@ -117,7 +114,7 @@ const NewZapato = () => {
             },
           },
         });
-        router.push('/zapatos');
+        router.push(`/productos/${almacen}`);
       } catch (error) {
         setMsg(error.message.replace('GraphQL error:', ''));
         setTimeout(() => {

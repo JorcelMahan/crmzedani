@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
-import WrapperZapatos from '../components/Zapatos/WrapperZapatos';
+import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
 
 const GET_ZAPATOS = gql`
   query zapatosAlmacen($almacen: String!) {
@@ -38,11 +38,11 @@ const GET_ZAPATOS = gql`
   }
 `;
 
-const SanMiguel = () => {
+const llojeta = () => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
-      variables: { almacen: 'san miguel' },
+      variables: { almacen: 'llojeta' },
     }
   );
   useEffect(() => {
@@ -57,4 +57,4 @@ const SanMiguel = () => {
 
   return <WrapperZapatos zapatos={zapatosAlmacen} />;
 };
-export default SanMiguel;
+export default llojeta;

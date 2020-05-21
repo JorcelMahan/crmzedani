@@ -87,28 +87,28 @@ const SidebarNav = (props) => {
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding>
           <ListItem button className={classes.nested}>
-            <Link href='/san-miguel'>
+            <Link href='/productos/san-miguel'>
               <a>
                 <ListItemText primary='San Miguel' />
               </a>
             </Link>
           </ListItem>
           <ListItem button className={classes.nested}>
-            <Link href='/miraflores'>
+            <Link href='/productos/miraflores'>
               <a>
                 <ListItemText primary='Miraflores' />
               </a>
             </Link>
           </ListItem>
           <ListItem button className={classes.nested}>
-            <Link href='/llojeta'>
+            <Link href='/productos/llojeta'>
               <a>
                 <ListItemText primary='Llojeta' />
               </a>
             </Link>
           </ListItem>
           <ListItem button className={classes.nested}>
-            <Link href='/sopocachi'>
+            <Link href='/productos/sopocachi'>
               <a>
                 <ListItemText primary='Sopocachi' />
               </a>

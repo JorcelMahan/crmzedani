@@ -77,8 +77,10 @@ function Login() {
         localStorage.setItem('token', token);
 
         // delete message
-        setMsg(null);
-        router.push('/');
+        setTimeout(() => {
+          setMsg(null);
+          router.push('/');
+        }, 3000);
 
         // redirect to dashboard
       } catch (error) {

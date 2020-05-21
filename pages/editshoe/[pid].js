@@ -133,7 +133,7 @@ const WrapperZapatp = ({ zapato, id }) => {
           },
         },
       });
-      router.push(`/${almacen}`);
+      router.push(`/productos/${almacen}`);
     } catch (error) {
       console.log(error);
     }
