@@ -42,7 +42,7 @@ const SanMiguel = () => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
-      variables: { almacen: 'san miguel' },
+      variables: { almacen: 'san-miguel' },
     }
   );
   useEffect(() => {

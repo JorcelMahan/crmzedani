@@ -5,6 +5,8 @@ import Avatar from '@material-ui/core/Avatar';
 import Edit from '@material-ui/icons/Edit';
 import ModalZapato from './ModalZapato';
 import Router from 'next/router';
+import Button from "@material-ui/core/Button";
+import Link from "next/link";
 
 const Sizes = ({ tallas }) => {
   let sizes = Object.values(tallas);
@@ -26,14 +28,7 @@ const Sizes = ({ tallas }) => {
     </>
   );
 };
-const editShoe = (id) => {
-  Router.push({
-    pathname: '/editshoe/[id]',
-    query: {
-      id,
-    },
-  });
-};
+
 const Zapato = ({ zapato, i, classes }) => {
   const { codigo, image, color, stock, tallas, id } = zapato;
   return (
@@ -47,7 +42,13 @@ const Zapato = ({ zapato, i, classes }) => {
       <Sizes tallas={tallas} />
       <TableCell>{stock}</TableCell>
       <TableCell>
-        <Edit onClick={() => editShoe(id)} />
+          <Link href={`/shoes/shoe?id=${id}`}>
+              <a>
+                  <Button>
+                      <Edit  />
+                  </Button>
+              </a>
+          </Link>
       </TableCell>
       <TableCell>
         <ModalZapato zapato={zapato} />

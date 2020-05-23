@@ -116,7 +116,7 @@ const NewPromotora = () => {
             fullWidth
             value={formik.values.nombres}
             onChange={formik.handleChange}
-            // helperText='Incorrect'
+          
           />
           <TextField
             id='apellidos'
