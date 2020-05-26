@@ -55,7 +55,6 @@ const useStyles = makeStyles((theme) => ({
 const SidebarNav = (props) => {
   const { pages, className, ...rest } = props;
   const [open, setOpen] = React.useState(false);
-
   const handleClick = () => {
     setOpen(!open);
   };
@@ -86,6 +85,13 @@ const SidebarNav = (props) => {
       </ListItem>
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/zapatos'>
+              <a>
+                <ListItemText primary='Todos los productos' />
+              </a>
+            </Link>
+          </ListItem>
           <ListItem button className={classes.nested}>
             <Link href='/productos/san-miguel'>
               <a>

@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, {useEffect} from 'react';
+import {useQuery, gql} from '@apollo/client';
 import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
 
 const GET_ZAPATOS = gql`
@@ -39,22 +39,22 @@ const GET_ZAPATOS = gql`
 `;
 
 const SanMiguel = () => {
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_ZAPATOS,
-    {
-      variables: { almacen: 'san-miguel' },
-    }
-  );
-  useEffect(() => {
-    startPolling(1000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
-  if (loading) return 'Cargando...';
-  if (error) return `Error ${error.message}`;
-  const { zapatosAlmacen } = data;
+    const {loading, error, data, startPolling, stopPolling} = useQuery(
+        GET_ZAPATOS,
+        {
+            variables: {almacen: 'san-miguel'},
+        }
+    );
+    useEffect(() => {
+        startPolling(1000);
+        return () => {
+            stopPolling();
+        };
+    }, [startPolling, stopPolling]);
+    if (loading) return 'Cargando...';
+    if (error) return `Error ${error.message}`;
+    const {zapatosAlmacen} = data;
 
-  return <WrapperZapatos zapatos={zapatosAlmacen} />;
+    return <WrapperZapatos zapatos={zapatosAlmacen}/>;
 };
 export default SanMiguel;

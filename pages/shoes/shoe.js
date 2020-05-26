@@ -77,7 +77,7 @@ const UPDATE_SHOE = gql`
         editZapato(id: $id, input: $input)
     }
 `;
-const WrapperZapatp = ({ zapato, id }) => {
+const WrapperZapato = ({ zapato, id }) => {
     const router = useRouter();
     const classes = useStyles();
     const [image, setImage] = useState(zapato.image);
@@ -439,7 +439,7 @@ const EditShoe = () => {
     return (
         <>
             <h2>Edit zapato</h2>
-            <WrapperZapatp zapato={zapato} id={id} />
+            <WrapperZapato zapato={zapato} id={id} />
         </>
     );
 };
