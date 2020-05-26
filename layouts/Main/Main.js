@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = ({children}) => {
-    const {loading, error, data, client} = useQuery(GET_USER);
+    const {loading, error, data} = useQuery(GET_USER);
     const router = useRouter();
     const classes = useStyles();
     const theme = useTheme();
@@ -52,14 +52,13 @@ const Main = ({children}) => {
     if (loading) return 'Loading...';
     // if (error) return `Error ${error.message}`;
     if (!data.getUser) {
-        localStorage.removeItem('token');
-        router.push('/login');
+        router.push('/login').then(() => localStorage.removeItem('token'));
         return null;
     }
     const {name} = data.getUser;
     const closeSession = () => {
         localStorage.removeItem('token');
-        router.push('/login').then(() => client.resetStore());
+        router.push('/login')
     };
     return (
         <div

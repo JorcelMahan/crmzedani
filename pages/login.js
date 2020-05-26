@@ -73,8 +73,11 @@ function Login() {
                 });
                 setMsg('Autenticando');
                 //save token in localstorage
-                const {token} = data.authUser;
-                localStorage.setItem('token', token);
+                setTimeout(() => {
+                    const {token} = data.authUser;
+                    localStorage.setItem('token', token);
+                }, 1000);
+
                 // delete message
                 setTimeout(() => {
                     setMsg(null);
