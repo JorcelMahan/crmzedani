@@ -1,52 +1,83 @@
 
-import React from 'react';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/styles';
-import clsx from 'clsx';
-import Link from 'next/link';
-import SearchInput from '../SearchInput/SearchInput';
-const useStyles = makeStyles((theme) => ({
-  root: {},
-  row: {
-    height: '42px',
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: theme.spacing(1),
-  },
-  spacer: {
-    flexGrow: 1,
-  },
-  exportButton: {
-    marginRight: theme.spacing(1),
-  },
-  searchInput: {
-    marginRight: theme.spacing(1),
-  },
-}));
-const PromotorasToolbar = (props) => {
-  const { className, query, setQuery, ...rest } = props;
-  const classes = useStyles();
-  return (
-    <div {...rest} className={clsx(classes.root, className)}>
-      <div className={classes.row}>
-        <span className={classes.spacer}></span>
-        <Button className={classes.exportButton}>Export</Button>
-        <Link href='/newpromotora'>
-          <Button color='primary' variant='contained'>
-            Inscribir Promotora
-          </Button>
-        </Link>
-      </div>
-      <div className={classes.row}>
-        <SearchInput
-          className={classes.searchInput}
-          placeholder='Buscar promotora'
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </div>
-    </div>
+import {
+  SELECT_PRODUCT,
+  AMOUNT_PRODUCTS,
+  SELECT_PROMOTORA,
+  RESET_STATE,
+  SELECT_CLIENTE,
+  REMOVE_PRODUCT,
+  ADD_QUANTITY,
+  REST_QUANTITY,
+} from '../../types';
+
+const addQuantity = (shoes, newShoe) => {
+  const shoeFind = shoes.find(
+    (shoe) => shoe.id === newShoe.id && shoe.sizeSale === newShoe.sizeSale
   );
+  if (shoeFind) {
+    return shoes.map((shoe) =>
+      shoe.id === newShoe.id && shoe.sizeSale === newShoe.sizeSale
+        ? { ...shoe, quantity: shoe.quantity + 1 }
+        : shoe
+    );
+  }
+  return [...shoes, { ...newShoe, quantity: 1 }];
 };
 
-export default PromotorasToolbar;
+export default (state, action) => {
+  switch (action.type) {
+    case SELECT_PRODUCT:
+      return {
+        ...state,
+        products: addQuantity(state.products, action.payload),
+      };
+    case REMOVE_PRODUCT:
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product.id !== action.payload
+        ),
+      };
+    case SELECT_PROMOTORA:
+      return {
+        ...state,
+        promotora: action.payload,
+      };
+    case SELECT_CLIENTE:
+      return {
+        ...state,
+        cliente: action.payload,
+      };
+    case AMOUNT_PRODUCTS:
+      return {
+        ...state,
+        total: state.products.reduce(
+          (acum, obj) => acum + obj.precioPublico * obj.quantity,
+          0
+        ),
+      };
+    case ADD_QUANTITY:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.id === action.payload) product.quantity += 1;
+          return product;
+        }),
+      };
+    case REST_QUANTITY:
+      return {
+        ...state,
+        products: state.products.map((product) => {
+          if (product.id === action.payload) product.quantity -= 1;
+          return product;
+        }),
+      };
+    case RESET_STATE: {
+      return {
+        ...action.payload,
+      };
+    }
+    default:
+      return state;
+  }
+};
