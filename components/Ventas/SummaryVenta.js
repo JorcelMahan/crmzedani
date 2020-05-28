@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import VentasContext from '../../context/ventas/VentasContext';
 import ShoeSummary from './ShoeSummary';

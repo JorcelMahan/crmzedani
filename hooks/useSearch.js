@@ -11,3 +11,16 @@ export const useSearch = (items, x) => {
   }, [items, query]);
   return { query, setQuery, filteredItems };
 };
+
+export const useFilterBy = (items, x, initialValue) => {
+  const [field, setfield] = useState(initialValue);
+  const [filteredElem, setfilteredElem] = useState(items);
+  useMemo(() => {
+    const result =
+      field === 'todos'
+        ? items
+        : items.filter((item) => `${item[x]}` === field);
+    setfilteredElem(result);
+  }, [items, field]);
+  return { field, setfield, filteredElem };
+};

@@ -1,3 +1,4 @@
+
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -114,8 +115,8 @@ function Checkout() {
         variables: {
           input: {
             productos: products,
-            idPromotora: promotora.id,
-            cliente: client.id,
+            idPromotora: promotora.id ? promotora.id : null,
+            cliente: cliente.id ? cliente.id : null,
             total,
           },
         },

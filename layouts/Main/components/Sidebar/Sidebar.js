@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
@@ -42,11 +43,6 @@ const Sidebar = (props) => {
       title: 'Promotoras',
       href: '/promotoras',
       icon: <PeopleIcon />,
-    },
-    {
-      title: 'Productos',
-      href: '/zapatos',
-      icon: <ShoppingBasketIcon />,
     },
     {
       title: 'Ventas',

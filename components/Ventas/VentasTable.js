@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   Table,
@@ -58,13 +59,11 @@ const VentasTable = (props) => {
                         {venta.cliente ? 'Cliente' : 'Promotora'}
                       </TableCell>
                       <TableCell>
-                        {venta.productos.map((product) => (
-                          <>
-                            <p>
-                              {product.codigo} - {product.color} -
-                              {product.sizeSale}- Bs {product.precioPublico}
-                            </p>
-                          </>
+                        {venta.productos.map((product, j) => (
+                          <p key={`${product.codigo}-${j}`}>
+                            {product.codigo} - {product.color} -
+                            {product.sizeSale}- Bs {product.precioPublico}
+                          </p>
                         ))}
                       </TableCell>
                       <TableCell>{venta.total}</TableCell>

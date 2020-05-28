@@ -1,7 +1,18 @@
-import React, { forwardRef } from 'react';
+
+import React from 'react';
 import clsx from 'clsx';
-import { List, ListItem, Button, colors } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  colors,
+  ListItemIcon,
+  ListItemText,
+  Collapse,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Link from 'next/link';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,24 +48,17 @@ const useStyles = makeStyles((theme) => ({
       color: theme.palette.primary.main,
     },
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
-const CustomRouterLink = forwardRef((props, ref) => {
-  const classes = useStyles();
-  return (
-    <div ref={ref} style={{ flexGrow: 1 }}>
-      <Link href={props.href}>
-        <a>
-          <div className={classes.icon}>{props.icon}</div>
-          {/* {props.title} */}
-        </a>
-      </Link>
-    </div>
-  );
-});
 const SidebarNav = (props) => {
   const { pages, className, ...rest } = props;
-
+  const [open, setOpen] = React.useState(false);
+  const handleClick = () => {
+    setOpen(!open);
+  };
   const classes = useStyles();
   return (
     <List {...rest} className={clsx(classes.root, className)}>
@@ -68,14 +72,59 @@ const SidebarNav = (props) => {
           </Link>
         </ListItem>
       ))}
+      <ListItem
+        className={classes.item}
+        disableGutters
+        onClick={handleClick}
+        style={{ marginLeft: '8px' }}
+      >
+        <div className={classes.icon}>
+          <ShoppingBasket />
+        </div>
+        <ListItemText primary='Productos' />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={open} timeout='auto' unmountOnExit>
+        <List component='div' disablePadding>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/zapatos'>
+              <a>
+                <ListItemText primary='Todos los productos' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/san-miguel'>
+              <a>
+                <ListItemText primary='San Miguel' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/miraflores'>
+              <a>
+                <ListItemText primary='Miraflores' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/llojeta'>
+              <a>
+                <ListItemText primary='Llojeta' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/sopocachi'>
+              <a>
+                <ListItemText primary='Sopocachi' />
+              </a>
+            </Link>
+          </ListItem>
+        </List>
+      </Collapse>
     </List>
   );
 };
 
 export default SidebarNav;
-// <Link href={page.href}>
-//   <a className={classes.button} activeclassname={classes.active}>
-//     <div className={classes.icon}>{page.icon}</div>
-//     {page.title}
-//   </a>
-// </Link>;
