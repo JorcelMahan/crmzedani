@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +12,8 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Card, CardContent } from '@material-ui/core';
 import clsx from 'clsx';
 import Router from 'next/router';
+import Button from "@material-ui/core/Button";
+import Link from "next/link";
 const useStyles = makeStyles((theme) => ({
   root: {},
   content: {
@@ -27,14 +30,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
 }));
-const editPromotora = (id) => {
-  Router.push({
-    pathname: '/editPromotora/[id]',
-    query: {
-      id,
-    },
-  });
-};
+
 const PromotoraTable = (props) => {
   const { promotoras, className, users, ...rest } = props;
 
@@ -72,7 +68,14 @@ const PromotoraTable = (props) => {
                     <TableCell>{promotora.nit}</TableCell>
                     <TableCell>{promotora.habilitada ? 'si' : 'no'}</TableCell>
                     <TableCell>
-                      <Edit onClick={() => editPromotora(promotora.id)} />
+
+                      <Link href={`/promotoras/promotora?id=${promotora.id}`}>
+                        <a>
+                          <Button>
+                            <Edit />
+                          </Button>
+                        </a>
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <AlertDialog id={promotora.id} />
