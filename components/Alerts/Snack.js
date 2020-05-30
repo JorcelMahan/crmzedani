@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
 import React, {useState} from "react";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -19,4 +23,8 @@ const Snack = ({msg, type}) => {
     )
 }
 
+<<<<<<< HEAD
 export default Snack;
+=======
+export default Snack;
+>>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a

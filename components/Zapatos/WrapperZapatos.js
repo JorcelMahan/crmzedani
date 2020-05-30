@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
 import React, {useEffect} from "react";
 import ListZapatos from './ListZapatos';
 import ZapatoToolbar from './ZapatoToolbar';

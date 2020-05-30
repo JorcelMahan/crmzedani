@@ -51,15 +51,15 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         width: "30%",
     },
+
+
     groupPlus: {
         display: 'flex',
         alignItems: 'center',
         width: "30%",
         padding: 0
     }
-
-}));
-
+}))
 const NewZapato = () => {
     const classes = useStyles();
     const router = useRouter();
@@ -67,7 +67,10 @@ const NewZapato = () => {
         'https://www.vippng.com/png/detail/7-76841_shoe-icon-shoes-png.png'
     );
     const [msg, setMsg] = useState(null);
-    const showMsg = () => <Alert severity='error'>{msg}</Alert>;
+    const showMsg = () => <
+        Alert
+        severity='error'> {msg}
+    </Alert>;
     const [addZapato] = useMutation(ADD_ZAPATO);
     const [colors, setColors] = useState([])
     const formik = useFormik({
@@ -460,12 +463,12 @@ const NewZapato = () => {
                                         </FormControl>
                                     ))}
                                     <span>
-                Total:{' '}
+Total:{' '}
                                         {Object.values(formik.values.tallas).reduce(
                                             (acc, n) => acc + n,
                                             0
                                         )}
-                   </span>
+</span>
                                 </CardContent>
                             </Card>
                         </Grid>

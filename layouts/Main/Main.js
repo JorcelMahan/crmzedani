@@ -52,7 +52,7 @@ const Main = ({children}) => {
     if (loading) return 'Loading...';
     // if (error) return `Error ${error.message}`;
     if (!data.getUser) {
-        router.push('/login').then(() => localStorage.removeItem('token'));
+        router.push('/login');
         return null;
     }
     const {name} = data.getUser;

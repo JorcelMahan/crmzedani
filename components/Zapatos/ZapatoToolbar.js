@@ -1,3 +1,4 @@
+
 import React from 'react';
 import clsx from 'clsx';
 import {makeStyles} from '@material-ui/styles';
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     spacer: {
         flexGrow: 1,
+<<<<<<< HEAD
     },
     exportButton: {
         marginRight: theme.spacing(1),
@@ -30,6 +32,16 @@ const useStyles = makeStyles((theme) => ({
             backgroundColor: '#21A414',
         },
     },
+=======
+    },
+    exportButton: {
+        marginRight: theme.spacing(1),
+        backgroundColor: '#21A464',
+        '&:hover': {
+            backgroundColor: '#21A414',
+        },
+    },
+>>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
     searchInput: {
         marginRight: theme.spacing(1),
     },

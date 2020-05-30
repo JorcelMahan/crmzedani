@@ -1,3 +1,4 @@
+
 import React, { useReducer } from 'react';
 import VentasContext from './VentasContext';
 import VentasReducer from './VentasReducer';
