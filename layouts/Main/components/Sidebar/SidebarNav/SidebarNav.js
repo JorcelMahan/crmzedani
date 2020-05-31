@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import {
     List,
@@ -54,7 +54,11 @@ const useStyles = makeStyles((theme) => ({
 
 const SidebarNav = (props) => {
     const {pages, className, ...rest} = props;
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+    const [value, setValue] = useState(0);
+    const handleChange = (e, newValue) => {
+        setValue(newValue);
+    };
     const handleClick = () => {
         setOpen(!open);
     };
@@ -80,6 +84,7 @@ const SidebarNav = (props) => {
                 <div className={classes.icon}>
                     <ShoppingBasket/>
                 </div>
+
                 <ListItemText primary='Productos' style={{letterSpacing: 0, fontWeight: 500, fontFamily: null}}/>
                 {open ? <ExpandLess/> : <ExpandMore/>}
             </ListItem>

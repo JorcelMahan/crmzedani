@@ -1,14 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState, useEffect} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {gql, useQuery} from "@apollo/client";
 
+const GET_VENTAS = gql`
+    query ventas {
+        ventas {
+            id
+            total
+        }
+    }
+`;
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        marginTop: "20px"
     },
 
     title: {
@@ -21,20 +29,21 @@ const useStyles = makeStyles({
 
 export default function GoalWeek() {
     const classes = useStyles();
-
-
+    const {loading, error, data} = useQuery(GET_VENTAS);
+    if (loading) return "Loading"
+    if (error) return "Error"
     return (
         <Card className={classes.root}>
             <CardContent>
                 <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Meta de la semana
+                    Meta del dia
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    Bs 3000
+                    {data.ventas.length} de 150 zapatos
                 </Typography>
 
                 <Typography variant="body2" component="p">
-                   Todo es posible para aquel que cree
+                    Todo es posible para aquel que cree
                 </Typography>
             </CardContent>
         </Card>

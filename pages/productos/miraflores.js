@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
@@ -56,6 +55,6 @@ const Miraflores = () => {
   if (error) return `Error ${error.message}`;
   const { zapatosAlmacen } = data;
 
-  return <WrapperZapatos zapatos={zapatosAlmacen} />;
+  return <WrapperZapatos zapatos={zapatosAlmacen} almacen="Miraflores"/>;
 };
 export default Miraflores;

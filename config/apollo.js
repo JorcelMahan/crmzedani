@@ -1,4 +1,3 @@
-
 import {ApolloClient, concat, createHttpLink, InMemoryCache} from '@apollo/client';
 import fetch from 'node-fetch';
 import {setContext} from 'apollo-link-context';

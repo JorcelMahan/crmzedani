@@ -1,9 +1,9 @@
-
-import React, {useEffect} from "react";
+import React from "react";
 import ListZapatos from './ListZapatos';
 import ZapatoToolbar from './ZapatoToolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import {useSearch, useFilterBy} from '../../hooks/useSearch';
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,7 +20,7 @@ const getTotalOfShoes = shoes => {
     shoes.forEach(shoe => total += shoe.stock);
     return total;
 }
-const WrapperZapatos = ({zapatos}) => {
+const WrapperZapatos = ({zapatos, almacen}) => {
     const classes = useStyles();
     const {field, setfield, filteredElem} = useFilterBy(
         zapatos,
@@ -59,6 +59,7 @@ const WrapperZapatos = ({zapatos}) => {
 
     return (
         <div className={classes.root}>
+            <h2>{almacen}</h2>
             <ZapatoToolbar
                 csvData={csvData}
                 query={query}
