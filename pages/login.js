@@ -51,22 +51,20 @@ function Login() {
     };
     const formik = useFormik({
         initialValues: {
-            email: '',
+            name: '',
             password: '',
         },
         validationSchema: Yup.object({
-            email: Yup.string()
-                .email('El email no es valido')
-                .required('El email no puede estar vacio'),
+            name: Yup.string().required('El name no puede estar vacio'),
             password: Yup.string().required('El password el obligatorio'),
         }),
         onSubmit: async (values) => {
-            const {email, password} = values;
+            const {name, password} = values;
             try {
                 const {data} = await authUser({
                     variables: {
                         input: {
-                            email,
+                            name,
                             password,
                         },
                     },
@@ -112,12 +110,12 @@ function Login() {
                         margin='normal'
                         required
                         fullWidth
-                        id='email'
-                        label='Email'
-                        name='email'
-                        autoComplete='email'
+                        id='name'
+                        label='Username'
+                        name='name'
+                        autoComplete='name'
                         autoFocus
-                        value={formik.values.email}
+                        value={formik.values.name}
                         onChange={formik.handleChange}
                     />
                     <TextField

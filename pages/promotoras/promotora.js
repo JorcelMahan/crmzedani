@@ -1,16 +1,12 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
 import React from 'react';
-import { useRouter } from 'next/router';
-import { makeStyles } from '@material-ui/core/styles';
+import {useRouter} from 'next/router';
+import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import { Formik } from 'formik';
+import {useQuery, useMutation, gql} from '@apollo/client';
+import {Formik} from 'formik';
 
 const GET_PROMOTORAS = gql`
     {
@@ -55,6 +51,11 @@ const useStyles = makeStyles((theme) => ({
     },
     fieldset: {
         padding: theme.spacing(5),
+        display: 'flex',
+        flexDirection: 'column',
+        '& .MuiTextField-root ': {
+            margin: '5px'
+        }
     },
 }));
 const metodosDeInscripcion = ['cartera', 'zapatos'];
@@ -64,17 +65,17 @@ const EditPromotora = () => {
     //styles
     const classes = useStyles();
     const {
-        query: { id },
+        query: {id},
     } = router;
     // query
-    const { loading, error, data } = useQuery(GET_PROMOTORA, {
+    const {loading, error, data} = useQuery(GET_PROMOTORA, {
         variables: {
             id,
         },
     });
     const [editPromotora] = useMutation(UPDATE_PROMOTORA, {
-        update(cache, { data: {editPromotora}}) {
-            const {promotoras} = cache.readQuery({query:GET_PROMOTORAS});
+        update(cache, {data: {editPromotora}}) {
+            const {promotoras} = cache.readQuery({query: GET_PROMOTORAS});
             cache.writeQuery({
                 query: GET_PROMOTORAS,
                 data: {
@@ -117,10 +118,10 @@ const EditPromotora = () => {
             console.log(error);
         }
     };
-    const { promotora } = data;
+    const {promotora} = data;
     return (
         <div className={classes.paper}>
-            <h2>EDIT Promotora</h2>
+            <h2>Editar Promotora</h2>
             <Formik
                 enableReinitialize
                 initialValues={promotora}
@@ -131,8 +132,8 @@ const EditPromotora = () => {
                 {(props) => {
                     return (
                         <form className={classes.form} onSubmit={props.handleSubmit}>
-                            <fieldset className={classes.fieldset}>
-                                <legend>Datos Personales: </legend>
+                            <fieldset className={classes.fieldset} className={classes.fieldset}>
+                                <legend>Datos Personales:</legend>
                                 <TextField
                                     id='nombres'
                                     label='Nombres'
@@ -173,7 +174,7 @@ const EditPromotora = () => {
                                     onChange={props.handleChange}
                                 />
                             </fieldset>
-                            <fieldset>
+                            <fieldset className={classes.fieldset}>
                                 <legend>Datos de Facturacion</legend>
                                 <TextField
                                     id='nit'
@@ -194,7 +195,7 @@ const EditPromotora = () => {
                                     onChange={props.handleChange}
                                 />
                             </fieldset>
-                            <fieldset>
+                            <fieldset className={classes.fieldset}>
                                 <legend>Datos de inscripcion</legend>
                                 <TextField
                                     id='metodoInscripcion'
@@ -216,10 +217,14 @@ const EditPromotora = () => {
                                 variant='contained'
                                 color='primary'
                                 size='large'
-                                startIcon={<SaveIcon />}
+                                startIcon={<SaveIcon/>}
                                 type='submit'
+                                style={{
+                                    marginTop: '8px',
+                                    float: 'right'
+                                }}
                             >
-                                Inscribir
+                                Guardar cambios
                             </Button>
                         </form>
                     );

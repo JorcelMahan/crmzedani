@@ -25,7 +25,7 @@ const Profile = (props) => {
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <Typography className={classes.name} variant='h4'>
-        {name}
+        {name.toUpperCase()}
       </Typography>
     </div>
   );

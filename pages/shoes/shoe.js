@@ -1,17 +1,13 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {useRouter} from 'next/router';
+import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import { Formik } from 'formik';
-import { FormControl, InputLabel, Select } from '@material-ui/core';
+import {useQuery, useMutation, gql} from '@apollo/client';
+import {Formik} from 'formik';
+import {FormControl, InputLabel, Select} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -81,7 +77,7 @@ const UPDATE_SHOE = gql`
         editZapato(id: $id, input: $input)
     }
 `;
-const WrapperZapato = ({ zapato, id }) => {
+const WrapperZapato = ({zapato, id}) => {
     const router = useRouter();
     const classes = useStyles();
     const [image, setImage] = useState(zapato.image);
@@ -395,7 +391,7 @@ const WrapperZapato = ({ zapato, id }) => {
                                     </div>
                                     <input
                                         accept='image/*'
-                                        style={{ display: 'none' }}
+                                        style={{display: 'none'}}
                                         id='image'
                                         multiple
                                         type='file'
@@ -430,20 +426,20 @@ const WrapperZapato = ({ zapato, id }) => {
 const EditShoe = () => {
     const router = useRouter();
     const {
-        query: { id },
+        query: {id},
     } = router;
-    const { loading, error, data } = useQuery(GET_SHOE, {
+    const {loading, error, data} = useQuery(GET_SHOE, {
         variables: {
             id,
         },
     });
     if (loading) return 'Cargando...';
     if (error) return `Error, ${error.message}`;
-    const { zapato } = data;
+    const {zapato} = data;
     return (
         <>
             <h2>Edit zapato</h2>
-            <WrapperZapato zapato={zapato} id={id} />
+            <WrapperZapato zapato={zapato} id={id}/>
         </>
     );
 };

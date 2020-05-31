@@ -52,7 +52,7 @@ function zapatos() {
     if (error) return `Error ${error.message}`;
     const {zapatos} = data;
 
-    return <WrapperZapatos zapatos={zapatos}/>;
+    return <WrapperZapatos zapatos={zapatos} almacen="Todos"/>;
 }
 
 export default zapatos;

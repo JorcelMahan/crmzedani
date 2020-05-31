@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
 import React, {useState} from "react";
 import axios from "axios";
 import Fab from "@material-ui/core/Fab";
@@ -87,8 +83,5 @@ const ModalAddColor = () => {
     )
 }
 
-<<<<<<< HEAD
 export default ModalAddColor;
-=======
-export default ModalAddColor;
->>>>>>> a8cb47691d5c8ea8035f8dd737a699e573e33f7a
+
