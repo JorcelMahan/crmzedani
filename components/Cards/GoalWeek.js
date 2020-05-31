@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import {gql, useQuery} from "@apollo/client";
 
 const GET_VENTAS = gql`
-    query ventas {
-        ventas {
+    query allventas {
+        allventas {
             id
             total
         }
@@ -31,7 +31,7 @@ export default function GoalWeek() {
     const classes = useStyles();
     const {loading, error, data} = useQuery(GET_VENTAS);
     if (loading) return "Loading"
-    if (error) return "Error"
+    if (error) return `error: ${error}`
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -39,7 +39,7 @@ export default function GoalWeek() {
                     Meta del dia
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    {data.ventas.length} de 150 zapatos
+                    {data.allventas.length} de 150 zapatos
                 </Typography>
 
                 <Typography variant="body2" component="p">
