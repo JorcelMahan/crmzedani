@@ -50,9 +50,10 @@ const Main = ({children}) => {
     };
     const shouldOpenSidebar = isDesktop ? true : openSidebar;
     if (loading) return 'Loading...';
-    // if (error) return `Error ${error.message}`;
+    if (error) return `Error ${error.message}`;
     if (!data.getUser) {
-        return router.push('/login')
+        router.push('/login');
+        return null;
     }
     const {name} = data.getUser;
     const closeSession = () => {

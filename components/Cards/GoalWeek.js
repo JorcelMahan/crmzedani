@@ -26,7 +26,13 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-
+const Count = ({total}) => {
+    return (
+        <span>
+            {total}
+        </span>
+    )
+}
 export default function GoalWeek() {
     const classes = useStyles();
     const {loading, error, data} = useQuery(GET_VENTAS);
@@ -39,7 +45,7 @@ export default function GoalWeek() {
                     Meta del dia
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    {data.allventas.length} de 150 zapatos
+                    <Count total={data.allventas.length}/> de 150 zapatos
                 </Typography>
 
                 <Typography variant="body2" component="p">
