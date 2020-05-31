@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import {makeStyles, useTheme} from '@material-ui/styles';
 import {useMediaQuery} from '@material-ui/core';
@@ -53,13 +52,12 @@ const Main = ({children}) => {
     if (loading) return 'Loading...';
     // if (error) return `Error ${error.message}`;
     if (!data.getUser) {
-        router.push('/login');
-        return null;
+        return router.push('/login')
     }
     const {name} = data.getUser;
     const closeSession = () => {
         localStorage.removeItem('token');
-        router.push('/login')
+        return router.push('/login')
     };
     return (
         <div

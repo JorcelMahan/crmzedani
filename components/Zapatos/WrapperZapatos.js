@@ -56,9 +56,7 @@ const WrapperZapatos = ({zapatos}) => {
             'stock',
         ],
     ];
-    // useEffect(() => {
-    //     setTotalZapatos(Object.values(zapatos.tallas).reduce((acc, curr) => acc + curr, 0))
-    // }, [])
+
     return (
         <div className={classes.root}>
             <ZapatoToolbar

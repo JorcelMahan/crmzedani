@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Avatar from '@material-ui/core/Avatar';
@@ -74,11 +73,8 @@ function Login() {
                 });
                 setMsg('Autenticando');
                 //save token in localstorage
-                setTimeout(() => {
-                    const {token} = data.authUser;
-                    localStorage.setItem('token', token);
-                }, 1000);
-
+                const {token} = data.authUser;
+                localStorage.setItem('token', token);
                 // delete message
                 setTimeout(() => {
                     setMsg(null);
