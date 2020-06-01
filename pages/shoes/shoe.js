@@ -350,12 +350,12 @@ const WrapperZapato = ({zapato, id}) => {
                                         />
                                     ))}
                                     <span>
-                    Total:{' '}
+                                        Total:{' '}
                                         {Object.values(props.values.tallas).reduce(
                                             (acc, n) => acc + n,
                                             0
                                         )}
-                  </span>
+                                    </span>
                                 </fieldset>
                                 <fieldset className={classes.fieldset}>
                                     <legend>Otros</legend>
