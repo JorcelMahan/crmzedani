@@ -65,7 +65,6 @@ function NewClient() {
         observacion,
         email,
       } = values;
-      console.log('values', values);
       try {
         await newCliente({
           variables: {

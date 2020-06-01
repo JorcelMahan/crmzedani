@@ -10,6 +10,9 @@ const GET_VENTAS = gql`
         allventas {
             id
             total
+            productos {
+                quantity
+            }
         }
     }
 `;
@@ -26,7 +29,11 @@ const useStyles = makeStyles({
         marginBottom: 12,
     },
 });
-const Count = ({total}) => {
+const Count = ({ventas}) => {
+    let total = 0;
+    ventas.forEach(venta => {
+        total += venta.productos.reduce((acc, p) => acc + p.quantity, 0);
+    });
     return (
         <span>
             {total}
@@ -35,9 +42,16 @@ const Count = ({total}) => {
 }
 export default function GoalWeek() {
     const classes = useStyles();
-    const {loading, error, data} = useQuery(GET_VENTAS);
+    const {loading, error, data, startPolling, stopPolling} = useQuery(GET_VENTAS);
+    useEffect(() => {
+        startPolling(2000);
+        return () => {
+            stopPolling();
+        }
+    }, [startPolling, stopPolling])
     if (loading) return "Loading"
     if (error) return `error: ${error}`
+
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -45,7 +59,7 @@ export default function GoalWeek() {
                     Meta del dia
                 </Typography>
                 <Typography variant="h5" component="h2">
-                    <Count total={data.allventas.length}/> de 150 zapatos
+                    <Count ventas={data.allventas}/> de 150 zapatos
                 </Typography>
 
                 <Typography variant="body2" component="p">

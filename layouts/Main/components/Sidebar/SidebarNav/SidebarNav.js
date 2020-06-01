@@ -55,10 +55,6 @@ const useStyles = makeStyles((theme) => ({
 const SidebarNav = (props) => {
     const {pages, className, ...rest} = props;
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(0);
-    const handleChange = (e, newValue) => {
-        setValue(newValue);
-    };
     const handleClick = () => {
         setOpen(!open);
     };

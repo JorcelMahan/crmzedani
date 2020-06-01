@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import CajaContext from "../../context/caja/CajaContext";
 import CardActions from "@material-ui/core/CardActions";
 import ModalCaja from "./ModalCaja";
+import ModalDeleteVenta from "./ModalDeleteVenta";
 
 const useStyles = makeStyles((theme) => ({
     root: {},
@@ -46,6 +47,7 @@ const VentasTable = (props) => {
                                     <TableCell>Productos</TableCell>
                                     <TableCell>Total</TableCell>
                                     <TableCell>Acumulado</TableCell>
+                                    <TableCell>Cancelar</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -71,6 +73,9 @@ const VentasTable = (props) => {
                                             </TableCell>
                                             <TableCell>{venta.total}</TableCell>
                                             <TableCell>{totalAcumulate}</TableCell>
+                                            <TableCell>
+                                                <ModalDeleteVenta id={venta.id}/>
+                                            </TableCell>
                                         </TableRow>
                                     );
                                 })}

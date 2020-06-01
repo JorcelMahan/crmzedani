@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {makeStyles, useTheme} from '@material-ui/styles';
 import {useMediaQuery} from '@material-ui/core';
 import clsx from 'clsx';
@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Main = ({children}) => {
     const {loading, error, data} = useQuery(GET_USER);
     const router = useRouter();
+    const [name, setName] = useState('');
     const classes = useStyles();
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -49,16 +50,22 @@ const Main = ({children}) => {
         setOpenSidebar(false);
     };
     const shouldOpenSidebar = isDesktop ? true : openSidebar;
+    useEffect(() => {
+        if (data && data.getUser) {
+            setName(data.getUser.name)
+        }
+    })
     if (loading) return 'Loading...';
     if (error) return `Error ${error.message}`;
     if (!data.getUser) {
         router.push('/login');
         return null;
     }
-    const {name} = data.getUser;
+   
     const closeSession = () => {
         localStorage.removeItem('token');
-        return router.push('/login')
+        router.push('/login')
+        return null;
     };
     return (
         <div

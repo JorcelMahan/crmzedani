@@ -8,6 +8,7 @@ import VentasState from '../context/ventas/VentasState';
 import '../assets/index.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import Main from '../layouts/Main/Main';
+import React from "react";
 
 const MyApp = ({ Component, pageProps, router }) => {
   if (router.pathname.startsWith('/login')) {
