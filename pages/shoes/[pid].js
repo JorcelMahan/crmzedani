@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -140,7 +140,7 @@ const WrapperZapato = ({zapato, id}) => {
     };
     return (
         <Formik
-            enableReinitialize
+            enableReinitialize={true}
             initialValues={zapato}
             onSubmit={(values) => {
                 updateShoe(values);
@@ -369,7 +369,7 @@ const WrapperZapato = ({zapato, id}) => {
                                             value={props.values.almacen ? props.values.almacen : ''}
                                             onChange={props.handleChange}
                                         >
-                                            {['sopocachi', 'san-miguel', 'miraflores', 'llojeta'].map(
+                                            {['sopocachi', 'san-miguel', 'miraflores', 'llojeta', 'satelite'].map(
                                                 (e) => (
                                                     <MenuItem key={e} value={e}>
                                                         {e}
@@ -436,6 +436,7 @@ const EditShoe = () => {
     if (loading) return 'Cargando...';
     if (error) return `Error, ${error.message}`;
     const {zapato} = data;
+    console.log(zapato)
     return (
         <>
             <h2>Edit zapato</h2>

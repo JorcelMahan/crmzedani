@@ -121,6 +121,13 @@ const SidebarNav = (props) => {
                             </a>
                         </Link>
                     </ListItem>
+                    <ListItem button className={classes.nested}>
+                        <Link href='/productos/satelite'>
+                            <a>
+                                <ListItemText primary='Satelite'/>
+                            </a>
+                        </Link>
+                    </ListItem>
                 </List>
             </Collapse>
         </List>

@@ -43,7 +43,7 @@ const Zapato = ({zapato, i, classes}) => {
             <Sizes tallas={tallas}/>
             <TableCell>{stock}</TableCell>
             <TableCell>
-                <Link href={`/shoes/shoe?id=${id}`}>
+                <Link href={{pathname: "/shoes/[id]", query: {id}}}>
                     <a>
                         <Button>
                             <Edit/>

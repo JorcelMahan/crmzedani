@@ -63,7 +63,7 @@ const Main = ({children}) => {
     }
    
     const closeSession = () => {
-        localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         router.push('/login')
         return null;
     };

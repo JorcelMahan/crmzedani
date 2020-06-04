@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import ListZapatos from './ListZapatos';
 import ZapatoToolbar from './ZapatoToolbar';
 import {makeStyles} from '@material-ui/core/styles';
 import {useSearch, useFilterBy} from '../../hooks/useSearch';
+import ListCardViewProducts from "./ListCardViewProducts";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +31,10 @@ const WrapperZapatos = ({zapatos, almacen}) => {
         'todos'
     );
     const {query, setQuery, filteredItems} = useSearch(filteredElem, 'codigo');
-
+    const [tableMode, setTableMode] = useState(false);
+    const handleTableMode = e => {
+        setTableMode(e.target.checked)
+    }
     const csvData = [
         [
             '#',
@@ -60,6 +66,14 @@ const WrapperZapatos = ({zapatos, almacen}) => {
     return (
         <div className={classes.root}>
             <h2>{almacen}</h2>
+            <FormControlLabel
+                control={ <Switch
+                    checked={tableMode}
+                    onChange={handleTableMode}
+                    inputProps={{'aria-label': 'Ver en una tabla'}}
+                />}
+                label="Ver en una tabla"
+            />
             <ZapatoToolbar
                 csvData={csvData}
                 query={query}
@@ -69,7 +83,10 @@ const WrapperZapatos = ({zapatos, almacen}) => {
                 totalZapatos={getTotalOfShoes(zapatos)}
             />
             <div className={classes.content}>
-                <ListZapatos zapatos={filteredItems} csvData={csvData}/>
+                {
+                    !tableMode ? <ListCardViewProducts zapatos={filteredItems}/> :
+                        <ListZapatos zapatos={filteredItems} csvData={csvData}/>
+                }
             </div>
         </div>
     );

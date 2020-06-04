@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
-    //routing
+    const classes = useStyles();
     const router = useRouter();
     const [msg, setMsg] = useState(null);
     const [authUser] = useMutation(AUTH_USER);
@@ -72,13 +72,12 @@ function Login() {
                 setMsg('Autenticando');
                 //save token in localstorage
                 const {token} = data.authUser;
-                localStorage.setItem('token', token);
+                sessionStorage.setItem('token', token);
                 // delete message
                 setTimeout(() => {
                     setMsg(null);
-                    router.push('/');
-                }, 3000);
-
+                    return router.push('/');
+                }, 2000);
                 // redirect to dashboard
             } catch (error) {
                 setMsg(error.message.replace('GraphQL error:', ''));
@@ -88,8 +87,9 @@ function Login() {
             }
         },
     });
-    const classes = useStyles();
-
+    // useEffect(()=>{
+    //
+    // },[])
     return (
         <Container component='main' maxWidth='xs'>
             <CssBaseline/>

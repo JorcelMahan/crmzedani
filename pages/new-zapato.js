@@ -291,7 +291,7 @@ const NewZapato = () => {
                                             value={formik.values.almacen}
                                             onChange={formik.handleChange}
                                         >
-                                            {['sopocachi', 'san-miguel', 'miraflores', 'llojeta'].map(
+                                            {['sopocachi', 'san-miguel', 'miraflores', 'llojeta', 'satelite'].map(
                                                 (e) => (
                                                     <MenuItem key={e} value={e}>
                                                         {e}

@@ -1,7 +1,6 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {useQuery, gql} from '@apollo/client';
-import Router from 'next/router';
 import PromotorasToolbar from '../components/Promotoras/PromotorasToolbar';
 import PromotoraTable from '../components/Promotoras/PromotoraTable';
 import {useSearch} from '../hooks/useSearch';
