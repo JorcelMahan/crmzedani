@@ -4,6 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
 import CajaState from "../context/caja/CajaState";
 import BoxCaja from "../components/Ventas/BoxCaja";
+import Main from "../layouts/Main/Main";
 
 const GET_VENTAS = gql`
     query ventas {
@@ -47,17 +48,19 @@ const Ventas = () => {
     if (error) return `Error, ${error}`;
     const {ventas} = data;
     return (
-        <CajaState>
-            <div className={classes.root}>
-                <BoxCaja />
-                <div className={classes.content}>
-                    {
-                        !close ? <VentasTable ventas={ventas}/> : <p>La caja esta cerrada</p>
-                    }
-                </div>
+        <Main>
+            <CajaState>
+                <div className={classes.root}>
+                    <BoxCaja/>
+                    <div className={classes.content}>
+                        {
+                            !close ? <VentasTable ventas={ventas}/> : <p>La caja esta cerrada</p>
+                        }
+                    </div>
 
-            </div>
-        </CajaState>
+                </div>
+            </CajaState>
+        </Main>
 
     );
 };

@@ -13,6 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
+import Main from "../../layouts/Main/Main";
 
 const useStyles = makeStyles({
     root: {
@@ -438,10 +439,10 @@ const EditShoe = () => {
     const {zapato} = data;
     console.log(zapato)
     return (
-        <>
+        <Main>
             <h2>Edit zapato</h2>
             <WrapperZapato zapato={zapato} id={id}/>
-        </>
+        </Main>
     );
 };
 

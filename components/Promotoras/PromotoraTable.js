@@ -75,7 +75,7 @@ const PromotoraTable = (props) => {
                                         <TableCell
                                             className={`${!promotora.habilitada ? classes.noHabil : ''}`}>{promotora.habilitada ? 'SI' : 'NO'}</TableCell>
                                         <TableCell>
-                                            <Link href={`/promotoras/promotora?id=${promotora.id}`}>
+                                            <Link href={{pathname: "/promotoras/[id]", query: {id:promotora.id}}}>
                                                 <a>
                                                     <Button>
                                                         <Edit/>

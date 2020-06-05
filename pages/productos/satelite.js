@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, {useEffect} from 'react';
+import {useQuery, gql} from '@apollo/client';
 import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
+import Main from "../../layouts/Main/Main";
 
 const GET_ZAPATOS = gql`
     query zapatosAlmacen($almacen: String!) {
@@ -39,10 +40,10 @@ const GET_ZAPATOS = gql`
 `;
 
 const Satelite = () => {
-    const { loading, error, data, startPolling, stopPolling } = useQuery(
+    const {loading, error, data, startPolling, stopPolling} = useQuery(
         GET_ZAPATOS,
         {
-            variables: { almacen: 'satelite' },
+            variables: {almacen: 'satelite'},
         }
     );
     useEffect(() => {
@@ -53,8 +54,12 @@ const Satelite = () => {
     }, [startPolling, stopPolling]);
     if (loading) return 'Cargando...';
     if (error) return `Error ${error.message}`;
-    const { zapatosAlmacen } = data;
+    const {zapatosAlmacen} = data;
 
-    return <WrapperZapatos zapatos={zapatosAlmacen} almacen="Satelite"/>;
+    return (
+        <Main>
+            <WrapperZapatos zapatos={zapatosAlmacen} almacen="Satelite"/>
+        </Main>
+    );
 };
 export default Satelite;

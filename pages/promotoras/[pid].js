@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
 import {useQuery, useMutation, gql} from '@apollo/client';
 import {Formik} from 'formik';
+import Main from "../../layouts/Main/Main";
 
 const GET_PROMOTORAS = gql`
     {
@@ -120,117 +121,119 @@ const EditPromotora = () => {
     };
     const {promotora} = data;
     return (
-        <div className={classes.paper}>
-            <h2>Editar Promotora</h2>
-            <Formik
-                enableReinitialize
-                initialValues={promotora}
-                onSubmit={(values) => {
-                    updatePromotora(values);
-                }}
-            >
-                {(props) => {
-                    return (
-                        <form className={classes.form} onSubmit={props.handleSubmit}>
-                            <fieldset className={classes.fieldset} className={classes.fieldset}>
-                                <legend>Datos Personales:</legend>
-                                <TextField
-                                    id='nombres'
-                                    label='Nombres'
-                                    margin='normal'
-                                    variant='outlined'
-                                    autoFocus
-                                    required
-                                    fullWidth
-                                    value={props.values.nombres}
-                                    onChange={props.handleChange}
-                                />
-                                <TextField
-                                    id='apellidos'
-                                    label='apellidos'
-                                    required
-                                    fullWidth
-                                    variant='outlined'
-                                    value={props.values.apellidos}
-                                    onChange={props.handleChange}
-                                />
-                                <TextField
-                                    id='ci'
-                                    label='ci'
-                                    required
-                                    fullWidth
-                                    variant='outlined'
-                                    value={props.values.ci}
-                                    onChange={props.handleChange}
-                                />
-                                <TextField
-                                    id='celular'
-                                    type='tel'
-                                    label='celular'
-                                    required
-                                    fullWidth
-                                    variant='outlined'
-                                    value={props.values.celular}
-                                    onChange={props.handleChange}
-                                />
-                            </fieldset>
-                            <fieldset className={classes.fieldset}>
-                                <legend>Datos de Facturacion</legend>
-                                <TextField
-                                    id='nit'
-                                    label='nit'
-                                    required
-                                    fullWidth
-                                    variant='outlined'
-                                    value={props.values.nit}
-                                    onChange={props.handleChange}
-                                />
-                                <TextField
-                                    id='razonSocial'
-                                    label='razonSocial'
-                                    variant='outlined'
-                                    required
-                                    fullWidth
-                                    value={props.values.razonSocial}
-                                    onChange={props.handleChange}
-                                />
-                            </fieldset>
-                            <fieldset className={classes.fieldset}>
-                                <legend>Datos de inscripcion</legend>
-                                <TextField
-                                    id='metodoInscripcion'
-                                    name='metodoInscripcion'
-                                    select
-                                    label='Metodo de inscripcion'
-                                    helperText='Seccione un metodo de inscripcion'
-                                    value={props.values.metodoInscripcion}
-                                    onChange={props.handleChange}
+        <Main>
+            <div className={classes.paper}>
+                <h2>Editar Promotora</h2>
+                <Formik
+                    enableReinitialize
+                    initialValues={promotora}
+                    onSubmit={(values) => {
+                        updatePromotora(values);
+                    }}
+                >
+                    {(props) => {
+                        return (
+                            <form className={classes.form} onSubmit={props.handleSubmit}>
+                                <fieldset className={classes.fieldset} className={classes.fieldset}>
+                                    <legend>Datos Personales:</legend>
+                                    <TextField
+                                        id='nombres'
+                                        label='Nombres'
+                                        margin='normal'
+                                        variant='outlined'
+                                        autoFocus
+                                        required
+                                        fullWidth
+                                        value={props.values.nombres}
+                                        onChange={props.handleChange}
+                                    />
+                                    <TextField
+                                        id='apellidos'
+                                        label='apellidos'
+                                        required
+                                        fullWidth
+                                        variant='outlined'
+                                        value={props.values.apellidos}
+                                        onChange={props.handleChange}
+                                    />
+                                    <TextField
+                                        id='ci'
+                                        label='ci'
+                                        required
+                                        fullWidth
+                                        variant='outlined'
+                                        value={props.values.ci}
+                                        onChange={props.handleChange}
+                                    />
+                                    <TextField
+                                        id='celular'
+                                        type='tel'
+                                        label='celular'
+                                        required
+                                        fullWidth
+                                        variant='outlined'
+                                        value={props.values.celular}
+                                        onChange={props.handleChange}
+                                    />
+                                </fieldset>
+                                <fieldset className={classes.fieldset}>
+                                    <legend>Datos de Facturacion</legend>
+                                    <TextField
+                                        id='nit'
+                                        label='nit'
+                                        required
+                                        fullWidth
+                                        variant='outlined'
+                                        value={props.values.nit}
+                                        onChange={props.handleChange}
+                                    />
+                                    <TextField
+                                        id='razonSocial'
+                                        label='razonSocial'
+                                        variant='outlined'
+                                        required
+                                        fullWidth
+                                        value={props.values.razonSocial}
+                                        onChange={props.handleChange}
+                                    />
+                                </fieldset>
+                                <fieldset className={classes.fieldset}>
+                                    <legend>Datos de inscripcion</legend>
+                                    <TextField
+                                        id='metodoInscripcion'
+                                        name='metodoInscripcion'
+                                        select
+                                        label='Metodo de inscripcion'
+                                        helperText='Seccione un metodo de inscripcion'
+                                        value={props.values.metodoInscripcion}
+                                        onChange={props.handleChange}
+                                    >
+                                        {metodosDeInscripcion.map((op) => (
+                                            <MenuItem key={op} value={op}>
+                                                {op}
+                                            </MenuItem>
+                                        ))}
+                                    </TextField>
+                                </fieldset>
+                                <Button
+                                    variant='contained'
+                                    color='primary'
+                                    size='large'
+                                    startIcon={<SaveIcon/>}
+                                    type='submit'
+                                    style={{
+                                        marginTop: '8px',
+                                        float: 'right'
+                                    }}
                                 >
-                                    {metodosDeInscripcion.map((op) => (
-                                        <MenuItem key={op} value={op}>
-                                            {op}
-                                        </MenuItem>
-                                    ))}
-                                </TextField>
-                            </fieldset>
-                            <Button
-                                variant='contained'
-                                color='primary'
-                                size='large'
-                                startIcon={<SaveIcon/>}
-                                type='submit'
-                                style={{
-                                    marginTop: '8px',
-                                    float: 'right'
-                                }}
-                            >
-                                Guardar cambios
-                            </Button>
-                        </form>
-                    );
-                }}
-            </Formik>
-        </div>
+                                    Guardar cambios
+                                </Button>
+                            </form>
+                        );
+                    }}
+                </Formik>
+            </div>
+        </Main>
     );
 };
 

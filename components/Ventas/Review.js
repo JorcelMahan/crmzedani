@@ -103,9 +103,7 @@ const Review = () => {
                         <div
                             style={{flexGrow: 3}}
                         >
-                            <div style={{textDecoration: 'line-through'}}>Bs {product.quantity * product.precioPublico}</div>
-                            <div>Bs 100</div>
-
+                            <div style={{fontWeight: 700}}>Bs {product.quantity * product.precioPublico}</div>
                         </div>
                         <Button
                             onClick={(e) => removeProduct(product.id)}

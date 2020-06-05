@@ -7,23 +7,24 @@ import SaveIcon from '@material-ui/icons/Save';
 import {useFormik} from 'formik';
 import {useMutation, gql} from '@apollo/client';
 import {useRouter} from 'next/router';
+import Main from "../layouts/Main/Main";
 
 const ADD_PROMOTORA = gql`
-  mutation AddPromotora($input: PromotoraInput) {
-    addPromotora(input: $input)
-  }
+    mutation AddPromotora($input: PromotoraInput) {
+        addPromotora(input: $input)
+    }
 `;
 const GET_PROMOTORAS = gql`
-  {
-    promotoras {
-      id
-      nombres
-      apellidos
-      razonSocial
-      nit
-      habilitada
+    {
+        promotoras {
+            id
+            nombres
+            apellidos
+            razonSocial
+            nit
+            habilitada
+        }
     }
-  }
 `;
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -106,106 +107,108 @@ const NewPromotora = () => {
         },
     });
     return (
-        <div className={classes.paper}>
-            <h2>Nueva Promotora</h2>
-            <form className={classes.form} onSubmit={formik.handleSubmit}>
-                <fieldset className={classes.fieldset}>
-                    <legend>Datos Personales:</legend>
-                    <TextField
-                        id='nombres'
-                        label='Nombres'
-                        margin='normal'
-                        variant='outlined'
-                        autoFocus
-                        required
-                        fullWidth
-                        value={formik.values.nombres}
-                        onChange={formik.handleChange}
+        <Main>
+            <div className={classes.paper}>
+                <h2>Nueva Promotora</h2>
+                <form className={classes.form} onSubmit={formik.handleSubmit}>
+                    <fieldset className={classes.fieldset}>
+                        <legend>Datos Personales:</legend>
+                        <TextField
+                            id='nombres'
+                            label='Nombres'
+                            margin='normal'
+                            variant='outlined'
+                            autoFocus
+                            required
+                            fullWidth
+                            value={formik.values.nombres}
+                            onChange={formik.handleChange}
 
-                    />
-                    <TextField
-                        id='apellidos'
-                        label='apellidos'
-                        required
-                        fullWidth
-                        variant='outlined'
-                        value={formik.values.apellidos}
-                        onChange={formik.handleChange}
-                    />
-                    <TextField
-                        id='ci'
-                        label='ci'
-                        required
-                        fullWidth
-                        variant='outlined'
-                        value={formik.values.ci}
-                        onChange={formik.handleChange}
-                    />
-                    <TextField
-                        id='celular'
-                        type='tel'
-                        label='celular'
-                        required
-                        fullWidth
-                        variant='outlined'
-                        value={formik.values.celular}
-                        onChange={formik.handleChange}
-                    />
-                </fieldset>
-                <fieldset className={classes.fieldset}>
-                    <legend>Datos de Facturacion</legend>
-                    <TextField
-                        id='nit'
-                        label='nit'
-                        required
-                        fullWidth
-                        variant='outlined'
-                        value={formik.values.nit}
-                        onChange={formik.handleChange}
-                    />
-                    <TextField
-                        id='razonSocial'
-                        label='razonSocial'
-                        variant='outlined'
-                        required
-                        fullWidth
-                        value={formik.values.razonSocial}
-                        onChange={formik.handleChange}
-                    />
-                </fieldset>
-                <fieldset className={classes.fieldset}>
-                    <legend>Datos de inscripcion</legend>
-                    <TextField
-                        id='metodoInscripcion'
-                        name='metodoInscripcion'
-                        select
-                        label='Metodo de inscripcion'
-                        helperText='Seccione un metodo de inscripcion'
-                        value={formik.values.metodoInscripcion}
-                        onChange={formik.handleChange}
+                        />
+                        <TextField
+                            id='apellidos'
+                            label='apellidos'
+                            required
+                            fullWidth
+                            variant='outlined'
+                            value={formik.values.apellidos}
+                            onChange={formik.handleChange}
+                        />
+                        <TextField
+                            id='ci'
+                            label='ci'
+                            required
+                            fullWidth
+                            variant='outlined'
+                            value={formik.values.ci}
+                            onChange={formik.handleChange}
+                        />
+                        <TextField
+                            id='celular'
+                            type='tel'
+                            label='celular'
+                            required
+                            fullWidth
+                            variant='outlined'
+                            value={formik.values.celular}
+                            onChange={formik.handleChange}
+                        />
+                    </fieldset>
+                    <fieldset className={classes.fieldset}>
+                        <legend>Datos de Facturacion</legend>
+                        <TextField
+                            id='nit'
+                            label='nit'
+                            required
+                            fullWidth
+                            variant='outlined'
+                            value={formik.values.nit}
+                            onChange={formik.handleChange}
+                        />
+                        <TextField
+                            id='razonSocial'
+                            label='razonSocial'
+                            variant='outlined'
+                            required
+                            fullWidth
+                            value={formik.values.razonSocial}
+                            onChange={formik.handleChange}
+                        />
+                    </fieldset>
+                    <fieldset className={classes.fieldset}>
+                        <legend>Datos de inscripcion</legend>
+                        <TextField
+                            id='metodoInscripcion'
+                            name='metodoInscripcion'
+                            select
+                            label='Metodo de inscripcion'
+                            helperText='Seccione un metodo de inscripcion'
+                            value={formik.values.metodoInscripcion}
+                            onChange={formik.handleChange}
+                        >
+                            {metodosDeInscripcion.map((op) => (
+                                <MenuItem key={op} value={op}>
+                                    {op}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+                    </fieldset>
+                    <Button
+                        variant='contained'
+                        color='primary'
+                        size='large'
+                        startIcon={<SaveIcon/>}
+                        type='submit'
+                        style={{
+                            marginTop: '8px',
+                            float: 'right'
+                        }}
                     >
-                        {metodosDeInscripcion.map((op) => (
-                            <MenuItem key={op} value={op}>
-                                {op}
-                            </MenuItem>
-                        ))}
-                    </TextField>
-                </fieldset>
-                <Button
-                    variant='contained'
-                    color='primary'
-                    size='large'
-                    startIcon={<SaveIcon/>}
-                    type='submit'
-                    style={{
-                        marginTop: '8px',
-                        float: 'right'
-                    }}
-                >
-                    Inscribir
-                </Button>
-            </form>
-        </div>
+                        Inscribir
+                    </Button>
+                </form>
+            </div>
+        </Main>
     );
 };
 

@@ -76,7 +76,7 @@ function Login() {
                 // delete message
                 setTimeout(() => {
                     setMsg(null);
-                    return router.push('/');
+                    router.push('/');
                 }, 2000);
                 // redirect to dashboard
             } catch (error) {
@@ -87,9 +87,9 @@ function Login() {
             }
         },
     });
-    // useEffect(()=>{
-    //
-    // },[])
+    useEffect(() => {
+        router.prefetch('/')
+    }, [])
     return (
         <Container component='main' maxWidth='xs'>
             <CssBaseline/>
