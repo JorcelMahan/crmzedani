@@ -5,7 +5,6 @@ import PromotorasToolbar from '../components/Promotoras/PromotorasToolbar';
 import PromotoraTable from '../components/Promotoras/PromotoraTable';
 import {useSearch} from '../hooks/useSearch';
 import Loading from '../components/Loading';
-import Main from "../layouts/Main/Main";
 
 const GET_PROMOTORAS = gql`
     {
@@ -49,9 +48,9 @@ function promotoras() {
     if (error) return 'error...';
     const {promotoras} = data;
     return (
-        <Main>
-            <WrapperPromotoras promotoras={promotoras}/>
-        </Main>
+
+        <WrapperPromotoras promotoras={promotoras}/>
+
     );
 }
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useQuery, gql} from '@apollo/client';
 import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
-import Main from "../../layouts/Main/Main";
+
 
 const GET_ZAPATOS = gql`
     query zapatosAlmacen($almacen: String!) {
@@ -57,9 +57,9 @@ const llojeta = () => {
     const {zapatosAlmacen} = data;
 
     return (
-        <Main>
-            <WrapperZapatos zapatos={zapatosAlmacen} almacen="Llojeta"/>
-        </Main>
+
+        <WrapperZapatos zapatos={zapatosAlmacen} almacen="Llojeta"/>
+
     );
 };
 export default llojeta;

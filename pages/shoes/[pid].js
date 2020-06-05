@@ -1,19 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useRouter} from 'next/router';
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import SaveIcon from '@material-ui/icons/Save';
 import {useQuery, useMutation, gql} from '@apollo/client';
 import {Formik} from 'formik';
 import {FormControl, InputLabel, Select} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
-import Main from "../../layouts/Main/Main";
+
 
 const useStyles = makeStyles({
     root: {
@@ -439,10 +437,10 @@ const EditShoe = () => {
     const {zapato} = data;
     console.log(zapato)
     return (
-        <Main>
+        <>
             <h2>Edit zapato</h2>
             <WrapperZapato zapato={zapato} id={id}/>
-        </Main>
+        </>
     );
 };
 

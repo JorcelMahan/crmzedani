@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {useQuery, gql} from '@apollo/client';
 import WrapperZapatos from "../../components/Zapatos/WrapperZapatos";
-import Main from "../../layouts/Main/Main";
 
 const GET_ZAPATOS = gql`
     query Zapatos {
@@ -54,9 +53,7 @@ function zapatos() {
     const {zapatos} = data;
 
     return (
-        <Main>
-            <WrapperZapatos zapatos={zapatos} almacen="Todos"/>
-        </Main>
+        <WrapperZapatos zapatos={zapatos} almacen="Todos"/>
     );
 }
 
