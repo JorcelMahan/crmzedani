@@ -7,14 +7,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
-import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import {red} from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,8 +34,42 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
+    size: {
+        display: 'flex',
+        justifyContent: 'space-around',
+        padding: '2px',
+        borderBottom : '1px solid black',
+        fontSize: '1.2rem'
+    }
 }));
 
+const Sizes = ({tallas}) => {
+    const classes = useStyles();
+    const availableSizes = [];
+    for (let [key, value] of Object.entries(tallas)) {
+        if (value !== 0) {
+            availableSizes.push([key, value])
+        }
+    }
+    return (
+        <div>
+            {
+                availableSizes.map(size => (
+                    <div key={size[0]} className={classes.size}>
+                        <div>
+                            {size[0]}
+                        </div>
+                        <div>
+                            <b>
+                                {size[1]}
+                            </b>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    )
+}
 export default function CardZapato({zapato, i}) {
     const classes = useStyles();
     const {codigo, image, color, stock, tallas, id, precioPublico} = zapato;
@@ -84,9 +117,9 @@ export default function CardZapato({zapato, i}) {
                 <CardContent>
                     <Typography paragraph>
                         Tallas Disponibles
-                        
-                    </Typography>
 
+                    </Typography>
+                    <Sizes tallas={tallas}/>
                 </CardContent>
             </Collapse>
         </Card>

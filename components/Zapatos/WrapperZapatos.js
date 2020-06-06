@@ -6,6 +6,8 @@ import {useSearch, useFilterBy} from '../../hooks/useSearch';
 import ListCardViewProducts from "./ListCardViewProducts";
 import Switch from "@material-ui/core/Switch";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,6 +25,27 @@ const getTotalOfShoes = shoes => {
     shoes.forEach(shoe => total += shoe.stock);
     return total;
 }
+
+function TabPanel(props) {
+    const {children, value, index, ...other} = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <>
+                    {children}
+                </>
+            )}
+        </div>
+    );
+}
+
 const WrapperZapatos = ({zapatos, almacen}) => {
     const classes = useStyles();
     const {field, setfield, filteredElem} = useFilterBy(
@@ -31,7 +54,11 @@ const WrapperZapatos = ({zapatos, almacen}) => {
         'todos'
     );
     const {query, setQuery, filteredItems} = useSearch(filteredElem, 'codigo');
-    const [tableMode, setTableMode] = useState(false);
+    const [tableMode, setTableMode] = useState(true);
+    const [value, setValue] = useState(0);
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     const handleTableMode = e => {
         setTableMode(e.target.checked)
     }
@@ -67,7 +94,7 @@ const WrapperZapatos = ({zapatos, almacen}) => {
         <div className={classes.root}>
             <h2>{almacen}</h2>
             <FormControlLabel
-                control={ <Switch
+                control={<Switch
                     checked={tableMode}
                     onChange={handleTableMode}
                     inputProps={{'aria-label': 'Ver en una tabla'}}
@@ -83,10 +110,19 @@ const WrapperZapatos = ({zapatos, almacen}) => {
                 totalZapatos={getTotalOfShoes(zapatos)}
             />
             <div className={classes.content}>
-                {
-                    !tableMode ? <ListCardViewProducts zapatos={filteredItems}/> :
-                        <ListZapatos zapatos={filteredItems} csvData={csvData}/>
-                }
+                <Tabs value={value} onChange={handleChange}>
+                    <Tab label="Tienda"/>
+                    <Tab label="Reservas"/>
+                </Tabs>
+                <TabPanel value={value} index={0}>
+                    {
+                        !tableMode ? <ListCardViewProducts zapatos={filteredItems}/> :
+                            <ListZapatos zapatos={filteredItems} csvData={csvData}/>
+                    }
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    Reservas
+                </TabPanel>
             </div>
         </div>
     );

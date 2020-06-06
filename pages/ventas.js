@@ -57,7 +57,6 @@ const Ventas = () => {
                         !close ? <VentasTable ventas={ventas}/> : <p>La caja esta cerrada</p>
                     }
                 </div>
-
             </div>
         </CajaState>
     );

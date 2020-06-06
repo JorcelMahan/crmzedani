@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -81,12 +81,12 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Datos del comprador', 'Revisa la orden'];
 
-function getStepContent(step) {
+function getStepContent(step, setActiveBtn) {
     switch (step) {
         case 0:
-            return <DataClients/>;
+            return <DataClients setActiveBtn={setActiveBtn}/>;
         case 1:
-            return <Review/>;
+            return <Review />;
         default:
             throw new Error('Unknown step');
     }
@@ -94,7 +94,8 @@ function getStepContent(step) {
 
 function Checkout() {
     const classes = useStyles();
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
+    const [activeBtn, setActiveBtn] = useState(true)
     const router = useRouter();
     const ventasContext = useContext(VentasContext);
     const {products, promotora, total, cliente, resetState} = ventasContext;
@@ -153,11 +154,11 @@ function Checkout() {
                         ))}
                     </Stepper>
                     <>
-                        {getStepContent(activeStep)}
+                        {getStepContent(activeStep, setActiveBtn)}
                         <div className={classes.buttons}>
                             {activeStep !== 0 && (
                                 <Button onClick={handleBack} className={classes.button}>
-                                    Back
+                                    Atras
                                 </Button>
                             )}
                             {activeStep === steps.length - 1 ? (
@@ -175,8 +176,9 @@ function Checkout() {
                                     color='primary'
                                     onClick={handleNext}
                                     className={classes.button}
+                                    disabled={activeBtn}
                                 >
-                                    Next
+                                    Siguiente
                                 </Button>
                             )}
                         </div>

@@ -88,7 +88,7 @@ function NewClient() {
 
   return (
     <div>
-      <Button variant='outlined' color='primary' onClick={handleClickOpen}>
+      <Button  color='primary' onClick={handleClickOpen}>
         Nuevo Cliente
       </Button>
       <Dialog

@@ -57,9 +57,7 @@ const Satelite = () => {
     const {zapatosAlmacen} = data;
 
     return (
-
-            <WrapperZapatos zapatos={zapatosAlmacen} almacen="Satelite"/>
-
+        <WrapperZapatos zapatos={zapatosAlmacen} almacen="Satelite"/>
     );
 };
 export default Satelite;

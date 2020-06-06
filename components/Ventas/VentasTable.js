@@ -61,7 +61,7 @@ const VentasTable = (props) => {
                                                 {formatDate.toLocaleDateString('es-MX')}
                                             </TableCell>
                                             <TableCell>
-                                                {venta.cliente ? 'Cliente' : 'Promotora'}
+                                                {venta.promotora ? 'Promotora' : 'Cliente'}
                                             </TableCell>
                                             <TableCell>
                                                 {venta.productos.map((product, j) => (

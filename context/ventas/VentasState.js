@@ -29,10 +29,10 @@ const VentasState = ({ children }) => {
       payload: products,
     });
   };
-  const removeProduct = (idProduct) => {
+  const removeProduct = product=> {
     dispatch({
       type: REMOVE_PRODUCT,
-      payload: idProduct,
+      payload: product,
     });
   };
   const selectPromotora = (idPromotora) => {
@@ -60,16 +60,16 @@ const VentasState = ({ children }) => {
     });
   };
 
-  const addQuantity = (idProduct) => {
+  const addQuantity = (product) => {
     dispatch({
       type: ADD_QUANTITY,
-      payload: idProduct,
+      payload: product,
     });
   };
-  const restQuantity = (idProduct) => {
+  const restQuantity = (product) => {
     dispatch({
       type: REST_QUANTITY,
-      payload: idProduct,
+      payload: product,
     });
   };
   return (

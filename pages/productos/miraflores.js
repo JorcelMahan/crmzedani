@@ -1,6 +1,10 @@
 import React, {useEffect} from 'react';
+import dynamic from "next/dynamic";
 import {useQuery, gql} from '@apollo/client';
-import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
+
+const WrapperZapatos = dynamic(() => import('../../components/Zapatos/WrapperZapatos'), {
+    srr: false
+});
 
 
 const GET_ZAPATOS = gql`
@@ -58,7 +62,7 @@ const Miraflores = () => {
 
     return (
 
-            <WrapperZapatos zapatos={zapatosAlmacen} almacen="Miraflores"/>
+        <WrapperZapatos zapatos={zapatosAlmacen} almacen="Miraflores"/>
 
     );
 };

@@ -79,8 +79,8 @@ const Review = () => {
                 </p>
             </div>
             {products.length > 0 ? (
-                products.map((product) => (
-                    <div key={product.id} className={classes.boxProducts}>
+                products.map((product, index) => (
+                    <div key={`${product.id}-${index}`} className={classes.boxProducts}>
                         <div>
                             <Avatar
                                 src={product.image}
@@ -92,11 +92,11 @@ const Review = () => {
                             {product.codigo} {product.color} {product.sizeSale}
                         </p>
                         <div className={classes.boxActions}>
-                            <button onClick={() => restQuantity(product.id)}>
+                            <button onClick={() => restQuantity(product)}>
                                 <Remove style={{fontSize: '1em'}}/>
                             </button>
                             <b>{product.quantity} </b>
-                            <button onClick={() => addQuantity(product.id)}>
+                            <button onClick={() => addQuantity(product)}>
                                 <Add style={{fontSize: '1em'}}/>
                             </button>
                         </div>
@@ -106,7 +106,7 @@ const Review = () => {
                             <div style={{fontWeight: 700}}>Bs {product.quantity * product.precioPublico}</div>
                         </div>
                         <Button
-                            onClick={(e) => removeProduct(product.id)}
+                            onClick={() => removeProduct(product)}
                             color='primary'
                             variant='contained'
                             size='small'
