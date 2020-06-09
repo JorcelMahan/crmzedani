@@ -5,6 +5,7 @@ import { Divider, Drawer } from '@material-ui/core';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import ExitToApp from '@material-ui/icons/ExitToApp';
 import SidebarNav from './SidebarNav/SidebarNav';
 import clsx from 'clsx';
 import Profile from './Profile/Profile';
@@ -49,6 +50,11 @@ const Sidebar = (props) => {
       href: '/ventas',
       icon: <ShoppingBasketIcon />,
     },
+    {
+      title: 'Salidas',
+      href: '/salidas',
+      icon: <ExitToApp />
+    }
   ];
   return (
     <Drawer

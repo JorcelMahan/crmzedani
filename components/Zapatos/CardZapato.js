@@ -9,11 +9,9 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
-
+import Size from "./Size";
+import {useRouter} from 'next/router'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,17 +32,12 @@ const useStyles = makeStyles((theme) => ({
     expandOpen: {
         transform: 'rotate(180deg)',
     },
-    size: {
-        display: 'flex',
-        justifyContent: 'space-around',
-        padding: '2px',
-        borderBottom : '1px solid black',
-        fontSize: '1.2rem'
-    }
+
 }));
 
-const Sizes = ({tallas}) => {
-    const classes = useStyles();
+
+const Sizes = ({zapato, almacen}) => {
+    const {tallas} = zapato
     const availableSizes = [];
     for (let [key, value] of Object.entries(tallas)) {
         if (value !== 0) {
@@ -55,16 +48,7 @@ const Sizes = ({tallas}) => {
         <div>
             {
                 availableSizes.map(size => (
-                    <div key={size[0]} className={classes.size}>
-                        <div>
-                            {size[0]}
-                        </div>
-                        <div>
-                            <b>
-                                {size[1]}
-                            </b>
-                        </div>
-                    </div>
+                    <Size size={size} key={size} zapato={zapato} almacen={almacen}/>
                 ))
             }
         </div>
@@ -74,7 +58,7 @@ export default function CardZapato({zapato, i}) {
     const classes = useStyles();
     const {codigo, image, color, stock, tallas, id, precioPublico} = zapato;
     const [expanded, setExpanded] = useState(false);
-
+    const router = useRouter();
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
@@ -96,12 +80,6 @@ export default function CardZapato({zapato, i}) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon/>
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon/>
-                </IconButton>
                 <IconButton
                     className={clsx(classes.expand, {
                         [classes.expandOpen]: expanded,
@@ -117,9 +95,8 @@ export default function CardZapato({zapato, i}) {
                 <CardContent>
                     <Typography paragraph>
                         Tallas Disponibles
-
                     </Typography>
-                    <Sizes tallas={tallas}/>
+                    <Sizes zapato={zapato} almacen={router.pathname.slice(11)}/>
                 </CardContent>
             </Collapse>
         </Card>

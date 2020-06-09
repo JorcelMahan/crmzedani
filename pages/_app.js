@@ -4,6 +4,7 @@ import client from '../config/apollo';
 import {ThemeProvider} from '@material-ui/styles';
 import theme from '../theme/index';
 import VentasState from '../context/ventas/VentasState';
+import SalidaState from "../context/salidas/SalidaState";
 // styles
 import '../assets/index.css';
 import 'react-perfect-scrollbar/dist/css/styles.css';
@@ -16,7 +17,9 @@ const MyApp = ({Component, pageProps, router}) => {
             <ApolloProvider client={client}>
                 <ThemeProvider theme={theme}>
                     <VentasState>
-                        <Component {...pageProps} />
+                        <SalidaState>
+                            <Component {...pageProps} />
+                        </SalidaState>
                     </VentasState>
                 </ThemeProvider>
             </ApolloProvider>
@@ -27,7 +30,9 @@ const MyApp = ({Component, pageProps, router}) => {
             <ApolloProvider client={client}>
                 <ThemeProvider theme={theme}>
                     <VentasState>
-                        <Component {...pageProps} />
+                        <SalidaState>
+                            <Component {...pageProps} />
+                        </SalidaState>
                     </VentasState>
                 </ThemeProvider>
             </ApolloProvider>
@@ -37,9 +42,11 @@ const MyApp = ({Component, pageProps, router}) => {
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>
                 <VentasState>
-                    <Main>
-                        <Component {...pageProps} />
-                    </Main>
+                    <SalidaState>
+                        <Main>
+                            <Component {...pageProps} />
+                        </Main>
+                    </SalidaState>
                 </VentasState>
             </ThemeProvider>
         </ApolloProvider>
