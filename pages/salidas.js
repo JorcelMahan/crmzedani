@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {makeStyles} from '@material-ui/core/styles';
 import {useQuery, gql} from '@apollo/client';
 import Grid from "@material-ui/core/Grid";
@@ -37,9 +37,16 @@ const useStyles = makeStyles((theme) => ({
 
 const Salidas = () => {
     const classes = useStyles();
-    const {loading, error, data} = useQuery(GET_SALIDAS);
+    const {loading, error, startPolling, stopPolling, data} = useQuery(GET_SALIDAS);
+    useEffect(() => {
+        startPolling(2000);
+        return () => {
+            stopPolling();
+        }
+    }, [startPolling, stopPolling])
     if (loading) return "loading";
     if (error) return `Error: ${error}`;
+
     return (
         <div className={classes.root}>
             <div className={classes.content}>
