@@ -16,6 +16,8 @@ import Alert from '@material-ui/lab/Alert';
 import ModalAddColor from "../components/Zapatos/ModalAddColor";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Fade from "@material-ui/core/Fade";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const ADD_ZAPATO = gql`
@@ -65,6 +67,7 @@ const NewZapato = () => {
         'https://www.vippng.com/png/detail/7-76841_shoe-icon-shoes-png.png'
     );
     const [msg, setMsg] = useState(null);
+    const [isSave, setIsSave] = useState(false)
     const showMsg = () => <
         Alert
         severity='error'> {msg}
@@ -187,7 +190,6 @@ const NewZapato = () => {
         }
     }, [colors])
     return (
-
         <Grid container spacing={2} style={{padding: '2rem'}}>
             <Grid item xs={12}>
                 <Typography variant="h2">
@@ -501,11 +503,21 @@ Total:{' '}
                         </Grid>
                         {msg && showMsg()}
                         <Grid item xs={12}>
+                            <Fade
+                                in={isSave}
+                                style={{
+                                    transitionDelay: isSave ? '800ms' : '0ms',
+                                }}
+                                unmountOnExit
+                            >
+                                <CircularProgress />
+                            </Fade>
                             <Button
                                 size='small'
                                 variant='contained'
                                 color='primary'
                                 type='submit'
+                                onClick={() => setIsSave(true)}
                             >
                                 Guardar Zapato
                             </Button>

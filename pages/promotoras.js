@@ -4,7 +4,7 @@ import {useQuery, gql} from '@apollo/client';
 import PromotorasToolbar from '../components/Promotoras/PromotorasToolbar';
 import PromotoraTable from '../components/Promotoras/PromotoraTable';
 import {useSearch} from '../hooks/useSearch';
-import Loading from '../components/Loading';
+import Loader from "../components/Loader";
 
 const GET_PROMOTORAS = gql`
     {
@@ -15,6 +15,7 @@ const GET_PROMOTORAS = gql`
             razonSocial
             nit
             habilitada
+            celular
         }
     }
 `;
@@ -44,7 +45,7 @@ const WrapperPromotoras = ({promotoras}) => {
 
 function promotoras() {
     const {loading, error, data} = useQuery(GET_PROMOTORAS);
-    if (loading) return <Loading/>;
+    if (loading) return <Loader />;
     if (error) return 'error...';
     const {promotoras} = data;
     return (

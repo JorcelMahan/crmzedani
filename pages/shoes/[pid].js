@@ -11,6 +11,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import axios from 'axios';
+import Loader from "../../components/Loader";
 
 
 const useStyles = makeStyles({
@@ -432,7 +433,7 @@ const EditShoe = () => {
             id,
         },
     });
-    if (loading) return 'Cargando...';
+    if (loading) return <Loader />;
     if (error) return `Error, ${error.message}`;
     const {zapato} = data;
     console.log(zapato)

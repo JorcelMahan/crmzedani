@@ -16,6 +16,13 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import {makeStyles} from '@material-ui/core/styles';
 import {useMutation, gql} from "@apollo/client";
+import Fade from "@material-ui/core/Fade";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import IconButton from "@material-ui/core/IconButton";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import clsx from 'clsx';
+import {Collapse} from "@material-ui/core";
+import ProductItem from "./ProductItem";
 
 const GET_SALIDAS = gql`
     query salidas {
@@ -32,7 +39,7 @@ const GET_SALIDAS = gql`
             totalProducts
             almacen
             retiradoPor
-            fecheSalida
+            fechaSalida
             status
         }
     }
@@ -54,7 +61,13 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 120,
     },
+    boxActions: {
+        marginTop: '8px',
+        display: 'flex',
+        flexDirection: 'column',
+    },
     box: {
+        flexGrow: 1,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -62,12 +75,26 @@ const useStyles = makeStyles(theme => ({
     },
     bgDisabled: {
         backgroundColor: '#ffcdd2'
-    }
+    },
+    expand: {
+        transform: 'rotate(0deg)',
+        marginLeft: 'auto',
+        transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shortest,
+        }),
+    },
+    expandOpen: {
+        transform: 'rotate(180deg)',
+    },
 }));
 const CardSalida = ({salida}) => {
     const classes = useStyles();
+    const formateDate = new Date(Number(salida.fechaSalida))
+    const [expanded, setExpanded] = useState(false);
     const [returnSalida] = useMutation(RETURN_SALIDA);
     const [transferSalida] = useMutation(TRANSFER_SALIDA)
+    const [isReturn, setIsReturn] = useState(false);
+    const [isTransfer, setIsTransfer] = useState(false);
     let almacenes = ['sopocachi', 'san-miguel', 'satelite', 'miraflores', 'llojeta'];
     almacenes = almacenes.filter(almacen => almacen !== salida.almacen);
     const [selectedAlmacen, setSelectedAlmacen] = useState('');
@@ -75,6 +102,7 @@ const CardSalida = ({salida}) => {
 
     }, [salida.status])
     const handleReturnSalida = async () => {
+        setIsReturn(true)
         try {
             await returnSalida({
                 variables: {
@@ -97,62 +125,88 @@ const CardSalida = ({salida}) => {
             console.log(e);
         }
     }
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    }
     return (
         <Card className={`${salida.status ? classes.bgDisabled : ''}`}>
             <CardHeader
-                title={`Salida almacen: ${salida.almacen.toUpperCase()}`}
-                subheader={`Retirado por:  ${salida.retiradoPor.toUpperCase()}`}
+                title={`Salida: ${salida.almacen.toUpperCase()}`}
+                subheader={`${formateDate.toLocaleDateString('es-MX')}`}
             />
-            <CardContent>
-                <List>
-                    {
-                        salida.products.map((product, index) => (
-                            <ListItem key={`${product.id}-${index}`}>
-                                <ListItemAvatar>
-                                    <Avatar>
-                                        <img src={product.image} alt={product.codigo}/>
-                                    </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                    primary={`${product.codigo} ${product.color} ${product.sizeSale}`}
-                                />
-                                <ListItemSecondaryAction>
-                                    {product.quantity}
-                                </ListItemSecondaryAction>
-                            </ListItem>
-                        ))
-                    }
-                </List>
-                <p style={{float: 'right'}}>Total: {salida.totalProducts}</p>
-                <CardActions>
-                    <Button onClick={handleReturnSalida} disabled={salida.status} variant='contained' color='primary'
-                            size='small'>
-                        Devolver
-                    </Button>
-
-                    <div className={classes.box}>
-                        <FormControl className={classes.formControl} disabled={salida.status}>
-                            <InputLabel id='lbl-almacen'>Almacen</InputLabel>
-                            <Select
-                                labelId='lbl-almacen'
-                                id='almacen'
-                                value={selectedAlmacen}
-                                onChange={e => setSelectedAlmacen(e.target.value)}
-                            >
-                                {
-                                    almacenes.map(almacen => (
-                                        <MenuItem key={almacen} value={almacen}>{almacen}</MenuItem>
-                                    ))
-                                }
-                            </Select>
-                        </FormControl>
-                        <Button disabled={salida.status} onClick={handleTransfer} variant='contained' color='secondary'
-                                size='small'>
-                            Transferir
-                        </Button>
+            <CardActions disableSpacing>
+                <p>Retirado por: {salida.retiradoPor}</p>
+                <IconButton
+                    className={clsx(classes.expand, {
+                        [classes.expandOpen]: expanded
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMoreIcon/>
+                </IconButton>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <CardContent>
+                    <List>
+                        {
+                            salida.products.map((product, index) => (
+                                <ProductItem key={`${product.id}-${index}`} product={product}/>
+                            ))
+                        }
+                    </List>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <p>Total: {salida.totalProducts}</p>
                     </div>
-                </CardActions>
-            </CardContent>
+
+                    <div className={classes.boxActions}>
+                        <Fade
+                            in={isReturn}
+                            style={{
+                                transitionDelay: isReturn ? '800ms' : '0ms',
+                            }}
+                            unmountOnExit
+                        >
+                            <CircularProgress/>
+                        </Fade>
+                        <Button
+                            onClick={handleReturnSalida}
+                            disabled={salida.status}
+                            variant='contained'
+                            color='primary'
+                            size='small'
+                        >
+                            Devolver
+                        </Button>
+                        <div className={classes.box}>
+                            <FormControl className={classes.formControl} disabled={salida.status}>
+                                <InputLabel id='lbl-almacen'>Almacen</InputLabel>
+                                <Select
+                                    labelId='lbl-almacen'
+                                    id='almacen'
+                                    value={selectedAlmacen}
+                                    onChange={e => setSelectedAlmacen(e.target.value)}
+                                >
+                                    {
+                                        almacenes.map(almacen => (
+                                            <MenuItem key={almacen} value={almacen}>{almacen}</MenuItem>
+                                        ))
+                                    }
+                                </Select>
+                            </FormControl>
+                            <Fade>
+                                <CircularProgress/>
+                            </Fade>
+                            <Button disabled={salida.status} onClick={handleTransfer} variant='contained'
+                                    color='secondary'
+                                    size='small'>
+                                Transferir
+                            </Button>
+                        </div>
+                    </div>
+                </CardContent>
+            </Collapse>
         </Card>
     )
 }

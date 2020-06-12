@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
 import CajaState from "../context/caja/CajaState";
 import BoxCaja from "../components/Ventas/BoxCaja";
-import Loading from "../components/Loading";
+import Loader from "../components/Loader";
 
 
 const GET_VENTAS = gql`
@@ -45,7 +45,7 @@ const Ventas = () => {
     const {loading, error, data} = useQuery(GET_VENTAS);
     const classes = useStyles();
     const [close, setCLose] = useState(false)
-    if (loading) return <Loading />;
+    if (loading) return <Loader />;
     if (error) return `Error, ${error}`;
     const {ventas} = data;
     return (

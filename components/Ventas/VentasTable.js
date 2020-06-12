@@ -58,7 +58,7 @@ const VentasTable = (props) => {
                                         <TableRow key={venta.id} className={classes.tableRow} hover>
                                             <TableCell>{++i}</TableCell>
                                             <TableCell>
-                                                {formatDate.toLocaleDateString('es-MX')}
+                                                 {formatDate.toLocaleDateString('es-MX')}
                                             </TableCell>
                                             <TableCell>
                                                 {venta.promotora ? 'Promotora' : 'Cliente'}

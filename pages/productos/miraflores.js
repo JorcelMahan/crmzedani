@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import dynamic from "next/dynamic";
 import {useQuery, gql} from '@apollo/client';
+import Loader from "../../components/Loader";
 
 const WrapperZapatos = dynamic(() => import('../../components/Zapatos/WrapperZapatos'), {
     srr: false
@@ -50,20 +51,20 @@ const Miraflores = () => {
             variables: {almacen: 'miraflores'},
         }
     );
+
     useEffect(() => {
         startPolling(1000);
         return () => {
             stopPolling();
         };
     }, [startPolling, stopPolling]);
-    if (loading) return 'Cargando...';
+    if (loading) return <Loader/>;
     if (error) return `Error ${error.message}`;
     const {zapatosAlmacen} = data;
 
     return (
-
-        <WrapperZapatos zapatos={zapatosAlmacen} almacen="Miraflores"/>
-
+        <WrapperZapatos zapatos={zapatosAlmacen} almacen="Miraflores"
+        />
     );
 };
 export default Miraflores;

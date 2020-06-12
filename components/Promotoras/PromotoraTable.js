@@ -55,6 +55,7 @@ const PromotoraTable = (props) => {
                                     <TableCell>Apellidos</TableCell>
                                     <TableCell>Razon Social</TableCell>
                                     <TableCell>nit</TableCell>
+                                    <TableCell>Celular</TableCell>
                                     <TableCell>Habilitacion</TableCell>
                                     <TableCell>Editar</TableCell>
                                     <TableCell>Eliminar</TableCell>
@@ -72,10 +73,11 @@ const PromotoraTable = (props) => {
                                         <TableCell>{promotora.apellidos}</TableCell>
                                         <TableCell>{promotora.razonSocial}</TableCell>
                                         <TableCell>{promotora.nit}</TableCell>
+                                        <TableCell>{promotora.celular}</TableCell>
                                         <TableCell
                                             className={`${!promotora.habilitada ? classes.noHabil : ''}`}>{promotora.habilitada ? 'SI' : 'NO'}</TableCell>
                                         <TableCell>
-                                            <Link href={{pathname: "/promotoras/[id]", query: {id:promotora.id}}}>
+                                            <Link href={{pathname: "/promotoras/[id]", query: {id: promotora.id}}}>
                                                 <a>
                                                     <Button>
                                                         <Edit/>

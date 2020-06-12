@@ -93,6 +93,7 @@ const WrapperZapatos = ({zapatos, almacen}) => {
     return (
         <div className={classes.root}>
             <h2>{almacen}</h2>
+
             <FormControlLabel
                 control={<Switch
                     checked={tableMode}

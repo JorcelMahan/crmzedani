@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SaveIcon from '@material-ui/icons/Save';
 import {useQuery, useMutation, gql} from '@apollo/client';
 import {Formik} from 'formik';
+import Loader from "../../components/Loader";
 
 
 const GET_PROMOTORAS = gql`
@@ -86,7 +87,7 @@ const EditPromotora = () => {
         }
     });
 
-    if (loading) return 'Loading...';
+    if (loading) return <Loader />;
     if (error) return `Error, ${error.message}`;
 
     const updatePromotora = async (values) => {

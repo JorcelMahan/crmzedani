@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useQuery, gql} from '@apollo/client';
 import WrapperZapatos from "../../components/Zapatos/WrapperZapatos";
+import Loader from "../../components/Loader";
 
 const GET_ZAPATOS = gql`
     query Zapatos {
@@ -48,7 +49,7 @@ function zapatos() {
             stopPolling();
         };
     }, [startPolling, stopPolling]);
-    if (loading) return 'Cargando...';
+    if (loading) return <Loader />;
     if (error) return `Error ${error.message}`;
     const {zapatos} = data;
 

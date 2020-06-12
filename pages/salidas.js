@@ -3,6 +3,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {useQuery, gql} from '@apollo/client';
 import Grid from "@material-ui/core/Grid";
 import CardSalida from "../components/Salidas/CardSalida";
+import Loader from "../components/Loader";
 
 const GET_SALIDAS = gql`
     query salidas {
@@ -19,7 +20,7 @@ const GET_SALIDAS = gql`
             totalProducts
             almacen
             retiradoPor
-            fecheSalida
+            fechaSalida
             status
         }
     }
@@ -44,7 +45,7 @@ const Salidas = () => {
             stopPolling();
         }
     }, [startPolling, stopPolling])
-    if (loading) return "loading";
+    if (loading) return <Loader />;
     if (error) return `Error: ${error}`;
 
     return (
