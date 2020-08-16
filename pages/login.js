@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Alert from '@material-ui/lab/Alert';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -59,6 +59,7 @@ function Login() {
             password: Yup.string().required('El password el obligatorio'),
         }),
         onSubmit: async (values) => {
+
             const {name, password} = values;
             try {
                 const {data} = await authUser({
@@ -71,15 +72,18 @@ function Login() {
                 });
                 setMsg('Autenticando');
                 //save token in localstorage
-                const {token} = data.authUser;
-                sessionStorage.setItem('token', token);
+                setTimeout(() => {
+                    const {token} = data.authUser;
+                    sessionStorage.setItem('token', token);
+                }, 1000)
                 // delete message
                 setTimeout(() => {
                     setMsg(null);
                     router.push('/');
                 }, 2000);
-                // redirect to dashboard
+
             } catch (error) {
+                // redirect to dashboard
                 setMsg(error.message.replace('GraphQL error:', ''));
                 setTimeout(() => {
                     setMsg(null);
@@ -87,9 +91,10 @@ function Login() {
             }
         },
     });
-    useEffect(() => {
-        router.prefetch('/')
-    }, [])
+
+    // useEffect(() => {
+    //     router.prefetch('/');
+    // }, [])
     return (
         <Container component='main' maxWidth='xs'>
             <CssBaseline/>

@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
 const Main = ({children}) => {
     const {loading, error, data} = useQuery(GET_USER);
     const router = useRouter();
-    const [name, setName] = useState('');
     const classes = useStyles();
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('lg'), {
@@ -50,21 +49,17 @@ const Main = ({children}) => {
         setOpenSidebar(false);
     };
     const shouldOpenSidebar = isDesktop ? true : openSidebar;
-    useEffect(() => {
-        if (data && data.getUser) {
-            setName(data.getUser.name)
-        }
-    })
+
     if (loading) return 'Loading...';
     if (error) return `Error ${error.message}`;
     if (!data.getUser) {
         router.push('/login');
         return null;
     }
-   
-    const closeSession = () => {
+
+    const closeSession = async () => {
         sessionStorage.removeItem('token');
-        router.push('/login')
+        await router.push('/login')
         return null;
     };
     return (
@@ -79,7 +74,7 @@ const Main = ({children}) => {
                 onClose={handleSidebarClose}
                 open={shouldOpenSidebar}
                 variant={isDesktop ? 'persistent' : 'temporary'}
-                name={name}
+                name={data.getUser.name}
             />
             <main className={classes.content}>
                 {children}

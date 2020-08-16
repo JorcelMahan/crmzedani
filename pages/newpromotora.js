@@ -8,6 +8,7 @@ import {useFormik} from 'formik';
 import {useMutation, gql} from '@apollo/client';
 import {useRouter} from 'next/router';
 
+
 const ADD_PROMOTORA = gql`
     mutation AddPromotora($input: PromotoraInput) {
         addPromotora(input: $input)
@@ -52,7 +53,7 @@ const NewPromotora = () => {
     //router
     const router = useRouter();
     const classes = useStyles();
-    const [addPromotora] = useMutation(ADD_PROMOTORA, {
+    const [addPromotora, {loading}] = useMutation(ADD_PROMOTORA, {
         update(cache, {data: {addPromotora}}) {
             //get obj of cache desire
             const {promotoras} = cache.readQuery({query: GET_PROMOTORAS});
@@ -99,12 +100,13 @@ const NewPromotora = () => {
                         },
                     },
                 });
-                router.push('/promotoras');
+                await router.push('/promotoras');
             } catch (error) {
                 console.log(error);
             }
         },
     });
+
     return (
 
         <div className={classes.paper}>
@@ -192,6 +194,9 @@ const NewPromotora = () => {
                         ))}
                     </TextField>
                 </fieldset>
+                {
+                    loading && <p>Cargando...</p>
+                }
                 <Button
                     variant='contained'
                     color='primary'
