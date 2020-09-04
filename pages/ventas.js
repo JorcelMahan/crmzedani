@@ -32,31 +32,6 @@ const SALES_BY_DATE = gql`
   }
 `;
 
-const GET_VENTAS = gql`
-  query ventas {
-    ventas {
-      id
-      total
-      fechaDeCompra
-      productos {
-        codigo
-        color
-        precioPublico
-        image
-        sizeSale
-        quantity
-      }
-      cliente {
-        nitoci
-        razonSocial
-      }
-      idPromotora {
-        nombres
-        apellidos
-      }
-    }
-  }
-`;
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -67,7 +42,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Ventas = () => {
-  //   const { loading, error, data } = useQuery(GET_VENTAS);
   const [initialDate, setDate] = useState(
     new Date().toISOString().slice(0, 10)
   );

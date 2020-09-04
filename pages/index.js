@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 
 const Home = () => {
   return (
-    <Container maxWidth='sm'>
+    <Container>
       <GoalWeek />
     </Container>
   );
