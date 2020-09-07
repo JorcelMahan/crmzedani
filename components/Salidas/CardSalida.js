@@ -165,7 +165,11 @@ const CardSalida = ({ salida }) => {
                 className={classes.formControl}
                 disabled={salida.status}
               >
-                <InputLabel id='lbl-almacen'>Almacen</InputLabel>
+                <InputLabel id='lbl-almacen'>
+                  {!salida.hasOwnProperty('retiradoHacia')
+                    ? salida.retiradoHacia
+                    : 'Almacen'}
+                </InputLabel>
                 <Select
                   labelId='lbl-almacen'
                   id='almacen'
