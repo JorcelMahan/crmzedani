@@ -60,7 +60,7 @@ const Ventas = () => {
     <CajaState>
       <div className={classes.root}>
         <div>
-          Fecha:{' '}
+          Fecha:
           <input
             type='date'
             value={initialDate}
