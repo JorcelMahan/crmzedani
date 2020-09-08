@@ -19,14 +19,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Profile = (props) => {
-  const { className, name, ...rest } = props;
+  const { className, ...rest } = props;
   const classes = useStyles();
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <Typography className={classes.name} variant='h4'>
-        {user.toUpperCase()}
+        {user ? user.toUpperCase() : ''}
       </Typography>
     </div>
   );

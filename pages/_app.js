@@ -19,7 +19,9 @@ const MyApp = ({ Component, pageProps, router }) => {
         <ThemeProvider theme={theme}>
           <VentasState>
             <SalidaState>
-              <Component {...pageProps} />
+              <AuthState>
+                <Component {...pageProps} />
+              </AuthState>
             </SalidaState>
           </VentasState>
         </ThemeProvider>
