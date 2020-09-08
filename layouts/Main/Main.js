@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { useMediaQuery } from '@material-ui/core';
 import clsx from 'clsx';
@@ -7,6 +7,7 @@ import TopBar from './components/TopBar/TopBar';
 import SideBar from './components/Sidebar/Sidebar';
 import { useRouter } from 'next/router';
 import { useQuery, gql } from '@apollo/client';
+import AuthContext from '../../context/auth/AuthContext';
 
 const GET_USER = gql`
   query getUser {
@@ -33,6 +34,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Main = ({ children }) => {
   const { loading, error, data } = useQuery(GET_USER);
+  const authContext = useContext(AuthContext);
+  const { deselectUsername, addUsername } = authContext;
   const router = useRouter();
   const classes = useStyles();
   const theme = useTheme();
@@ -49,7 +52,11 @@ const Main = ({ children }) => {
     setOpenSidebar(false);
   };
   const shouldOpenSidebar = isDesktop ? true : openSidebar;
-
+  useEffect(() => {
+    if (data) {
+      if (data.getUser !== null) addUsername(data.getUser.name);
+    }
+  }, [data]);
   if (loading) return 'Loading...';
   if (error) return `Error ${error.message}`;
   if (!data.getUser) {
@@ -59,6 +66,7 @@ const Main = ({ children }) => {
 
   const closeSession = async () => {
     sessionStorage.removeItem('token');
+    deselectUsername();
     await router.push('/login');
     return null;
   };
@@ -74,7 +82,6 @@ const Main = ({ children }) => {
         onClose={handleSidebarClose}
         open={shouldOpenSidebar}
         variant={isDesktop ? 'persistent' : 'temporary'}
-        name={data.getUser.name}
       />
       <main className={classes.content}>
         {children}

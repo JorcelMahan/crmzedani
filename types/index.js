@@ -15,3 +15,7 @@ export const SET_CAJA = 'SET_CAJA';
 export const SELECT_ALMACEN = 'SELECT_ALMACEN';
 export const SELECT_RETIRADO_POR = 'SELECT_RETIRADO_POR';
 export const SELECT_TOTAL = 'SELECT_TOTAL';
+
+// authentication
+export const SELECT_USERNAME = 'SELECT_USERNAME';
+export const DESELECT_USERNAME = 'DESELECT_USERNAME';

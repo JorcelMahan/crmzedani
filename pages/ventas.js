@@ -5,7 +5,11 @@ import VentasTable from '../components/Ventas/VentasTable';
 import CajaState from '../context/caja/CajaState';
 import BoxCaja from '../components/Ventas/BoxCaja';
 import Loader from '../components/Loader';
-
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 const SALES_BY_DATE = gql`
   query salesByDate($date: String!) {
     salesByDate(date: $date) {
@@ -42,14 +46,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Ventas = () => {
-  const [initialDate, setDate] = useState(
-    new Date().toISOString().slice(0, 10)
+  const [initialDate, setDate] = useState(new Date().toISOString());
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    SALES_BY_DATE,
+    {
+      variables: {
+        date: initialDate,
+      },
+    }
   );
-  const { loading, error, data } = useQuery(SALES_BY_DATE, {
-    variables: {
-      date: initialDate,
-    },
-  });
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
   const classes = useStyles();
   const [close, setCLose] = useState(false);
 
@@ -59,16 +70,22 @@ const Ventas = () => {
   return (
     <CajaState>
       <div className={classes.root}>
-        <div>
-          Fecha:
-          <input
-            type='date'
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            disableToolbar
+            variant='inline'
+            format='dd/MM/yyyy'
+            margin='normal'
+            label='Fecha'
             value={initialDate}
             onChange={(e) => {
-              setDate(e.target.value);
+              setDate(e);
+            }}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
             }}
           />
-        </div>
+        </MuiPickersUtilsProvider>
         <BoxCaja />
         <div className={classes.content}>
           {!close ? (

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
-
+import AuthContext from '../../../../../context/auth/AuthContext';
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -21,11 +21,12 @@ const useStyles = makeStyles((theme) => ({
 const Profile = (props) => {
   const { className, name, ...rest } = props;
   const classes = useStyles();
-
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <Typography className={classes.name} variant='h4'>
-        {name.toUpperCase()}
+        {user.toUpperCase()}
       </Typography>
     </div>
   );

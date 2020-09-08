@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
 import { Divider, Drawer } from '@material-ui/core';
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Sidebar = (props) => {
-  const { open, variant, onClose, className, name, ...rest } = props;
+  const { open, variant, onClose, className, ...rest } = props;
   const classes = useStyles();
   const pages = [
     {
@@ -53,8 +52,8 @@ const Sidebar = (props) => {
     {
       title: 'Salidas',
       href: '/salidas',
-      icon: <ExitToApp />
-    }
+      icon: <ExitToApp />,
+    },
   ];
   return (
     <Drawer
@@ -65,7 +64,7 @@ const Sidebar = (props) => {
       variant={variant}
     >
       <div {...rest} className={clsx(classes.root, className)}>
-        <Profile name={name} />
+        <Profile />
         <Divider className={classes.divider} />
         <SidebarNav className={classes.nav} pages={pages} />
       </div>
