@@ -43,20 +43,12 @@ const Salidas = () => {
     new Date().toISOString().slice(0, 10)
   );
   //calendar
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_SALIDAS,
-    {
-      variables: {
-        date: initialDate,
-      },
-    }
-  );
-  useEffect(() => {
-    startPolling(1000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
+  const { loading, error, data } = useQuery(GET_SALIDAS, {
+    variables: {
+      date: initialDate,
+    },
+  });
+
   if (loading) return <Loader />;
   if (error) return `Error: ${error.message}`;
 

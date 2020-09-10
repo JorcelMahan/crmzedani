@@ -10,6 +10,7 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+
 const SALES_BY_DATE = gql`
   query salesByDate($date: String!) {
     salesByDate(date: $date) {
@@ -47,20 +48,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Ventas = () => {
   const [initialDate, setDate] = useState(new Date().toISOString());
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    SALES_BY_DATE,
-    {
-      variables: {
-        date: initialDate,
-      },
-    }
-  );
-  useEffect(() => {
-    startPolling(1000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
+  const { loading, error, data } = useQuery(SALES_BY_DATE, {
+    variables: {
+      date: initialDate,
+    },
+  });
+
   const classes = useStyles();
   const [close, setCLose] = useState(false);
 
