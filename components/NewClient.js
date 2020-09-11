@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -71,7 +70,7 @@ function NewClient() {
             input: {
               nombres,
               apellidos,
-              nitoci: Number(nitoci),
+              nitoci,
               celular: celular !== '' ? Number(celular) : 0,
               razonSocial,
               observacion,
@@ -88,7 +87,7 @@ function NewClient() {
 
   return (
     <div>
-      <Button  color='primary' onClick={handleClickOpen}>
+      <Button color='primary' onClick={handleClickOpen}>
         Nuevo Cliente
       </Button>
       <Dialog

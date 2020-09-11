@@ -5,24 +5,19 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { gql, useQuery } from '@apollo/client';
+import Loader from '../Loader';
+
+const GET_TOTAL_SALES_CURRENT_MONTH = gql`
+  query totalSalesCurrentMonth {
+    totalSalesCurrentMonth
+  }
+`;
 
 const GET_VENTAS = gql`
   query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
     allventas(month: $month, startDay: $startDay, endDay: $endDay) {
       id
       total
-      productos {
-        quantity
-      }
-    }
-  }
-`;
-const GET_VENTAS_DAY = gql`
-  query ventas {
-    ventas {
-      id
-      total
-      fechaDeCompra
       productos {
         quantity
       }
@@ -87,25 +82,6 @@ const CountDayStore = ({ store }) => {
   return <div>{total}</div>;
 };
 
-const CountDay = () => {
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_VENTAS_DAY
-  );
-  useEffect(() => {
-    startPolling(5000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
-
-  if (loading) return 'Loading';
-  if (error) return `Error ${error.message}`;
-  let total = 0;
-  data.ventas.forEach((venta) => {
-    total += venta.productos.reduce((acc, p) => acc + p.quantity, 0);
-  });
-  return <div>{total}</div>;
-};
 const Count = ({ month, startDay, endDay }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS,
@@ -136,7 +112,17 @@ const Count = ({ month, startDay, endDay }) => {
 };
 export default function GoalWeek() {
   const classes = useStyles();
-
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_TOTAL_SALES_CURRENT_MONTH
+  );
+  useEffect(() => {
+    startPolling(5000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
+  if (loading) return <Loader />;
+  if (error) return <p>Error {error.message}</p>;
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xs={12} sm={3}>
@@ -203,7 +189,7 @@ export default function GoalWeek() {
               <Count month='8' startDay='1' endDay='30' /> de <b> 1200 </b>
               <br />
               <hr />
-              {/* Falta: {1200 - Number(<Count month='8' startDay='1' endDay='30' />)} */}
+              Falta: {1200 - data.totalSalesCurrentMonth}
             </Typography>
           </CardContent>
         </Card>
