@@ -3,11 +3,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
@@ -16,7 +11,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { useMutation, gql } from '@apollo/client';
-import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -69,10 +63,15 @@ const CardSalida = ({ salida }) => {
   const classes = useStyles();
   const formateDate = new Date(Number(salida.fechaSalida));
   const [expanded, setExpanded] = useState(false);
-  const [returnSalida] = useMutation(RETURN_SALIDA);
-  const [transferSalida] = useMutation(TRANSFER_SALIDA);
-  const [isReturn, setIsReturn] = useState(false);
-  const [isTransfer, setIsTransfer] = useState(false);
+  const [
+    returnSalida,
+    { loading: returnLoading, error: returnError },
+  ] = useMutation(RETURN_SALIDA);
+  const [
+    transferSalida,
+    { laoding: tranferLoading, error: transferError },
+  ] = useMutation(TRANSFER_SALIDA);
+
   let almacenes = [
     'sopocachi',
     'san-miguel',
@@ -84,7 +83,6 @@ const CardSalida = ({ salida }) => {
   const [selectedAlmacen, setSelectedAlmacen] = useState('');
   useEffect(() => {}, [salida.status]);
   const handleReturnSalida = async () => {
-    setIsReturn(true);
     try {
       await returnSalida({
         variables: {
@@ -142,15 +140,8 @@ const CardSalida = ({ salida }) => {
           </div>
 
           <div className={classes.boxActions}>
-            <Fade
-              in={isReturn}
-              style={{
-                transitionDelay: isReturn ? '800ms' : '0ms',
-              }}
-              unmountOnExit
-            >
-              <CircularProgress />
-            </Fade>
+            {returnLoading && <CircularProgress />}
+            {returnError && <p>{returnError.message}</p>}
             <Button
               onClick={handleReturnSalida}
               disabled={salida.status}
@@ -183,9 +174,8 @@ const CardSalida = ({ salida }) => {
                   ))}
                 </Select>
               </FormControl>
-              <Fade>
-                <CircularProgress />
-              </Fade>
+              {tranferLoading && <CircularProgress />}
+              {transferError && <p>{transferError.message}</p>}
               <Button
                 disabled={salida.status}
                 onClick={handleTransfer}
