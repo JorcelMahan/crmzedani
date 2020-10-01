@@ -199,10 +199,7 @@ export default function GoalWeek() {
                 {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
               <Typography variant='h5' component='h2'>
-                <Count month='8' startDay='1' endDay='30' /> de <b> 1200 </b>
-                <br />
-                <hr />
-                Falta: {1200 - data.totalSalesCurrentMonth}
+                <Count month='9' startDay='1' endDay='31' />
               </Typography>
             </CardContent>
           </Card>
