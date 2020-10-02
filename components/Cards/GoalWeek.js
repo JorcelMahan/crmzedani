@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { gql, useQuery } from '@apollo/client';
 import Loader from '../Loader';
 import { CardActionArea, CardMedia } from '@material-ui/core';
+import AuthContext from '../../context/auth/AuthContext';
 
 const GET_TOTAL_SALES_CURRENT_MONTH = gql`
   query totalSalesCurrentMonth {
@@ -39,6 +40,12 @@ const GET_VENTAS_DAY_BY_STORE = gql`
   }
 `;
 
+const GET_SALES_MONTH_BY_STORE = gql`
+  query salesMonthByStore($store: String!) {
+    salesMonthByStore(store: $store)
+  }
+`;
+
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -67,6 +74,9 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
+  divGoal: {
+    fontSize: '1.2rem',
+  },
 });
 
 const CountDayStore = ({ store }) => {
@@ -91,7 +101,28 @@ const CountDayStore = ({ store }) => {
   data.salesDayByStore.forEach((venta) => {
     total += venta.productos.reduce((acc, p) => acc + p.quantity, 0);
   });
-  return <div>{total}</div>;
+  return <span>{total}</span>;
+};
+
+const CountSalesMonthStore = ({ store }) => {
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_SALES_MONTH_BY_STORE,
+    {
+      variables: {
+        store,
+      },
+    }
+  );
+  useEffect(() => {
+    startPolling(5000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
+
+  if (loading) return 'Loading';
+  if (error) return `Error ${error.message}`;
+  return <span>{data.salesMonthByStore}</span>;
 };
 
 const Count = ({ month, startDay, endDay }) => {
@@ -124,69 +155,96 @@ const Count = ({ month, startDay, endDay }) => {
 };
 export default function GoalWeek() {
   const classes = useStyles();
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_TOTAL_SALES_CURRENT_MONTH
-  );
-  useEffect(() => {
-    startPolling(5000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
-  if (loading) return <Loader />;
-  if (error) return <p>Error {error.message}</p>;
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
-    <>
-      <Grid container spacing={2} className={classes.root}>
-        <Grid item xs={12} sm={3}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color='textSecondary'
-                gutterBottom
-              >
-                {/* Hoy: {new Date().toDateString()} */}
-                Miraflores
-              </Typography>
-              <Typography variant='h5' component='h2'>
-                <CountDayStore store='miraflores' />
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color='textSecondary'
-                gutterBottom
-              >
-                San Miguel
-              </Typography>
-              <Typography variant='h5' component='h2'>
-                <CountDayStore store='san miguel' />
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color='textSecondary'
-                gutterBottom
-              >
-                Sopocachi
-              </Typography>
-              <Typography variant='h5' component='h2'>
-                <CountDayStore store='sopocachi' />
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+    <Grid container spacing={2} className={classes.root}>
+      <Grid item xs={12} sm={3}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color='textSecondary'
+              gutterBottom
+            >
+              {/* Hoy: {new Date().toDateString()} */}
+              Miraflores
+            </Typography>
+            <div className={classes.divGoal}>
+              <p>
+                Dia: <CountDayStore store='miraflores' />
+              </p>
+              {(user === 'patrick' ||
+                user === 'kathryn' ||
+                user === 'laura' ||
+                user === 'fabio' ||
+                user === 'miraflores') && (
+                <p>
+                  Meta: <CountSalesMonthStore store='miraflores' /> de 374
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={3}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color='textSecondary'
+              gutterBottom
+            >
+              San Miguel
+            </Typography>
+            <div className={classes.divGoal}>
+              <p>
+                Dia: <CountDayStore store='san miguel' />
+              </p>
+              {(user === 'patrick' ||
+                user === 'kathryn' ||
+                user === 'laura' ||
+                user === 'fabio' ||
+                user === 'san miguel') && (
+                <p>
+                  Meta: <CountSalesMonthStore store='san miguel' /> de 180
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12} sm={3}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color='textSecondary'
+              gutterBottom
+            >
+              Sopocachi
+            </Typography>
+            <div className={classes.divGoal}>
+              <p>
+                Dia: <CountDayStore store='sopocachi' />
+              </p>
+              {(user === 'patrick' ||
+                user === 'kathryn' ||
+                user === 'laura' ||
+                user === 'fabio' ||
+                user === 'sopocachi') && (
+                <p>
+                  Meta: <CountSalesMonthStore store='sopocachi' /> de 166
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </Grid>
+      {(user === 'patrick' ||
+        user === 'kathryn' ||
+        user === 'laura' ||
+        user === 'fabio') && (
         <Grid item xs={12} sm={3}>
           <Card className={classes.card}>
             <CardContent>
@@ -204,29 +262,7 @@ export default function GoalWeek() {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
-      {data.totalSalesCurrentMonth >= 1200 && (
-        <div className={classes.divContainer}>
-          <Card className={classes.containerMeta}>
-            <CardActionArea>
-              <CardMedia
-                image='https://t3.ftcdn.net/jpg/02/44/50/06/240_F_244500619_Nh1WCn4rggy7vAxmqwyEY9zL5s2PMh2Z.jpg'
-                className={classes.mediaMeta}
-                title='Congratulations'
-              />
-            </CardActionArea>
-            <CardContent>
-              <Typography gutterBottom variant='h1' component='h2'>
-                Lo logramos
-              </Typography>
-              <Typography variant='body2' color='textSecondary' component='p'>
-                ¡Eso es! Lo hicimos. Tomemonos unos minutos para celebrar y
-                continuemos con el mismo entusiasmo.
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
       )}
-    </>
+    </Grid>
   );
 }

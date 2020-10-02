@@ -75,7 +75,8 @@ const ListZapatos = (props) => {
               <TableBody>
                 {zapatos.map((zapato, index) => {
                   csvData.push([
-                    ++index,
+                    // ++index,
+                    zapato.almacen,
                     zapato.codigo,
                     zapato.color,
                     zapato.tallas['t27'] ? zapato.tallas['t27'] : 0,
