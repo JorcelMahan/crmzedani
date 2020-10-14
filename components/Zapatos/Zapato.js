@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 
 const Sizes = ({ tallas }) => {
   let sizes = Object.values(tallas);
-
+  let k = Object.keys(tallas);
   return (
     <>
       {sizes.map((s, i) => {
@@ -26,6 +26,11 @@ const Sizes = ({ tallas }) => {
           </TableCell>
         );
       })}
+      {!k.hasOwnProperty('t46') && (
+        <TableCell style={{ color: 'red' }}>
+          <span>0</span>
+        </TableCell>
+      )}
     </>
   );
 };

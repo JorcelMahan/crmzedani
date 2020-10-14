@@ -66,6 +66,7 @@ const ListZapatos = (props) => {
                   <TableCell>43</TableCell>
                   <TableCell>44</TableCell>
                   <TableCell>45</TableCell>
+                  <TableCell>46</TableCell>
                   <TableCell>Stock</TableCell>
 
                   {user === 'patrick' && <TableCell>Editar</TableCell>}
@@ -98,6 +99,7 @@ const ListZapatos = (props) => {
                     zapato.tallas['t43'] ? zapato.tallas['t43'] : 0,
                     zapato.tallas['t44'] ? zapato.tallas['t44'] : 0,
                     zapato.tallas['t45'] ? zapato.tallas['t45'] : 0,
+                    zapato.tallas['t46'] ? zapatos.tallas['t46'] : 0,
                     zapato.stock,
                   ]);
                   return (

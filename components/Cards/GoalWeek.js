@@ -29,14 +29,7 @@ const GET_VENTAS = gql`
 
 const GET_VENTAS_DAY_BY_STORE = gql`
   query salesDayByStore($store: String!) {
-    salesDayByStore(store: $store) {
-      id
-      total
-      fechaDeCompra
-      productos {
-        quantity
-      }
-    }
+    salesDayByStore(store: $store)
   }
 `;
 
@@ -97,11 +90,8 @@ const CountDayStore = ({ store }) => {
 
   if (loading) return 'Loading';
   if (error) return `Error ${error.message}`;
-  let total = 0;
-  data.salesDayByStore.forEach((venta) => {
-    total += venta.productos.reduce((acc, p) => acc + p.quantity, 0);
-  });
-  return <span>{total}</span>;
+
+  return <span>{data.salesDayByStore}</span>;
 };
 
 const CountSalesMonthStore = ({ store }) => {

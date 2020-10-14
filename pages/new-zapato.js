@@ -357,18 +357,20 @@ const NewZapato = () => {
               <Card className={classes.card}>
                 <CardContent className={classes.cardContent}>
                   {formik.values.tipo === 'hombre' &&
-                    ['t38', 't39', 't40', 't41', 't42', 't43'].map((el) => (
-                      <FormControl className={classes.formControl} key={el}>
-                        <TextField
-                          id={`tallas[${el}]`}
-                          label={el}
-                          type='number'
-                          value={formik.values.tallas[el]}
-                          onChange={formik.handleChange}
-                          variant='outlined'
-                        />
-                      </FormControl>
-                    ))}
+                    ['t38', 't39', 't40', 't41', 't42', 't43', 't44'].map(
+                      (el) => (
+                        <FormControl className={classes.formControl} key={el}>
+                          <TextField
+                            id={`tallas[${el}]`}
+                            label={el}
+                            type='number'
+                            value={formik.values.tallas[el]}
+                            onChange={formik.handleChange}
+                            variant='outlined'
+                          />
+                        </FormControl>
+                      )
+                    )}
                   {formik.values.tipo === 'mujer' &&
                     ['t35', 't36', 't37', 't38', 't39'].map((el) => (
                       <FormControl className={classes.formControl} key={el}>
@@ -395,6 +397,8 @@ const NewZapato = () => {
                       't42',
                       't43',
                       't44',
+                      't45',
+                      't46',
                     ].map((el) => (
                       <FormControl className={classes.formControl} key={el}>
                         <TextField

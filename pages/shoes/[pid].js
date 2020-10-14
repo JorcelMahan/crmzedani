@@ -238,7 +238,15 @@ const WrapperZapato = ({ zapato, id }) => {
                 <fieldset className={classes.fieldset}>
                   <legend>Tallas</legend>
                   {props.values.tipo === 'hombre' &&
-                    ['t38', 't39', 't40', 't41', 't42', 't43'].map((el) => (
+                    [
+                      't38',
+                      't39',
+                      't40',
+                      't41',
+                      't42',
+                      't43',
+                      't44',
+                    ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}
                         label={el}
@@ -272,6 +280,8 @@ const WrapperZapato = ({ zapato, id }) => {
                       't42',
                       't43',
                       't44',
+                      't45',
+                      't46',
                     ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}
