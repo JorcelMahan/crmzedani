@@ -148,7 +148,7 @@ function Checkout() {
         },
       });
       resetState();
-      await router.push('/ventas');
+      router.push('/ventas');
     } catch (error) {
       console.log(error);
     }

@@ -94,7 +94,7 @@ const CountDayStore = ({ store }) => {
   return <span>{data.salesDayByStore}</span>;
 };
 
-const CountSalesMonthStore = ({ store }) => {
+const CountSalesMonthStore = ({ store, goal }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_SALES_MONTH_BY_STORE,
     {
@@ -112,7 +112,14 @@ const CountSalesMonthStore = ({ store }) => {
 
   if (loading) return 'Loading';
   if (error) return `Error ${error.message}`;
-  return <span>{data.salesMonthByStore}</span>;
+  return (
+    <div>
+      <p>
+        Meta: {data.salesMonthByStore} de {goal}
+      </p>
+      <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
+    </div>
+  );
 };
 
 const Count = ({ month, startDay, endDay }) => {
@@ -169,9 +176,7 @@ export default function GoalWeek() {
                 user === 'laura' ||
                 user === 'fabio' ||
                 user === 'miraflores') && (
-                <p>
-                  Meta: <CountSalesMonthStore store='miraflores' /> de 374
-                </p>
+                <CountSalesMonthStore store='miraflores' goal='374' />
               )}
             </div>
           </CardContent>
@@ -196,9 +201,7 @@ export default function GoalWeek() {
                 user === 'laura' ||
                 user === 'fabio' ||
                 user === 'san miguel') && (
-                <p>
-                  Meta: <CountSalesMonthStore store='san miguel' /> de 180
-                </p>
+                <CountSalesMonthStore store='san miguel' goal='180' />
               )}
             </div>
           </CardContent>
@@ -223,9 +226,7 @@ export default function GoalWeek() {
                 user === 'laura' ||
                 user === 'fabio' ||
                 user === 'sopocachi') && (
-                <p>
-                  Meta: <CountSalesMonthStore store='sopocachi' /> de 166
-                </p>
+                <CountSalesMonthStore store='sopocachi' goal='166' />
               )}
             </div>
           </CardContent>

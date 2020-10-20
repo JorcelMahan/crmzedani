@@ -26,6 +26,7 @@ const DataSalida = ({ setActiveBtn }) => {
     'Fabio Fernandez',
     'Kathryn Fernandez',
     'Patrick Fernandez',
+    'Laura Fernandez',
   ];
   const [retiradoPor, setRetiradoPor] = useState('');
   // context

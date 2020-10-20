@@ -67,9 +67,11 @@ const Zapato = ({ zapato, i, classes }) => {
           </Link>
         </TableCell>
       )}
-      <TableCell>
-        <ModalZapato zapato={zapato} />
-      </TableCell>
+      {(user === router.pathname.substr(11) || user === 'patrick') && (
+        <TableCell>
+          <ModalZapato zapato={zapato} />
+        </TableCell>
+      )}
     </TableRow>
   );
 };
