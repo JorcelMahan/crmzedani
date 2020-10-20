@@ -70,7 +70,7 @@ const ListZapatos = (props) => {
                   <TableCell>Stock</TableCell>
 
                   {user === 'patrick' && <TableCell>Editar</TableCell>}
-                  {(user === router.pathname.substr(11) ||
+                  {(user === router.pathname.substr(11).replace('-', ' ') ||
                     user === 'patrick') && <TableCell>Vender</TableCell>}
                 </TableRow>
               </TableHead>

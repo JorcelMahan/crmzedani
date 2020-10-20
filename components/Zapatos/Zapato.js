@@ -67,7 +67,8 @@ const Zapato = ({ zapato, i, classes }) => {
           </Link>
         </TableCell>
       )}
-      {(user === router.pathname.substr(11) || user === 'patrick') && (
+      {(user === router.pathname.substr(11).replace('-', ' ') ||
+        user === 'patrick') && (
         <TableCell>
           <ModalZapato zapato={zapato} />
         </TableCell>
