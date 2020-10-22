@@ -123,17 +123,7 @@ function Checkout() {
   const ventasContext = useContext(VentasContext);
   const { products, promotora, total, cliente, resetState } = ventasContext;
   // const [alertError, setAlertError] = useState(false);
-  const [addVenta] = useMutation(ADD_VENTA, {
-    update(cache, { data: { addVenta } }) {
-      const { salesByDate } = cache.readQuery({ query: SALES_BY_DATE });
-      cache.writeQuery({
-        query: SALES_BY_DATE,
-        data: {
-          ventas: [...salesByDate, addVenta],
-        },
-      });
-    },
-  });
+  const [addVenta] = useMutation(ADD_VENTA);
 
   const handleClick = async () => {
     try {
