@@ -101,17 +101,7 @@ function SalidaCheckout() {
     totalProducts,
     resetState,
   } = salidaContext;
-  const [addSalida] = useMutation(ADD_SALIDA, {
-    update(cache, { data: { addSalida } }) {
-      const { salidasByDate } = cache.readQuery({ query: GET_SALIDAS });
-      cache.writeQuery({
-        query: GET_SALIDAS,
-        data: {
-          salidasByDate: [...salidasByDate, addSalida],
-        },
-      });
-    },
-  });
+  const [addSalida] = useMutation(ADD_SALIDA);
 
   const handleClick = async () => {
     try {
