@@ -85,7 +85,7 @@ const ZapatoToolbar = (props) => {
         <Button className={classes.exportButton}>
           <CSVLink
             data={csvData}
-            filename='inventario.csv'
+            filename={`inventario-${new Date().getDay()}-${new Date().getMonth()}-${new Date().getFullYear()}-${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}.csv`}
             className={classes.csvLink}
           >
             Exportar

@@ -10,8 +10,51 @@ import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
 
 const Sizes = ({ tallas }) => {
-  let sizes = Object.values(tallas);
-  let k = Object.keys(tallas);
+  const {
+    t27,
+    t28,
+    t29,
+    t30,
+    t31,
+    t32,
+    t33,
+    t34,
+    t35,
+    t36,
+    t37,
+    t38,
+    t39,
+    t40,
+    t41,
+    t42,
+    t43,
+    t44,
+    t45,
+    t46,
+  } = tallas;
+  let sizes = [
+    t27,
+    t28,
+    t29,
+    t30,
+    t31,
+    t32,
+    t33,
+    t34,
+    t35,
+    t36,
+    t37,
+    t38,
+    t39,
+    t40,
+    t41,
+    t42,
+    t43,
+    t44,
+    t45,
+    t46,
+  ];
+
   return (
     <>
       {sizes.map((s, i) => {
@@ -26,11 +69,6 @@ const Sizes = ({ tallas }) => {
           </TableCell>
         );
       })}
-      {!k.hasOwnProperty('t46') && (
-        <TableCell style={{ color: 'red' }}>
-          <span>0</span>
-        </TableCell>
-      )}
     </>
   );
 };

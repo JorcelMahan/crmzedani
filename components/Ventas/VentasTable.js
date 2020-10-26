@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const VentasTable = (props) => {
-  const { className, ventas, ...rest } = props;
+  const { className, ventas, cancelarVenta, ...rest } = props;
   const cajaContext = useContext(CajaContext);
   const { caja } = cajaContext;
   let totalAcumulate = caja;
@@ -75,7 +75,10 @@ const VentasTable = (props) => {
                       <TableCell>{venta.total}</TableCell>
                       <TableCell>{totalAcumulate}</TableCell>
                       <TableCell>
-                        <ModalDeleteVenta id={venta.id} />
+                        <ModalDeleteVenta
+                          id={venta.id}
+                          cancelarVenta={cancelarVenta}
+                        />
                       </TableCell>
                     </TableRow>
                   );

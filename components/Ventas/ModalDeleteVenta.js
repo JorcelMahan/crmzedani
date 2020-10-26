@@ -64,19 +64,9 @@ const SALES_BY_DATE = gql`
 //     }
 // `
 
-function ModalDeleteVenta({ id }) {
+function ModalDeleteVenta({ id, cancelarVenta }) {
   const [open, setOpen] = React.useState(false);
-  const [cancelarVenta] = useMutation(CANCELAR_VENTA, {
-    update(cache) {
-      const { salesByDate } = cache.readQuery({ query: SALES_BY_DATE });
-      cache.writeQuery({
-        query: SALES_BY_DATE,
-        data: {
-          salesByDate: salesByDate.filter((venta) => venta.id !== id),
-        },
-      });
-    },
-  });
+  // const [cancelarVenta] = useMutation(CANCELAR_VENTA);
   const handleClickOpen = () => {
     setOpen(true);
   };

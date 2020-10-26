@@ -42,13 +42,25 @@ const Salidas = () => {
   const [initialDate, setDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
+  const [salidasDate, setSalidasDate] = useState([]);
   //calendar
-  const { loading, error, data } = useQuery(GET_SALIDAS, {
-    variables: {
-      date: initialDate,
-    },
-  });
-
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_SALIDAS,
+    {
+      variables: {
+        date: initialDate,
+      },
+    }
+  );
+  useEffect(() => {
+    if (data) {
+      setSalidasDate(data.salidasByDate);
+    }
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [data, startPolling, stopPolling]);
   if (loading) return <Loader />;
   if (error) return `Error: ${error.message}`;
 
@@ -65,8 +77,8 @@ const Salidas = () => {
           />
         </div>
         <Grid container spacing={1} wrap='wrap'>
-          {data.salidasByDate?.length > 0 ? (
-            data.salidasByDate.map((salida) => (
+          {salidasDate.length > 0 ? (
+            salidasDate.map((salida) => (
               <Grid key={salida.id} item xs={12} sm={6} md={3}>
                 <CardSalida salida={salida} />
               </Grid>

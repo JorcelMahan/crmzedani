@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
 import CajaState from '../context/caja/CajaState';
@@ -10,7 +10,11 @@ import {
   KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-
+const CANCELAR_VENTA = gql`
+  mutation cancelarVenta($id: ID!) {
+    cancelarVenta(id: $id)
+  }
+`;
 const SALES_BY_DATE = gql`
   query salesByDate($date: String!) {
     salesByDate(date: $date) {
@@ -48,18 +52,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Ventas = () => {
   const [initialDate, setDate] = useState(new Date().toISOString());
-  const { loading, error, data } = useQuery(SALES_BY_DATE, {
-    variables: {
-      date: initialDate,
-    },
-  });
+  const [salesDate, setSalesDate] = useState([]);
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    SALES_BY_DATE,
+    {
+      variables: {
+        date: initialDate,
+      },
+    }
+  );
+  const [cancelarVenta, { loading: loading2, error: error2 }] = useMutation(
+    CANCELAR_VENTA
+  );
 
   const classes = useStyles();
   const [close, setCLose] = useState(false);
+  useEffect(() => {
+    if (data) {
+      setSalesDate(data.salesByDate);
+    }
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [data, cancelarVenta, startPolling, stopPolling]);
 
-  if (loading) return <Loader />;
-  if (error) return `Error, ${error}`;
-  const { salesByDate } = data;
+  if (loading || loading2) return <Loader />;
+  if (error || error2) return `Error, ${error}`;
+
+  // const { salesByDate } = data;
+
   return (
     <CajaState>
       <div className={classes.root}>
@@ -82,7 +104,7 @@ const Ventas = () => {
         <BoxCaja />
         <div className={classes.content}>
           {!close ? (
-            <VentasTable ventas={salesByDate} />
+            <VentasTable ventas={salesDate} cancelarVenta={cancelarVenta} />
           ) : (
             <p>La caja esta cerrada</p>
           )}

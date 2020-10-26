@@ -26,6 +26,17 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   connectToDevTools: true,
   cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          salesByDate: {
+            merge(existing, incomming) {
+              return incomming;
+            },
+          },
+        },
+      },
+    },
     addTypename: false,
   }),
   link: concat(authLink, HttpLink),

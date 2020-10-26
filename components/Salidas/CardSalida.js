@@ -81,7 +81,7 @@ const CardSalida = ({ salida }) => {
   ];
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
   const [selectedAlmacen, setSelectedAlmacen] = useState('');
-  const [salidaStatus, setSalidaStatus] = useState(salida.status);
+  // const [salidaStatus, setSalidaStatus] = useState(salida.status);
   const handleReturnSalida = async () => {
     try {
       await returnSalida({
@@ -92,7 +92,6 @@ const CardSalida = ({ salida }) => {
     } catch (e) {
       console.log('Yo error', e);
     }
-    setSalidaStatus(true);
   };
   const handleTransfer = async () => {
     try {
@@ -105,14 +104,13 @@ const CardSalida = ({ salida }) => {
     } catch (e) {
       console.log(e);
     }
-    setSalidaStatus(true);
   };
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card className={`${salidaStatus ? classes.bgDisabled : ''}`}>
+    <Card className={`${salida.status ? classes.bgDisabled : ''}`}>
       <CardHeader
         title={`Salida: ${salida.almacen.toUpperCase()}`}
         subheader={`${formateDate.toLocaleDateString('es-MX')}`}
@@ -147,7 +145,7 @@ const CardSalida = ({ salida }) => {
             {returnError && <p>{returnError.message}</p>}
             <Button
               onClick={handleReturnSalida}
-              disabled={salidaStatus}
+              disabled={salida.status}
               variant='contained'
               color='primary'
               size='small'
@@ -157,7 +155,7 @@ const CardSalida = ({ salida }) => {
             <div className={classes.box}>
               <FormControl
                 className={classes.formControl}
-                disabled={salidaStatus}
+                disabled={salida.status}
               >
                 <InputLabel id='lbl-almacen'>
                   {!salida.hasOwnProperty('retiradoHacia')
@@ -180,7 +178,7 @@ const CardSalida = ({ salida }) => {
               {tranferLoading && <CircularProgress />}
               {transferError && <p>{transferError.message}</p>}
               <Button
-                disabled={salidaStatus}
+                disabled={salida.status}
                 onClick={handleTransfer}
                 variant='contained'
                 color='secondary'
