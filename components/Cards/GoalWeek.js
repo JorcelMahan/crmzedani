@@ -94,6 +94,27 @@ const CountDayStore = ({ store }) => {
   return <span>{data.salesDayByStore}</span>;
 };
 
+const Goal2 = ({ store, goal, sales }) => {
+  let goal2 = 0;
+  if (store === 'sopocachi') {
+    goal2 = 64;
+  } else if (store === 'miraflores') {
+    goal2 = 150;
+  } else if (store === 'san miguel') {
+    goal2 = 72;
+  }
+  return (
+    <>
+      <h4>FELICIDADES</h4>
+      <p>
+        Meta 2: {sales} de {Number(goal) + goal2}
+      </p>
+      <p>+ {goal2} pares</p>
+      <p>Bono + 100Bs</p>
+      <p>Falta: {Number(goal) + 100 - sales}</p>
+    </>
+  );
+};
 const CountSalesMonthStore = ({ store, goal }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_SALES_MONTH_BY_STORE,
@@ -103,6 +124,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
       },
     }
   );
+
   useEffect(() => {
     startPolling(5000);
     return () => {
@@ -114,10 +136,16 @@ const CountSalesMonthStore = ({ store, goal }) => {
   if (error) return `Error ${error.message}`;
   return (
     <div>
-      <p>
-        Meta: {data.salesMonthByStore} de {goal}
-      </p>
-      <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
+      {data.salesMonthByStore >= Number(goal) ? (
+        <Goal2 store={store} goal={goal} sales={data.salesMonthByStore} />
+      ) : (
+        <>
+          <p>
+            Meta: {data.salesMonthByStore} de {goal}
+          </p>
+          <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
+        </>
+      )}
     </div>
   );
 };
@@ -154,6 +182,7 @@ export default function GoalWeek() {
   const classes = useStyles();
   const authContext = useContext(AuthContext);
   const { user } = authContext;
+
   return (
     <Grid container spacing={2} className={classes.root}>
       <Grid item xs={12} sm={3}>
@@ -171,6 +200,7 @@ export default function GoalWeek() {
               <p>
                 Dia: <CountDayStore store='miraflores' />
               </p>
+
               {(user === 'patrick' ||
                 user === 'kathryn' ||
                 user === 'laura' ||
@@ -236,23 +266,45 @@ export default function GoalWeek() {
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <Grid item xs={12} sm={3}>
-          <Card className={classes.card}>
-            <CardContent>
-              <Typography
-                className={classes.title}
-                color='textSecondary'
-                gutterBottom
-              >
-                Mes:
-                {new Date().toLocaleString('es-MX', { month: 'long' })}
-              </Typography>
-              <Typography variant='h5' component='h2'>
-                <Count month='9' startDay='1' endDay='31' />
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
+        <>
+          <Grid item xs={12} sm={3}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color='textSecondary'
+                  gutterBottom
+                >
+                  David TNT
+                </Typography>
+                <div className={classes.divGoal}>
+                  <p>
+                    Dia: <CountDayStore store='patrick' />
+                  </p>
+
+                  <CountSalesMonthStore store='patrick' goal='1000' />
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={12} sm={3}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography
+                  className={classes.title}
+                  color='textSecondary'
+                  gutterBottom
+                >
+                  Mes:
+                  {new Date().toLocaleString('es-MX', { month: 'long' })}
+                </Typography>
+                <Typography variant='h5' component='h2'>
+                  <Count month='9' startDay='1' endDay='31' />
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
+        </>
       )}
     </Grid>
   );
