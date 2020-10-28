@@ -97,15 +97,16 @@ const Goal2 = ({ store, goal, sales }) => {
   } else if (store === 'san miguel') {
     goal2 = 72;
   }
+  const newGoal = Number(goal) + goal2;
   return (
     <>
       <h4>FELICIDADES</h4>
       <p>
-        Meta 2: {sales} de {Number(goal) + goal2}
+        Meta 2: {sales} de {newGoal}
       </p>
       <p>+ {goal2} pares</p>
       <p>Bono + 100Bs</p>
-      <p>Falta: {Number(goal) + 100 - sales}</p>
+      <p>Falta: {newGoal - sales}</p>
     </>
   );
 };
