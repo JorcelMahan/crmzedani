@@ -79,6 +79,8 @@ const ZapatoToolbar = (props) => {
             <MenuItem value='enfermera'>Enfermera</MenuItem>
             <MenuItem value='niño'>Niño</MenuItem>
             <MenuItem value='niña'>Niña</MenuItem>
+            <MenuItem value='marroquineria'>Marroquineria</MenuItem>
+            <MenuItem value='accesorios'>Accesorios</MenuItem>
           </Select>
         </FormControl>
 

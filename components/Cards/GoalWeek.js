@@ -5,15 +5,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { gql, useQuery } from '@apollo/client';
-import Loader from '../Loader';
-import { CardActionArea, CardMedia } from '@material-ui/core';
+// import Loader from '../Loader';
+// import { CardActionArea, CardMedia } from '@material-ui/core';
 import AuthContext from '../../context/auth/AuthContext';
-
-const GET_TOTAL_SALES_CURRENT_MONTH = gql`
-  query totalSalesCurrentMonth {
-    totalSalesCurrentMonth
-  }
-`;
 
 const GET_VENTAS = gql`
   query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
@@ -173,7 +167,11 @@ const Count = ({ month, startDay, endDay }) => {
   if (error) return `error: ${error}`;
   let total = 0;
   data.allventas.forEach((venta) => {
-    total += venta.productos.reduce((acc, p) => acc + p.quantity, 0);
+    venta.productos.forEach((product) => {
+      if (product.tipo !== 'accesorios') {
+        total += product.quantity;
+      }
+    });
   });
 
   return <span>{total}</span>;
