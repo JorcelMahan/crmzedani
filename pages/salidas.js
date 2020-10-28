@@ -39,9 +39,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Salidas = () => {
   const classes = useStyles();
-  const [initialDate, setDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
+  const currentDate = new Date()
+    .toLocaleString('es-MX', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
+    })
+    .split('/');
+  const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
+  const [initialDate, setDate] = useState(currDateStr);
   const [salidasDate, setSalidasDate] = useState([]);
   //calendar
   const { loading, error, data, startPolling, stopPolling } = useQuery(
