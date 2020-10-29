@@ -487,6 +487,45 @@ const NewZapato = () => {
                         />
                       </FormControl>
                     ))}
+
+                  {formik.values.tipo === 'accesorios' &&
+                    [
+                      't34',
+                      't35',
+                      't36',
+                      't37',
+                      't38',
+                      't39',
+                      't40',
+                      't41',
+                      't42',
+                      't43',
+                      't44',
+                    ].map((el) => (
+                      <FormControl className={classes.formControl} key={el}>
+                        <TextField
+                          id={`tallas[${el}]`}
+                          label={el}
+                          type='number'
+                          value={formik.values.tallas[el]}
+                          onChange={formik.handleChange}
+                          variant='outlined'
+                        />
+                      </FormControl>
+                    ))}
+                  {formik.values.tipo === 'marroquineria' &&
+                    ['t34'].map((el) => (
+                      <FormControl className={classes.formControl} key={el}>
+                        <TextField
+                          id={`tallas[${el}]`}
+                          label={el}
+                          type='number'
+                          value={formik.values.tallas[el]}
+                          onChange={formik.handleChange}
+                          variant='outlined'
+                        />
+                      </FormControl>
+                    ))}
                   <span>
                     Total:{' '}
                     {Object.values(formik.values.tallas).reduce(

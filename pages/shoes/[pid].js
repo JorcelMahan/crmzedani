@@ -362,6 +362,44 @@ const WrapperZapato = ({ zapato, id }) => {
                         onChange={props.handleChange}
                       />
                     ))}
+                  {props.values.tipo === 'accesorios' &&
+                    [
+                      't34',
+                      't35',
+                      't36',
+                      't37',
+                      't38',
+                      't39',
+                      't40',
+                      't41',
+                      't42',
+                      't43',
+                      't44',
+                    ].map((el) => (
+                      <FormControl className={classes.formControl} key={el}>
+                        <TextField
+                          id={`tallas[${el}]`}
+                          label={el}
+                          type='number'
+                          value={props.values.tallas[el]}
+                          onChange={props.handleChange}
+                          variant='outlined'
+                        />
+                      </FormControl>
+                    ))}
+                  {props.values.tipo === 'marroquineria' &&
+                    ['t34'].map((el) => (
+                      <FormControl className={classes.formControl} key={el}>
+                        <TextField
+                          id={`tallas[${el}]`}
+                          label={el}
+                          type='number'
+                          value={props.values.tallas[el]}
+                          onChange={props.handleChange}
+                          variant='outlined'
+                        />
+                      </FormControl>
+                    ))}
                   <span>
                     Total:{' '}
                     {Object.values(props.values.tallas).reduce(
