@@ -275,6 +275,8 @@ const NewZapato = () => {
                         'niño',
                         'niña',
                         'enfermera',
+                        'accesorios',
+                        'marroquineria',
                       ].map((e) => (
                         <MenuItem key={e} value={e}>
                           {e}
