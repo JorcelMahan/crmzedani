@@ -53,7 +53,9 @@ const VentasTable = (props) => {
               <TableBody>
                 {ventas.map((venta, i) => {
                   totalAcumulate += venta.total;
+                  // console.log('v', venta.fechaDeCompra);
                   const formatDate = new Date(Number(venta.fechaDeCompra));
+                  // console.log('t', formatDate);
                   return (
                     <TableRow key={venta.id} className={classes.tableRow} hover>
                       <TableCell>{++i}</TableCell>

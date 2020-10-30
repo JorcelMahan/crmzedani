@@ -34,6 +34,11 @@ const client = new ApolloClient({
               return incomming;
             },
           },
+          allventas: {
+            merge(existing, incomming) {
+              return incomming;
+            },
+          },
         },
       },
     },

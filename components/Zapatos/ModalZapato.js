@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -70,7 +69,7 @@ const ModalZapato = (props) => {
   // format the shoe before add
   // validate
   const addCarrito = () => {
-    const { id, codigo, color, precioPublico, image } = zapato;
+    const { id, codigo, color, precioPublico, image, tipo } = zapato;
     const newShoe = {
       id,
       codigo,
@@ -78,6 +77,7 @@ const ModalZapato = (props) => {
       precioPublico,
       image,
       sizeSale: size,
+      tipo,
     };
 
     addProduct(newShoe);
