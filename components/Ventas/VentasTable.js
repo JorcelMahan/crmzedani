@@ -53,9 +53,8 @@ const VentasTable = (props) => {
               <TableBody>
                 {ventas.map((venta, i) => {
                   totalAcumulate += venta.total;
-                  // console.log('v', venta.fechaDeCompra);
+                  // console.log(venta);
                   const formatDate = new Date(Number(venta.fechaDeCompra));
-                  // console.log('t', formatDate);
                   return (
                     <TableRow key={venta.id} className={classes.tableRow} hover>
                       <TableCell>{++i}</TableCell>
@@ -63,7 +62,7 @@ const VentasTable = (props) => {
                         {formatDate.toLocaleDateString('es-MX')}
                       </TableCell>
                       <TableCell>
-                        {venta.promotora ? 'Promotora' : 'Cliente'}
+                        {venta.idPromotora !== null ? 'Promotora' : 'Cliente'}
                       </TableCell>
                       <TableCell>
                         {venta.productos.map((product, j) => (
