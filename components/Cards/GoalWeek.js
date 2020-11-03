@@ -15,6 +15,7 @@ const GET_VENTAS = gql`
       id
       total
       productos {
+        codigo
         quantity
       }
     }
@@ -136,7 +137,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
       ) : (
         <>
           <p>
-            Meta 1: {data.salesMonthByStore} de {goal}
+            Meta1: {data.salesMonthByStore} de {goal}
           </p>
           <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
         </>
@@ -166,16 +167,30 @@ const Count = ({ month, startDay, endDay }) => {
 
   if (loading) return 'Loading';
   if (error) return `error: ${error}`;
-  let total = 0;
+  let totalShoes = 0;
+  let totalAccesorios = 0;
   data.allventas.forEach((venta) => {
     venta.productos.forEach((product) => {
-      if (product.tipo !== 'accesorios') {
-        total += product.quantity;
+      if (
+        product.codigo !== 'PLANTILLAS' &&
+        product.codigo !== 'ACS-001' &&
+        product.codigo !== 'ACS-002' &&
+        product.codigo !== 'ACS-003'
+      ) {
+        totalShoes += product.quantity;
+      } else {
+        totalAccesorios += product.quantity;
       }
     });
   });
 
-  return <span>{total}</span>;
+  return (
+    <div>
+      Zapatos & Marroquineria: <b>{totalShoes}</b>
+      <br />
+      Plantillas & Acc Limpieza: <b>{totalAccesorios}</b>
+    </div>
+  );
 };
 export default function GoalWeek() {
   const classes = useStyles();
@@ -321,9 +336,8 @@ export default function GoalWeek() {
                   Mes:
                   {new Date().toLocaleString('es-MX', { month: 'long' })}
                 </Typography>
-                <Typography variant='h5' component='h2'>
-                  <Count month='10' startDay='1' endDay='30' />
-                </Typography>
+
+                <Count month='10' startDay='1' endDay='30' />
               </CardContent>
             </Card>
           </Grid>

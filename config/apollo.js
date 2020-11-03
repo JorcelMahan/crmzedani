@@ -29,11 +29,11 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          // salesByDate: {
-          //   merge(existing, incomming) {
-          //     return incomming;
-          //   },
-          // },
+          salesByDate: {
+            merge(existing, incomming) {
+              return incomming;
+            },
+          },
           allventas: {
             merge(existing, incomming) {
               return incomming;
