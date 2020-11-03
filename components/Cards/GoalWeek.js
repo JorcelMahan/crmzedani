@@ -136,7 +136,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
       ) : (
         <>
           <p>
-            Meta: {data.salesMonthByStore} de {goal}
+            Meta 1: {data.salesMonthByStore} de {goal}
           </p>
           <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
         </>
@@ -196,6 +196,12 @@ export default function GoalWeek() {
               Miraflores
             </Typography>
             <div className={classes.divGoal}>
+              <h4>
+                Mes:{' '}
+                <span>
+                  {new Date().toLocaleString('es-MX', { month: 'long' })}
+                </span>
+              </h4>
               <p>
                 Dia: <CountDayStore store='miraflores' />
               </p>
@@ -205,7 +211,7 @@ export default function GoalWeek() {
                 user === 'laura' ||
                 user === 'fabio' ||
                 user === 'miraflores') && (
-                <CountSalesMonthStore store='miraflores' goal='374' />
+                <CountSalesMonthStore store='miraflores' goal='390' />
               )}
             </div>
           </CardContent>
@@ -222,6 +228,12 @@ export default function GoalWeek() {
               San Miguel
             </Typography>
             <div className={classes.divGoal}>
+              <h4>
+                Mes:{' '}
+                <span>
+                  {new Date().toLocaleString('es-MX', { month: 'long' })}
+                </span>
+              </h4>
               <p>
                 Dia: <CountDayStore store='san miguel' />
               </p>
@@ -247,6 +259,12 @@ export default function GoalWeek() {
               Sopocachi
             </Typography>
             <div className={classes.divGoal}>
+              <h4>
+                Mes:{' '}
+                <span>
+                  {new Date().toLocaleString('es-MX', { month: 'long' })}
+                </span>
+              </h4>
               <p>
                 Dia: <CountDayStore store='sopocachi' />
               </p>
@@ -255,7 +273,7 @@ export default function GoalWeek() {
                 user === 'laura' ||
                 user === 'fabio' ||
                 user === 'sopocachi') && (
-                <CountSalesMonthStore store='sopocachi' goal='166' />
+                <CountSalesMonthStore store='sopocachi' goal='180' />
               )}
             </div>
           </CardContent>
@@ -277,6 +295,12 @@ export default function GoalWeek() {
                   David TNT
                 </Typography>
                 <div className={classes.divGoal}>
+                  <h4>
+                    Mes:{' '}
+                    <span>
+                      {new Date().toLocaleString('es-MX', { month: 'long' })}
+                    </span>
+                  </h4>
                   <p>
                     Dia: <CountDayStore store='patrick' />
                   </p>
@@ -298,7 +322,7 @@ export default function GoalWeek() {
                   {new Date().toLocaleString('es-MX', { month: 'long' })}
                 </Typography>
                 <Typography variant='h5' component='h2'>
-                  <Count month='9' startDay='1' endDay='31' />
+                  <Count month='10' startDay='1' endDay='30' />
                 </Typography>
               </CardContent>
             </Card>
