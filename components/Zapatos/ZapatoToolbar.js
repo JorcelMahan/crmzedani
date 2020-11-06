@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/styles';
 import { Button } from '@material-ui/core';
@@ -6,10 +6,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
 import SearchInput from '../SearchInput/SearchInput';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink } from 'react-csv';
 import Link from 'next/link';
+import AuthContext from '../../context/auth/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -58,9 +58,10 @@ const ZapatoToolbar = (props) => {
     totalZapatos,
     ...rest
   } = props;
-
+  const [totalShoes, totalAccesorios] = totalZapatos;
   const classes = useStyles();
-
+  const authContext = useContext(AuthContext);
+  const { user } = authContext;
   return (
     <div {...rest} className={clsx(classes.root, className)}>
       <div className={classes.row}>
@@ -83,7 +84,6 @@ const ZapatoToolbar = (props) => {
             <MenuItem value='accesorios'>Accesorios</MenuItem>
           </Select>
         </FormControl>
-
         <Button className={classes.exportButton}>
           <CSVLink
             data={csvData}
@@ -93,11 +93,14 @@ const ZapatoToolbar = (props) => {
             Exportar
           </CSVLink>
         </Button>
-        <Link href='/new-zapato'>
-          <Button color='primary' variant='contained'>
-            Add Zapato
-          </Button>
-        </Link>
+
+        {user === 'patrick' && (
+          <Link href='/new-zapato'>
+            <Button color='primary' variant='contained'>
+              Add Zapato
+            </Button>
+          </Link>
+        )}
       </div>
       <div className={classes.row}>
         <SearchInput
@@ -107,7 +110,7 @@ const ZapatoToolbar = (props) => {
           onChange={(e) => setQuery(e.target.value)}
         />
         <p className={classes.total}>
-          Stock: <b>{totalZapatos}</b>
+          Z: <b>{totalShoes}</b> A: <b>{totalAccesorios}</b>
         </p>
       </div>
     </div>

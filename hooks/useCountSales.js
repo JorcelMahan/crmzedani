@@ -1,4 +1,3 @@
-import { useEffect, useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
 
 const GET_SALES_MONTH_BY_STORE = gql`

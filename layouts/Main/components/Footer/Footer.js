@@ -1,22 +1,21 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
-import clsx from 'clsx';
+import { Container, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: theme.spacing(4),
+  footer: {
+    padding: theme.spacing(3, 2),
+    marginTop: 'auto',
   },
 }));
-const Footer = (props) => {
-  const { className, ...rest } = props;
+const Footer = () => {
   const classes = useStyles();
-
   return (
-    <div {...rest} className={clsx(classes.root, className)}>
-      <Typography variant='body1'>Johan</Typography>
-      <Typography variant='caption'>Developer with love</Typography>
-    </div>
+    <footer className={classes.footer}>
+      <Container maxWidth='sm'>
+        <Typography variant='body1'>Johan Developer with love</Typography>
+      </Container>
+    </footer>
   );
 };
 
