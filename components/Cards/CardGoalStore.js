@@ -34,12 +34,13 @@ const useStyles = makeStyles({
 
 const CardGoalStore = ({ user, store, goal }) => {
   const classes = useStyles();
+  const urlImage =
+    store === 'patrick'
+      ? 'https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg'
+      : 'https://image.shutterstock.com/image-vector/storefront-city-vector-illustration-restaurant-260nw-626771693.jpg';
   return (
     <Card className={classes.card}>
-      <CardMedia
-        className={classes.cover}
-        image='https://image.shutterstock.com/image-vector/storefront-city-vector-illustration-restaurant-260nw-626771693.jpg'
-      />
+      <CardMedia className={classes.cover} image={urlImage} />
 
       <CardContent>
         <Typography

@@ -77,7 +77,7 @@ const CardSalida = ({ salida }) => {
     'san-miguel',
     'satelite',
     'miraflores',
-    'llojeta',
+    'davidtnt',
   ];
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
   const [selectedAlmacen, setSelectedAlmacen] = useState('');
@@ -112,11 +112,15 @@ const CardSalida = ({ salida }) => {
   return (
     <Card className={`${salida.status ? classes.bgDisabled : ''}`}>
       <CardHeader
-        title={`Salida: ${salida.almacen.toUpperCase()}`}
-        subheader={`${formateDate.toLocaleDateString('es-MX')}`}
+        title={`De: ${salida.almacen.toUpperCase()}`}
+        subheader={`Hacia: ${
+          salida?.retiradoHacia !== null
+            ? salida.retiradoHacia.toUpperCase()
+            : 'No transferido'
+        }`}
       />
       <CardActions disableSpacing>
-        <p>Retirado por: {salida.retiradoPor}</p>
+        <div>Por: {salida.retiradoPor}</div>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
@@ -158,7 +162,7 @@ const CardSalida = ({ salida }) => {
                 disabled={salida.status}
               >
                 <InputLabel id='lbl-almacen'>
-                  {!salida.hasOwnProperty('retiradoHacia')
+                  {salida?.retiradoHacia !== null
                     ? salida.retiradoHacia
                     : 'Almacen'}
                 </InputLabel>

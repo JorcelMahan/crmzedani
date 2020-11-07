@@ -86,7 +86,7 @@ const SidebarNav = (props) => {
         </div>
 
         <ListItemText
-          primary='Productos'
+          primary='Tiendas'
           style={{ letterSpacing: 0, fontWeight: 500, fontFamily: null }}
         />
         {open ? <ExpandLess /> : <ExpandMore />}
@@ -118,13 +118,6 @@ const SidebarNav = (props) => {
             </Link>
           </ListItem>
           <ListItem button className={classes.nested}>
-            <Link href='/productos/llojeta'>
-              <a>
-                <ListItemText primary='Llojeta' />
-              </a>
-            </Link>
-          </ListItem>
-          <ListItem button className={classes.nested}>
             <Link href='/productos/sopocachi'>
               <a>
                 <ListItemText primary='Sopocachi' />
@@ -135,6 +128,13 @@ const SidebarNav = (props) => {
             <Link href='/productos/satelite'>
               <a>
                 <ListItemText primary='Satelite' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/davidtnt'>
+              <a>
+                <ListItemText primary='David TNT' />
               </a>
             </Link>
           </ListItem>
