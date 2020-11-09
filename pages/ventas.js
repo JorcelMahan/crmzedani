@@ -32,6 +32,7 @@ const SALES_BY_DATE = gql`
         nombres
         apellidos
       }
+      status
     }
   }
 `;

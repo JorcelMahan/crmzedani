@@ -12,62 +12,15 @@ import Review from '../components/Ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
 import { useMutation, gql } from '@apollo/client';
+import Loader from '../components/Loader';
+import Alert from '@material-ui/lab/Alert';
 
 const ADD_VENTA = gql`
   mutation addVenta($input: VentasInput) {
     addVenta(input: $input)
   }
 `;
-const GET_VENTAS = gql`
-  query ventas {
-    ventas {
-      id
-      total
-      fechaDeCompra
-      productos {
-        codigo
-        color
-        precioPublico
-        image
-        sizeSale
-        quantity
-      }
-      cliente {
-        nitoci
-        razonSocial
-      }
-      idPromotora {
-        nombres
-        apellidos
-      }
-    }
-  }
-`;
-const SALES_BY_DATE = gql`
-  query salesByDate($date: String!) {
-    salesByDate(date: $date) {
-      id
-      total
-      fechaDeCompra
-      productos {
-        codigo
-        color
-        precioPublico
-        image
-        sizeSale
-        quantity
-      }
-      cliente {
-        nitoci
-        razonSocial
-      }
-      idPromotora {
-        nombres
-        apellidos
-      }
-    }
-  }
-`;
+
 const useStyles = makeStyles((theme) => ({
   layout: {
     width: 'auto',
@@ -122,9 +75,7 @@ function Checkout() {
   const router = useRouter();
   const ventasContext = useContext(VentasContext);
   const { products, promotora, total, cliente, resetState } = ventasContext;
-  // const [alertError, setAlertError] = useState(false);
-  const [addVenta] = useMutation(ADD_VENTA);
-
+  const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
   const handleClick = async () => {
     try {
       await addVenta({
@@ -151,11 +102,12 @@ function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
   return (
     <>
       <CssBaseline />
       <main className={classes.layout}>
+        {loading && <Loader />}
+
         <Paper className={classes.paper}>
           <Typography component='h1' variant='h4' align='center'>
             Checkout
@@ -167,6 +119,7 @@ function Checkout() {
               </Step>
             ))}
           </Stepper>
+          {error && <Alert severity='error'>{error.message}</Alert>}
           <>
             {getStepContent(activeStep, setActiveBtn)}
             <div className={classes.buttons}>

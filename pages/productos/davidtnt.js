@@ -39,7 +39,7 @@ const GET_ZAPATOS = gql`
   }
 `;
 
-const llojeta = () => {
+const DavidTnt = () => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
@@ -58,4 +58,4 @@ const llojeta = () => {
 
   return <WrapperZapatos zapatos={zapatosAlmacen} almacen='David TNT' />;
 };
-export default llojeta;
+export default DavidTnt;

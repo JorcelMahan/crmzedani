@@ -11,10 +11,8 @@ import {
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import CajaContext from '../../context/caja/CajaContext';
-import CardActions from '@material-ui/core/CardActions';
-import ModalCaja from './ModalCaja';
 import ModalDeleteVenta from './ModalDeleteVenta';
+import AuthContext from '../../context/auth/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -24,17 +22,21 @@ const useStyles = makeStyles((theme) => ({
   inner: {
     minWidth: 1050,
   },
+  tableRow: {
+    textDecoration: 'none',
+  },
+  tableRowCancelado: {
+    textDecoration: 'line-through',
+  },
 }));
 
 const VentasTable = (props) => {
-  const { className, ventas, cancelarVenta, ...rest } = props;
-  const cajaContext = useContext(CajaContext);
-  const { caja } = cajaContext;
-  let totalAcumulate = caja;
+  const { ventas, cancelarVenta, ...rest } = props;
+  const { user } = useContext(AuthContext);
+  let totalAcumulate = 0;
   const classes = useStyles();
-
   return (
-    <Card {...rest} className={clsx(classes.root, className)}>
+    <Card {...rest} className={classes.root}>
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
@@ -47,16 +49,25 @@ const VentasTable = (props) => {
                   <TableCell>Productos</TableCell>
                   <TableCell>Total</TableCell>
                   <TableCell>Acumulado</TableCell>
-                  <TableCell>Cancelar</TableCell>
+                  <TableCell>Anular</TableCell>
+                  {user === 'patrick' && <TableCell>Eliminar</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {ventas.map((venta, i) => {
-                  totalAcumulate += venta.total;
-                  // console.log(venta);
+                  if (venta.status === 'COMPLET0') {
+                    totalAcumulate += venta.total;
+                  }
                   const formatDate = new Date(Number(venta.fechaDeCompra));
                   return (
-                    <TableRow key={venta.id} className={classes.tableRow} hover>
+                    <TableRow
+                      key={venta.id}
+                      className={clsx(
+                        venta.status === 'COMPLET0'
+                          ? classes.tableRow
+                          : classes.tableRowCancelado
+                      )}
+                    >
                       <TableCell>{++i}</TableCell>
                       <TableCell>
                         {formatDate.toLocaleDateString('es-MX')}
@@ -75,12 +86,19 @@ const VentasTable = (props) => {
                       </TableCell>
                       <TableCell>{venta.total}</TableCell>
                       <TableCell>{totalAcumulate}</TableCell>
-                      <TableCell>
-                        <ModalDeleteVenta
-                          id={venta.id}
-                          cancelarVenta={cancelarVenta}
-                        />
-                      </TableCell>
+                      {venta.status === 'COMPLET0' ? (
+                        <TableCell>Cancelar</TableCell>
+                      ) : (
+                        <TableCell>Cancelado</TableCell>
+                      )}
+                      {user === 'patrick' && (
+                        <TableCell>
+                          <ModalDeleteVenta
+                            id={venta.id}
+                            cancelarVenta={cancelarVenta}
+                          />
+                        </TableCell>
+                      )}
                     </TableRow>
                   );
                 })}
@@ -89,9 +107,6 @@ const VentasTable = (props) => {
           </div>
         </PerfectScrollbar>
       </CardContent>
-      <CardActions>
-        <ModalCaja total={totalAcumulate} />
-      </CardActions>
     </Card>
   );
 };
