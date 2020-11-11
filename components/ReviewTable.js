@@ -76,7 +76,7 @@ const ReviewTable = () => {
                 />
               </TableCell>
               <TableCell>
-                {product.codigo} {product.color}
+                {product.codigo} {product.color} {product.sizeSale}
               </TableCell>
               <TableCell align='right'>
                 <div className={classes.boxActions}>
