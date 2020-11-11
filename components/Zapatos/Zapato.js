@@ -8,6 +8,8 @@ import Link from 'next/link';
 import AuthContext from '../../context/auth/AuthContext';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Sizes = ({ tallas }) => {
   const {
@@ -73,14 +75,28 @@ const Sizes = ({ tallas }) => {
   );
 };
 
-const Zapato = ({ zapato, i, classes }) => {
+const useStyles = makeStyles(() => ({
+  tableRow: {
+    backgroundColor: 'white',
+  },
+  tableRowStockZero: {
+    backgroundColor: '#FCF7F8',
+  },
+}));
+
+const Zapato = ({ zapato, i }) => {
   const { codigo, image, color, stock, tallas, id, almacen } = zapato;
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const router = useRouter();
-
+  const classes = useStyles();
   return (
-    <TableRow hover className={classes.tableRow}>
+    <TableRow
+      hover
+      className={clsx(
+        stock === 0 ? classes.tableRowStockZero : classes.tableRow
+      )}
+    >
       <TableCell>
         {(user === 'patrick' || user === 'kathryn') &&
         router.pathname.split('/')[2] === 'zapatos'

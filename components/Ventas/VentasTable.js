@@ -13,6 +13,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ModalDeleteVenta from './ModalDeleteVenta';
 import AuthContext from '../../context/auth/AuthContext';
+import ModalCancelarVenta from './ModalCancelarVenta';
+// import { useQuery, gql } from '@apollo/client';
+
+// const GET_USER_BY_ID = gql`
+//   query getUserById($id: String!) {
+//     getUserById(id: $id) {
+//       name
+//     }
+//   }
+// `;
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -30,13 +40,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VentasTable = (props) => {
-  const { ventas, cancelarVenta, ...rest } = props;
+const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
   const { user } = useContext(AuthContext);
   let totalAcumulate = 0;
   const classes = useStyles();
+  // const { loading, error, data } = useQuery(GET_USER_BY_ID, {
+  //   variables: {
+  //     id: ventas.user,
+  //   },
+  // });
+  // if (loading) return 'Loading';
+  // if (error) return `Error: ${error.message}`;
   return (
-    <Card {...rest} className={classes.root}>
+    <Card className={classes.root}>
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>
@@ -44,6 +60,7 @@ const VentasTable = (props) => {
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>
+                  {user === 'patrick' && <TableCell>Tienda</TableCell>}
                   <TableCell>Fecha</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
                   <TableCell>Productos</TableCell>
@@ -54,54 +71,61 @@ const VentasTable = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ventas.map((venta, i) => {
-                  if (venta.status === 'COMPLET0') {
-                    totalAcumulate += venta.total;
-                  }
-                  const formatDate = new Date(Number(venta.fechaDeCompra));
-                  return (
-                    <TableRow
-                      key={venta.id}
-                      className={clsx(
-                        venta.status === 'COMPLET0'
-                          ? classes.tableRow
-                          : classes.tableRowCancelado
-                      )}
-                    >
-                      <TableCell>{++i}</TableCell>
-                      <TableCell>
-                        {formatDate.toLocaleDateString('es-MX')}
-                      </TableCell>
-                      <TableCell>
-                        {venta.idPromotora !== null ? 'Promotora' : 'Cliente'}
-                      </TableCell>
-                      <TableCell>
-                        {venta.productos.map((product, j) => (
-                          <p key={`${product.codigo}-${j}`}>
-                            {product.codigo} - {product.color} -
-                            {product.sizeSale}- Bs {product.precioPublico} #
-                            <b>{product.quantity}</b>
-                          </p>
-                        ))}
-                      </TableCell>
-                      <TableCell>{venta.total}</TableCell>
-                      <TableCell>{totalAcumulate}</TableCell>
-                      {venta.status === 'COMPLET0' ? (
-                        <TableCell>Cancelar</TableCell>
-                      ) : (
-                        <TableCell>Cancelado</TableCell>
-                      )}
-                      {user === 'patrick' && (
+                {ventas.length > 0 &&
+                  ventas.map((venta, i) => {
+                    if (venta.status === 'COMPLET0') {
+                      totalAcumulate += venta.total;
+                    }
+                    const formatDate = new Date(Number(venta.fechaDeCompra));
+                    return (
+                      <TableRow
+                        key={venta.id}
+                        className={clsx(
+                          venta.status === 'COMPLET0'
+                            ? classes.tableRow
+                            : classes.tableRowCancelado
+                        )}
+                      >
+                        <TableCell>{++i}</TableCell>
+                        {user === 'patrick' && <TableCell>tienda</TableCell>}
                         <TableCell>
-                          <ModalDeleteVenta
-                            id={venta.id}
-                            cancelarVenta={cancelarVenta}
-                          />
+                          {formatDate.toLocaleDateString('es-MX')}
                         </TableCell>
-                      )}
-                    </TableRow>
-                  );
-                })}
+                        <TableCell>
+                          {venta.idPromotora !== null ? 'Promotora' : 'Cliente'}
+                        </TableCell>
+                        <TableCell>
+                          {venta.productos.map((product, j) => (
+                            <p key={`${product.codigo}-${j}`}>
+                              {product.codigo} - {product.color} -
+                              {product.sizeSale}- Bs {product.precioPublico} #
+                              <b>{product.quantity}</b>
+                            </p>
+                          ))}
+                        </TableCell>
+                        <TableCell>{venta.total}</TableCell>
+                        <TableCell>{totalAcumulate}</TableCell>
+                        {venta.status === 'COMPLET0' ? (
+                          <TableCell>
+                            <ModalCancelarVenta
+                              id={venta.id}
+                              anularVenta={anularVenta}
+                            />
+                          </TableCell>
+                        ) : (
+                          <TableCell>Anulado</TableCell>
+                        )}
+                        {user === 'patrick' && (
+                          <TableCell>
+                            <ModalDeleteVenta
+                              id={venta.id}
+                              cancelarVenta={cancelarVenta}
+                            />
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </div>

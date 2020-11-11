@@ -116,31 +116,29 @@ export default function GoalWeek() {
       <Grid item xs={12} sm={6}>
         <CardGoalStore user={user} store='sopocachi' goal='180' />
       </Grid>
+      <Grid item xs={12} sm={6}>
+        <CardGoalStore user={user} store='patrick' goal='1000' />
+      </Grid>
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <>
-          <Grid item xs={12} sm={6}>
-            <CardGoalStore user={user} store='patrick' goal='1000' />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography
-                  className={classes.title}
-                  color='textSecondary'
-                  gutterBottom
-                >
-                  Mes:
-                  {new Date().toLocaleString('es-MX', { month: 'long' })}
-                </Typography>
+        <Grid item xs={12} sm={6}>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography
+                className={classes.title}
+                color='textSecondary'
+                gutterBottom
+              >
+                Mes:
+                {new Date().toLocaleString('es-MX', { month: 'long' })}
+              </Typography>
 
-                <Count month='10' startDay='1' endDay='30' />
-              </CardContent>
-            </Card>
-          </Grid>
-        </>
+              <Count month='10' startDay='1' endDay='30' />
+            </CardContent>
+          </Card>
+        </Grid>
       )}
     </Grid>
   );

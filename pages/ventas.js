@@ -10,6 +10,13 @@ const CANCELAR_VENTA = gql`
     cancelarVenta(id: $id)
   }
 `;
+
+const ANULAR_VENTA = gql`
+  mutation anularVenta($id: ID!) {
+    anularVenta(id: $id)
+  }
+`;
+
 const SALES_BY_DATE = gql`
   query salesByDate($date: String!) {
     salesByDate(date: $date) {
@@ -33,6 +40,7 @@ const SALES_BY_DATE = gql`
         apellidos
       }
       status
+      user
     }
   }
 `;
@@ -68,6 +76,9 @@ const Ventas = () => {
   const [cancelarVenta, { loading: loading2, error: error2 }] = useMutation(
     CANCELAR_VENTA
   );
+  const [anularVenta, { loading: loading3, error: error3 }] = useMutation(
+    ANULAR_VENTA
+  );
 
   const classes = useStyles();
   const [close, setCLose] = useState(false);
@@ -81,8 +92,8 @@ const Ventas = () => {
     };
   }, [data, cancelarVenta, startPolling, stopPolling]);
 
-  if (loading || loading2) return <Loader />;
-  if (error || error2) return `Error, ${error}`;
+  if (loading || loading2 || loading3) return <Loader />;
+  if (error || error2 || error3) return `Error, ${error}`;
 
   // const { salesByDate } = data;
 
@@ -100,7 +111,11 @@ const Ventas = () => {
         <BoxCaja />
         <div className={classes.content}>
           {!close ? (
-            <VentasTable ventas={salesDate} cancelarVenta={cancelarVenta} />
+            <VentasTable
+              ventas={salesDate}
+              cancelarVenta={cancelarVenta}
+              anularVenta={anularVenta}
+            />
           ) : (
             <p>La caja esta cerrada</p>
           )}

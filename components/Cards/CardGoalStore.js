@@ -32,12 +32,23 @@ const useStyles = makeStyles({
   },
 });
 
+const imageUrlStore = (store) => {
+  switch (store) {
+    case 'patrick':
+      return 'https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg';
+    case 'miraflores':
+      return 'https://res.cloudinary.com/zedani/image/upload/v1605098357/store-miraflores_x09t5l.jpg';
+    case 'san miguel':
+      return 'https://res.cloudinary.com/zedani/image/upload/v1605098746/tienda-san-miguel_go6c3t.jpg';
+    case 'sopocachi':
+      return 'https://res.cloudinary.com/zedani/image/upload/v1605098418/store-sopocachi_zinbqg.jpg';
+    default:
+      return 'https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg';
+  }
+};
 const CardGoalStore = ({ user, store, goal }) => {
   const classes = useStyles();
-  const urlImage =
-    store === 'patrick'
-      ? 'https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg'
-      : 'https://image.shutterstock.com/image-vector/storefront-city-vector-illustration-restaurant-260nw-626771693.jpg';
+  const urlImage = imageUrlStore(store);
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.cover} image={urlImage} />

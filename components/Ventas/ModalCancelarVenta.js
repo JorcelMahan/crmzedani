@@ -5,9 +5,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Delete from '@material-ui/icons/Delete';
-
-function ModalDeleteVenta({ id, cancelarVenta }) {
+import DeleteSweepIcon from '@material-ui/icons/DeleteSweep';
+const ModalCancelarVenta = ({ id, anularVenta }) => {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -16,11 +15,10 @@ function ModalDeleteVenta({ id, cancelarVenta }) {
   const handleClose = () => {
     setOpen(false);
   };
-
   return (
     <div>
       <Button variant='outlined' color='primary' onClick={handleClickOpen}>
-        <Delete />
+        <DeleteSweepIcon />
       </Button>
       <Dialog
         open={open}
@@ -29,7 +27,7 @@ function ModalDeleteVenta({ id, cancelarVenta }) {
         aria-describedby='alert-dialog-description'
       >
         <DialogTitle id='alert-dialog-title'>
-          {'Estas seguro que desea eliminar la venta?'}
+          {'Estas seguro que desea anular la venta?'}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id='alert-dialog-description'>
@@ -42,7 +40,7 @@ function ModalDeleteVenta({ id, cancelarVenta }) {
           </Button>
           <Button
             onClick={() => {
-              cancelarVenta({
+              anularVenta({
                 variables: {
                   id,
                 },
@@ -58,6 +56,6 @@ function ModalDeleteVenta({ id, cancelarVenta }) {
       </Dialog>
     </div>
   );
-}
+};
 
-export default ModalDeleteVenta;
+export default ModalCancelarVenta;
