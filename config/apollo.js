@@ -39,6 +39,11 @@ const client = new ApolloClient({
               return incomming;
             },
           },
+          zapatosAlmacen: {
+            merge(existing, incomming) {
+              return incomming;
+            },
+          },
         },
       },
     },
