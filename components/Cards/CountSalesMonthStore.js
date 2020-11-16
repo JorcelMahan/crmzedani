@@ -49,9 +49,10 @@ const CountSalesMonthStore = ({ store, goal }) => {
 
   if (loading) return 'Loading';
   if (error) return `Error ${error.message}`;
+
   return (
     <div>
-      {data.salesMonthByStore >= Number(goal) ? (
+      {/* {data.salesMonthByStore >= Number(goal) ? (
         <Goal2 store={store} goal={goal} sales={data.salesMonthByStore} />
       ) : (
         <>
@@ -60,7 +61,9 @@ const CountSalesMonthStore = ({ store, goal }) => {
           </p>
           <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
         </>
-      )}
+      )} */}
+      <p>Zapatos & Marroquineria {data.salesMonthByStore[0]}</p>
+      <p>Plantillas & Acc Limpieza {data.salesMonthByStore[1]}</p>
     </div>
   );
 };
