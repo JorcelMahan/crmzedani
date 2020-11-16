@@ -20,6 +20,11 @@ const GET_VENTAS = gql`
     }
   }
 `;
+const GET_VENTAS_BY_RANGE_OF_DATES = gql`
+  query salesByRangeOfDate($initial: String!, $finish: String!) {
+    salesByRangeOfDate(initial: $initial, finish: $finish)
+  }
+`;
 
 const useStyles = makeStyles({
   root: {
@@ -28,12 +33,16 @@ const useStyles = makeStyles({
   card: {
     // minWidth: 275,
     marginTop: '1rem  ',
-    // border: '1px solid red',
+    borderRadius: '16px',
+    boxShadow: '0px 7px 20px rgba(34, 35, 58, 0.2)',
+    background: '#ffffff',
+    display: 'flex',
   },
 
   title: {
     fontSize: '1.2rem',
     color: '#D32F2F',
+    textTransform: 'uppercase',
   },
   pos: {
     marginBottom: '1rem',
@@ -52,8 +61,44 @@ const useStyles = makeStyles({
   divGoal: {
     fontSize: '1.2rem',
   },
+  cardGoal2: {
+    fontSize: '1.5rem',
+  },
 });
 
+const Count2 = ({ initial, finish }) => {
+  const classes = useStyles();
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_VENTAS_BY_RANGE_OF_DATES,
+    {
+      variables: {
+        initial,
+        finish,
+      },
+    }
+  );
+  useEffect(() => {
+    startPolling(5000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
+
+  if (loading) return 'Loading';
+  if (error) return `Error: ${error}`;
+  return (
+    <div className={classes.cardGoal2}>
+      <div style={{ marginBottom: '2px' }}>
+        <i>"Si crees que puedes, ya estas a medio camino"</i>
+      </div>
+      <hr />
+      <p style={{ marginTop: '5px' }}>
+        Meta: {data.salesByRangeOfDate} de 4500
+      </p>
+      <p>Falta: {4500 - data.salesByRangeOfDate}</p>
+    </div>
+  );
+};
 const Count = ({ month, startDay, endDay }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS,
@@ -118,6 +163,20 @@ export default function GoalWeek() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <CardGoalStore user={user} store='patrick' goal='1000' />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color='textSecondary'
+              gutterBottom
+            >
+              16 NOV - 31 DIC
+            </Typography>
+            <Count2 initial='2020-11-16' finish='2020-12-31' />
+          </CardContent>
+        </Card>
       </Grid>
       {(user === 'patrick' ||
         user === 'kathryn' ||

@@ -70,14 +70,14 @@ const CardGoalStore = ({ user, store, goal }) => {
           <p>
             Dia: <CountDayStore store={store} />
           </p>
-
+          {/* 
           {(user === 'patrick' ||
             user === 'kathryn' ||
             user === 'laura' ||
             user === 'fabio' ||
             user === store) && (
             <CountSalesMonthStore store={store} goal={goal} />
-          )}
+          )} */}
         </div>
       </CardContent>
     </Card>
