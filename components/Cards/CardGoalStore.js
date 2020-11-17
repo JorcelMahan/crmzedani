@@ -74,8 +74,7 @@ const CardGoalStore = ({ user, store, goal }) => {
           {(user === 'patrick' ||
             user === 'kathryn' ||
             user === 'laura' ||
-            user === 'fabio' ||
-            user === store) && (
+            user === 'fabio') && (
             <CountSalesMonthStore store={store} goal={goal} />
           )}
         </div>

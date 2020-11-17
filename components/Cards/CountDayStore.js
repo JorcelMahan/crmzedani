@@ -15,6 +15,7 @@ const CountDayStore = ({ store }) => {
     })
     .split('/');
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
+  console.log(currDateStr);
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS_DAY_BY_STORE,
     {
