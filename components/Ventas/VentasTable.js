@@ -98,8 +98,11 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                           {venta.productos.map((product, j) => (
                             <p key={`${product.codigo}-${j}`}>
                               {product.codigo} - {product.color} -
-                              {product.sizeSale}- Bs {product.precioPublico} #
-                              <b>{product.quantity}</b>
+                              {product.sizeSale} - Bs{' '}
+                              {product.precioPromocion !== 0
+                                ? product.precioPublico
+                                : product.precioPromocion}{' '}
+                              #<b>{product.quantity}</b>
                             </p>
                           ))}
                         </TableCell>

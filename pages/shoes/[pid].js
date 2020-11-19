@@ -64,6 +64,7 @@ const GET_SHOE = gql`
         t43
         t44
         t45
+        t46
       }
       image
       stock
@@ -491,7 +492,6 @@ const EditShoe = () => {
   if (loading) return <Loader />;
   if (error) return `Error, ${error.message}`;
   const { zapato } = data;
-  console.log(zapato);
   return (
     <>
       <h2>Edit zapato</h2>

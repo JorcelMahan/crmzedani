@@ -13,7 +13,11 @@ const GET_ZAPATOS = gql`
       almacen
       color
       precioPublico
+      precioPromotora
+      precioPromocion
       tipo
+      catalogo
+      marca
       tallas {
         t27
         t28
@@ -34,6 +38,7 @@ const GET_ZAPATOS = gql`
         t43
         t44
         t45
+        t46
       }
     }
   }
@@ -53,7 +58,7 @@ const DavidTnt = () => {
     };
   }, [startPolling, stopPolling]);
   if (loading) return <Loader />;
-  if (error) return `Error ${error.message}`;
+  if (error) return `Error ${error.graphQLErrors}`;
   const { zapatosAlmacen } = data;
 
   return <WrapperZapatos zapatos={zapatosAlmacen} almacen='David TNT' />;

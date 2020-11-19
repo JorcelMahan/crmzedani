@@ -1,4 +1,3 @@
-
 import React, { useReducer } from 'react';
 import VentasContext from './VentasContext';
 import VentasReducer from './VentasReducer';
@@ -12,6 +11,7 @@ import {
   REMOVE_PRODUCT,
   ADD_QUANTITY,
   REST_QUANTITY,
+  ADD_PRECIO_PROMOCION,
 } from '../../types';
 
 const VentasState = ({ children }) => {
@@ -29,7 +29,7 @@ const VentasState = ({ children }) => {
       payload: products,
     });
   };
-  const removeProduct = product=> {
+  const removeProduct = (product) => {
     dispatch({
       type: REMOVE_PRODUCT,
       payload: product,
@@ -72,6 +72,12 @@ const VentasState = ({ children }) => {
       payload: product,
     });
   };
+  const addPrecioPromocion = (product) => {
+    dispatch({
+      type: ADD_PRECIO_PROMOCION,
+      payload: product,
+    });
+  };
   return (
     <VentasContext.Provider
       value={{
@@ -87,6 +93,7 @@ const VentasState = ({ children }) => {
         removeProduct,
         addQuantity,
         restQuantity,
+        addPrecioPromocion,
       }}
     >
       {children}

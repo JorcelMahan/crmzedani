@@ -27,6 +27,7 @@ const SALES_BY_DATE = gql`
         codigo
         color
         precioPublico
+        precioPromocion
         image
         sizeSale
         quantity

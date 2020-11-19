@@ -109,35 +109,37 @@ const ListZapatos = (props) => {
   const classes = useStyles();
   const authContext = useContext(AuthContext);
   const { user } = authContext;
-  zapatos.forEach((zapato) => {
-    csvData.push([
-      // ++index,
-      zapato.almacen,
-      zapato.codigo,
-      zapato.color,
-      zapato.tallas['t27'] ? zapato.tallas['t27'] : 0,
-      zapato.tallas['t28'] ? zapato.tallas['t28'] : 0,
-      zapato.tallas['t29'] ? zapato.tallas['t29'] : 0,
-      zapato.tallas['t30'] ? zapato.tallas['t30'] : 0,
-      zapato.tallas['t31'] ? zapato.tallas['t31'] : 0,
-      zapato.tallas['t32'] ? zapato.tallas['t32'] : 0,
-      zapato.tallas['t33'] ? zapato.tallas['t33'] : 0,
-      zapato.tallas['t34'] ? zapato.tallas['t34'] : 0,
-      zapato.tallas['t35'] ? zapato.tallas['t35'] : 0,
-      zapato.tallas['t36'] ? zapato.tallas['t36'] : 0,
-      zapato.tallas['t37'] ? zapato.tallas['t37'] : 0,
-      zapato.tallas['t38'] ? zapato.tallas['t38'] : 0,
-      zapato.tallas['t39'] ? zapato.tallas['t39'] : 0,
-      zapato.tallas['t40'] ? zapato.tallas['t40'] : 0,
-      zapato.tallas['t41'] ? zapato.tallas['t41'] : 0,
-      zapato.tallas['t42'] ? zapato.tallas['t42'] : 0,
-      zapato.tallas['t43'] ? zapato.tallas['t43'] : 0,
-      zapato.tallas['t44'] ? zapato.tallas['t44'] : 0,
-      zapato.tallas['t45'] ? zapato.tallas['t45'] : 0,
-      zapato.tallas['t46'] ? zapatos.tallas['t46'] : 0,
-      zapato.stock,
-    ]);
-  });
+  if (zapatos > 0) {
+    zapatos.forEach((zapato) => {
+      csvData.push([
+        // ++index,
+        zapato.almacen,
+        zapato.codigo,
+        zapato.color,
+        zapato.tallas['t27'] ? zapato.tallas['t27'] : 0,
+        zapato.tallas['t28'] ? zapato.tallas['t28'] : 0,
+        zapato.tallas['t29'] ? zapato.tallas['t29'] : 0,
+        zapato.tallas['t30'] ? zapato.tallas['t30'] : 0,
+        zapato.tallas['t31'] ? zapato.tallas['t31'] : 0,
+        zapato.tallas['t32'] ? zapato.tallas['t32'] : 0,
+        zapato.tallas['t33'] ? zapato.tallas['t33'] : 0,
+        zapato.tallas['t34'] ? zapato.tallas['t34'] : 0,
+        zapato.tallas['t35'] ? zapato.tallas['t35'] : 0,
+        zapato.tallas['t36'] ? zapato.tallas['t36'] : 0,
+        zapato.tallas['t37'] ? zapato.tallas['t37'] : 0,
+        zapato.tallas['t38'] ? zapato.tallas['t38'] : 0,
+        zapato.tallas['t39'] ? zapato.tallas['t39'] : 0,
+        zapato.tallas['t40'] ? zapato.tallas['t40'] : 0,
+        zapato.tallas['t41'] ? zapato.tallas['t41'] : 0,
+        zapato.tallas['t42'] ? zapato.tallas['t42'] : 0,
+        zapato.tallas['t43'] ? zapato.tallas['t43'] : 0,
+        zapato.tallas['t44'] ? zapato.tallas['t44'] : 0,
+        zapato.tallas['t45'] ? zapato.tallas['t45'] : 0,
+        zapato.tallas['t46'] ? zapatos.tallas['t46'] : 0,
+        zapato.stock,
+      ]);
+    });
+  }
 
   // var for pagination
   const [page, setPage] = useState(0);
@@ -159,7 +161,7 @@ const ListZapatos = (props) => {
   }, [zapatos]);
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
-      {loading && <p>LOADING ... </p>}
+      {loading && <p>...</p>}
       <CardContent className={classes.content}>
         <PerfectScrollbar>
           <div className={classes.inner}>

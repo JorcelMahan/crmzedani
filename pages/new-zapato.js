@@ -100,6 +100,7 @@ const NewZapato = () => {
         t43: 0,
         t44: 0,
         t45: 0,
+        t46: 0,
       },
     },
     onSubmit: async (values) => {
@@ -128,6 +129,10 @@ const NewZapato = () => {
               costo: Number(costo),
               marca,
               precioPublico: Number(precioPublico),
+              precioPromocion: Number(0),
+              precioPromotora:
+                precioPublico -
+                (precioPublico * Number(descuentoPromotora)) / 100,
               tallas,
               tipo,
               image,

@@ -43,8 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ModalZapato = (props) => {
-  const { zapato } = props;
+const ModalZapato = ({ zapato }) => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [size, setsize] = useState('');
@@ -69,7 +68,17 @@ const ModalZapato = (props) => {
   // format the shoe before add
   // validate
   const addCarrito = () => {
-    const { id, codigo, color, precioPublico, image, tipo } = zapato;
+    const {
+      id,
+      codigo,
+      color,
+      precioPublico,
+      image,
+      tipo,
+      precioPromocion,
+      marca,
+      catalogo,
+    } = zapato;
     const newShoe = {
       id,
       codigo,
@@ -78,6 +87,9 @@ const ModalZapato = (props) => {
       image,
       sizeSale: size,
       tipo,
+      precioPromocion,
+      marca,
+      catalogo,
     };
 
     addProduct(newShoe);

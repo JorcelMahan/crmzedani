@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -36,6 +36,7 @@ const ReviewTable = () => {
     restQuantity,
     addQuantity,
     removeProduct,
+    addPrecioPromocion,
   } = useContext(VentasContext);
 
   return (
@@ -54,6 +55,7 @@ const ReviewTable = () => {
             <TableCell>Descripcion</TableCell>
             <TableCell align='right'>Cantidad</TableCell>
             <TableCell align='right'>Unidad</TableCell>
+            <TableCell align='right'>P. Descuento</TableCell>
             <TableCell align='right'>Suma</TableCell>
           </TableRow>
         </TableHead>
@@ -91,13 +93,27 @@ const ReviewTable = () => {
               </TableCell>
               <TableCell align='right'>Bs. {product.precioPublico}</TableCell>
               <TableCell align='right'>
-                Bs. {product.quantity * product.precioPublico}
+                <input
+                  type='number'
+                  value={product.precioPromocion}
+                  style={{ width: '30%', padding: '5px' }}
+                  onChange={(e) => {
+                    product.precioPromocion = Number(e.target.value);
+                    addPrecioPromocion(product);
+                  }}
+                />
+              </TableCell>
+              <TableCell align='right'>
+                Bs.{' '}
+                {product.precioPromocion === 0
+                  ? product.quantity * product.precioPublico
+                  : product.quantity * product.precioPromocion}
               </TableCell>
             </TableRow>
           ))}
           <TableRow>
-            <TableCell rowSpan={3} />
-            <TableCell colSpan={4}>Total</TableCell>
+            <TableCell rowSpan={1} />
+            <TableCell colSpan={5}>Total</TableCell>
             <TableCell align='right'>{total}</TableCell>
           </TableRow>
         </TableBody>

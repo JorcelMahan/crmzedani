@@ -139,9 +139,8 @@ const Count = ({ month, startDay, endDay }) => {
 
   return (
     <div>
-      Zapatos & Marroquineria: <b>{totalShoes}</b>
-      <br />
-      Plantillas & Acc Limpieza: <b>{totalAccesorios}</b>
+      Z & M = <b>{totalShoes}</b>
+      <br />P & A.L = <b>{totalAccesorios}</b>
     </div>
   );
 };

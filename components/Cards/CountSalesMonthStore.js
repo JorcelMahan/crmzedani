@@ -62,8 +62,8 @@ const CountSalesMonthStore = ({ store, goal }) => {
           <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
         </>
       )} */}
-      <p>Zapatos & Marroquineria {data.salesMonthByStore[0]}</p>
-      <p>Plantillas & Acc Limpieza {data.salesMonthByStore[1]}</p>
+      <p>Z & M = {data.salesMonthByStore[0]}</p>
+      <p>P & A.L = {data.salesMonthByStore[1]}</p>
     </div>
   );
 };
