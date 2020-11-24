@@ -101,7 +101,7 @@ function SalidaCheckout() {
     totalProducts,
     resetState,
   } = salidaContext;
-  const [addSalida] = useMutation(ADD_SALIDA);
+  const [addSalida, { loading, error }] = useMutation(ADD_SALIDA);
 
   const handleClick = async () => {
     try {
@@ -145,6 +145,8 @@ function SalidaCheckout() {
               </Step>
             ))}
           </Stepper>
+          {loading && <p>Loading</p>}
+          {error && <p>{error.stack}</p>}
           <>
             {getStepContent(activeStep, setActiveBtn)}
             <div className={classes.buttons}>
