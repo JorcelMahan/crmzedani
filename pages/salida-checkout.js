@@ -12,6 +12,8 @@ import SalidaContext from '../context/salidas/SalidaContext';
 import { useMutation, gql } from '@apollo/client';
 import DataSalida from '../components/Salidas/DataSalida';
 import SalidaReview from '../components/Salidas/SalidaReview';
+import Loader from '../components/Loader';
+import Alert from '@material-ui/lab/Alert';
 
 const ADD_SALIDA = gql`
   mutation addSalida($input: SalidaInput) {
@@ -145,8 +147,8 @@ function SalidaCheckout() {
               </Step>
             ))}
           </Stepper>
-          {loading && <p>Loading</p>}
-          {error && <p>{error.stack}</p>}
+          {loading && <Loader />}
+          {error && <Alert severity='error'>{error.message}</Alert>}
           <>
             {getStepContent(activeStep, setActiveBtn)}
             <div className={classes.buttons}>
@@ -161,6 +163,7 @@ function SalidaCheckout() {
                   color='primary'
                   onClick={handleClick}
                   className={classes.button}
+                  disabled={loading}
                 >
                   Confirmar Salida
                 </Button>

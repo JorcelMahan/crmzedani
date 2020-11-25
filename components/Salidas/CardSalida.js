@@ -69,7 +69,7 @@ const CardSalida = ({ salida }) => {
   ] = useMutation(RETURN_SALIDA);
   const [
     transferSalida,
-    { laoding: tranferLoading, error: transferError },
+    { loading: tranferLoading, error: transferError },
   ] = useMutation(TRANSFER_SALIDA);
 
   let almacenes = [

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import ListZapatos from './ListZapatos';
 import ZapatoToolbar from './ZapatoToolbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -8,6 +8,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import AuthContext from '../../context/auth/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,7 @@ function TabPanel(props) {
 }
 
 const WrapperZapatos = ({ zapatos, almacen }) => {
+  const { user } = useContext(AuthContext);
   const classes = useStyles();
   const { field, setfield, filteredElem } = useFilterBy(
     zapatos,
@@ -97,17 +99,19 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
   return (
     <div className={classes.root}>
       <h2>{almacen}</h2>
+      {(user === 'patrick' || almacen === 'Sopocachi') && (
+        <FormControlLabel
+          control={
+            <Switch
+              checked={tableMode}
+              onChange={handleTableMode}
+              inputProps={{ 'aria-label': 'Ver en una tabla' }}
+            />
+          }
+          label='Ver en una tabla'
+        />
+      )}
 
-      <FormControlLabel
-        control={
-          <Switch
-            checked={tableMode}
-            onChange={handleTableMode}
-            inputProps={{ 'aria-label': 'Ver en una tabla' }}
-          />
-        }
-        label='Ver en una tabla'
-      />
       <ZapatoToolbar
         csvData={csvData}
         query={query}
