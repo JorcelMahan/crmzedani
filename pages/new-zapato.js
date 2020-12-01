@@ -16,7 +16,6 @@ import Alert from '@material-ui/lab/Alert';
 import ModalAddColor from '../components/Zapatos/ModalAddColor';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Fade from '@material-ui/core/Fade';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const ADD_ZAPATO = gql`
@@ -65,9 +64,8 @@ const NewZapato = () => {
     'https://www.vippng.com/png/detail/7-76841_shoe-icon-shoes-png.png'
   );
   const [msg, setMsg] = useState(null);
-  const [isSave, setIsSave] = useState(false);
   const showMsg = () => <Alert severity='error'> {msg}</Alert>;
-  const [addZapato] = useMutation(ADD_ZAPATO);
+  const [addZapato, { loading, error }] = useMutation(ADD_ZAPATO);
   const [colors, setColors] = useState([]);
   const formik = useFormik({
     initialValues: {
@@ -76,7 +74,7 @@ const NewZapato = () => {
       catalogo: '',
       marca: '',
       tipo: '',
-      costo: '',
+      costo: 0,
       descuentoPromotora: '',
       precioPublico: '',
       almacen: 'miraflores',
@@ -131,25 +129,26 @@ const NewZapato = () => {
             input: {
               codigo,
               color,
-              almacen,
+              tallas,
+              costo: Number(costo),
               descuentoPromotora: Number(descuentoPromotora),
               catalogo,
-              costo: Number(costo),
               marca,
-              precioPublico: Number(precioPublico),
-              precioPromocion: Number(0),
-              precioPromotora:
-                precioPublico -
-                (precioPublico * Number(descuentoPromotora)) / 100,
-              tallas,
               tipo,
               image,
+              almacen,
+              precioPublico: Number(precioPublico),
               precioPromocion: 0,
+              precioPromotora: Math.round(
+                precioPublico -
+                  (precioPublico * Number(descuentoPromotora)) / 100
+              ),
             },
           },
         });
         await router.push(`/productos/${almacen}`);
       } catch (error) {
+        console.log(error);
         setMsg(error.message.replace('GraphQL error:', ''));
         setTimeout(() => {
           setMsg(null);
@@ -583,21 +582,13 @@ const NewZapato = () => {
             </Grid>
             {msg && showMsg()}
             <Grid item xs={12}>
-              <Fade
-                in={isSave}
-                style={{
-                  transitionDelay: isSave ? '800ms' : '0ms',
-                }}
-                unmountOnExit
-              >
-                <CircularProgress />
-              </Fade>
+              {loading && <CircularProgress />}
+              {error && <p>{error.graphQLErrors}</p>}
               <Button
                 size='small'
                 variant='contained'
                 color='primary'
                 type='submit'
-                onClick={() => setIsSave(true)}
               >
                 Guardar Zapato
               </Button>
