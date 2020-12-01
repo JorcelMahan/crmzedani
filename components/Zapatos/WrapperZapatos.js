@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AuthContext from '../../context/auth/AuthContext';
+import ListZapatosChildren from './ListZapatosChildren';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +64,11 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if (newValue === 1) {
+      setfield('niños');
+    } else {
+      setfield('todos');
+    }
   };
   const handleTableMode = (e) => {
     setTableMode(e.target.checked);
@@ -72,6 +78,14 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
       '#',
       'codigo',
       'color',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
       '27',
       '28',
       '29',
@@ -123,7 +137,7 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
       <div className={classes.content}>
         <Tabs value={value} onChange={handleChange}>
           <Tab label='Tienda' />
-          <Tab label='Reservas' />
+          <Tab label='Niños' />
         </Tabs>
         <TabPanel value={value} index={0}>
           {!tableMode ? (
@@ -133,7 +147,11 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
           )}
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Reservas
+          {!tableMode ? (
+            <ListCardViewProducts zapatos={filteredItems} />
+          ) : (
+            <ListZapatosChildren zapatos={filteredItems} csvData={csvData} />
+          )}
         </TabPanel>
       </div>
     </div>

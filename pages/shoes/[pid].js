@@ -45,6 +45,14 @@ const GET_SHOE = gql`
       precioPublico
       almacen
       tallas {
+        t19
+        t20
+        t21
+        t22
+        t23
+        t24
+        t25
+        t26
         t27
         t28
         t29
@@ -194,8 +202,8 @@ const WrapperZapato = ({ zapato, id }) => {
                         'hombre',
                         'mujer',
                         'seguridad',
-                        'niño',
-                        'niña',
+                        'niños',
+                        'escolar',
                         'enfermera',
                         'accesorios',
                         'marroquineria',
@@ -295,7 +303,7 @@ const WrapperZapato = ({ zapato, id }) => {
                         onChange={props.handleChange}
                       />
                     ))}
-                  {props.values.tipo === 'niña' &&
+                  {props.values.tipo === 'escolar' &&
                     [
                       't27',
                       't28',
@@ -320,19 +328,22 @@ const WrapperZapato = ({ zapato, id }) => {
                         onChange={props.handleChange}
                       />
                     ))}
-                  {props.values.tipo === 'niño' &&
+                  {props.values.tipo === 'niños' &&
                     [
+                      't19',
+                      't20',
+                      't21',
+                      't22',
+                      't23',
+                      't24',
+                      't25',
+                      't26',
                       't27',
                       't28',
                       't29',
                       't30',
                       't31',
                       't32',
-                      't33',
-                      't34',
-                      't35',
-                      't36',
-                      't37',
                     ].map((el) => (
                       <TextField
                         id={`tallas[${el}]`}

@@ -11,8 +11,16 @@ import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Sizes = ({ tallas }) => {
+const Sizes = ({ tallas, children }) => {
   const {
+    t19,
+    t20,
+    t21,
+    t22,
+    t23,
+    t24,
+    t25,
+    t26,
     t27,
     t28,
     t29,
@@ -34,28 +42,49 @@ const Sizes = ({ tallas }) => {
     t45,
     t46,
   } = tallas;
-  let sizes = [
-    t27,
-    t28,
-    t29,
-    t30,
-    t31,
-    t32,
-    t33,
-    t34,
-    t35,
-    t36,
-    t37,
-    t38,
-    t39,
-    t40,
-    t41,
-    t42,
-    t43,
-    t44,
-    t45,
-    t46,
-  ];
+  let sizes;
+
+  if (children) {
+    sizes = [
+      t19,
+      t20,
+      t21,
+      t22,
+      t23,
+      t24,
+      t25,
+      t26,
+      t27,
+      t28,
+      t29,
+      t30,
+      t31,
+      t32,
+    ];
+  } else {
+    sizes = [
+      t27,
+      t28,
+      t29,
+      t30,
+      t31,
+      t32,
+      t33,
+      t34,
+      t35,
+      t36,
+      t37,
+      t38,
+      t39,
+      t40,
+      t41,
+      t42,
+      t43,
+      t44,
+      t45,
+      t46,
+    ];
+  }
 
   return (
     <>
@@ -84,7 +113,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Zapato = ({ zapato, i }) => {
+const Zapato = ({ zapato, i, children }) => {
   const { codigo, image, color, stock, tallas, id, almacen } = zapato;
   const authContext = useContext(AuthContext);
   const { user } = authContext;
@@ -108,7 +137,7 @@ const Zapato = ({ zapato, i }) => {
       </TableCell>
       <TableCell>{codigo}</TableCell>
       <TableCell>{color}</TableCell>
-      <Sizes tallas={tallas} />
+      <Sizes tallas={tallas} children={children} />
       <TableCell>{stock}</TableCell>
       {user === 'patrick' && (
         <TableCell>

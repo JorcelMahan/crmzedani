@@ -19,6 +19,14 @@ const GET_ZAPATOS = gql`
       marca
       tipo
       tallas {
+        t19
+        t20
+        t21
+        t22
+        t23
+        t24
+        t25
+        t26
         t27
         t28
         t29

@@ -14,6 +14,7 @@ export const useSearch = (items, x) => {
 
 export const useFilterBy = (items, x, initialValue) => {
   const [field, setfield] = useState(initialValue);
+
   const [filteredElem, setfilteredElem] = useState(items);
   useMemo(() => {
     const result =

@@ -136,6 +136,7 @@ const NewZapato = () => {
               tallas,
               tipo,
               image,
+              precioPromocion: 0,
             },
           },
         });
@@ -277,8 +278,8 @@ const NewZapato = () => {
                         'hombre',
                         'mujer',
                         'seguridad',
-                        'niño',
-                        'niña',
+                        'niños',
+                        'escolar',
                         'enfermera',
                         'accesorios',
                         'marroquineria',
@@ -418,7 +419,7 @@ const NewZapato = () => {
                         />
                       </FormControl>
                     ))}
-                  {formik.values.tipo === 'niña' &&
+                  {formik.values.tipo === 'escolar' &&
                     [
                       't27',
                       't28',
@@ -445,19 +446,22 @@ const NewZapato = () => {
                         />
                       </FormControl>
                     ))}
-                  {formik.values.tipo === 'niño' &&
+                  {formik.values.tipo === 'niños' &&
                     [
+                      't19',
+                      't20',
+                      't21',
+                      't22',
+                      't23',
+                      't24',
+                      't25',
+                      't26',
                       't27',
                       't28',
                       't29',
                       't30',
                       't31',
                       't32',
-                      't33',
-                      't34',
-                      't35',
-                      't36',
-                      't37',
                     ].map((el) => (
                       <FormControl className={classes.formControl} key={el}>
                         <TextField

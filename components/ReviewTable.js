@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -38,7 +38,6 @@ const ReviewTable = () => {
     removeProduct,
     addPrecioPromocion,
   } = useContext(VentasContext);
-
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table}>
@@ -95,7 +94,7 @@ const ReviewTable = () => {
               <TableCell align='right'>
                 <input
                   type='number'
-                  value={product.precioPromocion}
+                  value={product.precioPromocion ? product.precioPromocion : 0}
                   style={{ width: '30%', padding: '5px' }}
                   onChange={(e) => {
                     product.precioPromocion = Number(e.target.value);
@@ -105,7 +104,8 @@ const ReviewTable = () => {
               </TableCell>
               <TableCell align='right'>
                 Bs.{' '}
-                {product.precioPromocion === 0
+                {product.precioPromocion === 0 ||
+                product.precioPromocion === null
                   ? product.quantity * product.precioPublico
                   : product.quantity * product.precioPromocion}
               </TableCell>

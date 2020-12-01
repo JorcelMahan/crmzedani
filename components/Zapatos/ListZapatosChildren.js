@@ -103,7 +103,7 @@ const TablePaginationActions = (props) => {
   );
 };
 
-const ListZapatos = (props) => {
+const ListZapatosChildren = (props) => {
   const { zapatos, csvData, className, ...rest } = props;
   const router = useRouter();
   const classes = useStyles();
@@ -116,14 +116,6 @@ const ListZapatos = (props) => {
         zapato.almacen,
         zapato.codigo,
         zapato.color,
-        zapato.tallas['t19'] ? zapato.tallas['t19'] : 0,
-        zapato.tallas['t20'] ? zapato.tallas['t20'] : 0,
-        zapato.tallas['t21'] ? zapato.tallas['t21'] : 0,
-        zapato.tallas['t22'] ? zapato.tallas['t22'] : 0,
-        zapato.tallas['t23'] ? zapato.tallas['t23'] : 0,
-        zapato.tallas['t24'] ? zapato.tallas['t24'] : 0,
-        zapato.tallas['t25'] ? zapato.tallas['t25'] : 0,
-        zapato.tallas['t26'] ? zapato.tallas['t26'] : 0,
         zapato.tallas['t27'] ? zapato.tallas['t27'] : 0,
         zapato.tallas['t28'] ? zapato.tallas['t28'] : 0,
         zapato.tallas['t29'] ? zapato.tallas['t29'] : 0,
@@ -189,26 +181,20 @@ const ListZapatos = (props) => {
                   <TableCell>Image</TableCell>
                   <TableCell>Codigo</TableCell>
                   <TableCell>Color</TableCell>
+                  <TableCell>19</TableCell>
+                  <TableCell>20</TableCell>
+                  <TableCell>21</TableCell>
+                  <TableCell>22</TableCell>
+                  <TableCell>23</TableCell>
+                  <TableCell>24</TableCell>
+                  <TableCell>25</TableCell>
+                  <TableCell>26</TableCell>
                   <TableCell>27</TableCell>
                   <TableCell>28</TableCell>
                   <TableCell>29</TableCell>
                   <TableCell>30</TableCell>
                   <TableCell>31</TableCell>
                   <TableCell>32</TableCell>
-                  <TableCell>33</TableCell>
-                  <TableCell>34</TableCell>
-                  <TableCell>35</TableCell>
-                  <TableCell>36</TableCell>
-                  <TableCell>37</TableCell>
-                  <TableCell>38</TableCell>
-                  <TableCell>39</TableCell>
-                  <TableCell>40</TableCell>
-                  <TableCell>41</TableCell>
-                  <TableCell>42</TableCell>
-                  <TableCell>43</TableCell>
-                  <TableCell>44</TableCell>
-                  <TableCell>45</TableCell>
-                  <TableCell>46</TableCell>
                   <TableCell>Stock</TableCell>
 
                   {user === 'patrick' && <TableCell>Editar</TableCell>}
@@ -230,7 +216,7 @@ const ListZapatos = (props) => {
                       zapato={zapato}
                       i={index}
                       classes={classes}
-                      children={false}
+                      children={true}
                     />
                   );
                 })}
@@ -258,4 +244,4 @@ const ListZapatos = (props) => {
   );
 };
 
-export default ListZapatos;
+export default ListZapatosChildren;

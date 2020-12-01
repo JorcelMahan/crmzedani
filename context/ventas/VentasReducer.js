@@ -61,7 +61,7 @@ export default (state, action) => {
         total: state.products.reduce(
           (acum, obj) =>
             acum +
-            (obj.precioPromocion === 0
+            (obj.precioPromocion === 0 || obj.precioPromocion === null
               ? obj.precioPublico
               : obj.precioPromocion) *
               obj.quantity,
