@@ -193,7 +193,7 @@ export default function GoalWeek() {
                 {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
 
-              <Count month='10' startDay='1' endDay='30' />
+              <Count month='11' startDay='1' endDay='31' />
             </CardContent>
           </Card>
         </Grid>
