@@ -12,6 +12,20 @@ export const useSearch = (items, x) => {
   return { query, setQuery, filteredItems };
 };
 
+export const useSearchMore = (items, x, y, z) => {
+  const [query, setQuery] = useState('');
+  const [filteredItems, setfilteredItems] = useState(items);
+  useMemo(() => {
+    const result = items.filter((item) => {
+      return `${item[x]} ${item[y]} ${item[z]}`
+        .toLowerCase()
+        .includes(query.toLowerCase());
+    });
+    setfilteredItems(result);
+  }, [items, query]);
+  return { query, setQuery, filteredItems };
+};
+
 export const useFilterBy = (items, x, initialValue) => {
   const [field, setfield] = useState(initialValue);
 
