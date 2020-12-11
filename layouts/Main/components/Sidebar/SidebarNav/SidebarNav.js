@@ -15,6 +15,7 @@ import ShoppingBasket from '@material-ui/icons/ShoppingBasket';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Link from 'next/link';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const SidebarNav = (props) => {
   const { pages, className, ...rest } = props;
   const [open, setOpen] = useState(false);
+  const [openClientes, setOpenClientes] = useState(false);
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const handleClick = () => {
@@ -64,7 +66,7 @@ const SidebarNav = (props) => {
   };
   const classes = useStyles();
   return (
-    <List {...rest} className={clsx(classes.root, className)}>
+    <List {...rest} className={classes.root}>
       {pages.map((page) => (
         <ListItem className={classes.item} disableGutters key={page.title}>
           <Link href={page.href}>
@@ -78,9 +80,38 @@ const SidebarNav = (props) => {
       <ListItem
         className={classes.item}
         disableGutters
+        onClick={() => setOpenClientes(!openClientes)}
+        style={{ marginLeft: '8px' }}>
+        <div className={classes.icon}>
+          <AccountBoxIcon />
+        </div>
+        <ListItemText
+          primary='Clientes'
+          style={{ letterSpacing: 0, fontWeight: 500, fontFamily: null }}
+        />
+        {openClientes ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={openClientes} timeout='auto' unmountOnExit>
+        <ListItem button className={classes.nested}>
+          <Link href='/clientes/inti'>
+            <a>
+              <ListItemText primary='INTI' />
+            </a>
+          </Link>
+        </ListItem>
+        <ListItem button className={classes.nested}>
+          <Link href='/clientes/rtp'>
+            <a>
+              <ListItemText primary='RTP' />
+            </a>
+          </Link>
+        </ListItem>
+      </Collapse>
+      <ListItem
+        className={classes.item}
+        disableGutters
         onClick={handleClick}
-        style={{ marginLeft: '8px' }}
-      >
+        style={{ marginLeft: '8px' }}>
         <div className={classes.icon}>
           <ShoppingBasket />
         </div>
