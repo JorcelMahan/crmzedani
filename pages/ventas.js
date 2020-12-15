@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useQuery, gql, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import VentasTable from '../components/Ventas/VentasTable';
 import CajaState from '../context/caja/CajaState';
-import BoxCaja from '../components/Ventas/BoxCaja';
+// import BoxCaja from '../components/Ventas/BoxCaja';
 import Loader from '../components/Loader';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import AuthContext from '../context/auth/AuthContext';
+
 const CANCELAR_VENTA = gql`
   mutation cancelarVenta($id: ID!) {
     cancelarVenta(id: $id)
@@ -18,8 +21,8 @@ const ANULAR_VENTA = gql`
 `;
 
 const SALES_BY_DATE = gql`
-  query salesByDate($date: String!) {
-    salesByDate(date: $date) {
+  query salesStoreByDate($store: String!, $date: String!) {
+    salesStoreByDate(store: $store, date: $date) {
       id
       total
       fechaDeCompra
@@ -54,8 +57,17 @@ const useStyles = makeStyles((theme) => ({
   content: {
     marginTop: theme.spacing(2),
   },
+  formControl: {
+    margin: theme.spacing(1),
+  },
+  boxDateStore: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '50%',
+  },
 }));
 const Ventas = () => {
+  const { user } = useContext(AuthContext);
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
@@ -66,10 +78,16 @@ const Ventas = () => {
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
   const [initialDate, setDate] = useState(currDateStr);
   const [salesDate, setSalesDate] = useState([]);
+  const [store, setStore] = useState(
+    user === 'kathryn' || user === 'fabio' || user === 'laura'
+      ? 'patrick'
+      : user
+  );
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     SALES_BY_DATE,
     {
       variables: {
+        store: store,
         date: initialDate,
       },
     }
@@ -85,7 +103,7 @@ const Ventas = () => {
   const [close, setCLose] = useState(false);
   useEffect(() => {
     if (data) {
-      setSalesDate(data.salesByDate);
+      setSalesDate(data.salesStoreByDate);
     }
     startPolling(1000);
     return () => {
@@ -101,15 +119,45 @@ const Ventas = () => {
   return (
     <CajaState>
       <div className={classes.root}>
-        <div>
-          Fecha:
-          <input
-            type='date'
-            value={initialDate}
-            onChange={(e) => setDate(e.target.value)}
-          />
+        <div className={classes.boxDateStore}>
+          <div>
+            Fecha:
+            <input
+              type='date'
+              value={initialDate}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
+          {(user === 'patrick' ||
+            user === 'kathryn' ||
+            user === 'fabio' ||
+            user === 'laura') && (
+            <div>
+              Tienda:
+              <FormControl className={classes.formControl} variant='outlined'>
+                <InputLabel id='store'>Tienda</InputLabel>
+                <Select
+                  id='store'
+                  name='store'
+                  labelId='store'
+                  value={store}
+                  onChange={(e) => {
+                    setStore(e.target.value);
+                  }}>
+                  {['sopocachi', 'san miguel', 'miraflores', 'patrick'].map(
+                    (e) => (
+                      <MenuItem key={e} value={e}>
+                        {e}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+              </FormControl>
+            </div>
+          )}
         </div>
-        <BoxCaja />
+        {/* <BoxCaja /> */}
+
         <div className={classes.content}>
           {!close ? (
             <VentasTable
