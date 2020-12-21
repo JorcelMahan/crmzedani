@@ -8,6 +8,7 @@ export const SELECT_CLIENTE = 'SELECT_CLIENTE';
 export const ADD_QUANTITY = 'ADD_QUANTITY';
 export const REST_QUANTITY = 'REST_QUANTITY';
 export const ADD_PRECIO_PROMOCION = 'ADD_PRECIO_PROMOCION';
+export const ADD_FECHA_VENTA = 'ADD_FECHA_VENTA';
 // cajas
 export const SET_CAJA = 'SET_CAJA';
 

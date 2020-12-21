@@ -60,7 +60,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>
-                  {user === 'patrick' && <TableCell>Tienda</TableCell>}
+
                   <TableCell>Fecha</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
                   <TableCell>Productos</TableCell>
@@ -84,10 +84,9 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                           venta.status === 'COMPLET0'
                             ? classes.tableRow
                             : classes.tableRowCancelado
-                        )}
-                      >
+                        )}>
                         <TableCell>{++i}</TableCell>
-                        {user === 'patrick' && <TableCell>tienda</TableCell>}
+
                         <TableCell>
                           {formatDate.toLocaleDateString('es-MX')}
                         </TableCell>

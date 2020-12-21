@@ -8,6 +8,7 @@ import {
   ADD_QUANTITY,
   REST_QUANTITY,
   ADD_PRECIO_PROMOCION,
+  ADD_FECHA_VENTA,
 } from '../../types';
 
 const addQuantity = (shoes, newShoe) => {
@@ -110,6 +111,12 @@ export default (state, action) => {
     case RESET_STATE: {
       return {
         ...action.payload,
+      };
+    }
+    case ADD_FECHA_VENTA: {
+      return {
+        ...state,
+        fecha: new Date(action.payload),
       };
     }
     default:

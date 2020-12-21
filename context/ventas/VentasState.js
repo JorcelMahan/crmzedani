@@ -12,6 +12,7 @@ import {
   ADD_QUANTITY,
   REST_QUANTITY,
   ADD_PRECIO_PROMOCION,
+  ADD_FECHA_VENTA,
 } from '../../types';
 
 const VentasState = ({ children }) => {
@@ -20,6 +21,7 @@ const VentasState = ({ children }) => {
     total: 0,
     promotora: '',
     cliente: '',
+    fecha: new Date(),
   };
 
   const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -78,6 +80,13 @@ const VentasState = ({ children }) => {
       payload: product,
     });
   };
+
+  const addDateOfSales = (fecha) => {
+    dispatch({
+      type: ADD_FECHA_VENTA,
+      payload: fecha,
+    });
+  };
   return (
     <VentasContext.Provider
       value={{
@@ -94,6 +103,8 @@ const VentasState = ({ children }) => {
         addQuantity,
         restQuantity,
         addPrecioPromocion,
+        addDateOfSales,
+        fecha: state.fecha,
       }}
     >
       {children}

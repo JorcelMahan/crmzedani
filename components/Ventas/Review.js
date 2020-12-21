@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import VentasContext from '../../context/ventas/VentasContext';
 import { makeStyles } from '@material-ui/core/styles';
 import ReviewTable from '../ReviewTable';
@@ -25,7 +25,23 @@ const useStyles = makeStyles((theme) => ({
 const Review = () => {
   const classes = useStyles();
   const ventasContext = useContext(VentasContext);
-  const { products, promotora, cliente, calcTotal } = ventasContext;
+  const {
+    products,
+    promotora,
+    cliente,
+    calcTotal,
+    fecha,
+    addDateOfSales,
+  } = ventasContext;
+  const formatDate = fecha
+    .toLocaleString('es-MX', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
+    })
+    .split('/');
+  const currDateStr = `${formatDate[2]}-${formatDate[1]}-${formatDate[0]}`;
+  const [initialDate, setDate] = useState(currDateStr);
   useEffect(() => {
     calcTotal();
   }, [products]);
@@ -52,7 +68,16 @@ const Review = () => {
           </b>
         </p>
       </div>
-
+      <div style={{ display: 'none' }}>
+        <input
+          type='date'
+          value={initialDate}
+          onChange={(e) => {
+            setDate(e.target.value);
+            addDateOfSales(e.target.value);
+          }}
+        />
+      </div>
       <ReviewTable />
     </div>
   );
