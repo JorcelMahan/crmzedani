@@ -105,8 +105,7 @@ const VentasState = ({ children }) => {
         addPrecioPromocion,
         addDateOfSales,
         fecha: state.fecha,
-      }}
-    >
+      }}>
       {children}
     </VentasContext.Provider>
   );

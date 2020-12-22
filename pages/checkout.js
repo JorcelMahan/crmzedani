@@ -74,14 +74,7 @@ function Checkout() {
   const [activeBtn, setActiveBtn] = useState(true);
   const router = useRouter();
   const ventasContext = useContext(VentasContext);
-  const {
-    products,
-    promotora,
-    total,
-    cliente,
-    resetState,
-    fecha,
-  } = ventasContext;
+  const { products, promotora, total, cliente, resetState } = ventasContext;
   const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
   const handleClick = async () => {
     try {
@@ -92,7 +85,6 @@ function Checkout() {
             idPromotora: promotora.id ? promotora.id : null,
             cliente: cliente.id ? cliente.id : null,
             total,
-            fecha,
           },
         },
       });
@@ -141,8 +133,7 @@ function Checkout() {
                   variant='contained'
                   color='primary'
                   onClick={handleClick}
-                  className={classes.button}
-                >
+                  className={classes.button}>
                   Confirmar Venta
                 </Button>
               ) : (
@@ -151,8 +142,7 @@ function Checkout() {
                   color='primary'
                   onClick={handleNext}
                   className={classes.button}
-                  disabled={activeBtn}
-                >
+                  disabled={activeBtn}>
                   Siguiente
                 </Button>
               )}

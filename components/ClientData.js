@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import VentasContext from '../context/ventas/VentasContext';
 import { useQuery, gql, useMutation } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, TextField } from '@material-ui/core';
+import { Box, CircularProgress, TextField } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Loader from '../components/Loader';
 import Alert from '@material-ui/lab/Alert';
@@ -63,7 +63,7 @@ const RazonSocial = ({ nitoci, setActiveBtn }) => {
     }
   }, [nitoci]);
 
-  if (loading) return '.....';
+  if (loading) return <CircularProgress color='secondary' />;
   if (loadingClient) return <Loader />;
   if (error) return `${error}`;
   const handleChange = (e) => {
