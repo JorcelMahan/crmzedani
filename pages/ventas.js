@@ -45,6 +45,9 @@ const SALES_BY_DATE = gql`
       }
       status
       user
+      metodo
+      factura
+      reciboNota
     }
   }
 `;

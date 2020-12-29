@@ -9,6 +9,9 @@ import {
   REST_QUANTITY,
   ADD_PRECIO_PROMOCION,
   ADD_FECHA_VENTA,
+  ADD_FACTURA,
+  ADD_METODO_PAGO,
+  ADD_RECIBO_NOTA,
 } from '../../types';
 
 const addQuantity = (shoes, newShoe) => {
@@ -119,6 +122,27 @@ export default (state, action) => {
       return {
         ...state,
         fecha: new Date(action.payload),
+      };
+    }
+
+    case ADD_RECIBO_NOTA: {
+      return {
+        ...state,
+        reciboNota: action.payload,
+      };
+    }
+
+    case ADD_FACTURA: {
+      return {
+        ...state,
+        factura: action.payload,
+      };
+    }
+
+    case ADD_METODO_PAGO: {
+      return {
+        ...state,
+        metodo: action.payload,
       };
     }
     default:

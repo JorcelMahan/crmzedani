@@ -2,7 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import VentasContext from '../../context/ventas/VentasContext';
 import { makeStyles } from '@material-ui/core/styles';
 import ReviewTable from '../ReviewTable';
-import { Typography } from '@material-ui/core';
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  Typography,
+  Input,
+  Box,
+  Divider,
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   boxReview: {
@@ -32,6 +40,9 @@ const Review = () => {
     calcTotal,
     fecha,
     addDateOfSales,
+    metodo,
+    factura,
+    reciboNota,
   } = ventasContext;
   const formatDate = fecha
     .toLocaleString('es-MX', {
@@ -50,24 +61,43 @@ const Review = () => {
       <Typography variant='h3' className={classes.title}>
         Confirma los datos
       </Typography>
-      <div className={classes.boxData}>
-        <p>
+      <Divider />
+      <Box
+        display='flex'
+        justifyContent='space-around'
+        alignItems='center'
+        m={2}>
+        <Box>
           NIT:
           <b style={{ paddingLeft: '1rem' }}>
             {promotora !== null && promotora !== '' && promotora !== undefined
               ? promotora.nit
               : cliente.nitoci}
           </b>
-        </p>
-        <p>
+        </Box>
+        <Box>
           RazonSocial:
           <b style={{ paddingLeft: '1rem' }}>
             {promotora !== null && promotora !== '' && promotora !== undefined
               ? promotora.razonSocial
               : cliente.razonSocial}
           </b>
-        </p>
-      </div>
+        </Box>
+        {factura !== '' ? (
+          <Box>
+            <Typography> Factura :{factura}</Typography>
+          </Box>
+        ) : (
+          <Box>
+            <Typography> Nota o Recibo : {reciboNota}</Typography>
+          </Box>
+        )}
+
+        <Box>
+          <Typography> Metodo: {metodo}</Typography>
+        </Box>
+      </Box>
+
       <div style={{ display: 'none' }}>
         <input
           type='date'

@@ -9,6 +9,10 @@ export const ADD_QUANTITY = 'ADD_QUANTITY';
 export const REST_QUANTITY = 'REST_QUANTITY';
 export const ADD_PRECIO_PROMOCION = 'ADD_PRECIO_PROMOCION';
 export const ADD_FECHA_VENTA = 'ADD_FECHA_VENTA';
+export const ADD_METODO_PAGO = 'ADD_METODO_PAGO';
+export const ADD_FACTURA = 'ADD_FACTURA';
+export const ADD_RECIBO_NOTA = 'ADD_RECIBO_NOTA';
+
 // cajas
 export const SET_CAJA = 'SET_CAJA';
 

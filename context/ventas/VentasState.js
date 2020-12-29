@@ -13,6 +13,9 @@ import {
   REST_QUANTITY,
   ADD_PRECIO_PROMOCION,
   ADD_FECHA_VENTA,
+  ADD_FACTURA,
+  ADD_METODO_PAGO,
+  ADD_RECIBO_NOTA,
 } from '../../types';
 
 const VentasState = ({ children }) => {
@@ -22,6 +25,9 @@ const VentasState = ({ children }) => {
     promotora: '',
     cliente: '',
     fecha: new Date(),
+    metodo: 'EFECTIVO',
+    factura: '',
+    reciboNota: '',
   };
 
   const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -87,6 +93,24 @@ const VentasState = ({ children }) => {
       payload: fecha,
     });
   };
+  const addFactura = (factura) => {
+    dispatch({
+      type: ADD_FACTURA,
+      payload: factura,
+    });
+  };
+  const addMetodoPago = (metodo) => {
+    dispatch({
+      type: ADD_METODO_PAGO,
+      payload: metodo,
+    });
+  };
+  const addReciboNota = (recibo) => {
+    dispatch({
+      type: ADD_RECIBO_NOTA,
+      payload: recibo,
+    });
+  };
   return (
     <VentasContext.Provider
       value={{
@@ -94,6 +118,10 @@ const VentasState = ({ children }) => {
         promotora: state.promotora,
         total: state.total,
         cliente: state.cliente,
+        fecha: state.fecha,
+        factura: state.factura,
+        metodo: state.metodo,
+        reciboNota: state.reciboNota,
         resetState,
         addProduct,
         selectPromotora,
@@ -104,7 +132,9 @@ const VentasState = ({ children }) => {
         restQuantity,
         addPrecioPromocion,
         addDateOfSales,
-        fecha: state.fecha,
+        addFactura,
+        addReciboNota,
+        addMetodoPago,
       }}>
       {children}
     </VentasContext.Provider>

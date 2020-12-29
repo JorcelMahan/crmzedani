@@ -8,6 +8,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import DataClients from '../components/Ventas/DataClients';
+import DataSale from '../components/Ventas/DataSale';
 import Review from '../components/Ventas/Review';
 import { useRouter } from 'next/router';
 import VentasContext from '../context/ventas/VentasContext';
@@ -55,14 +56,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Datos del comprador', 'Revisa la orden'];
+const steps = ['Datos del comprador', 'Datos de la factura', 'Revisa'];
 
 function getStepContent(step, setActiveBtn) {
   switch (step) {
     case 0:
       return <DataClients setActiveBtn={setActiveBtn} />;
     case 1:
+      return <DataSale setActiveBtn={setActiveBtn} />;
+    case 2:
       return <Review />;
+
     default:
       throw new Error('Unknown step');
   }
@@ -74,7 +78,16 @@ function Checkout() {
   const [activeBtn, setActiveBtn] = useState(true);
   const router = useRouter();
   const ventasContext = useContext(VentasContext);
-  const { products, promotora, total, cliente, resetState } = ventasContext;
+  const {
+    products,
+    promotora,
+    total,
+    cliente,
+    resetState,
+    metodo,
+    reciboNota,
+    factura,
+  } = ventasContext;
   const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
   const handleClick = async () => {
     try {
@@ -84,6 +97,9 @@ function Checkout() {
             productos: products,
             idPromotora: promotora.id ? promotora.id : null,
             cliente: cliente.id ? cliente.id : null,
+            metodo,
+            reciboNota,
+            factura,
             total: Number(total),
           },
         },

@@ -16,47 +16,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const ProductItem = ({ product }) => {
-  const classes = useStyles();
-  const { image, codigo, color, sizeSale, quantity } = product;
-  const [open, setOpen] = useState(false);
-  const cantidad = [];
-  for (let i = 1; i <= quantity; i++) {
-    cantidad.push(i);
-  }
+  const { codigo, color, sizeSale, quantity } = product;
+
   const handleClick = () => {
     setOpen(!open);
   };
   return (
-    <>
-      <ListItem button onClick={handleClick}>
-        <ListItemAvatar>
-          <Avatar>
-            <img src={image} alt={codigo} />
-          </Avatar>
-        </ListItemAvatar>
-        <ListItemText
-          primary={`${codigo} ${color} ${sizeSale}`}
-          secondary={`Cantidad: ${quantity}`}
-        />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={open} timeout='auto' unmountOnExit>
-        <List component='div' disablePadding>
-          {cantidad.map((el, index) => (
-            <ListItem
-              key={`${index}-${color}`}
-              button
-              className={classes.nested}
-            >
-              <ListItemText
-                primary={`${codigo} ${color} ${sizeSale}`}
-                secondary={el}
-              />
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </>
+    <ListItem button onClick={handleClick}>
+      <ListItemText
+        primary={`${codigo} ${color} ${sizeSale}`}
+        secondary={`Cantidad: ${quantity}`}
+      />
+    </ListItem>
   );
 };
 

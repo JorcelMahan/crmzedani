@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 
 const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
   const { user } = useContext(AuthContext);
-  let totalAcumulate = 0;
+  let totalEfectivo = 0;
+  let totalTarjeta = 0;
   const classes = useStyles();
   // const { loading, error, data } = useQuery(GET_USER_BY_ID, {
   //   variables: {
@@ -61,11 +62,13 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                 <TableRow>
                   <TableCell>#</TableCell>
 
-                  <TableCell>Fecha</TableCell>
+                  <TableCell>Factura o Nota</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
                   <TableCell>Productos</TableCell>
-                  <TableCell>Total</TableCell>
-                  <TableCell>Acumulado</TableCell>
+                  <TableCell>Efectivo</TableCell>
+                  <TableCell>Tarjeta</TableCell>
+                  <TableCell>Total Efectivo</TableCell>
+                  <TableCell>Total Tarjeta</TableCell>
                   <TableCell>Anular</TableCell>
                   {user === 'patrick' && <TableCell>Eliminar</TableCell>}
                 </TableRow>
@@ -74,7 +77,11 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                 {ventas.length > 0 &&
                   ventas.map((venta, i) => {
                     if (venta.status === 'COMPLET0') {
-                      totalAcumulate += venta.total;
+                      if (venta.metodo === 'EFECTIVO') {
+                        totalEfectivo += venta.total;
+                      } else {
+                        totalTarjeta += venta.total;
+                      }
                     }
                     const formatDate = new Date(Number(venta.fechaDeCompra));
                     return (
@@ -88,7 +95,8 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                         <TableCell>{++i}</TableCell>
 
                         <TableCell>
-                          {formatDate.toLocaleDateString('es-MX')}
+                          {venta.factura ? venta.factura : '-'}
+                          {/* {formatDate.toLocaleDateString('es-MX')} */}
                         </TableCell>
                         <TableCell>
                           {venta.idPromotora !== null ? 'Promotora' : 'Cliente'}
@@ -105,8 +113,14 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                             </p>
                           ))}
                         </TableCell>
-                        <TableCell>{venta.total}</TableCell>
-                        <TableCell>{totalAcumulate}</TableCell>
+                        <TableCell>
+                          {venta.metodo === 'EFECTIVO' ? venta.total : '-'}
+                        </TableCell>
+                        <TableCell>
+                          {venta.metodo === 'TARJETA' ? venta.total : '-'}
+                        </TableCell>
+                        <TableCell>{totalEfectivo}</TableCell>
+                        <TableCell>{totalTarjeta}</TableCell>
                         {venta.status === 'COMPLET0' ? (
                           <TableCell>
                             <ModalCancelarVenta
@@ -117,6 +131,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                         ) : (
                           <TableCell>Anulado</TableCell>
                         )}
+
                         {user === 'patrick' && (
                           <TableCell>
                             <ModalDeleteVenta

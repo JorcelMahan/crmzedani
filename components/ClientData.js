@@ -19,7 +19,11 @@ const GET_CLIENTE_BY_NIT = gql`
 
 const NEW_CLIENTE = gql`
   mutation newCliente($input: ClienteInput) {
-    newCliente(input: $input)
+    newCliente(input: $input) {
+      id
+      razonSocial
+      nitoci
+    }
   }
 `;
 
@@ -37,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const RazonSocial = ({ nitoci, setActiveBtn }) => {
-  const { selectCliente } = useContext(VentasContext);
+  const { selectCliente, selectPromotora } = useContext(VentasContext);
   const [
     newCliente,
     { loading: loadingClient, error: errorClient },
@@ -48,13 +52,18 @@ const RazonSocial = ({ nitoci, setActiveBtn }) => {
     },
   });
   const [razonSocial, setRazonSocial] = useState('');
-  //   const [idNewClient, setIdNewClient] = useState(false);
+
   useEffect(() => {
     if (data) {
       if (data.getNITCliente) {
         setActiveBtn(false);
         setRazonSocial(data.getNITCliente.razonSocial);
-        selectCliente(data.getNITCliente.id);
+        selectCliente({
+          id: data.getNITCliente.id,
+          razonSocial: data.getNITCliente.razonSocial,
+          nitoci: data.getNITCliente.nitoci,
+        });
+        selectPromotora('');
       } else {
         setActiveBtn(true);
         setRazonSocial('');
@@ -80,9 +89,10 @@ const RazonSocial = ({ nitoci, setActiveBtn }) => {
         },
       });
       alert('Cliente creado con exito');
+      console.log(msg);
       selectCliente(msg.data.newCliente);
       setActiveBtn(false);
-      //   setIdNewClient(true);
+      selectPromotora('');
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +123,11 @@ const RazonSocial = ({ nitoci, setActiveBtn }) => {
 const ClientData = ({ setActiveBtn }) => {
   const classes = useStyles();
   const [nitoci, setNitoci] = useState('');
+  useEffect(() => {
+    if (nitoci === '') {
+      setActiveBtn(true);
+    }
+  }, [nitoci]);
   return (
     <div className={classes.boxNewClient}>
       <h2>Datos del Cliente</h2>
