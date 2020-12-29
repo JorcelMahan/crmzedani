@@ -8,8 +8,8 @@ const WrapperZapatos = dynamic(() =>
 );
 
 const GET_ZAPATOS = gql`
-  query zapatosAlmacen($almacen: String!) {
-    zapatosAlmacen(almacen: $almacen) {
+  query zapatosAlmacen($almacen: String!, $color: String, $talla: String) {
+    zapatosAlmacen(almacen: $almacen, color: $color, talla: $talla) {
       id
       codigo
       stock
@@ -57,10 +57,12 @@ const GET_ZAPATOS = gql`
 `;
 
 const Miraflores = () => {
+  const [color, setColor] = useState('');
+  const [talla, setTalla] = useState('');
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
-      variables: { almacen: 'miraflores' },
+      variables: { almacen: 'miraflores', color, talla },
     }
   );
 
@@ -69,11 +71,19 @@ const Miraflores = () => {
     return () => {
       stopPolling();
     };
-  }, [startPolling, stopPolling]);
+  }, [startPolling, stopPolling, color, talla]);
   if (loading) return <Loader />;
-  if (error) return `Error ${error.stack}`;
+  if (error) return `Error ${error}`;
   const { zapatosAlmacen } = data;
 
-  return <WrapperZapatos zapatos={zapatosAlmacen} almacen='Miraflores' />;
+  return (
+    <WrapperZapatos
+      zapatos={zapatosAlmacen}
+      almacen='Miraflores'
+      setColor={setColor}
+      setTalla={setTalla}
+      talla={talla}
+    />
+  );
 };
 export default Miraflores;

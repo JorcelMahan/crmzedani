@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
 import Loader from '../../components/Loader';
 
 const GET_ZAPATOS = gql`
-  query zapatos {
-    zapatos {
+  query zapatos($color: String, $talla: String) {
+    zapatos(color: $color, talla: $talla) {
       id
       codigo
       stock
@@ -53,8 +53,17 @@ const GET_ZAPATOS = gql`
 `;
 
 function zapatos() {
+  const [color, setColor] = useState('');
+  const [talla, setTalla] = useState('');
+
   const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_ZAPATOS
+    GET_ZAPATOS,
+    {
+      variables: {
+        color,
+        talla,
+      },
+    }
   );
   useEffect(() => {
     startPolling(1000);
@@ -66,7 +75,15 @@ function zapatos() {
   if (error) return `Error es aqui ${error.message}`;
   const { zapatos } = data;
 
-  return <WrapperZapatos zapatos={zapatos} almacen='Todos' />;
+  return (
+    <WrapperZapatos
+      zapatos={zapatos}
+      almacen='Todos'
+      setColor={setColor}
+      setTalla={setTalla}
+      talla={talla}
+    />
+  );
 }
 
 export default zapatos;

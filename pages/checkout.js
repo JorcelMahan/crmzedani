@@ -84,7 +84,7 @@ function Checkout() {
             productos: products,
             idPromotora: promotora.id ? promotora.id : null,
             cliente: cliente.id ? cliente.id : null,
-            total,
+            total: Number(total),
           },
         },
       });

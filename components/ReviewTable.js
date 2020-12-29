@@ -64,8 +64,7 @@ const ReviewTable = () => {
               <TableCell>
                 <IconButton
                   fontSize='small'
-                  onClick={() => removeProduct(product)}
-                >
+                  onClick={() => removeProduct(product)}>
                   <DeleteIcon />
                 </IconButton>
               </TableCell>
@@ -94,10 +93,12 @@ const ReviewTable = () => {
               <TableCell align='right'>
                 <input
                   type='number'
+                  min='0'
+                  step='.01'
                   value={product.precioPromocion ? product.precioPromocion : 0}
-                  style={{ width: '30%', padding: '5px' }}
+                  style={{ width: '35%', padding: '5px' }}
                   onChange={(e) => {
-                    product.precioPromocion = Number(e.target.value);
+                    product.precioPromocion = e.target.value;
                     addPrecioPromocion(product);
                   }}
                 />

@@ -18,7 +18,7 @@ import {
 const VentasState = ({ children }) => {
   const initialState = {
     products: [],
-    total: 0,
+    total: '0',
     promotora: '',
     cliente: '',
     fecha: new Date(),

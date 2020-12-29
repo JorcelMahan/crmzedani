@@ -39,3 +39,17 @@ export const useFilterBy = (items, x, initialValue) => {
   }, [items, field]);
   return { field, setfield, filteredElem };
 };
+
+export const useFilterByTalla = (items, initialValue) => {
+  const [talla, settalla] = useState(initialValue);
+
+  const [filteredTalla, setfilteredTalla] = useState(items);
+  useMemo(() => {
+    const result =
+      talla === 'todos'
+        ? items
+        : items.filter((item) => item.tallas[talla] > 0);
+    setfilteredTalla(result);
+  }, [items, talla]);
+  return { talla, settalla, filteredTalla };
+};

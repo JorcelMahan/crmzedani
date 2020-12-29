@@ -104,7 +104,9 @@ export default (state, action) => {
             product.color === action.payload.color &&
             product.sizeSale === action.payload.sizeSale
           )
-            product.precioPromocion = action.payload.precioPromocion;
+            product.precioPromocion = parseFloat(
+              action.payload.precioPromocion
+            );
           return product;
         }),
       };

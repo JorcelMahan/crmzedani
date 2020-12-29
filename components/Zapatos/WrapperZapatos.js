@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import ListZapatos from './ListZapatos';
 import ZapatoToolbar from './ZapatoToolbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,6 +10,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import AuthContext from '../../context/auth/AuthContext';
 import ListZapatosChildren from './ListZapatosChildren';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,14 +45,12 @@ function TabPanel(props) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+      {...other}>
       {value === index && <>{children}</>}
     </div>
   );
 }
-
-const WrapperZapatos = ({ zapatos, almacen }) => {
+const WrapperZapatos = ({ zapatos, almacen, setColor, setTalla, talla }) => {
   const { user } = useContext(AuthContext);
   const classes = useStyles();
   const { field, setfield, filteredElem } = useFilterBy(
@@ -62,6 +61,15 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
   const { query, setQuery, filteredItems } = useSearch(filteredElem, 'codigo');
   const [tableMode, setTableMode] = useState(true);
   const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (
+      Number(talla.substring(1, 3)) >= 19 &&
+      Number(talla.substring(1, 3)) <= 32
+    ) {
+      setValue(1);
+      setfield('niños');
+    }
+  }, [talla]);
   const handleChange = (event, newValue) => {
     setValue(newValue);
     if (newValue === 1) {
@@ -112,7 +120,15 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
 
   return (
     <div className={classes.root}>
-      <h2>{almacen}</h2>
+      <Button
+        style={{ fontSize: '2rem' }}
+        onClick={() => {
+          setTalla('');
+          setColor('');
+        }}>
+        {almacen}
+      </Button>
+      <br />
       {(user === 'patrick' || almacen === 'Sopocachi') && (
         <FormControlLabel
           control={
@@ -133,6 +149,9 @@ const WrapperZapatos = ({ zapatos, almacen }) => {
         field={field}
         setfield={setfield}
         totalZapatos={getTotalOfShoes(filteredItems)}
+        setColor={setColor}
+        setTalla={setTalla}
+        talla={talla}
       />
       <div className={classes.content}>
         <Tabs value={value} onChange={handleChange}>

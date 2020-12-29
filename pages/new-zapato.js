@@ -10,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation, gql, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import Alert from '@material-ui/lab/Alert';
 import ModalAddColor from '../components/Zapatos/ModalAddColor';
@@ -23,6 +23,16 @@ const ADD_ZAPATO = gql`
     addZapato(input: $input)
   }
 `;
+
+const GET_COLORS = gql`
+  query colors {
+    colors {
+      id
+      nombre
+    }
+  }
+`;
+
 const useStyles = makeStyles((theme) => ({
   card: {
     width: '100%',
@@ -67,6 +77,7 @@ const NewZapato = () => {
   const showMsg = () => <Alert severity='error'> {msg}</Alert>;
   const [addZapato, { loading, error }] = useMutation(ADD_ZAPATO);
   const [colors, setColors] = useState([]);
+  const { loading: loading2, error: error2, data } = useQuery(GET_COLORS);
   const formik = useFormik({
     initialValues: {
       codigo: '',
@@ -179,27 +190,12 @@ const NewZapato = () => {
     }
   };
   useEffect(() => {
-    const source = axios.CancelToken.source();
-
-    async function getColors() {
-      try {
-        const result = await axios.get(
-          'https://zedanibackend.herokuapp.com/api/colors',
-          {
-            cancelToken: source.token,
-          }
-        );
-        setColors(result.data);
-      } catch (e) {
-        console.log(e);
-      }
+    if (data) {
+      setColors(data.colors);
     }
-
-    getColors();
-    return () => {
-      source.cancel();
-    };
-  }, [colors]);
+  }, [data]);
+  if (loading2) return 'Loading';
+  if (error2) return `${error}`;
   return (
     <Grid container spacing={2} style={{ padding: '2rem' }}>
       <Grid item xs={12}>
@@ -225,8 +221,7 @@ const NewZapato = () => {
                     <FormControl
                       className={classes.formControl}
                       variant='outlined'
-                      style={{ flexGrow: 1 }}
-                    >
+                      style={{ flexGrow: 1 }}>
                       <InputLabel htmlFor='color'>Color</InputLabel>
                       <Select
                         native
@@ -236,11 +231,10 @@ const NewZapato = () => {
                           name: 'color',
                         }}
                         value={formik.values.color}
-                        onChange={formik.handleChange}
-                      >
+                        onChange={formik.handleChange}>
                         <option aria-label='None' value='' />
                         {colors.map((color) => (
-                          <option key={color._id} value={color.name}>
+                          <option key={color.id} value={color.name}>
                             {color.nombre}
                           </option>
                         ))}
@@ -270,8 +264,7 @@ const NewZapato = () => {
                   </FormControl>
                   <FormControl
                     className={classes.formControl}
-                    variant='outlined'
-                  >
+                    variant='outlined'>
                     <InputLabel id='tipo'>Tipo</InputLabel>
                     <Select
                       id='tipo'
@@ -279,8 +272,7 @@ const NewZapato = () => {
                       labelId='tipo'
                       required
                       value={formik.values.tipo}
-                      onChange={formik.handleChange}
-                    >
+                      onChange={formik.handleChange}>
                       {[
                         'hombre',
                         'mujer',
@@ -299,8 +291,7 @@ const NewZapato = () => {
                   </FormControl>
                   <FormControl
                     className={classes.formControl}
-                    variant='outlined'
-                  >
+                    variant='outlined'>
                     <InputLabel id='almacen'>Almacen</InputLabel>
                     <Select
                       id='almacen'
@@ -308,8 +299,7 @@ const NewZapato = () => {
                       labelId='almacen'
                       required
                       value={formik.values.almacen}
-                      onChange={formik.handleChange}
-                    >
+                      onChange={formik.handleChange}>
                       {[
                         'sopocachi',
                         'san-miguel',
@@ -588,8 +578,7 @@ const NewZapato = () => {
                 size='small'
                 variant='contained'
                 color='primary'
-                type='submit'
-              >
+                type='submit'>
                 Guardar Zapato
               </Button>
             </Grid>

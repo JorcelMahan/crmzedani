@@ -66,15 +66,13 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label='first page'
-      >
+        aria-label='first page'>
         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label='previous page'
-      >
+        aria-label='previous page'>
         {theme.direction === 'rtl' ? (
           <KeyboardArrowRight />
         ) : (
@@ -84,8 +82,7 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='next page'
-      >
+        aria-label='next page'>
         {theme.direction === 'rtl' ? (
           <KeyboardArrowLeft />
         ) : (
@@ -95,8 +92,7 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='last page'
-      >
+        aria-label='last page'>
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>
@@ -161,10 +157,11 @@ const ListZapatos = (props) => {
     setPage(0);
   };
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setPage(0);
       setLoading(false);
     }, 1000);
+    return () => clearTimeout(timer);
   }, [zapatos]);
   return (
     <Card {...rest} className={clsx(classes.root, className)}>
@@ -175,8 +172,7 @@ const ListZapatos = (props) => {
             <Table
               className={classes.table}
               stickyHeader
-              aria-label='sticky table'
-            >
+              aria-label='sticky table'>
               <TableHead>
                 <TableRow>
                   {(user === 'patrick' || user === 'kathryn') &&
