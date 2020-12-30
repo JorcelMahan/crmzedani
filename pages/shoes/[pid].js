@@ -152,8 +152,7 @@ const WrapperZapato = ({ zapato, id }) => {
       initialValues={zapato}
       onSubmit={(values) => {
         updateShoe(values);
-      }}
-    >
+      }}>
       {(props) => {
         return (
           <form onSubmit={props.handleSubmit}>
@@ -196,8 +195,7 @@ const WrapperZapato = ({ zapato, id }) => {
                       labelId='tipo'
                       required
                       value={props.values.tipo}
-                      onChange={props.handleChange}
-                    >
+                      onChange={props.handleChange}>
                       {[
                         'hombre',
                         'mujer',
@@ -430,8 +428,7 @@ const WrapperZapato = ({ zapato, id }) => {
                       labelId='almacen'
                       required
                       value={props.values.almacen ? props.values.almacen : ''}
-                      onChange={props.handleChange}
-                    >
+                      onChange={props.handleChange}>
                       {[
                         'sopocachi',
                         'san-miguel',
@@ -478,8 +475,7 @@ const WrapperZapato = ({ zapato, id }) => {
                   size='small'
                   variant='contained'
                   color='primary'
-                  type='submit'
-                >
+                  type='submit'>
                   Guardar Zapato
                 </Button>
               </CardActions>

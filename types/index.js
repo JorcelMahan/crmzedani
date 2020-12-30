@@ -12,6 +12,8 @@ export const ADD_FECHA_VENTA = 'ADD_FECHA_VENTA';
 export const ADD_METODO_PAGO = 'ADD_METODO_PAGO';
 export const ADD_FACTURA = 'ADD_FACTURA';
 export const ADD_RECIBO_NOTA = 'ADD_RECIBO_NOTA';
+export const ADD_MONTO_EFECTIVO = 'ADD_MONTO_EFECTIVO';
+export const ADD_MONTO_TARJETA = 'ADD_MONTO_TARJETA';
 
 // cajas
 export const SET_CAJA = 'SET_CAJA';

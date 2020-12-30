@@ -2,15 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import VentasContext from '../../context/ventas/VentasContext';
 import { makeStyles } from '@material-ui/core/styles';
 import ReviewTable from '../ReviewTable';
-import {
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Typography,
-  Input,
-  Box,
-  Divider,
-} from '@material-ui/core';
+import { Typography, Box, Divider } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   boxReview: {
@@ -30,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Review = () => {
+const Review = ({ setActiveBtn }) => {
   const classes = useStyles();
   const ventasContext = useContext(VentasContext);
   const {
@@ -108,7 +100,7 @@ const Review = () => {
           }}
         />
       </div>
-      <ReviewTable />
+      <ReviewTable setActiveBtn={setActiveBtn} />
     </div>
   );
 };

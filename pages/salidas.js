@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import CardSalida from '../components/Salidas/CardSalida';
 import Loader from '../components/Loader';
 // import Link from 'next/link';
-import Router from 'next/router';
+import { useRouter } from 'next/router';
 
 const GET_SALIDAS = gql`
   query salidasByDate($date: String!) {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Salidas = () => {
   const classes = useStyles();
-  // const router = useRouter();
+  const router = useRouter();
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
@@ -91,7 +91,7 @@ const Salidas = () => {
               <Grid key={salida.id} item xs={12} sm={6} md={3}>
                 {/* <a
                   onClick={() => {
-                    Router.push({
+                    router.push({
                       pathname: '/salidas/[id]',
                       query: { id: salida.id },
                     });

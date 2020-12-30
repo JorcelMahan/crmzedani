@@ -67,6 +67,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                   <TableCell>Productos</TableCell>
                   <TableCell>Efectivo</TableCell>
                   <TableCell>Tarjeta</TableCell>
+                  <TableCell>Deposito</TableCell>
                   <TableCell>Total Efectivo</TableCell>
                   <TableCell>Total Tarjeta</TableCell>
                   <TableCell>Anular</TableCell>
@@ -79,7 +80,10 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                     if (venta.status === 'COMPLET0') {
                       if (venta.metodo === 'EFECTIVO') {
                         totalEfectivo += venta.total;
-                      } else {
+                      } else if (venta.metodo === 'EFECTIVO-TARJETA') {
+                        totalEfectivo += venta.montoEfectivo;
+                        totalTarjeta += venta.montoTarjeta;
+                      } else if (venta.metodo === 'TARJETA') {
                         totalTarjeta += venta.total;
                       }
                     }
@@ -114,10 +118,21 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                           ))}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === 'EFECTIVO' ? venta.total : '-'}
+                          {venta.metodo === 'EFECTIVO'
+                            ? venta.total
+                            : venta.metodo === 'EFECTIVO-TARJETA'
+                            ? venta.montoEfectivo
+                            : '-'}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === 'TARJETA' ? venta.total : '-'}
+                          {venta.metodo === 'TARJETA'
+                            ? venta.total
+                            : venta.metodo === 'EFECTIVO-TARJETA'
+                            ? venta.montoTarjeta
+                            : '-'}
+                        </TableCell>
+                        <TableCell>
+                          {venta.metodo === 'DEPOSITO' ? venta.total : '-'}
                         </TableCell>
                         <TableCell>{totalEfectivo}</TableCell>
                         <TableCell>{totalTarjeta}</TableCell>

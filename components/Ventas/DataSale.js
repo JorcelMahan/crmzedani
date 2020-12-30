@@ -55,6 +55,8 @@ const DataSale = ({ setActiveBtn }) => {
                 onChange={(e) => addMetodoPago(e.target.value)}>
                 <MenuItem value='EFECTIVO'>Efectivo</MenuItem>
                 <MenuItem value='TARJETA'>Tarjeta</MenuItem>
+                <MenuItem value='DEPOSITO'>Deposito</MenuItem>
+                <MenuItem value='EFECTIVO-TARJETA'>Efectivo-Tarjeta</MenuItem>
               </Select>
             </FormControl>
           </Box>

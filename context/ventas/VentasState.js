@@ -16,6 +16,8 @@ import {
   ADD_FACTURA,
   ADD_METODO_PAGO,
   ADD_RECIBO_NOTA,
+  ADD_MONTO_EFECTIVO,
+  ADD_MONTO_TARJETA,
 } from '../../types';
 
 const VentasState = ({ children }) => {
@@ -28,6 +30,8 @@ const VentasState = ({ children }) => {
     metodo: 'EFECTIVO',
     factura: '',
     reciboNota: '',
+    montoEfectivo: '0',
+    montoTarjeta: '0',
   };
 
   const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -111,6 +115,18 @@ const VentasState = ({ children }) => {
       payload: recibo,
     });
   };
+  const addMontoEfectivo = (efectivo) => {
+    dispatch({
+      type: ADD_MONTO_EFECTIVO,
+      payload: efectivo,
+    });
+  };
+  const addMontoTarjeta = (tarjeta) => {
+    dispatch({
+      type: ADD_MONTO_TARJETA,
+      payload: tarjeta,
+    });
+  };
   return (
     <VentasContext.Provider
       value={{
@@ -122,6 +138,8 @@ const VentasState = ({ children }) => {
         factura: state.factura,
         metodo: state.metodo,
         reciboNota: state.reciboNota,
+        montoEfectivo: state.montoEfectivo,
+        montoTarjeta: state.montoTarjeta,
         resetState,
         addProduct,
         selectPromotora,
@@ -135,6 +153,8 @@ const VentasState = ({ children }) => {
         addFactura,
         addReciboNota,
         addMetodoPago,
+        addMontoEfectivo,
+        addMontoTarjeta,
       }}>
       {children}
     </VentasContext.Provider>

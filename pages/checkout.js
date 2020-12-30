@@ -65,7 +65,7 @@ function getStepContent(step, setActiveBtn) {
     case 1:
       return <DataSale setActiveBtn={setActiveBtn} />;
     case 2:
-      return <Review />;
+      return <Review setActiveBtn={setActiveBtn} />;
 
     default:
       throw new Error('Unknown step');
@@ -87,6 +87,8 @@ function Checkout() {
     metodo,
     reciboNota,
     factura,
+    montoEfectivo,
+    montoTarjeta,
   } = ventasContext;
   const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
   const handleClick = async () => {
@@ -101,6 +103,8 @@ function Checkout() {
             reciboNota,
             factura,
             total: Number(total),
+            montoEfectivo: Number(montoEfectivo),
+            montoTarjeta: Number(montoTarjeta),
           },
         },
       });
@@ -149,7 +153,8 @@ function Checkout() {
                   variant='contained'
                   color='primary'
                   onClick={handleClick}
-                  className={classes.button}>
+                  className={classes.button}
+                  disabled={activeBtn}>
                   Confirmar Venta
                 </Button>
               ) : (

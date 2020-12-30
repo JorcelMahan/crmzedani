@@ -12,6 +12,8 @@ import {
   ADD_FACTURA,
   ADD_METODO_PAGO,
   ADD_RECIBO_NOTA,
+  ADD_MONTO_EFECTIVO,
+  ADD_MONTO_TARJETA,
 } from '../../types';
 
 const addQuantity = (shoes, newShoe) => {
@@ -143,6 +145,19 @@ export default (state, action) => {
       return {
         ...state,
         metodo: action.payload,
+      };
+    }
+    case ADD_MONTO_TARJETA: {
+      return {
+        ...state,
+        montoTarjeta: action.payload,
+      };
+    }
+
+    case ADD_MONTO_EFECTIVO: {
+      return {
+        ...state,
+        montoEfectivo: action.payload,
       };
     }
     default:

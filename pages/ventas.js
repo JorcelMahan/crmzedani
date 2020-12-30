@@ -48,6 +48,8 @@ const SALES_BY_DATE = gql`
       metodo
       factura
       reciboNota
+      montoEfectivo
+      montoTarjeta
     }
   }
 `;
