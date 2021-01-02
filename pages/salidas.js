@@ -6,6 +6,17 @@ import CardSalida from '../components/Salidas/CardSalida';
 import Loader from '../components/Loader';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';
+import {
+  Table,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  TableBody,
+  Button,
+  Box,
+} from '@material-ui/core';
 
 const GET_SALIDAS = gql`
   query salidasByDate($date: String!) {
@@ -45,7 +56,7 @@ const Salidas = () => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
-      month: 'numeric',
+      month: '2-digit',
       day: '2-digit',
     })
     .split('/');
@@ -76,7 +87,7 @@ const Salidas = () => {
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <h2>Salidas</h2>
+        <Typography>Salidas</Typography>
         <div>
           Fecha:
           <input
@@ -89,13 +100,6 @@ const Salidas = () => {
           {salidasDate.length > 0 ? (
             salidasDate.map((salida) => (
               <Grid key={salida.id} item xs={12} sm={6} md={3}>
-                {/* <a
-                  onClick={() => {
-                    router.push({
-                      pathname: '/salidas/[id]',
-                      query: { id: salida.id },
-                    });
-                  }}></a> */}
                 <CardSalida salida={salida} />
               </Grid>
             ))
@@ -103,6 +107,52 @@ const Salidas = () => {
             <p>No hay ninguna salida</p>
           )}
         </Grid>
+        <Box m={3}>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>#</TableCell>
+                  <TableCell>Codigo</TableCell>
+                  <TableCell>Retirado Hacia</TableCell>
+                  <TableCell>Retirado Por</TableCell>
+                  <TableCell>Cantidad</TableCell>
+                  <TableCell>Estado</TableCell>
+                  <TableCell>Ver Mas</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {salidasDate.map((salida, index) => (
+                  <TableRow key={salida.id}>
+                    <TableCell>{++index}</TableCell>
+                    <TableCell>{salida.id}</TableCell>
+                    <TableCell>
+                      {salida.retiradoHacia
+                        ? salida.retiradoHacia
+                        : 'No transferido'}
+                    </TableCell>
+                    <TableCell>{salida.retiradoPor}</TableCell>
+                    <TableCell>{salida.totalProducts}</TableCell>
+                    <TableCell>En espera</TableCell>
+                    <TableCell>
+                      <Button
+                        variant='contained'
+                        color='primary'
+                        onClick={() => {
+                          router.push({
+                            pathname: '/salidas/[id]',
+                            query: { id: salida.id },
+                          });
+                        }}>
+                        Ver mas
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Box>
       </div>
     </div>
   );

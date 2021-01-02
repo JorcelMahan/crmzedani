@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Zapato from './Zapato';
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardContent, TableContainer } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -30,6 +30,9 @@ const useStyles = makeStyles(() => ({
   },
   footer: {
     width: '100%',
+  },
+  container: {
+    maxHeight: 440,
   },
 }));
 
@@ -167,8 +170,8 @@ const ListZapatos = (props) => {
     <Card {...rest} className={clsx(classes.root, className)}>
       {loading && <p>...</p>}
       <CardContent className={classes.content}>
-        <PerfectScrollbar>
-          <div className={classes.inner}>
+        <>
+          <TableContainer className={classes.container}>
             <Table
               className={classes.table}
               stickyHeader
@@ -232,8 +235,8 @@ const ListZapatos = (props) => {
                 })}
               </TableBody>
             </Table>
-          </div>
-        </PerfectScrollbar>
+          </TableContainer>
+        </>
         <TablePagination
           component='div'
           rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}

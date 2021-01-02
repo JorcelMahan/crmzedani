@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   Table,
   TableHead,
@@ -7,6 +7,7 @@ import {
   TableBody,
   Card,
   CardContent,
+  Box,
 } from '@material-ui/core';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,15 +15,6 @@ import clsx from 'clsx';
 import ModalDeleteVenta from './ModalDeleteVenta';
 import AuthContext from '../../context/auth/AuthContext';
 import ModalCancelarVenta from './ModalCancelarVenta';
-// import { useQuery, gql } from '@apollo/client';
-
-// const GET_USER_BY_ID = gql`
-//   query getUserById($id: String!) {
-//     getUserById(id: $id) {
-//       name
-//     }
-//   }
-// `;
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -44,24 +36,32 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
   const { user } = useContext(AuthContext);
   let totalEfectivo = 0;
   let totalTarjeta = 0;
+  const caja =
+    user === 'sopocachi'
+      ? 250
+      : user === 'miraflores' || user === 'san miguel'
+      ? 500
+      : 0;
   const classes = useStyles();
-  // const { loading, error, data } = useQuery(GET_USER_BY_ID, {
-  //   variables: {
-  //     id: ventas.user,
-  //   },
-  // });
-  // if (loading) return 'Loading';
-  // if (error) return `Error: ${error.message}`;
+  useEffect(() => {
+    if (localStorage.totalEfectivo && localStorage.totalTarjeta) {
+      localStorage.totalEfectivo = totalEfectivo;
+      localStorage.totalTarjeta = totalTarjeta;
+    } else {
+      localStorage.setItem('totalEfectivo', totalEfectivo.toString());
+      localStorage.setItem('totalTarjeta', totalTarjeta.toString());
+    }
+  });
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
+        <Box m={3}>Caja: {caja}</Box>
         <PerfectScrollbar>
           <div className={classes.inner}>
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>#</TableCell>
-
                   <TableCell>Factura o Nota</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
                   <TableCell>Productos</TableCell>
@@ -110,9 +110,10 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                             <p key={`${product.codigo}-${j}`}>
                               {product.codigo} - {product.color} -
                               {product.sizeSale} - Bs{' '}
-                              {product.precioPromocion !== 0
+                              {!product.precioPromocion &&
+                              product.precioPromocion === 0
                                 ? product.precioPublico
-                                : product.precioPromocion}{' '}
+                                : product.precioPromocion}
                               #<b>{product.quantity}</b>
                             </p>
                           ))}
@@ -134,7 +135,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                         <TableCell>
                           {venta.metodo === 'DEPOSITO' ? venta.total : '-'}
                         </TableCell>
-                        <TableCell>{totalEfectivo}</TableCell>
+                        <TableCell>{totalEfectivo + caja}</TableCell>
                         <TableCell>{totalTarjeta}</TableCell>
                         {venta.status === 'COMPLET0' ? (
                           <TableCell>

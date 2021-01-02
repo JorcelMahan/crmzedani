@@ -66,6 +66,8 @@ const Main = ({ children }) => {
 
   const closeSession = async () => {
     sessionStorage.removeItem('token');
+    localStorage.removeItem('totalEfectivo');
+    localStorage.removeItem('totalTarjeta');
     deselectUsername();
     await router.push('/login');
     return null;
@@ -75,8 +77,7 @@ const Main = ({ children }) => {
       className={clsx({
         [classes.root]: true,
         [classes.shiftContent]: isDesktop,
-      })}
-    >
+      })}>
       <TopBar onSidebarOpen={handleSidebarOpen} closeSession={closeSession} />
       <SideBar
         onClose={handleSidebarClose}

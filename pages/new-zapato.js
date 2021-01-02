@@ -67,6 +67,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
 }));
+
+const marcas = ['zedani', 'sandder', 'sandder tnt', 'rebeca', 'maritza'];
+const descuentosPromotora = [5, 10, 15, 18, 20, 22, 25, 30, 35, 40, 45, 50];
 const NewZapato = () => {
   const classes = useStyles();
   const router = useRouter();
@@ -252,15 +255,23 @@ const NewZapato = () => {
                       variant='outlined'
                     />
                   </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <TextField
+                  <FormControl
+                    className={classes.formControl}
+                    variant='outlined'>
+                    <InputLabel id='marca'>Marca</InputLabel>
+                    <Select
                       id='marca'
-                      label='Marca'
+                      name='marca'
+                      labelId='marca'
                       required
                       value={formik.values.marca}
-                      onChange={formik.handleChange}
-                      variant='outlined'
-                    />
+                      onChange={formik.handleChange}>
+                      {marcas.map((e) => (
+                        <MenuItem key={e} value={e}>
+                          {e}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </FormControl>
                   <FormControl
                     className={classes.formControl}
@@ -328,15 +339,28 @@ const NewZapato = () => {
                       variant='outlined'
                     />
                   </FormControl>
-                  <FormControl className={classes.formControl}>
-                    <TextField
+
+                  <FormControl
+                    className={classes.formControl}
+                    variant='outlined'>
+                    <InputLabel id='descuentoPromotora'>
+                      Descuento Promotora
+                    </InputLabel>
+                    <Select
                       id='descuentoPromotora'
-                      label='Descuento Promotora'
+                      name='descuentoPromotora'
+                      labelId='descuentoPromotora'
+                      required
                       value={formik.values.descuentoPromotora}
-                      onChange={formik.handleChange}
-                      variant='outlined'
-                    />
+                      onChange={formik.handleChange}>
+                      {descuentosPromotora.map((e) => (
+                        <MenuItem key={e} value={e}>
+                          {e}
+                        </MenuItem>
+                      ))}
+                    </Select>
                   </FormControl>
+
                   <FormControl className={classes.formControl}>
                     <TextField
                       id='precioPublico'
@@ -349,11 +373,23 @@ const NewZapato = () => {
                   </FormControl>
                   <FormControl className={classes.formControl}>
                     <span>
-                      Precio Promotora:{' '}
-                      {formik.values.precioPublico -
-                        formik.values.precioPublico *
-                          (formik.values.descuentoPromotora / 100)}
+                      Precio Promotora:
+                      {Math.round(
+                        formik.values.precioPublico -
+                          (formik.values.precioPublico *
+                            Number(formik.values.descuentoPromotora)) /
+                            100
+                      )}
                     </span>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    Utilidad:{' '}
+                    {Math.round(
+                      (formik.values.precioPublico -
+                        formik.values.costo +
+                        Number.EPSILON) *
+                        100
+                    ) / 100}
                   </FormControl>
                 </CardContent>
               </Card>

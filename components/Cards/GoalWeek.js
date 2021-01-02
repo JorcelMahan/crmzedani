@@ -163,20 +163,19 @@ export default function GoalWeek() {
       <Grid item xs={12} sm={6}>
         <CardGoalStore user={user} store='patrick' goal='1000' />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      {/* <Grid item xs={12} sm={6}>
         <Card className={classes.card}>
           <CardContent>
             <Typography
               className={classes.title}
               color='textSecondary'
-              gutterBottom
-            >
+              gutterBottom>
               16 NOV - 31 DIC
             </Typography>
-            <Count2 initial='2020-11-16' finish='2020-12-31' />
+            <Count2 initial='2020-11-16' finish='2021-01-01' />
           </CardContent>
         </Card>
-      </Grid>
+      </Grid> */}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
@@ -187,13 +186,12 @@ export default function GoalWeek() {
               <Typography
                 className={classes.title}
                 color='textSecondary'
-                gutterBottom
-              >
+                gutterBottom>
                 Mes:
                 {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
 
-              <Count month='11' startDay='1' endDay='31' />
+              <Count month='0' startDay='1' endDay='31' />
             </CardContent>
           </Card>
         </Grid>

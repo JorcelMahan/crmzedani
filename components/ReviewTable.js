@@ -112,14 +112,16 @@ const ReviewTable = ({ setActiveBtn }) => {
                 <TableCell align='right'>
                   <input
                     type='number'
-                    min='0'
                     step='.01'
                     value={
-                      product.precioPromocion ? product.precioPromocion : 0
+                      product.precioPromocion ? product.precioPromocion : '0'
                     }
                     style={{ width: '35%', padding: '5px' }}
                     onChange={(e) => {
-                      product.precioPromocion = e.target.value;
+                      product.precioPromocion =
+                        e.target.value !== '' && e.target.value !== '0'
+                          ? e.target.value
+                          : '0';
                       addPrecioPromocion(product);
                     }}
                   />

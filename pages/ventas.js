@@ -76,7 +76,7 @@ const Ventas = () => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
-      month: 'numeric',
+      month: '2-digit',
       day: '2-digit',
     })
     .split('/');
@@ -120,7 +120,6 @@ const Ventas = () => {
   if (error || error2 || error3) return `Error, ${error}`;
 
   // const { salesByDate } = data;
-
   return (
     <CajaState>
       <div className={classes.root}>
@@ -163,17 +162,11 @@ const Ventas = () => {
         </div>
         {/* <BoxCaja /> */}
 
-        <div className={classes.content}>
-          {!close ? (
-            <VentasTable
-              ventas={salesDate}
-              cancelarVenta={cancelarVenta}
-              anularVenta={anularVenta}
-            />
-          ) : (
-            <p>La caja esta cerrada</p>
-          )}
-        </div>
+        <VentasTable
+          ventas={salesDate}
+          cancelarVenta={cancelarVenta}
+          anularVenta={anularVenta}
+        />
       </div>
     </CajaState>
   );

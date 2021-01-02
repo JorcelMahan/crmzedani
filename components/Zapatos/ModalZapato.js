@@ -78,6 +78,8 @@ const ModalZapato = ({ zapato }) => {
       precioPromocion,
       marca,
       catalogo,
+      costo,
+      utilidad,
     } = zapato;
     const newShoe = {
       id,
@@ -90,6 +92,8 @@ const ModalZapato = ({ zapato }) => {
       precioPromocion,
       marca,
       catalogo,
+      costo,
+      utilidad,
     };
 
     addProduct(newShoe);
@@ -111,8 +115,7 @@ const ModalZapato = ({ zapato }) => {
           <Select
             labelId='size'
             value={size}
-            onChange={(e) => setsize(e.target.value)}
-          >
+            onChange={(e) => setsize(e.target.value)}>
             {validadSize.map((s) => (
               <MenuItem key={s} value={s}>
                 {s}
@@ -132,8 +135,7 @@ const ModalZapato = ({ zapato }) => {
         color='primary'
         variant='contained'
         type='button'
-        onClick={handleOpen}
-      >
+        onClick={handleOpen}>
         Vender
       </Button>
       <Modal
@@ -142,8 +144,7 @@ const ModalZapato = ({ zapato }) => {
         onClose={handleClose}
         aria-labelledby='modal-zapato-title'
         aria-describedby='modal-zapato-description'
-        className={classes.modal}
-      >
+        className={classes.modal}>
         {body}
       </Modal>
     </div>

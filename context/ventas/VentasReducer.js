@@ -30,7 +30,7 @@ const addQuantity = (shoes, newShoe) => {
   return [...shoes, { ...newShoe, quantity: 1 }];
 };
 
-export default (state, action) => {
+const VentasReducer = (state, action) => {
   switch (action.type) {
     case SELECT_PRODUCT:
       return {
@@ -108,10 +108,16 @@ export default (state, action) => {
             product.codigo === action.payload.codigo &&
             product.color === action.payload.color &&
             product.sizeSale === action.payload.sizeSale
-          )
+          ) {
             product.precioPromocion = parseFloat(
               action.payload.precioPromocion
             );
+            product.utilidad =
+              product.precioPromocion !== 0 && product.precioPromocion > 0
+                ? Math.round((product.precioPromocion - product.costo) * 100) /
+                  100
+                : product.precioPublico - product.costo;
+          }
           return product;
         }),
       };
@@ -164,3 +170,5 @@ export default (state, action) => {
       return state;
   }
 };
+
+export default VentasReducer;

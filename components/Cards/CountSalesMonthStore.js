@@ -41,7 +41,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
   );
 
   useEffect(() => {
-    startPolling(5000);
+    startPolling(1000);
     return () => {
       stopPolling();
     };

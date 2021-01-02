@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Zapato from './Zapato';
-import { Card, CardContent } from '@material-ui/core';
+import { Card, CardContent, TableContainer } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -30,6 +30,9 @@ const useStyles = makeStyles(() => ({
   },
   footer: {
     width: '100%',
+  },
+  container: {
+    maxHeight: 440,
   },
 }));
 
@@ -66,15 +69,13 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label='first page'
-      >
+        aria-label='first page'>
         {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label='previous page'
-      >
+        aria-label='previous page'>
         {theme.direction === 'rtl' ? (
           <KeyboardArrowRight />
         ) : (
@@ -84,8 +85,7 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='next page'
-      >
+        aria-label='next page'>
         {theme.direction === 'rtl' ? (
           <KeyboardArrowLeft />
         ) : (
@@ -95,8 +95,7 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='last page'
-      >
+        aria-label='last page'>
         {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>
@@ -162,13 +161,12 @@ const ListZapatosChildren = (props) => {
     <Card {...rest} className={clsx(classes.root, className)}>
       {loading && <p>...</p>}
       <CardContent className={classes.content}>
-        <PerfectScrollbar>
-          <div className={classes.inner}>
+        <>
+          <TableContainer className={classes.container}>
             <Table
               className={classes.table}
               stickyHeader
-              aria-label='sticky table'
-            >
+              aria-label='sticky table'>
               <TableHead>
                 <TableRow>
                   {(user === 'patrick' || user === 'kathryn') &&
@@ -222,8 +220,8 @@ const ListZapatosChildren = (props) => {
                 })}
               </TableBody>
             </Table>
-          </div>
-        </PerfectScrollbar>
+          </TableContainer>
+        </>
         <TablePagination
           component='div'
           rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}

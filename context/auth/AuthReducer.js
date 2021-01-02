@@ -1,6 +1,6 @@
 import { SELECT_USERNAME, DESELECT_USERNAME } from '../../types/index';
 
-export default (state, action) => {
+const AuthReducer = (state, action) => {
   switch (action.type) {
     case SELECT_USERNAME:
       return {
@@ -16,3 +16,5 @@ export default (state, action) => {
       return state;
   }
 };
+
+export default AuthReducer;

@@ -25,7 +25,7 @@ const CountDayStore = ({ store }) => {
     }
   );
   useEffect(() => {
-    startPolling(5000);
+    startPolling(1000);
     return () => {
       stopPolling();
     };

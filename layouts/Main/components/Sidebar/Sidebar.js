@@ -50,6 +50,11 @@ const Sidebar = (props) => {
       icon: <ShoppingBasketIcon />,
     },
     {
+      title: 'Cierre del Dia',
+      href: '/cierre',
+      icon: <DashboardIcon />,
+    },
+    {
       title: 'Salidas',
       href: '/salidas',
       icon: <ExitToApp />,
@@ -61,8 +66,7 @@ const Sidebar = (props) => {
       classes={{ paper: classes.drawer }}
       onClose={onClose}
       open={open}
-      variant={variant}
-    >
+      variant={variant}>
       <div {...rest} className={clsx(classes.root, className)}>
         <Profile />
         <Divider className={classes.divider} />
