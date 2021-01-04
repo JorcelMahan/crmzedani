@@ -89,13 +89,15 @@ const Count2 = ({ initial, finish }) => {
   return (
     <div className={classes.cardGoal2}>
       <div style={{ marginBottom: '2px' }}>
-        <i>"Si crees que puedes, ya estas a medio camino"</i>
+        <i>
+          "Trabajar en equipo divide el trabajo y multiplica los resultados"
+        </i>
       </div>
       <hr />
       <p style={{ marginTop: '5px' }}>
-        Meta: {data.salesByRangeOfDate} de 4500
+        Meta: {data.salesByRangeOfDate} de 3600
       </p>
-      <p>Falta: {4500 - data.salesByRangeOfDate}</p>
+      <p>Falta: {3600 - data.salesByRangeOfDate}</p>
     </div>
   );
 };
@@ -163,19 +165,19 @@ export default function GoalWeek() {
       <Grid item xs={12} sm={6}>
         <CardGoalStore user={user} store='patrick' goal='1000' />
       </Grid>
-      {/* <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6}>
         <Card className={classes.card}>
           <CardContent>
             <Typography
               className={classes.title}
               color='textSecondary'
               gutterBottom>
-              16 NOV - 31 DIC
+              ENERO
             </Typography>
-            <Count2 initial='2020-11-16' finish='2021-01-01' />
+            <Count2 initial='2021-01-01' finish='2021-02-01' />
           </CardContent>
         </Card>
-      </Grid> */}
+      </Grid>
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||

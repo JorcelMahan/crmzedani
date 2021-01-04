@@ -495,6 +495,7 @@ const EditShoe = () => {
     variables: {
       id,
     },
+    fetchPolicy: 'no-cache',
   });
   if (loading) return <Loader />;
   if (error) return `Error, ${error.message}`;

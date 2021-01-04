@@ -78,6 +78,7 @@ const ShowSalida = () => {
     variables: {
       id,
     },
+    fetchPolicy: 'no-cache',
   });
   const [
     returnSalida,

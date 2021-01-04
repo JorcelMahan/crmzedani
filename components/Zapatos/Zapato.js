@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import Avatar from '@material-ui/core/Avatar';
 import Edit from '@material-ui/icons/Edit';
 import ModalZapato from './ModalZapato';
-import Link from 'next/link';
+// import Link from 'next/link';
 import AuthContext from '../../context/auth/AuthContext';
 import Button from '@material-ui/core/Button';
 import { useRouter } from 'next/router';
@@ -124,8 +124,7 @@ const Zapato = ({ zapato, i, children }) => {
       hover
       className={clsx(
         stock === 0 ? classes.tableRowStockZero : classes.tableRow
-      )}
-    >
+      )}>
       <TableCell>
         {(user === 'patrick' || user === 'kathryn') &&
         router.pathname.split('/')[2] === 'zapatos'
@@ -141,13 +140,22 @@ const Zapato = ({ zapato, i, children }) => {
       <TableCell>{stock}</TableCell>
       {user === 'patrick' && (
         <TableCell>
-          <Link href={{ pathname: '/shoes/[id]', query: { id } }}>
+          {/* <Link href={{ pathname: '/shoes/[id]', query: { id } }}>
             <a>
               <Button>
                 <Edit />
               </Button>
             </a>
-          </Link>
+          </Link> */}
+          <Button
+            onClick={() => {
+              router.push({
+                pathname: '/shoes/[id]',
+                query: { id },
+              });
+            }}>
+            <Edit />
+          </Button>
         </TableCell>
       )}
       {(user === router.pathname.substr(11).replace('-', ' ') ||
