@@ -15,7 +15,7 @@
     "@material-ui/styles": "^4.10.0",
     "@mui-treasury/styles": "^1.13.1",
     "apollo-link-context": "^1.0.20",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "clsx": "^1.1.1",
     "formik": "^2.2.0",
     "graphql": "^15.3.0",
