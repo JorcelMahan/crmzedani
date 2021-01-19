@@ -67,7 +67,7 @@ const SidebarNav = (props) => {
   const classes = useStyles();
   return (
     <List {...rest} className={classes.root}>
-    
+
       {user !== 'elenap' && pages.map((page) => (
         <ListItem className={classes.item} disableGutters key={page.title}>
           <Link href={page.href}>
@@ -81,40 +81,40 @@ const SidebarNav = (props) => {
       {
         user !== 'elenap' && (
           <>
-          <ListItem
-        className={classes.item}
-        disableGutters
-        onClick={() => setOpenClientes(!openClientes)}
-        style={{ marginLeft: '8px' }}>
-        <div className={classes.icon}>
-          <AccountBoxIcon />
-        </div>
-        <ListItemText
-          primary='Clientes'
-          style={{ letterSpacing: 0, fontWeight: 500, fontFamily: null }}
-        />
-        {openClientes ? <ExpandLess /> : <ExpandMore />}
-      </ListItem>
-      <Collapse in={openClientes} timeout='auto' unmountOnExit>
-        <ListItem button className={classes.nested}>
-          <Link href='/clientes/inti'>
-            <a>
-              <ListItemText primary='INTI' />
-            </a>
-          </Link>
-        </ListItem>
-        <ListItem button className={classes.nested}>
-          <Link href='/clientes/rtp'>
-            <a>
-              <ListItemText primary='RTP' />
-            </a>
-          </Link>
-        </ListItem>
-      </Collapse>
-      </>
+            <ListItem
+              className={classes.item}
+              disableGutters
+              onClick={() => setOpenClientes(!openClientes)}
+              style={{ marginLeft: '8px' }}>
+              <div className={classes.icon}>
+                <AccountBoxIcon />
+              </div>
+              <ListItemText
+                primary='Clientes'
+                style={{ letterSpacing: 0, fontWeight: 500, fontFamily: null }}
+              />
+              {openClientes ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openClientes} timeout='auto' unmountOnExit>
+              <ListItem button className={classes.nested}>
+                <Link href='/clientes/inti'>
+                  <a>
+                    <ListItemText primary='INTI' />
+                  </a>
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link href='/clientes/rtp'>
+                  <a>
+                    <ListItemText primary='RTP' />
+                  </a>
+                </Link>
+              </ListItem>
+            </Collapse>
+          </>
         )
       }
-      
+
       <ListItem
         className={classes.item}
         disableGutters
@@ -163,20 +163,27 @@ const SidebarNav = (props) => {
               </a>
             </Link>
           </ListItem>
-          <ListItem button className={classes.nested}>
-            <Link href='/productos/satelite'>
-              <a>
-                <ListItemText primary='Satelite' />
-              </a>
-            </Link>
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <Link href='/productos/davidtnt'>
-              <a>
-                <ListItemText primary='David TNT' />
-              </a>
-            </Link>
-          </ListItem>
+          {
+            user !== 'elenap' && (
+              <>
+                <ListItem button className={classes.nested}>
+                  <Link href='/productos/satelite'>
+                    <a>
+                      <ListItemText primary='Satelite' />
+                    </a>
+                  </Link>
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <Link href='/productos/davidtnt'>
+                    <a>
+                      <ListItemText primary='David TNT' />
+                    </a>
+                  </Link>
+                </ListItem>
+              </>
+            )
+          }
+
         </List>
       </Collapse>
     </List>
