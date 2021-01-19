@@ -31,10 +31,10 @@ const PromotoraData = ({ setActiveBtn }) => {
   useEffect(() => {
     if (selectedPromotora !== '') {
       setActiveBtn(false);
+      selectPromotora(selectedPromotora);
     } else {
       setActiveBtn(true);
     }
-    selectPromotora(selectedPromotora);
     selectCliente('');
   }, [selectedPromotora]);
 

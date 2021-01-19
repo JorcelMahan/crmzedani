@@ -67,7 +67,8 @@ const SidebarNav = (props) => {
   const classes = useStyles();
   return (
     <List {...rest} className={classes.root}>
-      {pages.map((page) => (
+    
+      {user !== 'elenap' && pages.map((page) => (
         <ListItem className={classes.item} disableGutters key={page.title}>
           <Link href={page.href}>
             <a className={classes.button} activeclassname={classes.active}>
@@ -77,7 +78,10 @@ const SidebarNav = (props) => {
           </Link>
         </ListItem>
       ))}
-      <ListItem
+      {
+        user !== 'elenap' && (
+          <>
+          <ListItem
         className={classes.item}
         disableGutters
         onClick={() => setOpenClientes(!openClientes)}
@@ -107,6 +111,10 @@ const SidebarNav = (props) => {
           </Link>
         </ListItem>
       </Collapse>
+      </>
+        )
+      }
+      
       <ListItem
         className={classes.item}
         disableGutters

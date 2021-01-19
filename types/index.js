@@ -17,6 +17,12 @@ export const ADD_MONTO_TARJETA = 'ADD_MONTO_TARJETA';
 
 // cajas
 export const SET_CAJA = 'SET_CAJA';
+export const ADD_TOTAL_EFECTIVO = 'ADD_TOTAL_EFECTIVO';
+export const ADD_TOTAL_TARJETA = 'ADD_TOTAL_TARJETA';
+export const ADD_TOTAL_BILLETES = 'ADD_TOTAL_BILLETES';
+export const ADD_TOTAL_MONEDAS = 'ADD_TOTAL_MONEDAS';
+export const ADD_BILLETES = 'ADD_BILLETES';
+export const ADD_MONEDAS = 'ADD_MONEDAS';
 
 // salida
 export const SELECT_ALMACEN = 'SELECT_ALMACEN';
