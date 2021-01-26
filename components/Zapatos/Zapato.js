@@ -63,12 +63,6 @@ const Sizes = ({ tallas, children }) => {
     ];
   } else {
     sizes = [
-      t27,
-      t28,
-      t29,
-      t30,
-      t31,
-      t32,
       t33,
       t34,
       t35,
@@ -95,8 +89,8 @@ const Sizes = ({ tallas, children }) => {
             {s === 0 ? (
               <span style={{ color: 'red' }}>{s}</span>
             ) : (
-              <span style={{ color: 'blue' }}>{s}</span>
-            )}
+                <span style={{ color: 'blue' }}>{s}</span>
+              )}
           </TableCell>
         );
       })}
@@ -114,7 +108,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Zapato = ({ zapato, i, children }) => {
-  const { codigo, image, color, stock, tallas, id, almacen } = zapato;
+  const { codigo, image, color, stock, tallas, id, almacen, precioPublico, costo } = zapato;
   const authContext = useContext(AuthContext);
   const { user } = authContext;
   const router = useRouter();
@@ -127,7 +121,7 @@ const Zapato = ({ zapato, i, children }) => {
       )}>
       <TableCell>
         {(user === 'patrick' || user === 'kathryn') &&
-        router.pathname.split('/')[2] === 'zapatos'
+          router.pathname.split('/')[2] === 'zapatos'
           ? almacen
           : i}
       </TableCell>
@@ -138,32 +132,32 @@ const Zapato = ({ zapato, i, children }) => {
       <TableCell>{color}</TableCell>
       <Sizes tallas={tallas} children={children} />
       <TableCell>{stock}</TableCell>
+      <TableCell>{precioPublico}</TableCell>
+
       {user === 'patrick' && (
-        <TableCell>
-          {/* <Link href={{ pathname: '/shoes/[id]', query: { id } }}>
-            <a>
-              <Button>
-                <Edit />
-              </Button>
-            </a>
-          </Link> */}
-          <Button
-            onClick={() => {
-              router.push({
-                pathname: '/shoes/[id]',
-                query: { id },
-              });
-            }}>
-            <Edit />
-          </Button>
-        </TableCell>
+        <>
+          <TableCell>{costo}</TableCell>
+
+          <TableCell>
+            <Button
+              onClick={() => {
+                router.push({
+                  pathname: '/shoes/[id]',
+                  query: { id },
+                });
+              }}>
+              <Edit />
+            </Button>
+          </TableCell>
+
+        </>
       )}
       {(user === router.pathname.substr(11).replace('-', ' ') ||
         user === 'patrick') && (
-        <TableCell>
-          <ModalZapato zapato={zapato} />
-        </TableCell>
-      )}
+          <TableCell>
+            <ModalZapato zapato={zapato} />
+          </TableCell>
+        )}
     </TableRow>
   );
 };

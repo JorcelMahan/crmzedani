@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
 }));
-const Sidebar = (props) => {
-  const { open, variant, onClose, className, ...rest } = props;
+const Sidebar = ({ open, variant, onClose, className }) => {
   const classes = useStyles();
   const pages = [
     {
@@ -67,7 +66,7 @@ const Sidebar = (props) => {
       onClose={onClose}
       open={open}
       variant={variant}>
-      <div {...rest} className={clsx(classes.root, className)}>
+      <div className={clsx(classes.root, className)}>
         <Profile />
         <Divider className={classes.divider} />
         <SidebarNav className={classes.nav} pages={pages} />

@@ -16,6 +16,7 @@ const GET_ZAPATOS = gql`
       image
       almacen
       color
+      costo
       precioPublico
       precioPromotora
       precioPromocion

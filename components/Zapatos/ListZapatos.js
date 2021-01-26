@@ -79,8 +79,8 @@ const TablePaginationActions = (props) => {
         {theme.direction === 'rtl' ? (
           <KeyboardArrowRight />
         ) : (
-          <KeyboardArrowLeft />
-        )}
+            <KeyboardArrowLeft />
+          )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
@@ -89,8 +89,8 @@ const TablePaginationActions = (props) => {
         {theme.direction === 'rtl' ? (
           <KeyboardArrowLeft />
         ) : (
-          <KeyboardArrowRight />
-        )}
+            <KeyboardArrowRight />
+          )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
@@ -179,21 +179,15 @@ const ListZapatos = (props) => {
               <TableHead>
                 <TableRow>
                   {(user === 'patrick' || user === 'kathryn') &&
-                  router.pathname.split('/')[2] === 'zapatos' ? (
-                    <TableCell>Tienda </TableCell>
-                  ) : (
-                    <TableCell>#</TableCell>
-                  )}
+                    router.pathname.split('/')[2] === 'zapatos' ? (
+                      <TableCell>Tienda </TableCell>
+                    ) : (
+                      <TableCell>#</TableCell>
+                    )}
 
                   <TableCell>Image</TableCell>
                   <TableCell>Codigo</TableCell>
                   <TableCell>Color</TableCell>
-                  <TableCell>27</TableCell>
-                  <TableCell>28</TableCell>
-                  <TableCell>29</TableCell>
-                  <TableCell>30</TableCell>
-                  <TableCell>31</TableCell>
-                  <TableCell>32</TableCell>
                   <TableCell>33</TableCell>
                   <TableCell>34</TableCell>
                   <TableCell>35</TableCell>
@@ -209,8 +203,17 @@ const ListZapatos = (props) => {
                   <TableCell>45</TableCell>
                   <TableCell>46</TableCell>
                   <TableCell>Stock</TableCell>
+                  <TableCell>Precio</TableCell>
 
-                  {user === 'patrick' && <TableCell>Editar</TableCell>}
+
+                  {user === 'patrick' && (
+                    <>
+
+                      <TableCell>Costo</TableCell>
+                      <TableCell>Editar</TableCell>
+                    </>
+                  )
+                  }
                   {(user === router.pathname.substr(11).replace('-', ' ') ||
                     user === 'patrick') && <TableCell>Vender</TableCell>}
                 </TableRow>
@@ -218,9 +221,9 @@ const ListZapatos = (props) => {
               <TableBody>
                 {(rowsPerPage > 0
                   ? zapatos.slice(
-                      page * rowsPerPage,
-                      page * rowsPerPage + rowsPerPage
-                    )
+                    page * rowsPerPage,
+                    page * rowsPerPage + rowsPerPage
+                  )
                   : zapatos
                 ).map((zapato, index) => {
                   return (

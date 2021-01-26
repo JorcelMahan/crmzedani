@@ -74,7 +74,7 @@ const options = [
   { value: 't31', label: '31' },
   { value: 't32', label: '32' },
   { value: 't33', label: '33' },
-  { value: 't34', label: '45' },
+  { value: 't34', label: '34' },
   { value: 't35', label: '35' },
   { value: 't36', label: '36' },
   { value: 't37', label: '37' },

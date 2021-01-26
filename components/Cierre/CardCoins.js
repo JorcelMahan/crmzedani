@@ -38,7 +38,7 @@ const Billete = ({ nombre, setBilletes, billetes }) => {
   const [totaly, setTotaly] = useState(0);
 
   useEffect(() => {
-    setTotaly(nombre * quantity);
+    setTotaly(Number((Number(nombre) * quantity).toFixed(2)));
   }, [quantity]);
 
   useEffect(() => {
@@ -73,11 +73,11 @@ export const CardCoins = React.memo(function ElevatedHeaderCard() {
   const cardShadowStyles = useSoftRiseShadowStyles({ inactive: true });
   const cardHeaderShadowStyles = useFadedShadowStyles();
   const [billetes, setBilletes] = useState({
-    200: { cantidad: 0, total: 0 },
-    100: { cantidad: 0, total: 0 },
-    50: { cantidad: 0, total: 0 },
-    20: { cantidad: 0, total: 0 },
-    10: { cantidad: 0, total: 0 },
+    5: { cantidad: 0, total: 0 },
+    2: { cantidad: 0, total: 0 },
+    1: { cantidad: 0, total: 0 },
+    0.2: { cantidad: 0, total: 0 },
+    0.1: { cantidad: 0, total: 0 },
   });
 
   const [totalBilletes, setTotaBilletes] = useState(0);
@@ -87,7 +87,7 @@ export const CardCoins = React.memo(function ElevatedHeaderCard() {
     for (const p in billetes) {
       t += billetes[p].total;
     }
-    setTotaBilletes(t);
+    setTotaBilletes(Number(t.toFixed(2)));
   }, [billetes]);
   return (
     <Card className={cx(classes.card, cardShadowStyles.root)}>
