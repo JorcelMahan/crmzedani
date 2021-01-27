@@ -4,6 +4,13 @@ import CardMoney from "../components/Cierre/CardMoney";
 import { Button, Grid, Typography } from "@material-ui/core";
 import CardCoins from "../components/Cierre/CardCoins";
 import CierreContext from "../context/cierre/CierreContext";
+import { useMutation, gql } from "@apollo/client";
+
+const ADD_CIERRE = gql`
+  mutation addCierre($input: CierreDiaInput) {
+    addCierre(input: $input)
+  }
+`;
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -21,10 +28,33 @@ const Cierre = () => {
     totalBilletes,
     addTotalEfectivo,
     totalEfectivo,
+    billetes,
+    monedas,
   } = useContext(CierreContext);
+
+  const [addCierre, { loading, error }] = useMutation(ADD_CIERRE);
   useEffect(() => {
     addTotalEfectivo(Number(totalBilletes) + Number(totalMonedas));
   }, [totalMonedas, totalBilletes]);
+
+  const handleClick = async () => {
+    try {
+      await addCierre({
+        variables: {
+          input: {
+            totalBilletes,
+            totalMonedas,
+            totalEfectivo,
+            billetes,
+            // monedas,
+          },
+        },
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.content}>
@@ -59,7 +89,13 @@ const Cierre = () => {
                 </Typography>
               </Grid>
               <Grid item xs={3}>
-                <Button variant="contained" color="primary">
+                {loading && "Loading"}
+                {error && `${error.message}`}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClick}
+                >
                   Guardar
                 </Button>
               </Grid>

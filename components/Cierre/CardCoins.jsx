@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import cx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -13,6 +13,7 @@ import { useContainedCardHeaderStyles } from "@mui-treasury/styles/cardHeader/co
 import { useSoftRiseShadowStyles } from "@mui-treasury/styles/shadow/softRise";
 import { useFadedShadowStyles } from "@mui-treasury/styles/shadow/faded";
 import { TextField } from "@material-ui/core";
+import CierreContext from "../../context/cierre/CierreContext";
 
 const useStyles = makeStyles(({ spacing }) => ({
   card: {
@@ -58,6 +59,7 @@ const Billete = ({ nombre, setBilletes, billetes }) => {
       </TableCell>
       <TableCell align="right">
         <TextField
+          size={"medium"}
           variant="outlined"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
@@ -72,6 +74,8 @@ export const CardCoins = React.memo(function ElevatedHeaderCard() {
   const cardHeaderStyles = useContainedCardHeaderStyles();
   const cardShadowStyles = useSoftRiseShadowStyles({ inactive: true });
   const cardHeaderShadowStyles = useFadedShadowStyles();
+  //cierre context
+  const { addTotalMonedas, addMonedas } = useContext(CierreContext);
   const [billetes, setBilletes] = useState({
     5: { cantidad: 0, total: 0 },
     2: { cantidad: 0, total: 0 },
@@ -80,40 +84,48 @@ export const CardCoins = React.memo(function ElevatedHeaderCard() {
     0.1: { cantidad: 0, total: 0 },
   });
 
-  const [totalBilletes, setTotaBilletes] = useState(0);
+  const [totalBilletes, setTotalBilletes] = useState(0);
 
   useEffect(() => {
     let t = 0;
     for (const p in billetes) {
       t += billetes[p].total;
     }
-    setTotaBilletes(Number(t.toFixed(2)));
+    setTotalBilletes(Number(t.toFixed(2)));
+    addMonedas(billetes);
   }, [billetes]);
+
+  useEffect(() => {
+    addTotalMonedas(totalBilletes);
+  }, [totalBilletes]);
+
   return (
     <Card className={cx(classes.card, cardShadowStyles.root)}>
       <CardHeader
         className={cardHeaderShadowStyles.root}
         classes={cardHeaderStyles}
-        title={"Billetes"}
+        title={"Monedas"}
       />
       <CardContent className={classes.content}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Billete</TableCell>
+              <TableCell>Monedas</TableCell>
               <TableCell align="right">Cantidad</TableCell>
               <TableCell align="right">Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(billetes).map((b) => (
-              <Billete
-                key={b}
-                setBilletes={setBilletes}
-                nombre={b}
-                billetes={billetes}
-              />
-            ))}
+            {Object.keys(billetes)
+              .sort((a, b) => b - a)
+              .map((b) => (
+                <Billete
+                  key={b}
+                  setBilletes={setBilletes}
+                  nombre={b}
+                  billetes={billetes}
+                />
+              ))}
             <TableRow>
               <TableCell component="th" scope="row">
                 -

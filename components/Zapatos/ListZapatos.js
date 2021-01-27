@@ -144,6 +144,9 @@ const ListZapatos = (props) => {
         zapato.tallas['t45'] ? zapato.tallas['t45'] : 0,
         zapato.tallas['t46'] ? zapato.tallas['t46'] : 0,
         zapato.stock,
+        zapato.precioPublico,
+        user === 'patrick' ? zapato.costo : '-'
+
       ]);
     });
   }

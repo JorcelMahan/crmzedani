@@ -1,6 +1,6 @@
-import React, { useReducer } from 'react';
-import CierreContext from './CierreContext';
-import CierreReducer from './CierreReducer';
+import React, { useReducer } from "react";
+import CierreContext from "./CierreContext";
+import CierreReducer from "./CierreReducer";
 import {
   ADD_TOTAL_EFECTIVO,
   ADD_TOTAL_TARJETA,
@@ -8,7 +8,7 @@ import {
   ADD_MONEDAS,
   ADD_TOTAL_BILLETES,
   ADD_TOTAL_MONEDAS,
-} from '../../types';
+} from "../../types";
 
 const CierreState = ({ children }) => {
   const initialState = {
@@ -59,12 +59,15 @@ const CierreState = ({ children }) => {
         totalTarjeta: state.totalTarjeta,
         totalBilletes: state.totalBilletes,
         totalMonedas: state.totalMonedas,
+        billetes: state.billetes,
+        monedas: state.monedas,
         addTotalEfectivo,
         addTotalBilletes,
         addTotalMonedas,
         addBilletes,
         addMonedas,
-      }}>
+      }}
+    >
       {children}
     </CierreContext.Provider>
   );

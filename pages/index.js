@@ -16,6 +16,7 @@ const Home = () => {
           <img src="https://previews.123rf.com/images/dizanna/dizanna1706/dizanna170601231/80855219-bienvenido-bienvenido-en-espa%C3%B1ol-nube-de-palabras-en-diferentes-idiomas-trasfondo-conceptual.jpg" />
         </div>
       )}
+
     </Container>
   );
 };
