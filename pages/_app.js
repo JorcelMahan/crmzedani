@@ -1,19 +1,19 @@
-import { ApolloProvider } from '@apollo/client';
-import client from '../config/apollo';
+import { ApolloProvider } from "@apollo/client";
+import client from "../config/apollo";
 //theme
-import React from 'react';
-import { ThemeProvider } from '@material-ui/styles';
-import theme from '../theme/index';
-import VentasState from '../context/ventas/VentasState';
-import SalidaState from '../context/salidas/SalidaState';
-import AuthState from '../context/auth/AuthState';
-import CierreState from '../context/cierre/CierreState';
+import React from "react";
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "../theme/index";
+import VentasState from "../context/ventas/VentasState";
+import SalidaState from "../context/salidas/SalidaState";
+import AuthState from "../context/auth/AuthState";
+import CierreState from "../context/cierre/CierreState";
 // styles
-import '../assets/index.css';
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import Main from '../layouts/Main/Main';
+import "../assets/index.css";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import Main from "../layouts/Main/Main";
 const MyApp = ({ Component, pageProps, router }) => {
-  if (router.pathname.startsWith('/login')) {
+  if (router.pathname.startsWith("/login")) {
     return (
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
@@ -30,7 +30,10 @@ const MyApp = ({ Component, pageProps, router }) => {
       </ApolloProvider>
     );
   }
-  if (router.pathname.startsWith('/sign-up')) {
+  if (
+    router.pathname.startsWith("/sign-up") ||
+    router.pathname.startsWith("/new-employee")
+  ) {
     return (
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>

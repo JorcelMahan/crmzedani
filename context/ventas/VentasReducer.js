@@ -14,7 +14,8 @@ import {
   ADD_RECIBO_NOTA,
   ADD_MONTO_EFECTIVO,
   ADD_MONTO_TARJETA,
-} from '../../types';
+  ADD_VENDEDOR,
+} from "../../types";
 
 const addQuantity = (shoes, newShoe) => {
   const shoeFind = shoes.find(
@@ -164,6 +165,12 @@ const VentasReducer = (state, action) => {
       return {
         ...state,
         montoEfectivo: action.payload,
+      };
+    }
+    case ADD_VENDEDOR: {
+      return {
+        ...state,
+        vendedor: action.payload,
       };
     }
     default:

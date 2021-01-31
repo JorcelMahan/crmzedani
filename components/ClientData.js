@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
-import VentasContext from '../context/ventas/VentasContext';
-import { useQuery, gql, useMutation } from '@apollo/client';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box, CircularProgress, TextField } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Loader from '../components/Loader';
-import Alert from '@material-ui/lab/Alert';
+import React, { useState, useEffect, useContext } from "react";
+import VentasContext from "../context/ventas/VentasContext";
+import { useQuery, gql, useMutation } from "@apollo/client";
+import { makeStyles } from "@material-ui/core/styles";
+import { Box, CircularProgress, TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Loader from "../components/Loader";
+import Alert from "@material-ui/lab/Alert";
 
 const GET_CLIENTE_BY_NIT = gql`
   query getNITCliente($nitoci: String!) {
@@ -29,31 +29,25 @@ const NEW_CLIENTE = gql`
 
 const useStyles = makeStyles((theme) => ({
   boxNewClient: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gap: '1rem',
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gap: "1rem",
   },
   boxClient: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-around',
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-around",
   },
 }));
 
-const RazonSocial = ({ cliente, setActiveBtn }) => {
+const RazonSocial = ({ cliente, setActiveBtn, nitoci }) => {
   const { selectCliente, selectPromotora } = useContext(VentasContext);
   const [
     newCliente,
     { loading: loadingClient, error: errorClient },
   ] = useMutation(NEW_CLIENTE);
 
-  // const { loading, error, data } = useQuery(GET_CLIENTE_BY_NIT, {
-  //   variables: {
-  //     nitoci,
-  //   },
-  //   // fetchPolicy: 'no-cache',
-  // });
-  const [razonSocial, setRazonSocial] = useState('');
+  const [razonSocial, setRazonSocial] = useState("");
 
   useEffect(() => {
     if (cliente) {
@@ -62,19 +56,19 @@ const RazonSocial = ({ cliente, setActiveBtn }) => {
         razonSocial: cliente.razonSocial,
         nitoci: cliente.nitoci,
       });
-      selectPromotora('');
+      selectPromotora("");
       setRazonSocial(cliente.razonSocial);
 
       // setActiveBtn(false);
     } else {
-      selectCliente('');
-      setRazonSocial('');
+      selectCliente("");
+      setRazonSocial("");
       // setActiveBtn(true);
     }
   }, [cliente]);
 
   useEffect(() => {
-    if (razonSocial === '') {
+    if (razonSocial === "") {
       setActiveBtn(true);
     } else {
       setActiveBtn(false);
@@ -83,7 +77,7 @@ const RazonSocial = ({ cliente, setActiveBtn }) => {
 
   // if (loading) return <CircularProgress color='secondary' />;
   if (loadingClient) return <Loader />;
-  if (errorClient) return `${error}`;
+  if (errorClient) return `${errorClient}`;
   const handleChange = (e) => {
     setRazonSocial(e.target.value);
   };
@@ -96,27 +90,35 @@ const RazonSocial = ({ cliente, setActiveBtn }) => {
             razonSocial,
           },
         },
+        // // cache
+        // update: (cache, { data: { newCliente } }) => {
+        //   const data = cache.readQuery({
+        //     query: GET_CLIENTE_BY_NIT,
+        //   });
+        //   data.getNITCliente = [...data.getNITCliente, newCliente];
+        //   cache.writeQuery({ query: GET_CLIENTE_BY_NIT });
+        // },
       });
-      alert('Cliente creado con exito');
+      alert("Cliente creado con exito");
       console.log(msg);
       selectCliente(msg.data.newCliente);
       setActiveBtn(false);
-      selectPromotora('');
+      selectPromotora("");
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <>
-      {errorClient && <Alert severity='error'>{errorClient}</Alert>}
-      <Box display='flex'>
+      {errorClient && <Alert severity="error">{errorClient}</Alert>}
+      <Box display="flex">
         <TextField
-          label='Razon Social'
+          label="Razon Social"
           value={cliente !== null ? cliente.razonSocial : razonSocial}
           onChange={handleChange}
         />
         {cliente === null && (
-          <Button color='primary' onClick={saveClient}>
+          <Button color="primary" onClick={saveClient}>
             Guardar
           </Button>
         )}
@@ -127,26 +129,29 @@ const RazonSocial = ({ cliente, setActiveBtn }) => {
 
 const ClientData = ({ setActiveBtn }) => {
   const classes = useStyles();
-  const [nitoci, setNitoci] = useState('');
-  const [enter, setEnter] = useState('');
-  // useEffect(() => {
-  //   if (nitoci === '') {
-  //     setActiveBtn(true);
-  //   } else {
-  //     setActiveBtn(false);
-  //   }
-  // }, [nitoci]);
-  const { loading, error, data } = useQuery(GET_CLIENTE_BY_NIT, {
-    variables: {
-      nitoci: enter,
-    },
-    // fetchPolicy: 'no-cache',
-  });
+  const [nitoci, setNitoci] = useState("");
+  const [enter, setEnter] = useState("");
+
+  const { loading, error, data, startPolling, stopPolling } = useQuery(
+    GET_CLIENTE_BY_NIT,
+    {
+      variables: {
+        nitoci: enter,
+      },
+      // fetchPolicy: "no-cache",
+    }
+  );
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       setEnter(nitoci);
     }
   };
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    };
+  }, [startPolling, stopPolling]);
   if (loading) return <Loader />;
   if (error) return `${error.message}`;
   const { getNITCliente } = data;
@@ -156,14 +161,18 @@ const ClientData = ({ setActiveBtn }) => {
       <div className={classes.boxClient}>
         <div>
           <TextField
-            label='NIT o CI'
+            label="NIT o CI"
             value={nitoci}
             onChange={(e) => setNitoci(e.target.value)}
             onKeyPress={handleKeyPress}
           />
         </div>
 
-        <RazonSocial cliente={getNITCliente} setActiveBtn={setActiveBtn} />
+        <RazonSocial
+          cliente={getNITCliente}
+          nitoci={nitoci}
+          setActiveBtn={setActiveBtn}
+        />
       </div>
     </div>
   );

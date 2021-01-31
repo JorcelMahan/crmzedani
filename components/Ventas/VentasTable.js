@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from "react";
 import {
   Table,
   TableHead,
@@ -8,13 +8,13 @@ import {
   Card,
   CardContent,
   Box,
-} from '@material-ui/core';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import ModalDeleteVenta from './ModalDeleteVenta';
-import AuthContext from '../../context/auth/AuthContext';
-import ModalCancelarVenta from './ModalCancelarVenta';
+} from "@material-ui/core";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import ModalDeleteVenta from "./ModalDeleteVenta";
+import AuthContext from "../../context/auth/AuthContext";
+import ModalCancelarVenta from "./ModalCancelarVenta";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -25,10 +25,10 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 1050,
   },
   tableRow: {
-    textDecoration: 'none',
+    textDecoration: "none",
   },
   tableRowCancelado: {
-    textDecoration: 'line-through',
+    textDecoration: "line-through",
   },
 }));
 
@@ -37,9 +37,9 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
   let totalEfectivo = 0;
   let totalTarjeta = 0;
   const caja =
-    user === 'sopocachi'
+    user === "sopocachi"
       ? 250
-      : user === 'miraflores' || user === 'san miguel'
+      : user === "miraflores" || user === "san miguel"
       ? 500
       : 0;
   const classes = useStyles();
@@ -48,8 +48,8 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
       localStorage.totalEfectivo = totalEfectivo;
       localStorage.totalTarjeta = totalTarjeta;
     } else {
-      localStorage.setItem('totalEfectivo', totalEfectivo.toString());
-      localStorage.setItem('totalTarjeta', totalTarjeta.toString());
+      localStorage.setItem("totalEfectivo", totalEfectivo.toString());
+      localStorage.setItem("totalTarjeta", totalTarjeta.toString());
     }
   });
   return (
@@ -63,6 +63,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Factura o Nota</TableCell>
+                  <TableCell>Vendedor</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
                   <TableCell>Productos</TableCell>
                   <TableCell>Efectivo</TableCell>
@@ -71,19 +72,19 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                   <TableCell>Total Efectivo</TableCell>
                   <TableCell>Total Tarjeta</TableCell>
                   <TableCell>Anular</TableCell>
-                  {user === 'patrick' && <TableCell>Eliminar</TableCell>}
+                  {user === "patrick" && <TableCell>Eliminar</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {ventas.length > 0 &&
                   ventas.map((venta, i) => {
-                    if (venta.status === 'COMPLET0') {
-                      if (venta.metodo === 'EFECTIVO') {
+                    if (venta.status === "COMPLET0") {
+                      if (venta.metodo === "EFECTIVO") {
                         totalEfectivo += venta.total;
-                      } else if (venta.metodo === 'EFECTIVO-TARJETA') {
+                      } else if (venta.metodo === "EFECTIVO-TARJETA") {
                         totalEfectivo += venta.montoEfectivo;
                         totalTarjeta += venta.montoTarjeta;
-                      } else if (venta.metodo === 'TARJETA') {
+                      } else if (venta.metodo === "TARJETA") {
                         totalTarjeta += venta.total;
                       }
                     }
@@ -92,24 +93,28 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                       <TableRow
                         key={venta.id}
                         className={clsx(
-                          venta.status === 'COMPLET0'
+                          venta.status === "COMPLET0"
                             ? classes.tableRow
                             : classes.tableRowCancelado
-                        )}>
+                        )}
+                      >
                         <TableCell>{++i}</TableCell>
 
                         <TableCell>
-                          {venta.factura ? venta.factura : '-'}
+                          {venta.factura ? venta.factura : "-"}
                           {/* {formatDate.toLocaleDateString('es-MX')} */}
                         </TableCell>
                         <TableCell>
-                          {venta.idPromotora !== null ? 'Promotora' : 'Cliente'}
+                          {venta.vendedor ? venta.vendedor.name : "-"}
+                        </TableCell>
+                        <TableCell>
+                          {venta.idPromotora !== null ? "Promotora" : "Cliente"}
                         </TableCell>
                         <TableCell>
                           {venta.productos.map((product, j) => (
                             <p key={`${product.codigo}-${j}`}>
                               {product.codigo} - {product.color} -
-                              {product.sizeSale} - Bs{' '}
+                              {product.sizeSale} - Bs{" "}
                               {!product.precioPromocion &&
                               product.precioPromocion === 0
                                 ? product.precioPublico
@@ -119,25 +124,25 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                           ))}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === 'EFECTIVO'
+                          {venta.metodo === "EFECTIVO"
                             ? venta.total
-                            : venta.metodo === 'EFECTIVO-TARJETA'
+                            : venta.metodo === "EFECTIVO-TARJETA"
                             ? venta.montoEfectivo
-                            : '-'}
+                            : "-"}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === 'TARJETA'
+                          {venta.metodo === "TARJETA"
                             ? venta.total
-                            : venta.metodo === 'EFECTIVO-TARJETA'
+                            : venta.metodo === "EFECTIVO-TARJETA"
                             ? venta.montoTarjeta
-                            : '-'}
+                            : "-"}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === 'DEPOSITO' ? venta.total : '-'}
+                          {venta.metodo === "DEPOSITO" ? venta.total : "-"}
                         </TableCell>
                         <TableCell>{totalEfectivo + caja}</TableCell>
                         <TableCell>{totalTarjeta}</TableCell>
-                        {venta.status === 'COMPLET0' ? (
+                        {venta.status === "COMPLET0" ? (
                           <TableCell>
                             <ModalCancelarVenta
                               id={venta.id}
@@ -148,7 +153,7 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                           <TableCell>Anulado</TableCell>
                         )}
 
-                        {user === 'patrick' && (
+                        {user === "patrick" && (
                           <TableCell>
                             <ModalDeleteVenta
                               id={venta.id}

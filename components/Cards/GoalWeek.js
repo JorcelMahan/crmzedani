@@ -1,12 +1,12 @@
-import React, { useEffect, useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { gql, useQuery } from '@apollo/client';
-import AuthContext from '../../context/auth/AuthContext';
-import CardGoalStore from './CardGoalStore';
+import React, { useEffect, useContext } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { gql, useQuery } from "@apollo/client";
+import AuthContext from "../../context/auth/AuthContext";
+import CardGoalStore from "./CardGoalStore";
 
 const GET_VENTAS = gql`
   query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
@@ -32,20 +32,20 @@ const useStyles = makeStyles({
   },
   card: {
     // minWidth: 275,
-    marginTop: '1rem  ',
-    borderRadius: '16px',
-    boxShadow: '0px 7px 20px rgba(34, 35, 58, 0.2)',
-    background: '#ffffff',
-    display: 'flex',
+    marginTop: "1rem  ",
+    borderRadius: "16px",
+    boxShadow: "0px 7px 20px rgba(34, 35, 58, 0.2)",
+    background: "#ffffff",
+    display: "flex",
   },
 
   title: {
-    fontSize: '1.2rem',
-    color: '#D32F2F',
-    textTransform: 'uppercase',
+    fontSize: "1.2rem",
+    color: "#D32F2F",
+    textTransform: "uppercase",
   },
   pos: {
-    marginBottom: '1rem',
+    marginBottom: "1rem",
   },
   containerMeta: {
     maxWidth: 345,
@@ -54,15 +54,15 @@ const useStyles = makeStyles({
     height: 140,
   },
   divContainer: {
-    marginTop: '1rem',
-    display: 'flex',
-    justifyContent: 'center',
+    marginTop: "1rem",
+    display: "flex",
+    justifyContent: "center",
   },
   divGoal: {
-    fontSize: '1.2rem',
+    fontSize: "1.2rem",
   },
   cardGoal2: {
-    fontSize: '1.5rem',
+    fontSize: "1.5rem",
   },
 });
 
@@ -84,17 +84,17 @@ const Count2 = ({ initial, finish }) => {
     };
   }, [startPolling, stopPolling]);
 
-  if (loading) return 'Loading';
+  if (loading) return "Loading";
   if (error) return `Error: ${error}`;
   return (
     <div className={classes.cardGoal2}>
-      <div style={{ marginBottom: '2px' }}>
+      <div style={{ marginBottom: "2px" }}>
         <i>
           "Trabajar en equipo divide el trabajo y multiplica los resultados"
         </i>
       </div>
       <hr />
-      <p style={{ marginTop: '5px' }}>
+      <p style={{ marginTop: "5px" }}>
         Meta: {data.salesByRangeOfDate} de 3600
       </p>
       <p>Falta: {3600 - data.salesByRangeOfDate}</p>
@@ -120,17 +120,17 @@ const Count = ({ month, startDay, endDay }) => {
     };
   }, [startPolling, stopPolling]);
 
-  if (loading) return 'Loading';
+  if (loading) return "Loading";
   if (error) return `error: ${error}`;
   let totalShoes = 0;
   let totalAccesorios = 0;
   data.allventas.forEach((venta) => {
     venta.productos.forEach((product) => {
       if (
-        product.codigo !== 'PLANTILLAS' &&
-        product.codigo !== 'ACS-001' &&
-        product.codigo !== 'ACS-002' &&
-        product.codigo !== 'ACS-003'
+        product.codigo !== "PLANTILLAS" &&
+        product.codigo !== "ACS-001" &&
+        product.codigo !== "ACS-002" &&
+        product.codigo !== "ACS-003"
       ) {
         totalShoes += product.quantity;
       } else {
@@ -153,47 +153,74 @@ export default function GoalWeek() {
 
   return (
     <Grid container spacing={2} className={classes.root}>
-      <Grid item xs={12} sm={6}>
-        <CardGoalStore user={user} store='miraflores' goal='390' />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <CardGoalStore user={user} store='san miguel' goal='180' />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <CardGoalStore user={user} store='sopocachi' goal='180' />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <CardGoalStore user={user} store='patrick' goal='1000' />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color='textSecondary'
-              gutterBottom>
-              ENERO
-            </Typography>
-            <Count2 initial='2021-01-01' finish='2021-02-01' />
-          </CardContent>
-        </Card>
-      </Grid>
-      {(user === 'patrick' ||
-        user === 'kathryn' ||
-        user === 'laura' ||
-        user === 'fabio') && (
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        user === "miraflores") && (
+        <Grid item xs={12} sm={6}>
+          <CardGoalStore user={user} store="miraflores" goal="390" />
+        </Grid>
+      )}
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        user === "san miguel") && (
+        <Grid item xs={12} sm={6}>
+          <CardGoalStore user={user} store="san miguel" goal="180" />
+        </Grid>
+      )}
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        user === "sopocahi") && (
+        <Grid item xs={12} sm={6}>
+          <CardGoalStore user={user} store="sopocachi" goal="180" />
+        </Grid>
+      )}
+      {user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        (user === "seguridad" && (
+          <Grid item xs={12} sm={6}>
+            <CardGoalStore user={user} store="patrick" goal="1000" />
+          </Grid>
+        ))}
+
+      {/*<Grid item xs={12} sm={6}>*/}
+      {/*  <Card className={classes.card}>*/}
+      {/*    <CardContent>*/}
+      {/*      <Typography*/}
+      {/*        className={classes.title}*/}
+      {/*        color="textSecondary"*/}
+      {/*        gutterBottom*/}
+      {/*      >*/}
+      {/*        FEBRERO*/}
+      {/*      </Typography>*/}
+      {/*      <Count2 initial="2021-01-01" finish="2021-02-01" />*/}
+      {/*    </CardContent>*/}
+      {/*  </Card>*/}
+      {/*</Grid>*/}
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio") && (
         <Grid item xs={12} sm={6}>
           <Card className={classes.card}>
             <CardContent>
               <Typography
                 className={classes.title}
-                color='textSecondary'
-                gutterBottom>
+                color="textSecondary"
+                gutterBottom
+              >
                 Mes:
-                {new Date().toLocaleString('es-MX', { month: 'long' })}
+                {new Date().toLocaleString("es-MX", { month: "long" })}
               </Typography>
 
-              <Count month='0' startDay='1' endDay='31' />
+              <Count month="1" startDay="1" endDay="28" />
             </CardContent>
           </Card>
         </Grid>
