@@ -1,5 +1,12 @@
 import { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
+import { TableCell, TableContainer } from "@material-ui/core";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableBody from "@material-ui/core/TableBody";
+import Paper from "@material-ui/core/Paper";
+import PerfectScrollbar from "react-perfect-scrollbar";
 const EMPLOYEES_STORE = gql`
   query employeeStore($store: String!) {
     employeeStore(store: $store) {
@@ -53,17 +60,31 @@ const Seller = ({ emp, store }) => {
       stopPolling2();
     };
   }, [startPolling2, stopPolling2]);
-  if (loading || loading2) return "Loading";
-  if (error || error2) return `ERROR`;
+  if (loading || loading2)
+    return (
+      <TableRow>
+        <TableCell>Loading</TableCell>
+      </TableRow>
+    );
+  if (error || error2)
+    return (
+      <TableRow>
+        <TableCell>Error</TableCell>
+      </TableRow>
+    );
   const { salesDayByStoreAndEmployee } = data;
   const { salesMonthByStoreAndEmployee } = data2;
 
   return (
-    <div>
-      {emp.name} = Z:{salesDayByStoreAndEmployee[0]} - A:
-      {salesDayByStoreAndEmployee[1]} - ZM: {salesMonthByStoreAndEmployee[0]} -
-      AM: {salesMonthByStoreAndEmployee[1]}
-    </div>
+    <TableRow>
+      <TableCell component="th" scope="row">
+        {emp.name}
+      </TableCell>
+      <TableCell align="right">{salesDayByStoreAndEmployee[0]}</TableCell>
+      <TableCell align="right">{salesDayByStoreAndEmployee[1]}</TableCell>
+      <TableCell align="right">{salesMonthByStoreAndEmployee[0]}</TableCell>
+      <TableCell align="right">{salesMonthByStoreAndEmployee[1]}</TableCell>
+    </TableRow>
   );
 };
 
@@ -77,9 +98,26 @@ const SellersList = ({ store }) => {
   if (error) return `${error.message}`;
   return (
     <div>
-      {data.employeeStore.map((emp) => (
-        <Seller key={emp.id} emp={emp} store={store} />
-      ))}
+      <PerfectScrollbar>
+        <TableContainer component={Paper}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Nombre</TableCell>
+                <TableCell align="right">Dia - Zapatos</TableCell>
+                <TableCell align="right">Dia - Accesorios</TableCell>
+                <TableCell align="right">Mes - Zapatos</TableCell>
+                <TableCell align="right">Mes - Accesorios</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.employeeStore.map((emp) => (
+                <Seller key={emp.id} emp={emp} store={store} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </PerfectScrollbar>
     </div>
   );
 };

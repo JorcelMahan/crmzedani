@@ -121,8 +121,7 @@ const Ventas = () => {
 
   if (loading || loading2 || loading3) return <Loader />;
   if (error || error2 || error3) return `Error, ${error}`;
-  console.log(data.salesStoreByDate);
-  // const { salesByDate } = data;
+
   return (
     <CajaState>
       <div className={classes.root}>

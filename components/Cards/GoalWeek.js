@@ -158,7 +158,7 @@ export default function GoalWeek() {
         user === "laura" ||
         user === "fabio" ||
         user === "miraflores") && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <CardGoalStore user={user} store="miraflores" goal="390" />
         </Grid>
       )}
@@ -167,7 +167,7 @@ export default function GoalWeek() {
         user === "laura" ||
         user === "fabio" ||
         user === "san miguel") && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <CardGoalStore user={user} store="san miguel" goal="180" />
         </Grid>
       )}
@@ -176,7 +176,7 @@ export default function GoalWeek() {
         user === "laura" ||
         user === "fabio" ||
         user === "sopocahi") && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <CardGoalStore user={user} store="sopocachi" goal="180" />
         </Grid>
       )}
@@ -185,7 +185,7 @@ export default function GoalWeek() {
         user === "laura" ||
         user === "fabio" ||
         (user === "seguridad" && (
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <CardGoalStore user={user} store="patrick" goal="1000" />
           </Grid>
         ))}
@@ -208,7 +208,7 @@ export default function GoalWeek() {
         user === "kathryn" ||
         user === "laura" ||
         user === "fabio") && (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Card className={classes.card}>
             <CardContent>
               <Typography
