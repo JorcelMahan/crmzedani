@@ -89,6 +89,7 @@ function Checkout() {
     factura,
     montoEfectivo,
     montoTarjeta,
+    montoDeposito,
     vendedor,
   } = ventasContext;
   const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
@@ -106,6 +107,7 @@ function Checkout() {
             total: Number(total),
             montoEfectivo: Number(montoEfectivo),
             montoTarjeta: Number(montoTarjeta),
+            montoDeposito: Number(montoDeposito),
             vendedor,
           },
         },

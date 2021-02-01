@@ -53,6 +53,7 @@ const SALES_BY_DATE = gql`
       reciboNota
       montoEfectivo
       montoTarjeta
+      montoDeposito
     }
   }
 `;

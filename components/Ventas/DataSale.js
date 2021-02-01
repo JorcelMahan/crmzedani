@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react';
-import VentasContext from '../../context/ventas/VentasContext';
+import React, { useContext, useEffect } from "react";
+import VentasContext from "../../context/ventas/VentasContext";
 import {
   Box,
   Divider,
@@ -10,7 +10,7 @@ import {
   MenuItem,
   Select,
   Typography,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 const DataSale = ({ setActiveBtn }) => {
   const {
@@ -22,7 +22,7 @@ const DataSale = ({ setActiveBtn }) => {
     reciboNota,
   } = useContext(VentasContext);
   useEffect(() => {
-    if (factura === '' && reciboNota === '') {
+    if (factura === "" && reciboNota === "") {
       setActiveBtn(true);
     } else {
       setActiveBtn(false);
@@ -32,14 +32,14 @@ const DataSale = ({ setActiveBtn }) => {
     <div>
       {/* <Divider  /> */}
 
-      <Box display='flex' flexDirection='column' m={2}>
-        <Typography variant='h4'>Datos de la Venta</Typography>
-        <Box display='flex' justifyContent='space-around'>
+      <Box display="flex" flexDirection="column" m={2}>
+        <Typography variant="h4">Datos de la Venta</Typography>
+        <Box display="flex" justifyContent="space-around">
           <Box>
             <FormControl>
               <InputLabel>Nro Factura</InputLabel>
               <Input
-                id='factura'
+                id="factura"
                 value={factura}
                 onChange={(e) => addFactura(e.target.value)}
               />
@@ -47,29 +47,32 @@ const DataSale = ({ setActiveBtn }) => {
           </Box>
           <Box>
             <FormControl>
-              <InputLabel id='metodo'>Metodo</InputLabel>
+              <InputLabel id="metodo">Metodo</InputLabel>
               <Select
-                labelId='metodo'
-                id='metodo'
+                labelId="metodo"
+                id="metodo"
                 value={metodo}
-                onChange={(e) => addMetodoPago(e.target.value)}>
-                <MenuItem value='EFECTIVO'>Efectivo</MenuItem>
-                <MenuItem value='TARJETA'>Tarjeta</MenuItem>
-                <MenuItem value='DEPOSITO'>Deposito</MenuItem>
-                <MenuItem value='EFECTIVO-TARJETA'>Efectivo-Tarjeta</MenuItem>
+                onChange={(e) => addMetodoPago(e.target.value)}
+              >
+                <MenuItem value="EFECTIVO">Efectivo</MenuItem>
+                <MenuItem value="TARJETA">Tarjeta</MenuItem>
+                <MenuItem value="DEPOSITO">Deposito</MenuItem>
+                <MenuItem value="EFECTIVO-TARJETA">Efectivo-Tarjeta</MenuItem>
+                <MenuItem value="DEPOSITO-EFECTIVO">Deposito-Efectivo</MenuItem>
+                <MenuItem value="DEPOSITO-TARJETA">Deposito-Tarjeta</MenuItem>
               </Select>
             </FormControl>
           </Box>
           <Box>
             <FormControl>
-              <InputLabel htmlFor='my-input'>Recibo o Nota</InputLabel>
+              <InputLabel htmlFor="my-input">Recibo o Nota</InputLabel>
               <Input
-                id='nota'
+                id="nota"
                 value={reciboNota}
                 onChange={(e) => addReciboNota(e.target.value)}
-                aria-describedby='my-helper-text'
+                aria-describedby="my-helper-text"
               />
-              <FormHelperText id='my-helper-text'>
+              <FormHelperText id="my-helper-text">
                 R o N antes del numero
               </FormHelperText>
             </FormControl>

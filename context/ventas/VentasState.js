@@ -19,6 +19,7 @@ import {
   ADD_MONTO_EFECTIVO,
   ADD_MONTO_TARJETA,
   ADD_VENDEDOR,
+  ADD_MONTO_DEPOSITO,
 } from "../../types";
 
 const VentasState = ({ children }) => {
@@ -33,6 +34,7 @@ const VentasState = ({ children }) => {
     reciboNota: "",
     montoEfectivo: "0",
     montoTarjeta: "0",
+    montoDeposito: "0",
     vendedor: "",
   };
 
@@ -129,6 +131,12 @@ const VentasState = ({ children }) => {
       payload: tarjeta,
     });
   };
+  const addMontoDeposito = (deposito) => {
+    dispatch({
+      type: ADD_MONTO_DEPOSITO,
+      payload: deposito,
+    });
+  };
 
   const addVendedor = (vendedor) => {
     dispatch({
@@ -149,6 +157,7 @@ const VentasState = ({ children }) => {
         reciboNota: state.reciboNota,
         montoEfectivo: state.montoEfectivo,
         montoTarjeta: state.montoTarjeta,
+        montoDeposito: state.montoDeposito,
         vendedor: state.vendedor,
         resetState,
         addProduct,
@@ -165,6 +174,7 @@ const VentasState = ({ children }) => {
         addMetodoPago,
         addMontoEfectivo,
         addMontoTarjeta,
+        addMontoDeposito,
         addVendedor,
       }}
     >

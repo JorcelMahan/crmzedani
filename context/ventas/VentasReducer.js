@@ -14,6 +14,7 @@ import {
   ADD_RECIBO_NOTA,
   ADD_MONTO_EFECTIVO,
   ADD_MONTO_TARJETA,
+  ADD_MONTO_DEPOSITO,
   ADD_VENDEDOR,
 } from "../../types";
 
@@ -165,6 +166,12 @@ const VentasReducer = (state, action) => {
       return {
         ...state,
         montoEfectivo: action.payload,
+      };
+    }
+    case ADD_MONTO_DEPOSITO: {
+      return {
+        ...state,
+        montoDeposito: action.payload,
       };
     }
     case ADD_VENDEDOR: {

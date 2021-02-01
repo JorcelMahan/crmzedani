@@ -14,6 +14,7 @@ export const ADD_FACTURA = "ADD_FACTURA";
 export const ADD_RECIBO_NOTA = "ADD_RECIBO_NOTA";
 export const ADD_MONTO_EFECTIVO = "ADD_MONTO_EFECTIVO";
 export const ADD_MONTO_TARJETA = "ADD_MONTO_TARJETA";
+export const ADD_MONTO_DEPOSITO = "ADD_MONTO_DEPOSITO";
 export const ADD_VENDEDOR = "ADD_VENDEDOR";
 
 // cajas

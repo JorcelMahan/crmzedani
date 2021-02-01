@@ -86,6 +86,10 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                         totalTarjeta += venta.montoTarjeta;
                       } else if (venta.metodo === "TARJETA") {
                         totalTarjeta += venta.total;
+                      } else if (venta.metodo === "DEPOSITO-EFECTIVO") {
+                        totalEfectivo += venta.montoEfectivo;
+                      } else if (venta.metodo === "DEPOSITO-TARJETA") {
+                        totalTarjeta += venta.montoTarjeta;
                       }
                     }
                     const formatDate = new Date(Number(venta.fechaDeCompra));
@@ -126,19 +130,26 @@ const VentasTable = ({ ventas, cancelarVenta, anularVenta }) => {
                         <TableCell>
                           {venta.metodo === "EFECTIVO"
                             ? venta.total
-                            : venta.metodo === "EFECTIVO-TARJETA"
+                            : venta.metodo === "EFECTIVO-TARJETA" ||
+                              venta.metodo === "DEPOSITO-EFECTIVO"
                             ? venta.montoEfectivo
                             : "-"}
                         </TableCell>
                         <TableCell>
                           {venta.metodo === "TARJETA"
                             ? venta.total
-                            : venta.metodo === "EFECTIVO-TARJETA"
+                            : venta.metodo === "EFECTIVO-TARJETA" ||
+                              venta.metodo === "DEPOSITO-TARJETA"
                             ? venta.montoTarjeta
                             : "-"}
                         </TableCell>
                         <TableCell>
-                          {venta.metodo === "DEPOSITO" ? venta.total : "-"}
+                          {venta.metodo === "DEPOSITO"
+                            ? venta.total
+                            : venta.metodo === "DEPOSITO-TARJETA" ||
+                              venta.metodo === "DEPOSITO-EFECTIVO"
+                            ? venta.montoDeposito
+                            : "-"}
                         </TableCell>
                         <TableCell>{totalEfectivo + caja}</TableCell>
                         <TableCell>{totalTarjeta}</TableCell>
