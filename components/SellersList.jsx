@@ -16,8 +16,12 @@ const EMPLOYEES_STORE = gql`
   }
 `;
 const SALES_DAY_EMPLOYEE = gql`
-  query salesDayByStoreAndEmployee($store: String, $employee: String) {
-    salesDayByStoreAndEmployee(store: $store, employee: $employee)
+  query salesDayByStoreAndEmployee(
+    $store: String
+    $employee: String
+    $date: String
+  ) {
+    salesDayByStoreAndEmployee(store: $store, employee: $employee, date: $date)
   }
 `;
 const SALES_MONTH_EMPLOYEE = gql`
@@ -26,12 +30,21 @@ const SALES_MONTH_EMPLOYEE = gql`
   }
 `;
 const Seller = ({ emp, store }) => {
+  const currentDate = new Date()
+    .toLocaleString("es-MX", {
+      year: "numeric",
+      month: "numeric",
+      day: "2-digit",
+    })
+    .split("/");
+  const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
   const { loading, error, data, stopPolling, startPolling } = useQuery(
     SALES_DAY_EMPLOYEE,
     {
       variables: {
         store,
         employee: emp.id,
+        date: currDateStr,
       },
     }
   );
