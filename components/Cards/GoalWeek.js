@@ -175,20 +175,20 @@ export default function GoalWeek() {
         user === "kathryn" ||
         user === "laura" ||
         user === "fabio" ||
-        user === "sopocahi") && (
+        user === "sopocachi") && (
         <Grid item xs={12} sm={12}>
           <CardGoalStore user={user} store="sopocachi" goal="180" />
         </Grid>
       )}
-      {user === "patrick" ||
+      {(user === "patrick" ||
         user === "kathryn" ||
         user === "laura" ||
         user === "fabio" ||
-        (user === "seguridad" && (
-          <Grid item xs={12} sm={12}>
-            <CardGoalStore user={user} store="patrick" goal="1000" />
-          </Grid>
-        ))}
+        user === "seguridad") && (
+        <Grid item xs={12} sm={12}>
+          <CardGoalStore user={user} store="patrick" goal="1000" />
+        </Grid>
+      )}
 
       {/*<Grid item xs={12} sm={6}>*/}
       {/*  <Card className={classes.card}>*/}

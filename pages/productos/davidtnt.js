@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useQuery, gql } from '@apollo/client';
-import WrapperZapatos from '../../components/Zapatos/WrapperZapatos';
-import Loader from '../../components/Loader';
+import React, { useEffect, useState } from "react";
+import { useQuery, gql } from "@apollo/client";
+import WrapperZapatos from "../../components/Zapatos/WrapperZapatos";
+import Loader from "../../components/Loader";
 
 const GET_ZAPATOS = gql`
   query zapatosAlmacen($almacen: String!, $color: String, $talla: String) {
@@ -54,13 +54,13 @@ const GET_ZAPATOS = gql`
 `;
 
 const DavidTnt = () => {
-  const [color, setColor] = useState('');
-  const [talla, setTalla] = useState('');
+  const [color, setColor] = useState("");
+  const [talla, setTalla] = useState("");
 
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
-      variables: { almacen: 'davidtnt', color, talla },
+      variables: { almacen: "davidtnt", color, talla },
     }
   );
   useEffect(() => {
@@ -76,7 +76,7 @@ const DavidTnt = () => {
   return (
     <WrapperZapatos
       zapatos={zapatosAlmacen}
-      almacen='David TNT'
+      almacen="Comercial"
       setColor={setColor}
       setTalla={setTalla}
       talla={talla}
