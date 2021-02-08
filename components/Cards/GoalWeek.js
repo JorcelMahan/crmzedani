@@ -14,8 +14,10 @@ const GET_VENTAS = gql`
       id
       total
       productos {
+        id
         codigo
         quantity
+        estado
       }
     }
   }
@@ -114,7 +116,7 @@ const Count = ({ month, startDay, endDay }) => {
   );
 
   useEffect(() => {
-    startPolling(5000);
+    startPolling(1000);
     return () => {
       stopPolling();
     };
@@ -126,15 +128,17 @@ const Count = ({ month, startDay, endDay }) => {
   let totalAccesorios = 0;
   data.allventas.forEach((venta) => {
     venta.productos.forEach((product) => {
-      if (
-        product.codigo !== "PLANTILLAS" &&
-        product.codigo !== "ACS-001" &&
-        product.codigo !== "ACS-002" &&
-        product.codigo !== "ACS-003"
-      ) {
-        totalShoes += product.quantity;
-      } else {
-        totalAccesorios += product.quantity;
+      if (product.estado !== "CANCELADO") {
+        if (
+          product.codigo !== "PLANTILLAS" &&
+          product.codigo !== "ACS-001" &&
+          product.codigo !== "ACS-002" &&
+          product.codigo !== "ACS-003"
+        ) {
+          totalShoes += product.quantity;
+        } else {
+          totalAccesorios += product.quantity;
+        }
       }
     });
   });

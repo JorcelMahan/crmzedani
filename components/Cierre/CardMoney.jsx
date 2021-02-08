@@ -46,7 +46,7 @@ const Billete = ({ nombre, setBilletes, billetes }) => {
     setBilletes({
       ...billetes,
       [nombre]: {
-        cantidad: quantity,
+        cantidad: Number(quantity),
         total: totaly,
       },
     });
@@ -87,11 +87,19 @@ export const CardMoney = React.memo(function ElevatedHeaderCard() {
 
   useEffect(() => {
     let t = 0;
+    const money = [];
     for (const p in billetes) {
       t += billetes[p].total;
     }
+    for (const [key, value] of Object.entries(billetes)) {
+      money.push({
+        nombre: key,
+        cantidad: billetes[key].cantidad,
+        total: billetes[key].total,
+      });
+    }
     setTotaBilletes(t);
-    addBilletes(billetes);
+    addBilletes(money);
   }, [billetes]);
   useEffect(() => {
     addTotalBilletes(totalBilletes);

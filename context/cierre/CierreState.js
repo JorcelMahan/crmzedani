@@ -8,6 +8,7 @@ import {
   ADD_MONEDAS,
   ADD_TOTAL_BILLETES,
   ADD_TOTAL_MONEDAS,
+  RESET_STATE,
 } from "../../types";
 
 const CierreState = ({ children }) => {
@@ -16,7 +17,7 @@ const CierreState = ({ children }) => {
     totalBilletes: 0,
     totalEfectivo: 0,
     totalTarjeta: 0,
-    billetes: {},
+    billetes: [],
     monedas: {},
   };
 
@@ -25,6 +26,12 @@ const CierreState = ({ children }) => {
     dispatch({
       type: ADD_TOTAL_EFECTIVO,
       payload: totalEfectivo,
+    });
+  };
+  const addTotalTarjeta = (addTotalTarjeta) => {
+    dispatch({
+      type: ADD_TOTAL_TARJETA,
+      payload: addTotalTarjeta,
     });
   };
   const addTotalMonedas = (totalMonedas) => {
@@ -52,6 +59,13 @@ const CierreState = ({ children }) => {
       payload: moneda,
     });
   };
+
+  const reset = () => {
+    dispatch({
+      type: RESET_STATE,
+      payload: initialState,
+    });
+  };
   return (
     <CierreContext.Provider
       value={{
@@ -66,6 +80,8 @@ const CierreState = ({ children }) => {
         addTotalMonedas,
         addBilletes,
         addMonedas,
+        addTotalTarjeta,
+        reset,
       }}
     >
       {children}

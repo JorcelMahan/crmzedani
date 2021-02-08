@@ -20,6 +20,22 @@ const ANULAR_VENTA = gql`
   }
 `;
 
+const ANULAR_ZAPATO_VENTA = gql`
+  mutation anularZapatoVenta(
+    $idVenta: ID
+    $idShoe: ID
+    $color: String
+    $size: String
+  ) {
+    anularZapatoVenta(
+      idVenta: $idVenta
+      idShoe: $idShoe
+      color: $color
+      size: $size
+    )
+  }
+`;
+
 const SALES_BY_DATE = gql`
   query salesStoreByDate($store: String!, $date: String!) {
     salesStoreByDate(store: $store, date: $date) {
@@ -27,6 +43,7 @@ const SALES_BY_DATE = gql`
       total
       fechaDeCompra
       productos {
+        id
         codigo
         color
         precioPublico
@@ -34,6 +51,7 @@ const SALES_BY_DATE = gql`
         image
         sizeSale
         quantity
+        estado
       }
       cliente {
         nitoci
@@ -107,9 +125,11 @@ const Ventas = () => {
   const [anularVenta, { loading: loading3, error: error3 }] = useMutation(
     ANULAR_VENTA
   );
-
+  const [anularZapatoVenta, { loading: loading4, error: error4 }] = useMutation(
+    ANULAR_ZAPATO_VENTA
+  );
   const classes = useStyles();
-  const [close, setCLose] = useState(false);
+  // const [close, setCLose] = useState(false);
   useEffect(() => {
     if (data) {
       setSalesDate(data.salesStoreByDate);
@@ -120,8 +140,9 @@ const Ventas = () => {
     };
   }, [data, cancelarVenta, startPolling, stopPolling]);
 
-  if (loading || loading2 || loading3) return <Loader />;
-  if (error || error2 || error3) return `Error, ${error}`;
+  if (loading || loading2 || loading3 || loading4) return <Loader />;
+  if (error || error2 || error3) return `Error, ${error.message}`;
+  if (error4) return `Error, ${error4.message}`;
 
   return (
     <CajaState>
@@ -170,6 +191,7 @@ const Ventas = () => {
           ventas={salesDate}
           cancelarVenta={cancelarVenta}
           anularVenta={anularVenta}
+          anularZapatoVenta={anularZapatoVenta}
         />
       </div>
     </CajaState>

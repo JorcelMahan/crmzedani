@@ -5,7 +5,8 @@ import {
   ADD_MONEDAS,
   ADD_TOTAL_BILLETES,
   ADD_TOTAL_MONEDAS,
-} from '../../types';
+  RESET_STATE,
+} from "../../types";
 
 const CierreReducer = (state, action) => {
   switch (action.type) {
@@ -13,6 +14,12 @@ const CierreReducer = (state, action) => {
       return {
         ...state,
         totalEfectivo: action.payload,
+      };
+    }
+    case ADD_TOTAL_TARJETA: {
+      return {
+        ...state,
+        totalTarjeta: action.payload,
       };
     }
     case ADD_TOTAL_MONEDAS: {
@@ -37,6 +44,11 @@ const CierreReducer = (state, action) => {
       return {
         ...state,
         billetes: action.payload,
+      };
+    }
+    case RESET_STATE: {
+      return {
+        ...action.payload,
       };
     }
     default:
