@@ -1,22 +1,22 @@
-import React, { useContext, useState, useEffect } from 'react';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TablePagination from '@material-ui/core/TablePagination';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Zapato from './Zapato';
-import { Card, CardContent, TableContainer } from '@material-ui/core';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
-import clsx from 'clsx';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import AuthContext from '../../context/auth/AuthContext';
-import { useRouter } from 'next/router';
+import React, { useContext, useState, useEffect } from "react";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TablePagination from "@material-ui/core/TablePagination";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Zapato from "./Zapato";
+import { Card, CardContent, TableContainer } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
+import FirstPageIcon from "@material-ui/icons/FirstPage";
+import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import LastPageIcon from "@material-ui/icons/LastPage";
+import clsx from "clsx";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import AuthContext from "../../context/auth/AuthContext";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles(() => ({
   content: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     minWidth: 500,
   },
   footer: {
-    width: '100%',
+    width: "100%",
   },
   container: {
     maxHeight: 440,
@@ -69,34 +69,38 @@ const TablePaginationActions = (props) => {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label='first page'>
-        {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
+        aria-label="first page"
+      >
+        {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label='previous page'>
-        {theme.direction === 'rtl' ? (
+        aria-label="previous page"
+      >
+        {theme.direction === "rtl" ? (
           <KeyboardArrowRight />
         ) : (
-            <KeyboardArrowLeft />
-          )}
+          <KeyboardArrowLeft />
+        )}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='next page'>
-        {theme.direction === 'rtl' ? (
+        aria-label="next page"
+      >
+        {theme.direction === "rtl" ? (
           <KeyboardArrowLeft />
         ) : (
-            <KeyboardArrowRight />
-          )}
+          <KeyboardArrowRight />
+        )}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label='last page'>
-        {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
+        aria-label="last page"
+      >
+        {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </div>
   );
@@ -115,38 +119,37 @@ const ListZapatos = (props) => {
         zapato.almacen,
         zapato.codigo,
         zapato.color,
-        zapato.tallas['t19'] ? zapato.tallas['t19'] : 0,
-        zapato.tallas['t20'] ? zapato.tallas['t20'] : 0,
-        zapato.tallas['t21'] ? zapato.tallas['t21'] : 0,
-        zapato.tallas['t22'] ? zapato.tallas['t22'] : 0,
-        zapato.tallas['t23'] ? zapato.tallas['t23'] : 0,
-        zapato.tallas['t24'] ? zapato.tallas['t24'] : 0,
-        zapato.tallas['t25'] ? zapato.tallas['t25'] : 0,
-        zapato.tallas['t26'] ? zapato.tallas['t26'] : 0,
-        zapato.tallas['t27'] ? zapato.tallas['t27'] : 0,
-        zapato.tallas['t28'] ? zapato.tallas['t28'] : 0,
-        zapato.tallas['t29'] ? zapato.tallas['t29'] : 0,
-        zapato.tallas['t30'] ? zapato.tallas['t30'] : 0,
-        zapato.tallas['t31'] ? zapato.tallas['t31'] : 0,
-        zapato.tallas['t32'] ? zapato.tallas['t32'] : 0,
-        zapato.tallas['t33'] ? zapato.tallas['t33'] : 0,
-        zapato.tallas['t34'] ? zapato.tallas['t34'] : 0,
-        zapato.tallas['t35'] ? zapato.tallas['t35'] : 0,
-        zapato.tallas['t36'] ? zapato.tallas['t36'] : 0,
-        zapato.tallas['t37'] ? zapato.tallas['t37'] : 0,
-        zapato.tallas['t38'] ? zapato.tallas['t38'] : 0,
-        zapato.tallas['t39'] ? zapato.tallas['t39'] : 0,
-        zapato.tallas['t40'] ? zapato.tallas['t40'] : 0,
-        zapato.tallas['t41'] ? zapato.tallas['t41'] : 0,
-        zapato.tallas['t42'] ? zapato.tallas['t42'] : 0,
-        zapato.tallas['t43'] ? zapato.tallas['t43'] : 0,
-        zapato.tallas['t44'] ? zapato.tallas['t44'] : 0,
-        zapato.tallas['t45'] ? zapato.tallas['t45'] : 0,
-        zapato.tallas['t46'] ? zapato.tallas['t46'] : 0,
+        zapato.tallas["t19"] ? zapato.tallas["t19"] : 0,
+        zapato.tallas["t20"] ? zapato.tallas["t20"] : 0,
+        zapato.tallas["t21"] ? zapato.tallas["t21"] : 0,
+        zapato.tallas["t22"] ? zapato.tallas["t22"] : 0,
+        zapato.tallas["t23"] ? zapato.tallas["t23"] : 0,
+        zapato.tallas["t24"] ? zapato.tallas["t24"] : 0,
+        zapato.tallas["t25"] ? zapato.tallas["t25"] : 0,
+        zapato.tallas["t26"] ? zapato.tallas["t26"] : 0,
+        zapato.tallas["t27"] ? zapato.tallas["t27"] : 0,
+        zapato.tallas["t28"] ? zapato.tallas["t28"] : 0,
+        zapato.tallas["t29"] ? zapato.tallas["t29"] : 0,
+        zapato.tallas["t30"] ? zapato.tallas["t30"] : 0,
+        zapato.tallas["t31"] ? zapato.tallas["t31"] : 0,
+        zapato.tallas["t32"] ? zapato.tallas["t32"] : 0,
+        zapato.tallas["t33"] ? zapato.tallas["t33"] : 0,
+        zapato.tallas["t34"] ? zapato.tallas["t34"] : 0,
+        zapato.tallas["t35"] ? zapato.tallas["t35"] : 0,
+        zapato.tallas["t36"] ? zapato.tallas["t36"] : 0,
+        zapato.tallas["t37"] ? zapato.tallas["t37"] : 0,
+        zapato.tallas["t38"] ? zapato.tallas["t38"] : 0,
+        zapato.tallas["t39"] ? zapato.tallas["t39"] : 0,
+        zapato.tallas["t40"] ? zapato.tallas["t40"] : 0,
+        zapato.tallas["t41"] ? zapato.tallas["t41"] : 0,
+        zapato.tallas["t42"] ? zapato.tallas["t42"] : 0,
+        zapato.tallas["t43"] ? zapato.tallas["t43"] : 0,
+        zapato.tallas["t44"] ? zapato.tallas["t44"] : 0,
+        zapato.tallas["t45"] ? zapato.tallas["t45"] : 0,
+        zapato.tallas["t46"] ? zapato.tallas["t46"] : 0,
         zapato.stock,
         zapato.precioPublico,
-        user === 'patrick' ? zapato.costo : '-'
-
+        user === "patrick" ? zapato.costo : "-",
       ]);
     });
   }
@@ -178,15 +181,16 @@ const ListZapatos = (props) => {
             <Table
               className={classes.table}
               stickyHeader
-              aria-label='sticky table'>
+              aria-label="sticky table"
+            >
               <TableHead>
                 <TableRow>
-                  {(user === 'patrick' || user === 'kathryn') &&
-                    router.pathname.split('/')[2] === 'zapatos' ? (
-                      <TableCell>Tienda </TableCell>
-                    ) : (
-                      <TableCell>#</TableCell>
-                    )}
+                  {(user === "patrick" || user === "kathryn") &&
+                  router.pathname.split("/")[2] === "zapatos" ? (
+                    <TableCell>Tienda </TableCell>
+                  ) : (
+                    <TableCell>#</TableCell>
+                  )}
 
                   <TableCell>Image</TableCell>
                   <TableCell>Codigo</TableCell>
@@ -206,27 +210,22 @@ const ListZapatos = (props) => {
                   <TableCell>45</TableCell>
                   <TableCell>46</TableCell>
                   <TableCell>Stock</TableCell>
-                  <TableCell>Precio</TableCell>
+                  {user !== "elenap" && <TableCell>Precio</TableCell>}
 
-
-                  {user === 'patrick' && (
-                    <>
-
-                      <TableCell>Costo</TableCell>
-                      <TableCell>Editar</TableCell>
-                    </>
-                  )
-                  }
-                  {(user === router.pathname.substr(11).replace('-', ' ') ||
-                    user === 'patrick') && <TableCell>Vender</TableCell>}
+                  {(user === "patrick" || user === "kathryn") && (
+                    <TableCell>Costo</TableCell>
+                  )}
+                  {user === "patrick" && <TableCell>Editar</TableCell>}
+                  {(user === router.pathname.substr(11).replace("-", " ") ||
+                    user === "patrick") && <TableCell>Vender</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {(rowsPerPage > 0
                   ? zapatos.slice(
-                    page * rowsPerPage,
-                    page * rowsPerPage + rowsPerPage
-                  )
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
                   : zapatos
                 ).map((zapato, index) => {
                   return (
@@ -244,14 +243,14 @@ const ListZapatos = (props) => {
           </TableContainer>
         </>
         <TablePagination
-          component='div'
-          rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+          component="div"
+          rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
           colSpan={3}
           count={zapatos.length}
           rowsPerPage={rowsPerPage}
           page={page}
           SelectProps={{
-            inputProps: { 'aria-label': 'rows per page' },
+            inputProps: { "aria-label": "rows per page" },
             native: true,
           }}
           onChangePage={handleChangePage}

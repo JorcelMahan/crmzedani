@@ -143,7 +143,7 @@ const Ventas = () => {
   if (loading || loading2 || loading3 || loading4) return <Loader />;
   if (error || error2 || error3) return `Error, ${error.message}`;
   if (error4) return `Error, ${error4.message}`;
-
+  // console.log(data.salesStoreByDate);
   return (
     <CajaState>
       <div className={classes.root}>

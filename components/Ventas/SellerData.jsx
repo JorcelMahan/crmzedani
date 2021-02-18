@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useQuery, gql, useMutation } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, CircularProgress, TextField } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
-import Alert from "@material-ui/lab/Alert";
 import AuthContext from "../../context/auth/AuthContext";
 import VentasContext from "../../context/ventas/VentasContext";
 import Select from "react-select";

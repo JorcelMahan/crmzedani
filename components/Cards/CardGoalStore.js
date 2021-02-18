@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 const imageUrlStore = (store) => {
   switch (store) {
     case "patrick":
-      return "https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg";
+      return "https://blindfacts.com/wp-content/uploads/2018/01/The-Color-White.jpg";
     case "miraflores":
       return "https://res.cloudinary.com/zedani/image/upload/v1605098357/store-miraflores_x09t5l.jpg";
     case "san miguel":
@@ -63,7 +63,7 @@ const CardGoalStore = ({ user, store, goal }) => {
           color="textSecondary"
           gutterBottom
         >
-          {store === "patrick" ? "David TNT" : store}
+          {store === "patrick" ? "Sandder TNT" : store}
         </Typography>
         <div className={classes.divGoal}>
           <Typography variant="h4" className={classes.monthTitle}>

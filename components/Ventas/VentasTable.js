@@ -17,10 +17,12 @@ import ModalDeleteVenta from "./ModalDeleteVenta";
 import AuthContext from "../../context/auth/AuthContext";
 import ModalCancelarVenta from "./ModalCancelarVenta";
 import IconButton from "@material-ui/core/IconButton";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
+import { Edit, KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
 import Typography from "@material-ui/core/Typography";
 import ModalCancelarZapatoVenta from "./ModalCancelarZapatoVenta";
 import CierreContext from "../../context/cierre/CierreContext";
+import Button from "@material-ui/core/Button";
+import { useRouter } from "next/router";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -49,6 +51,7 @@ const VentaRow = ({
   caja,
 }) => {
   const { user } = useContext(AuthContext);
+  const router = useRouter();
   const { addTotalTarjeta } = useContext(CierreContext);
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -78,20 +81,11 @@ const VentaRow = ({
         </TableCell>
         <TableCell>{venta.vendedor ? venta.vendedor.name : "-"}</TableCell>
         <TableCell>
-          {venta.idPromotora !== null ? "Promotora" : "Cliente"}
+          {venta.idPromotora !== null
+            ? venta.idPromotora.nombres.toUpperCase()
+            : "Cliente"}
         </TableCell>
-        <TableCell>
-          {venta.productos.length}
-          {/*{venta.productos.map((product, j) => (*/}
-          {/*  <p key={`${product.codigo}-${j}`}>*/}
-          {/*    {product.codigo} - {product.color} -{product.sizeSale} - Bs{" "}*/}
-          {/*    {!product.precioPromocion && product.precioPromocion === 0*/}
-          {/*      ? product.precioPublico*/}
-          {/*      : product.precioPromocion}*/}
-          {/*    #<b>{product.quantity}</b>*/}
-          {/*  </p>*/}
-          {/*))}*/}
-        </TableCell>
+        <TableCell>{venta.productos.length}</TableCell>
         <TableCell>
           {venta.metodo === "EFECTIVO"
             ? venta.total
@@ -118,6 +112,18 @@ const VentaRow = ({
         </TableCell>
         <TableCell>{totalEfectivo + caja}</TableCell>
         <TableCell>{totalTarjeta}</TableCell>
+        <TableCell>
+          <Button
+            onClick={() => {
+              router.push({
+                pathname: "/ventas/[id]",
+                query: { id: venta.id },
+              });
+            }}
+          >
+            <Edit />
+          </Button>
+        </TableCell>
         {venta.status === "COMPLET0" &&
         !venta.productos.find((el) => el.estado === "CANCELADO") ? (
           <TableCell>
@@ -127,11 +133,11 @@ const VentaRow = ({
           <TableCell> - </TableCell>
         )}
 
-        {user === "johan" && (
-          <TableCell>
-            <ModalDeleteVenta id={venta.id} cancelarVenta={cancelarVenta} />
-          </TableCell>
-        )}
+        {/*{user === "johan" && (*/}
+        {/*  <TableCell>*/}
+        {/*    <ModalDeleteVenta id={venta.id} cancelarVenta={cancelarVenta} />*/}
+        {/*  </TableCell>*/}
+        {/*)}*/}
       </TableRow>
       <TableRow
         className={clsx(
@@ -188,6 +194,7 @@ const VentaRow = ({
                       {product.estado === "COMPLETO" ? (
                         <TableCell align="right">
                           <ModalCancelarZapatoVenta
+                            arZapatoVenta
                             idVenta={venta.id}
                             idShoe={product.id}
                             color={product.color}
@@ -210,6 +217,9 @@ const VentaRow = ({
   );
 };
 
+const verifyProduct = (products) => {
+  return products.some((el) => el.estado === "CANCELADO");
+};
 const VentasTable = ({
   ventas,
   cancelarVenta,
@@ -258,13 +268,17 @@ const VentasTable = ({
                   <TableCell>Deposito</TableCell>
                   <TableCell>Total Efectivo</TableCell>
                   <TableCell>Total Tarjeta</TableCell>
+                  <TableCell>Editar</TableCell>
                   <TableCell>Anular</TableCell>
                   {user === "johan" && <TableCell>Eliminar</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {ventas.map((venta, i) => {
-                  if (venta.status === "COMPLET0") {
+                  if (
+                    venta.status === "COMPLET0" &&
+                    !verifyProduct(venta.productos)
+                  ) {
                     if (venta.metodo === "EFECTIVO") {
                       totalEfectivo += venta.total;
                     } else if (venta.metodo === "EFECTIVO-TARJETA") {
