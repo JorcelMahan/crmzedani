@@ -80,6 +80,7 @@ export const CardCoins = React.memo(function ElevatedHeaderCard() {
     5: { cantidad: 0, total: 0 },
     2: { cantidad: 0, total: 0 },
     1: { cantidad: 0, total: 0 },
+    0.5: { cantidad: 0, total: 0 },
     0.2: { cantidad: 0, total: 0 },
     0.1: { cantidad: 0, total: 0 },
   });

@@ -184,6 +184,29 @@ export default function GoalWeek() {
           <CardGoalStore user={user} store="sopocachi" goal="180" />
         </Grid>
       )}
+      {/*uss: ventaslapaz*/}
+      {/*Contraseña: ventaslapaz1*/}
+
+      {/*Uss: ventascbba*/}
+      {/*Pass: ventascbba1*/}
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        user === "ventaslapaz") && (
+        <Grid item xs={12} sm={12}>
+          <CardGoalStore user={user} store="ventaslapaz" goal="180" />
+        </Grid>
+      )}
+      {(user === "patrick" ||
+        user === "kathryn" ||
+        user === "laura" ||
+        user === "fabio" ||
+        user === "ventascbba") && (
+        <Grid item xs={12} sm={12}>
+          <CardGoalStore user={user} store="ventascbba" goal="180" />
+        </Grid>
+      )}
       {(user === "patrick" ||
         user === "kathryn" ||
         user === "laura" ||
@@ -223,7 +246,7 @@ export default function GoalWeek() {
                 {new Date().toLocaleString("es-MX", { month: "long" })}
               </Typography>
 
-              <Count month="1" startDay="1" endDay="28" />
+              <Count month="2" startDay="1" endDay="31" />
             </CardContent>
           </Card>
         </Grid>

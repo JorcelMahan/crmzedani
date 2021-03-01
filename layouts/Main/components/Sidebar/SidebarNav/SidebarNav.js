@@ -171,30 +171,39 @@ const SidebarNav = (props) => {
               </a>
             </Link>
           </ListItem>
-          {user !== "elenap" && (
-            <>
-              <ListItem button className={classes.nested}>
-                <Link href="/productos/satelite">
-                  <a
-                    className={classes.button}
-                    activeclassname={classes.active}
-                  >
-                    <ListItemText primary="Satelite" />
-                  </a>
-                </Link>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Link href="/productos/davidtnt">
-                  <a
-                    className={classes.button}
-                    activeclassname={classes.active}
-                  >
-                    <ListItemText primary="Comercial" />
-                  </a>
-                </Link>
-              </ListItem>
-            </>
-          )}
+          <ListItem button className={classes.nested}>
+            <Link href="/productos/cochabamba">
+              <a className={classes.button} activeclassname={classes.active}>
+                <ListItemText primary="Cochabamba" />
+              </a>
+            </Link>
+          </ListItem>
+          {user !== "elenap" &&
+            user !== "ventascbba" &&
+            user !== "ventaslapaz" && (
+              <>
+                <ListItem button className={classes.nested}>
+                  <Link href="/productos/satelite">
+                    <a
+                      className={classes.button}
+                      activeclassname={classes.active}
+                    >
+                      <ListItemText primary="Satelite" />
+                    </a>
+                  </Link>
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <Link href="/productos/comercial">
+                    <a
+                      className={classes.button}
+                      activeclassname={classes.active}
+                    >
+                      <ListItemText primary="Comercial" />
+                    </a>
+                  </Link>
+                </ListItem>
+              </>
+            )}
         </List>
       </Collapse>
     </List>

@@ -73,7 +73,6 @@ const TableMoney = ({ name, money, total }) => {
   );
 };
 const CierreTable = ({ cierre }) => {
-  console.log(cierre);
   return (
     <div>
       <Grid container spacing={6}>

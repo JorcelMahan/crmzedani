@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import List from '@material-ui/core/List';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import { useMutation, gql } from '@apollo/client';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import IconButton from '@material-ui/core/IconButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import clsx from 'clsx';
-import { Collapse } from '@material-ui/core';
-import ProductItem from './ProductItem';
+import React, { useEffect, useState } from "react";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import List from "@material-ui/core/List";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
+import { useMutation, gql } from "@apollo/client";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import IconButton from "@material-ui/core/IconButton";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import clsx from "clsx";
+import { Collapse } from "@material-ui/core";
+import ProductItem from "./ProductItem";
 
 const RETURN_SALIDA = gql`
   mutation returnSalida($id: ID!) {
@@ -35,28 +35,28 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   boxActions: {
-    marginTop: '8px',
-    display: 'flex',
-    flexDirection: 'column',
+    marginTop: "8px",
+    display: "flex",
+    flexDirection: "column",
   },
   box: {
     flexGrow: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   bgDisabled: {
-    backgroundColor: '#ffcdd2',
+    backgroundColor: "#ffcdd2",
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
 }));
 const CardSalida = ({ salida }) => {
@@ -73,14 +73,15 @@ const CardSalida = ({ salida }) => {
   ] = useMutation(TRANSFER_SALIDA);
 
   let almacenes = [
-    'sopocachi',
-    'san-miguel',
-    'satelite',
-    'miraflores',
-    'davidtnt',
+    "sopocachi",
+    "san-miguel",
+    "satelite",
+    "miraflores",
+    "comercial",
+    "cochabamba",
   ];
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
-  const [selectedAlmacen, setSelectedAlmacen] = useState('');
+  const [selectedAlmacen, setSelectedAlmacen] = useState("");
   // const [salidaStatus, setSalidaStatus] = useState(salida.status);
   const handleReturnSalida = async () => {
     try {
@@ -90,7 +91,7 @@ const CardSalida = ({ salida }) => {
         },
       });
     } catch (e) {
-      console.log('Yo error', e);
+      console.log("Yo error", e);
     }
   };
   const handleTransfer = async () => {
@@ -110,13 +111,13 @@ const CardSalida = ({ salida }) => {
   };
 
   return (
-    <Card className={`${salida.status ? classes.bgDisabled : ''}`}>
+    <Card className={`${salida.status ? classes.bgDisabled : ""}`}>
       <CardHeader
         title={`De: ${salida.almacen.toUpperCase()}`}
         subheader={`Hacia: ${
           salida?.retiradoHacia !== null
             ? salida.retiradoHacia.toUpperCase()
-            : 'No transferido'
+            : "No transferido"
         }`}
       />
       <CardActions disableSpacing>
@@ -127,20 +128,20 @@ const CardSalida = ({ salida }) => {
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
-          aria-label='show more'
+          aria-label="show more"
         >
           <ExpandMoreIcon />
         </IconButton>
         <p>{salida.codigo}</p>
       </CardActions>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <List>
             {salida.products.map((product, index) => (
               <ProductItem key={`${product.id}-${index}`} product={product} />
             ))}
           </List>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <p>Total: {salida.totalProducts}</p>
           </div>
 
@@ -150,9 +151,9 @@ const CardSalida = ({ salida }) => {
             <Button
               onClick={handleReturnSalida}
               disabled={salida.status}
-              variant='contained'
-              color='primary'
-              size='small'
+              variant="contained"
+              color="primary"
+              size="small"
             >
               Devolver
             </Button>
@@ -161,14 +162,14 @@ const CardSalida = ({ salida }) => {
                 className={classes.formControl}
                 disabled={salida.status}
               >
-                <InputLabel id='lbl-almacen'>
+                <InputLabel id="lbl-almacen">
                   {salida?.retiradoHacia !== null
                     ? salida.retiradoHacia
-                    : 'Almacen'}
+                    : "Almacen"}
                 </InputLabel>
                 <Select
-                  labelId='lbl-almacen'
-                  id='almacen'
+                  labelId="lbl-almacen"
+                  id="almacen"
                   value={selectedAlmacen}
                   onChange={(e) => setSelectedAlmacen(e.target.value)}
                 >
@@ -184,9 +185,9 @@ const CardSalida = ({ salida }) => {
               <Button
                 disabled={salida.status}
                 onClick={handleTransfer}
-                variant='contained'
-                color='secondary'
-                size='small'
+                variant="contained"
+                color="secondary"
+                size="small"
               >
                 Transferir
               </Button>

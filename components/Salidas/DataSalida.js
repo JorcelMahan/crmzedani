@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
-import SalidaContext from '../../context/salidas/SalidaContext';
+import React, { useContext, useEffect, useState } from "react";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
+import SalidaContext from "../../context/salidas/SalidaContext";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -12,28 +12,27 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 200,
   },
   divAlmacen: {
-    marginBotton: '1rem',
+    marginBotton: "1rem",
   },
   almacen: {
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
 }));
 
 const DataSalida = ({ setActiveBtn }) => {
   const classes = useStyles();
   const nombres = [
-    'David Quispe',
-    'Fabio Fernandez',
-    'Kathryn Fernandez',
-    'Patrick Fernandez',
-    'Laura Fernandez',
+    "Fabio Fernandez",
+    "Kathryn Fernandez",
+    "Patrick Fernandez",
+    "Laura Fernandez",
   ];
-  const [retiradoPor, setRetiradoPor] = useState('');
+  const [retiradoPor, setRetiradoPor] = useState("");
   // context
   const salidaContext = useContext(SalidaContext);
   const { almacen, selectRetiradoPor } = salidaContext;
   useEffect(() => {
-    if (almacen !== '' && retiradoPor !== '') {
+    if (almacen !== "" && retiradoPor !== "") {
       setActiveBtn(false);
     } else {
       setActiveBtn(true);
@@ -49,10 +48,10 @@ const DataSalida = ({ setActiveBtn }) => {
       <div>
         <h3>Selecciona quien esta retirado </h3>
         <FormControl className={classes.formControl}>
-          <InputLabel id='label-retiro'>Retirado por: </InputLabel>
+          <InputLabel id="label-retiro">Retirado por: </InputLabel>
           <Select
-            labelId='label-retiro'
-            id='retiradoPor'
+            labelId="label-retiro"
+            id="retiradoPor"
             value={retiradoPor}
             onChange={(e) => {
               setRetiradoPor(e.target.value);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Table,
   TableBody,
@@ -15,11 +15,12 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from '@material-ui/core';
-import { useRouter } from 'next/router';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import PerfectScrollbar from 'react-perfect-scrollbar';
-import { makeStyles } from '@material-ui/core/styles';
+  Dialog,
+} from "@material-ui/core";
+import { useRouter } from "next/router";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { makeStyles } from "@material-ui/core/styles";
 
 const RETURN_SALIDA = gql`
   mutation returnSalida($id: ID!) {
@@ -66,9 +67,52 @@ const GET_SALIDA = gql`
     }
   }
 `;
-const ShowSalida = () => {
-  const [selectedAlmacen, setSelectedAlmacen] = useState('');
 
+const SimpleDialog = ({ salida, open, onClose }) => {
+  const classes = useStyles();
+  let almacenes = [
+    "sopocachi",
+    "san-miguel",
+    "satelite",
+    "miraflores",
+    "davidtnt",
+  ];
+  almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
+
+  const [selectedAlmacen, setSelectedAlmacen] = useState("");
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <FormControl className={classes.formControl} disabled={salida.status}>
+        <InputLabel id="lbl-almacen">
+          {salida?.retiradoHacia !== null ? salida.retiradoHacia : "Almacen"}
+        </InputLabel>
+        <Select
+          labelId="lbl-almacen"
+          id="almacen"
+          value={selectedAlmacen}
+          onChange={(e) => setSelectedAlmacen(e.target.value)}
+        >
+          {almacenes.map((almacen) => (
+            <MenuItem key={almacen} value={almacen}>
+              {almacen}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <Button
+        disabled={salida.status}
+        // onClick={handleTransfer}
+        variant="contained"
+        color="secondary"
+        size="small"
+      >
+        Transferir
+      </Button>
+    </Dialog>
+  );
+};
+const ShowSalida = () => {
   const router = useRouter();
   const classes = useStyles();
   const {
@@ -78,8 +122,17 @@ const ShowSalida = () => {
     variables: {
       id,
     },
-    fetchPolicy: 'no-cache',
+    fetchPolicy: "no-cache",
   });
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (value) => {
+    setOpen(false);
+  };
   const [
     returnSalida,
     { loading: returnLoading, error: returnError },
@@ -93,26 +146,20 @@ const ShowSalida = () => {
         },
       });
     } catch (e) {
-      console.log('Yo error', e);
+      console.log(e);
     }
   };
-  if (loading) return 'Loading';
+  if (loading) return "Loading";
   if (error) return `${error}`;
-  let almacenes = [
-    'sopocachi',
-    'san-miguel',
-    'satelite',
-    'miraflores',
-    'davidtnt',
-  ];
+
   const { salida } = data;
-  almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
+  // almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
 
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <Box display='flex' flexDirection='column' alignItems='center'>
-          <Box display='flex' justifyContent='space-around' width='50%' m={2}>
+        <Box display="flex" flexDirection="column" alignItems="center">
+          <Box display="flex" justifyContent="space-around" width="50%" m={2}>
             <Box>
               <Typography>{salida.codigo}</Typography>
               <Typography>De: {salida.almacen.toUpperCase()}</Typography>
@@ -120,7 +167,7 @@ const ShowSalida = () => {
                 Hacia:
                 {salida?.retiradoHacia !== null
                   ? salida.retiradoHacia.toUpperCase()
-                  : 'No transferido'}
+                  : "No transferido"}
               </Typography>
               <Typography>Retirado por: {salida.retiradoPor}</Typography>
             </Box>
@@ -130,50 +177,32 @@ const ShowSalida = () => {
               <Button
                 onClick={handleReturnSalida}
                 disabled={salida.status}
-                variant='contained'
-                color='primary'
-                size='small'>
+                variant="contained"
+                color="primary"
+              >
                 Devolver
               </Button>
             </Box>
             <Box>
-              <FormControl
-                className={classes.formControl}
-                disabled={salida.status}>
-                <InputLabel id='lbl-almacen'>
-                  {salida?.retiradoHacia !== null
-                    ? salida.retiradoHacia
-                    : 'Almacen'}
-                </InputLabel>
-                <Select
-                  labelId='lbl-almacen'
-                  id='almacen'
-                  value={selectedAlmacen}
-                  onChange={(e) => setSelectedAlmacen(e.target.value)}>
-                  {almacenes.map((almacen) => (
-                    <MenuItem key={almacen} value={almacen}>
-                      {almacen}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
               <Button
+                variant="contained"
+                color="primary"
+                onClick={handleClickOpen}
                 disabled={salida.status}
-                // onClick={handleTransfer}
-                variant='contained'
-                color='secondary'
-                size='small'>
+              >
                 Transferir
               </Button>
+              <SimpleDialog salida={salida} open={open} onClose={handleClose} />
             </Box>
           </Box>
-          <Box width='50%'>
+          <Box width="50%">
             <PerfectScrollbar>
               <TableContainer component={Paper}>
                 <Table
                   className={classes.table}
-                  size='small'
-                  aria-label='a dense table'>
+                  size="small"
+                  aria-label="a dense table"
+                >
                   <TableHead>
                     <TableRow>
                       <TableCell>Codigo</TableCell>

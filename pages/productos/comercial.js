@@ -53,14 +53,14 @@ const GET_ZAPATOS = gql`
   }
 `;
 
-const DavidTnt = () => {
+const Comercial = () => {
   const [color, setColor] = useState("");
   const [talla, setTalla] = useState("");
 
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS,
     {
-      variables: { almacen: "davidtnt", color, talla },
+      variables: { almacen: "comercial", color, talla },
     }
   );
   useEffect(() => {
@@ -83,4 +83,4 @@ const DavidTnt = () => {
     />
   );
 };
-export default DavidTnt;
+export default Comercial;

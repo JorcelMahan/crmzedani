@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import React, { useEffect } from "react";
+import { gql, useQuery } from "@apollo/client";
 
 const GET_SALES_MONTH_BY_STORE = gql`
   query salesMonthByStore($store: String!) {
@@ -9,11 +9,11 @@ const GET_SALES_MONTH_BY_STORE = gql`
 
 const Goal2 = ({ store, goal, sales }) => {
   let goal2 = 0;
-  if (store === 'sopocachi') {
+  if (store === "sopocachi") {
     goal2 = 64;
-  } else if (store === 'miraflores') {
+  } else if (store === "miraflores") {
     goal2 = 150;
-  } else if (store === 'san miguel') {
+  } else if (store === "san miguel") {
     goal2 = 72;
   }
   const newGoal = Number(goal) + goal2;
@@ -47,7 +47,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
     };
   }, [startPolling, stopPolling]);
 
-  if (loading) return 'Loading';
+  if (loading) return "Loading";
   if (error) return `Error ${error.message}`;
 
   return (
@@ -62,8 +62,8 @@ const CountSalesMonthStore = ({ store, goal }) => {
           <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
         </>
       )} */}
-      <p>Z & M = {data.salesMonthByStore[0]}</p>
-      <p>P & A.L = {data.salesMonthByStore[1]}</p>
+      <p>Z & M = {data.salesMonthByStore ? data.salesMonthByStore[0] : 0}</p>
+      <p>P & A.L = {data.salesMonthByStore ? data.salesMonthByStore[1] : 0}</p>
     </div>
   );
 };
