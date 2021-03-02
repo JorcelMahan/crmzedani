@@ -45,7 +45,7 @@ const imageUrlStore = (store) => {
     case "sopocachi":
       return "https://res.cloudinary.com/zedani/image/upload/v1605098418/store-sopocachi_zinbqg.jpg";
     default:
-      return "https://res.cloudinary.com/zedani/image/upload/v1604752684/david_jb32ig.jpg";
+      return "https://res.cloudinary.com/zedani/image/upload/v1614626737/david_akvjht.jpg";
   }
 };
 const CardGoalStore = ({ user, store, goal }) => {
