@@ -115,6 +115,7 @@ const Salidas = () => {
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Codigo</TableCell>
+                  <TableCell>Retirado De</TableCell>
                   <TableCell>Retirado Hacia</TableCell>
                   <TableCell>Retirado Por</TableCell>
                   <TableCell>Cantidad</TableCell>
@@ -127,6 +128,7 @@ const Salidas = () => {
                   <TableRow key={salida.id}>
                     <TableCell>{++index}</TableCell>
                     <TableCell>{salida.id}</TableCell>
+                    <TableCell>{salida.almacen}</TableCell>
                     <TableCell>
                       {salida.retiradoHacia
                         ? salida.retiradoHacia
