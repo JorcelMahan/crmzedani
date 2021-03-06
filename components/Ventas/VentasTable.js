@@ -48,7 +48,6 @@ const VentaRow = ({
   anularZapatoVenta,
   totalEfectivo,
   totalTarjeta,
-  caja,
 }) => {
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -110,7 +109,7 @@ const VentaRow = ({
             ? venta.montoDeposito
             : "-"}
         </TableCell>
-        <TableCell>{totalEfectivo + caja}</TableCell>
+        <TableCell>{totalEfectivo}</TableCell>
         <TableCell>{totalTarjeta}</TableCell>
         <TableCell>
           <Button
@@ -230,12 +229,12 @@ const VentasTable = ({
 
   let totalEfectivo = 0;
   let totalTarjeta = 0;
-  const caja =
-    user === "sopocachi"
-      ? 250
-      : user === "miraflores" || user === "san miguel"
-      ? 500
-      : 0;
+  // const caja =
+  //   user === "sopocachi"
+  //     ? 250
+  //     : user === "miraflores" || user === "san miguel"
+  //     ? 500
+  //     : 0;
   const classes = useStyles();
   // useEffect(() => {
   //   if (localStorage.totalEfectivo && localStorage.totalTarjeta) {
@@ -251,7 +250,7 @@ const VentasTable = ({
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>
-        <Box m={3}>Caja: {caja}</Box>
+        <Box m={3} />
         <PerfectScrollbar>
           <div className={classes.inner}>
             <Table>
@@ -303,7 +302,7 @@ const VentasTable = ({
                       anularZapatoVenta={anularZapatoVenta}
                       totalEfectivo={totalEfectivo}
                       totalTarjeta={totalTarjeta}
-                      caja={caja}
+                      // caja={caja}
                     />
                   );
                 })}
