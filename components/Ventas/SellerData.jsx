@@ -29,11 +29,11 @@ const EMPLOYEES_STORE = gql`
 `;
 
 const Sellers = ({ store }) => {
-  const aux = store === "patrick" ? "sopocachi" : store;
+  // const aux = store === "patrick" ? "sopocachi" : store;
   const { addVendedor } = useContext(VentasContext);
   const { data, loading, error } = useQuery(EMPLOYEES_STORE, {
     variables: {
-      store: aux,
+      store,
     },
   });
   const [selectedSeller, setSelectedSeller] = useState("");
