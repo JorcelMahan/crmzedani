@@ -75,7 +75,9 @@ const SimpleDialog = ({ salida, open, onClose }) => {
     "san-miguel",
     "satelite",
     "miraflores",
-    "davidtnt",
+    "central",
+    "comercial",
+    "cochabamba",
   ];
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
 

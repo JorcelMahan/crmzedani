@@ -78,6 +78,7 @@ const CardSalida = ({ salida }) => {
     "satelite",
     "miraflores",
     "comercial",
+    "central",
     "cochabamba",
   ];
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);

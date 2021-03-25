@@ -172,6 +172,13 @@ const SidebarNav = (props) => {
             </Link>
           </ListItem>
           <ListItem button className={classes.nested}>
+            <Link href="/productos/central">
+              <a className={classes.button} activeclassname={classes.active}>
+                <ListItemText primary="Central" />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
             <Link href="/productos/cochabamba">
               <a className={classes.button} activeclassname={classes.active}>
                 <ListItemText primary="Cochabamba" />
