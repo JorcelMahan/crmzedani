@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
 
 const GET_VENTAS_DAY_BY_STORE = gql`
   query salesDayByStore($store: String!, $date: String!) {
@@ -8,12 +8,12 @@ const GET_VENTAS_DAY_BY_STORE = gql`
 `;
 const CountDayStore = ({ store }) => {
   const currentDate = new Date()
-    .toLocaleString("es-MX", {
-      year: "numeric",
-      month: "numeric",
-      day: "2-digit",
+    .toLocaleString('es-MX', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
     })
-    .split("/");
+    .split('/');
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS_DAY_BY_STORE,
@@ -31,10 +31,10 @@ const CountDayStore = ({ store }) => {
     };
   }, [startPolling, stopPolling]);
 
-  if (loading) return "Loading";
+  if (loading) return 'Loading';
   if (error) return `Error ${error.message}`;
 
-  return <div>Dia: {data.salesDayByStore}</div>;
+  return <span>{data.salesDayByStore}</span>;
 };
 
 export default CountDayStore;

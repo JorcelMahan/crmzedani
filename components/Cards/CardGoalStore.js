@@ -1,90 +1,80 @@
-import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import CountDayStore from "./CountDayStore";
-import CountSalesMonthStore from "../Cards/CountSalesMonthStore";
-import CardMedia from "@material-ui/core/CardMedia";
-import StoreIcon from "@material-ui/icons/Store";
-import SellersList from "../SellersList";
-import { Box } from "@material-ui/core";
-const useStyles = makeStyles({
-  card: {
-    // minWidth: 275,
-    marginTop: "1rem  ",
-    borderRadius: "16px",
-    boxShadow: "0px 7px 20px rgba(34, 35, 58, 0.2)",
-    background: "#ffffff",
-    display: "flex",
-  },
-  title: {
-    fontSize: "1.2rem",
-    color: "#D32F2F",
-    textTransform: "uppercase",
-  },
-  divGoal: {
-    fontSize: "1.2rem",
-  },
-  monthTitle: {
-    textTransform: "capitalize",
-  },
-  cover: {
-    width: 151,
-  },
-});
+import React from 'react';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import CountDayStore from './CountDayStore';
+import CountSalesMonthStore from '../Cards/CountSalesMonthStore';
+import CardMedia from '@material-ui/core/CardMedia';
+import StoreIcon from '@material-ui/icons/Store';
+import SellersList from '../SellersList';
+import { Avatar, Box, Divider, Paper } from '@material-ui/core';
 
-const imageUrlStore = (store) => {
-  switch (store) {
-    case "patrick":
-      return "https://blindfacts.com/wp-content/uploads/2018/01/The-Color-White.jpg";
-    case "miraflores":
-      return "https://res.cloudinary.com/zedani/image/upload/v1605098357/store-miraflores_x09t5l.jpg";
-    case "san miguel":
-      return "https://res.cloudinary.com/zedani/image/upload/v1605098746/tienda-san-miguel_go6c3t.jpg";
-    case "sopocachi":
-      return "https://res.cloudinary.com/zedani/image/upload/v1605098418/store-sopocachi_zinbqg.jpg";
-    default:
-      return "https://res.cloudinary.com/zedani/image/upload/v1614626737/david_akvjht.jpg";
-  }
-};
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    padding: theme.spacing(2),
+    display: 'flex',
+    overflow: 'auto',
+    flexDirection: 'column',
+    marginTop: '1rem',
+  },
+  fixedHeight: {
+    height: 440,
+  },
+  depositContext: {
+    flex: 1,
+  },
+  red: {
+    color: theme.palette.white,
+    backgroundColor: theme.palette.primary.main,
+  },
+
+  title: {
+    textTransform: 'uppercase',
+  },
+
+  monthTitle: {
+    textTransform: 'capitalize',
+  },
+}));
+
 const CardGoalStore = ({ user, store, goal }) => {
   const classes = useStyles();
-  const urlImage = imageUrlStore(store);
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
   return (
-    <Card className={classes.card}>
-      <CardMedia className={classes.cover} image={urlImage} />
-
-      <CardContent>
-        <Typography
-          component="h5"
-          variant="h5"
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {store === "patrick" ? "Sandder TNT" : store}
+    <Paper className={fixedHeightPaper}>
+      <Typography
+        className={classes.title}
+        component='h2'
+        variant='h6'
+        color='primary'
+        gutterBottom>
+        {store === 'patrick' ? 'Sandder TNT' : store}
+      </Typography>
+      <Box display='flex' justifyContent='space-between'>
+        <Typography className={classes.monthTitle} component='p' variant='h4'>
+          {new Date().toLocaleString('es-MX', { month: 'long' })}
         </Typography>
-        <div className={classes.divGoal}>
-          <Typography variant="h4" className={classes.monthTitle}>
-            {new Date().toLocaleString("es-MX", { month: "long" })}
-          </Typography>
-          <div>
-            <CountDayStore store={store} />
-          </div>
-          <Box m={2}>
-            <SellersList store={store} />
-          </Box>
-
-          {(user === "patrick" ||
-            user === "kathryn" ||
-            user === "laura" ||
-            user === "fabio") && (
-            <CountSalesMonthStore store={store} goal={goal} />
-          )}
-        </div>
-      </CardContent>
-    </Card>
+        <Avatar className={classes.red}>
+          <CountDayStore store={store} />
+        </Avatar>
+      </Box>
+      <Typography color='textSecondary' className={classes.depositContext}>
+        <span className={classes.monthTitle}>
+          {new Date().toLocaleDateString('es-MX', { weekday: 'long' })} -{' '}
+        </span>
+        {new Date().toLocaleDateString('es-MX')}
+      </Typography>
+      <Divider />
+      <Box>
+        <SellersList store={store} />
+      </Box>
+      <Box mt={2} display='flex' justifyContent='space-between'>
+        <CountSalesMonthStore store={store} goal={goal} />
+      </Box>
+    </Paper>
   );
 };
 

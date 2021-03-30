@@ -152,14 +152,14 @@ export default function GoalWeek() {
   const { user } = authContext;
 
   return (
-    <Grid container spacing={2} className={classes.root}>
+    <Grid container spacing={3} className={classes.root}>
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio' ||
         user === 'miraflores') && (
-        <Grid item xs={12} sm={12}>
-          <CardGoalStore user={user} store='miraflores' goal='390' />
+        <Grid item xs={12} md={3} lg={6}>
+          <CardGoalStore user={user} store='miraflores' goal='390 ' />
         </Grid>
       )}
       {(user === 'patrick' ||
@@ -167,7 +167,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio' ||
         user === 'san miguel') && (
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} md={3} lg={6}>
           <CardGoalStore user={user} store='san miguel' goal='180' />
         </Grid>
       )}
@@ -176,7 +176,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio' ||
         user === 'sopocachi') && (
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} md={3} lg={6}>
           <CardGoalStore user={user} store='sopocachi' goal='180' />
         </Grid>
       )}
@@ -185,52 +185,21 @@ export default function GoalWeek() {
 
       {/*Uss: ventascbba*/}
       {/*Pass: ventascbba1*/}
-      {(user === 'patrick' ||
-        user === 'kathryn' ||
-        user === 'laura' ||
-        user === 'fabio' ||
-        user === 'ventaslapaz') && (
-        <Grid item xs={12} sm={12}>
-          <CardGoalStore user={user} store='ventaslapaz' goal='180' />
-        </Grid>
-      )}
-      {(user === 'patrick' ||
-        user === 'kathryn' ||
-        user === 'laura' ||
-        user === 'fabio' ||
-        user === 'ventascbba') && (
-        <Grid item xs={12} sm={12}>
-          <CardGoalStore user={user} store='ventascbba' goal='180' />
-        </Grid>
-      )}
+
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} md={3} lg={6}>
           <CardGoalStore user={user} store='patrick' goal='1000' />
         </Grid>
       )}
 
-      {/*<Grid item xs={12} sm={6}>*/}
-      {/*  <Card className={classes.card}>*/}
-      {/*    <CardContent>*/}
-      {/*      <Typography*/}
-      {/*        className={classes.title}*/}
-      {/*        color="textSecondary"*/}
-      {/*        gutterBottom*/}
-      {/*      >*/}
-      {/*        FEBRERO*/}
-      {/*      </Typography>*/}
-      {/*      <Count2 initial="2021-01-01" finish="2021-02-01" />*/}
-      {/*    </CardContent>*/}
-      {/*  </Card>*/}
-      {/*</Grid>*/}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} md={3} lg={6}>
           <Card className={classes.card}>
             <CardContent>
               <Typography

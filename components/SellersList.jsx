@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
-import { TableCell, TableContainer } from "@material-ui/core";
-import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
-import Paper from "@material-ui/core/Paper";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import { useEffect } from 'react';
+import { gql, useQuery } from '@apollo/client';
+import { TableCell, TableContainer } from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableBody from '@material-ui/core/TableBody';
+import Paper from '@material-ui/core/Paper';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 const EMPLOYEES_STORE = gql`
   query employeeStore($store: String!) {
     employeeStore(store: $store) {
@@ -31,12 +31,12 @@ const SALES_MONTH_EMPLOYEE = gql`
 `;
 const Seller = ({ emp, store }) => {
   const currentDate = new Date()
-    .toLocaleString("es-MX", {
-      year: "numeric",
-      month: "numeric",
-      day: "2-digit",
+    .toLocaleString('es-MX', {
+      year: 'numeric',
+      month: 'numeric',
+      day: '2-digit',
     })
-    .split("/");
+    .split('/');
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
   const { loading, error, data, stopPolling, startPolling } = useQuery(
     SALES_DAY_EMPLOYEE,
@@ -90,13 +90,13 @@ const Seller = ({ emp, store }) => {
 
   return (
     <TableRow>
-      <TableCell component="th" scope="row">
+      <TableCell component='th' scope='row'>
         {emp.name}
       </TableCell>
-      <TableCell align="right">{salesDayByStoreAndEmployee[0]}</TableCell>
-      <TableCell align="right">{salesDayByStoreAndEmployee[1]}</TableCell>
-      <TableCell align="right">{salesMonthByStoreAndEmployee[0]}</TableCell>
-      <TableCell align="right">{salesMonthByStoreAndEmployee[1]}</TableCell>
+      <TableCell align='right'>{salesDayByStoreAndEmployee[0]}</TableCell>
+      <TableCell align='right'>{salesDayByStoreAndEmployee[1]}</TableCell>
+      <TableCell align='right'>{salesMonthByStoreAndEmployee[0]}</TableCell>
+      <TableCell align='right'>{salesMonthByStoreAndEmployee[1]}</TableCell>
     </TableRow>
   );
 };
@@ -107,31 +107,27 @@ const SellersList = ({ store }) => {
       store,
     },
   });
-  if (loading) return "Loading";
+  if (loading) return 'Loading';
   if (error) return `${error.message}`;
   return (
-    <div>
-      <PerfectScrollbar>
-        <TableContainer component={Paper}>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Nombre</TableCell>
-                <TableCell align="right">Dia - Zapatos</TableCell>
-                <TableCell align="right">Dia - Accesorios</TableCell>
-                <TableCell align="right">Mes - Zapatos</TableCell>
-                <TableCell align="right">Mes - Accesorios</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.employeeStore.map((emp) => (
-                <Seller key={emp.id} emp={emp} store={store} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </PerfectScrollbar>
-    </div>
+    <TableContainer component={Paper}>
+      <Table size='small'>
+        <TableHead>
+          <TableRow>
+            <TableCell>Nombre</TableCell>
+            <TableCell align='right'>D-Z</TableCell>
+            <TableCell align='right'>D-A</TableCell>
+            <TableCell align='right'>M-Z</TableCell>
+            <TableCell align='right'>M-A</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.employeeStore.map((emp) => (
+            <Seller key={emp.id} emp={emp} store={store} />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
 
