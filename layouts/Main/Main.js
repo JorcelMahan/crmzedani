@@ -86,7 +86,7 @@ const Main = ({ children }) => {
       />
       <main className={classes.content}>
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </div>
   );

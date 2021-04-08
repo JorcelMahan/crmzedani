@@ -10,17 +10,7 @@ import CardGoalStore from './CardGoalStore';
 
 const GET_VENTAS = gql`
   query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
-    allventas(month: $month, startDay: $startDay, endDay: $endDay) {
-      id
-      total
-      productos {
-        id
-        codigo
-        quantity
-        estado
-        tipo
-      }
-    }
+    allventas(month: $month, startDay: $startDay, endDay: $endDay)
   }
 `;
 const GET_VENTAS_BY_RANGE_OF_DATES = gql`
@@ -125,24 +115,11 @@ const Count = ({ month, startDay, endDay }) => {
 
   if (loading) return 'Loading';
   if (error) return `error: ${error.message}`;
-  let totalShoes = 0;
-  let totalAccesorios = 0;
-  data.allventas.forEach((venta) => {
-    venta.productos.forEach((product) => {
-      if (product.estado !== 'CANCELADO') {
-        if (product.tipo !== 'accesorios') {
-          totalShoes += product.quantity;
-        } else {
-          totalAccesorios += product.quantity;
-        }
-      }
-    });
-  });
-
+  const { allventas } = data;
   return (
     <div>
-      Z & M = <b>{totalShoes}</b>
-      <br />P & A.L = <b>{totalAccesorios}</b>
+      Zapatos = <b>{allventas[0]}</b>
+      <br /> Accesorios = <b>{allventas[1]}</b>
     </div>
   );
 };

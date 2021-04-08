@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Table,
   TableBody,
@@ -16,11 +16,11 @@ import {
   Select,
   MenuItem,
   Dialog,
-} from "@material-ui/core";
-import { useRouter } from "next/router";
-import { useQuery, useMutation, gql } from "@apollo/client";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { makeStyles } from "@material-ui/core/styles";
+} from '@material-ui/core';
+import { useRouter } from 'next/router';
+import { useQuery, useMutation, gql } from '@apollo/client';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { makeStyles } from '@material-ui/core/styles';
 
 const RETURN_SALIDA = gql`
   mutation returnSalida($id: ID!) {
@@ -28,11 +28,16 @@ const RETURN_SALIDA = gql`
   }
 `;
 
+const TRANSFER_SALIDA = gql`
+  mutation transferSalida($id: ID!, $almacen: String!) {
+    transferSalida(id: $id, almacen: $almacen)
+  }
+`;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
   },
-
   content: {
     marginTop: theme.spacing(2),
   },
@@ -49,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
 const GET_SALIDA = gql`
   query salida($id: String!) {
     salida(id: $id) {
+      id
       codigo
       products {
         id
@@ -67,34 +73,53 @@ const GET_SALIDA = gql`
     }
   }
 `;
+let almacenes = [
+  'sopocachi',
+  'san-miguel',
+  'satelite',
+  'miraflores',
+  'central',
+  'comercial',
+  'cochabamba',
+];
 
 const SimpleDialog = ({ salida, open, onClose }) => {
   const classes = useStyles();
-  let almacenes = [
-    "sopocachi",
-    "san-miguel",
-    "satelite",
-    "miraflores",
-    "central",
-    "comercial",
-    "cochabamba",
-  ];
-  almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
+  const router = useRouter();
 
-  const [selectedAlmacen, setSelectedAlmacen] = useState("");
+  const [
+    transferSalida,
+    { loading: tranferLoading, error: transferError },
+  ] = useMutation(TRANSFER_SALIDA);
+
+  const [selectedAlmacen, setSelectedAlmacen] = useState('');
+
+  const handleTransfer = async () => {
+    try {
+      await transferSalida({
+        variables: {
+          id: salida.id,
+          almacen: selectedAlmacen,
+        },
+      });
+      router.push('/salidas');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
 
   return (
     <Dialog open={open} onClose={onClose}>
       <FormControl className={classes.formControl} disabled={salida.status}>
-        <InputLabel id="lbl-almacen">
-          {salida?.retiradoHacia !== null ? salida.retiradoHacia : "Almacen"}
+        <InputLabel id='lbl-almacen'>
+          {salida?.retiradoHacia !== null ? salida.retiradoHacia : 'Almacen'}
         </InputLabel>
         <Select
-          labelId="lbl-almacen"
-          id="almacen"
+          labelId='lbl-almacen'
+          id='almacen'
           value={selectedAlmacen}
-          onChange={(e) => setSelectedAlmacen(e.target.value)}
-        >
+          onChange={(e) => setSelectedAlmacen(e.target.value)}>
           {almacenes.map((almacen) => (
             <MenuItem key={almacen} value={almacen}>
               {almacen}
@@ -102,13 +127,14 @@ const SimpleDialog = ({ salida, open, onClose }) => {
           ))}
         </Select>
       </FormControl>
+      {tranferLoading && 'Loading'}
+      {transferError && <p>{transferError.message}</p>}
       <Button
         disabled={salida.status}
-        // onClick={handleTransfer}
-        variant="contained"
-        color="secondary"
-        size="small"
-      >
+        onClick={handleTransfer}
+        variant='contained'
+        color='secondary'
+        size='small'>
         Transferir
       </Button>
     </Dialog>
@@ -124,7 +150,7 @@ const ShowSalida = () => {
     variables: {
       id,
     },
-    fetchPolicy: "no-cache",
+    fetchPolicy: 'no-cache',
   });
   const [open, setOpen] = useState(false);
 
@@ -144,14 +170,15 @@ const ShowSalida = () => {
     try {
       await returnSalida({
         variables: {
-          id: salida.id,
+          id,
         },
       });
+      router.push('/salidas');
     } catch (e) {
       console.log(e);
     }
   };
-  if (loading) return "Loading";
+  if (loading) return 'Loading';
   if (error) return `${error}`;
 
   const { salida } = data;
@@ -160,8 +187,8 @@ const ShowSalida = () => {
   return (
     <div className={classes.root}>
       <div className={classes.content}>
-        <Box display="flex" flexDirection="column" alignItems="center">
-          <Box display="flex" justifyContent="space-around" width="50%" m={2}>
+        <Box display='flex' flexDirection='column' alignItems='center'>
+          <Box display='flex' justifyContent='space-around' width='50%' m={2}>
             <Box>
               <Typography>{salida.codigo}</Typography>
               <Typography>De: {salida.almacen.toUpperCase()}</Typography>
@@ -169,7 +196,7 @@ const ShowSalida = () => {
                 Hacia:
                 {salida?.retiradoHacia !== null
                   ? salida.retiradoHacia.toUpperCase()
-                  : "No transferido"}
+                  : 'No transferido'}
               </Typography>
               <Typography>Retirado por: {salida.retiradoPor}</Typography>
             </Box>
@@ -179,32 +206,29 @@ const ShowSalida = () => {
               <Button
                 onClick={handleReturnSalida}
                 disabled={salida.status}
-                variant="contained"
-                color="primary"
-              >
+                variant='contained'
+                color='primary'>
                 Devolver
               </Button>
             </Box>
             <Box>
               <Button
-                variant="contained"
-                color="primary"
+                variant='contained'
+                color='primary'
                 onClick={handleClickOpen}
-                disabled={salida.status}
-              >
+                disabled={salida.status}>
                 Transferir
               </Button>
               <SimpleDialog salida={salida} open={open} onClose={handleClose} />
             </Box>
           </Box>
-          <Box width="50%">
+          <Box width='50%'>
             <PerfectScrollbar>
               <TableContainer component={Paper}>
                 <Table
                   className={classes.table}
-                  size="small"
-                  aria-label="a dense table"
-                >
+                  size='small'
+                  aria-label='a dense table'>
                   <TableHead>
                     <TableRow>
                       <TableCell>Codigo</TableCell>
@@ -214,8 +238,8 @@ const ShowSalida = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {salida.products.map((p) => (
-                      <TableRow key={p.id}>
+                    {salida.products.map((p, i) => (
+                      <TableRow key={`${p.id}-${i}`}>
                         <TableCell>{p.codigo}</TableCell>
                         <TableCell>{p.color}</TableCell>
                         <TableCell>{p.sizeSale}</TableCell>
