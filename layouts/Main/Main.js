@@ -8,6 +8,7 @@ import SideBar from './components/Sidebar/Sidebar';
 import { useRouter } from 'next/router';
 import { useQuery, gql } from '@apollo/client';
 import AuthContext from '../../context/auth/AuthContext';
+import Loader from '../../components/Loader';
 
 const GET_USER = gql`
   query getUser {
@@ -57,7 +58,7 @@ const Main = ({ children }) => {
       if (data.getUser !== null) addUsername(data.getUser.name);
     }
   }, [data]);
-  if (loading) return 'Loading...';
+  if (loading) return <Loader />;
   if (error) return `Error ${error.message}`;
   if (!data.getUser) {
     router.push('/login');

@@ -1,15 +1,15 @@
-import React, { useContext } from "react";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import Avatar from "@material-ui/core/Avatar";
-import Edit from "@material-ui/icons/Edit";
-import ModalZapato from "./ModalZapato";
+import React, { useContext } from 'react';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import Avatar from '@material-ui/core/Avatar';
+import Edit from '@material-ui/icons/Edit';
+import ModalZapato from './ModalZapato';
 // import Link from 'next/link';
-import AuthContext from "../../context/auth/AuthContext";
-import Button from "@material-ui/core/Button";
-import { useRouter } from "next/router";
-import clsx from "clsx";
-import { makeStyles } from "@material-ui/core/styles";
+import AuthContext from '../../context/auth/AuthContext';
+import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Sizes = ({ tallas, children }) => {
   const {
@@ -87,9 +87,9 @@ const Sizes = ({ tallas, children }) => {
         return (
           <TableCell key={`${i}-${s}`}>
             {s === 0 ? (
-              <span style={{ color: "red" }}>{s}</span>
+              <span style={{ color: 'red' }}>{s}</span>
             ) : (
-              <span style={{ color: "blue" }}>{s}</span>
+              <span style={{ color: 'blue' }}>{s}</span>
             )}
           </TableCell>
         );
@@ -100,10 +100,10 @@ const Sizes = ({ tallas, children }) => {
 
 const useStyles = makeStyles(() => ({
   tableRow: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   tableRowStockZero: {
-    backgroundColor: "#FCF7F8",
+    backgroundColor: '#FCF7F8',
   },
 }));
 
@@ -128,43 +128,41 @@ const Zapato = ({ zapato, i, children }) => {
       hover
       className={clsx(
         stock === 0 ? classes.tableRowStockZero : classes.tableRow
-      )}
-    >
+      )}>
       <TableCell>
-        {(user === "patrick" || user === "kathryn") &&
-        router.pathname.split("/")[2] === "zapatos"
+        {(user === 'patrick' || user === 'kathryn') &&
+        router.pathname.split('/')[2] === 'zapatos'
           ? almacen
           : i}
       </TableCell>
       <TableCell>
-        <Avatar alt={codigo} variant="square" src={image} />
+        <Avatar alt={codigo} variant='square' src={image} />
       </TableCell>
       <TableCell>{codigo}</TableCell>
       <TableCell>{color}</TableCell>
       <Sizes tallas={tallas} children={children} />
       <TableCell>{stock}</TableCell>
-      {user !== "elenap" && <TableCell>{precioPublico}</TableCell>}
+      {user !== 'elenap' && <TableCell>{precioPublico}</TableCell>}
 
-      {(user === "patrick" || user === "kathryn") && (
+      {(user === 'patrick' || user === 'kathryn') && (
         <TableCell>{costo}</TableCell>
       )}
-      {user === "patrick" && (
+      {user === 'patrick' && (
         <TableCell>
           <Button
             onClick={() => {
               router.push({
-                pathname: "/shoes/[id]",
+                pathname: '/shoes/[id]',
                 query: { id },
               });
-            }}
-          >
+            }}>
             <Edit />
           </Button>
         </TableCell>
       )}
 
-      {(user === router.pathname.substr(11).replace("-", " ") ||
-        user === "patrick") && (
+      {(user === router.pathname.substr(11).replace('-', ' ') ||
+        user === 'patrick') && (
         <TableCell>
           <ModalZapato zapato={zapato} />
         </TableCell>
