@@ -372,7 +372,12 @@ const LoadShoes = ({
             {total}
           </Grid>
           <Grid item xs={6} md={4}>
-            <TotalItems almacen={almacen} />
+            <TotalItems
+              almacen={almacen}
+              tipo={tipo}
+              color={color}
+              talla={talla}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <Grid container spacing={3} justify='flex-end'>

@@ -3,15 +3,28 @@ import { useQuery, gql } from '@apollo/client';
 import { CircularProgress } from '@material-ui/core';
 
 const TOTALSHOESANDACCESSORIES = gql`
-  query totalShoesAndAccessories($almacen: String) {
-    totalShoesAndAccessories(almacen: $almacen)
+  query totalShoesAndAccessories(
+    $almacen: String
+    $tipo: String
+    $color: String
+    $talla: String
+  ) {
+    totalShoesAndAccessories(
+      almacen: $almacen
+      tipo: $tipo
+      color: $color
+      talla: $talla
+    )
   }
 `;
 
-const TotalItems = ({ almacen }) => {
+const TotalItems = ({ almacen, tipo, color, talla }) => {
   const { loading, error, data } = useQuery(TOTALSHOESANDACCESSORIES, {
     variables: {
       almacen,
+      tipo,
+      color,
+      talla,
     },
   });
   if (loading) return <CircularProgress color='primary' />;
