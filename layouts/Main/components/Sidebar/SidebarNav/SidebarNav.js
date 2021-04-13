@@ -79,6 +79,17 @@ const SidebarNav = (props) => {
             </Link>
           </ListItem>
         ))}
+      {user === 'patrick' && (
+        <ListItem button className={classes.item} disableGutters>
+          <div className={classes.icon}>
+            <AccountBoxIcon />
+          </div>
+          <Link href='/new-zapato'>
+            <a className={classes.button}>Nuevo Producto</a>
+          </Link>
+        </ListItem>
+      )}
+
       {user !== 'elenap' && (
         <>
           <ListItem
@@ -165,6 +176,13 @@ const SidebarNav = (props) => {
             <Link href='/productos/sopocachi'>
               <a className={classes.button} activeclassname={classes.active}>
                 <ListItemText primary='Sopocachi' />
+              </a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.nested}>
+            <Link href='/productos/6-de-marzo'>
+              <a className={classes.button} activeclassname={classes.active}>
+                <ListItemText primary='6 de Marzo' />
               </a>
             </Link>
           </ListItem>
