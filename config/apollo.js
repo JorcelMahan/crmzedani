@@ -4,10 +4,10 @@ import { setContext } from 'apollo-link-context';
 // import { relayStylePagination } from '@apollo/client/utilities';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
 
-// const uridevelop = 'http://localhost:4000/';
+const uridevelop = 'http://localhost:4000/';
 const uriproduction = 'https://warm-island-75318.herokuapp.com/';
 const httpLink = createHttpLink({
-  uri: uriproduction,
+  uri: uridevelop,
   // fetch,
 });
 

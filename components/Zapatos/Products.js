@@ -42,6 +42,7 @@ const GET_ZAPATOS = gql`
     $tipo: String
     $talla: String
     $color: String
+    $stock: Boolean
   ) {
     zapatosCodigo(
       codigo: $codigo
@@ -51,6 +52,7 @@ const GET_ZAPATOS = gql`
       tipo: $tipo
       talla: $talla
       color: $color
+      stock: $stock
     ) {
       shoes {
         id
@@ -294,6 +296,8 @@ const LoadShoes = ({
   handleTipo,
   talla,
   color,
+  stock,
+  handleStock,
 }) => {
   const [tableMode, setTableMode] = useState(true);
   const [value, setValue] = useState(0);
@@ -309,6 +313,7 @@ const LoadShoes = ({
         tipo,
         talla,
         color,
+        stock,
       },
     }
   );
@@ -326,10 +331,17 @@ const LoadShoes = ({
   };
   const handleChange = (e, newValue) => {
     setValue(newValue);
+    if (newValue === 0) {
+      handleStock(true);
+      handleTipo('');
+    }
     if (newValue === 1) {
       const value = { value: 'niños' };
       handleTipo(value);
-    } else {
+      handleStock(true);
+    }
+    if (newValue === 2) {
+      handleStock(false);
       handleTipo('');
     }
   };
@@ -347,6 +359,7 @@ const LoadShoes = ({
       <Tabs value={value} onChange={handleChange}>
         <Tab label='Tienda' />
         <Tab label='Niños' />
+        <Tab label='Agotados' />
       </Tabs>
       <TabPanel value={value} index={0}>
         {!tableMode ? (
@@ -356,6 +369,16 @@ const LoadShoes = ({
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
+        {!tableMode ? (
+          <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+        ) : (
+          <ListZapatosChildren
+            zapatos={zapatosCodigo.shoes}
+            csvData={csvData}
+          />
+        )}
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         {!tableMode ? (
           <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
         ) : (
@@ -377,6 +400,7 @@ const LoadShoes = ({
               tipo={tipo}
               color={color}
               talla={talla}
+              stock={stock}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -416,7 +440,12 @@ const Products = ({ store }) => {
   const [tipo, setTipo] = useState('');
   const [talla, setTalla] = useState('');
   const [color, setColor] = useState('');
+  const [stock, setStock] = useState(true);
 
+  const handleStock = (value) => {
+    setStock(value);
+    setPage(1);
+  };
   const handleTipo = (value) => {
     if (value) {
       setTipo(value.value);
@@ -504,6 +533,8 @@ const Products = ({ store }) => {
           handleTipo={handleTipo}
           talla={talla}
           color={color}
+          stock={stock}
+          handleStock={handleStock}
         />
       </div>
     </div>
