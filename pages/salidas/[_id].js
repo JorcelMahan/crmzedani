@@ -81,6 +81,7 @@ let almacenes = [
   'central',
   'comercial',
   'cochabamba',
+  '6-de-marzo',
 ];
 
 const SimpleDialog = ({ salida, open, onClose }) => {
