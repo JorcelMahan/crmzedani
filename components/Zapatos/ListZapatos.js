@@ -80,7 +80,7 @@ const ListZapatos = (props) => {
                     <TableCell>Costo</TableCell>
                   )}
                   {user === 'patrick' && <TableCell>Editar</TableCell>}
-                  {(user === router.pathname.substr(11).replace('-', ' ') ||
+                  {(user === router.pathname.substr(11) ||
                     user === 'patrick') && <TableCell>Vender</TableCell>}
                 </TableRow>
               </TableHead>

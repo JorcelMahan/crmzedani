@@ -143,9 +143,9 @@ export default function GoalWeek() {
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio' ||
-        user === 'san miguel') && (
+        user === 'san-miguel') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='san miguel' goal='180' />
+          <CardGoalStore user={user} store='san-miguel' goal='180' />
         </Grid>
       )}
       {(user === 'patrick' ||
