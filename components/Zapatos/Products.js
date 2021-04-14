@@ -23,6 +23,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ListZapatos from './ListZapatos';
 import ListZapatosChildren from './ListZapatosChildren';
 import TotalItems from './TotalItems';
+import ButtonDowloadInventory from './ButtonDowloadInventory';
 
 const GET_COLORS = gql`
   query colors {
@@ -105,45 +106,7 @@ const GET_ZAPATOS = gql`
     }
   }
 `;
-const csvData = [
-  [
-    '#',
-    'codigo',
-    'color',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '32',
-    '33',
-    '34',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
-    '46',
-    'stock',
-    'precio',
-    // user === 'patrick' ? 'costo' : '-',
-    '-',
-  ],
-];
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -351,10 +314,13 @@ const LoadShoes = ({
 
   return (
     <>
-      <FormControlLabel
-        control={<Switch checked={tableMode} onChange={handleTableMode} />}
-        label='Cambiar Vista'
-      />
+      <Box my={2}>
+        <FormControlLabel
+          control={<Switch checked={tableMode} onChange={handleTableMode} />}
+          label='Cambiar Vista'
+        />
+        <ButtonDowloadInventory almacen={almacen} tipo={tipo} />
+      </Box>
 
       <Tabs value={value} onChange={handleChange}>
         <Tab label='Tienda' />
@@ -365,27 +331,21 @@ const LoadShoes = ({
         {!tableMode ? (
           <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
         ) : (
-          <ListZapatos zapatos={zapatosCodigo.shoes} csvData={csvData} />
+          <ListZapatos zapatos={zapatosCodigo.shoes} />
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {!tableMode ? (
           <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
         ) : (
-          <ListZapatosChildren
-            zapatos={zapatosCodigo.shoes}
-            csvData={csvData}
-          />
+          <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {!tableMode ? (
           <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
         ) : (
-          <ListZapatosChildren
-            zapatos={zapatosCodigo.shoes}
-            csvData={csvData}
-          />
+          <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
         )}
       </TabPanel>
       <Box m={3}>

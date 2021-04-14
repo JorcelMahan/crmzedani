@@ -166,14 +166,14 @@ const WrapperZapatos = ({ zapatos, almacen, setColor, setTalla, talla }) => {
           {!tableMode ? (
             <ListCardViewProducts zapatos={filteredItems} />
           ) : (
-            <ListZapatos zapatos={filteredItems} csvData={csvData} />
+            <ListZapatos zapatos={filteredItems} />
           )}
         </TabPanel>
         <TabPanel value={value} index={1}>
           {!tableMode ? (
             <ListCardViewProducts zapatos={filteredItems} />
           ) : (
-            <ListZapatosChildren zapatos={filteredItems} csvData={csvData} />
+            <ListZapatosChildren zapatos={filteredItems} />
           )}
         </TabPanel>
       </div>

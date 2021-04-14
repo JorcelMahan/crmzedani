@@ -157,6 +157,15 @@ export default function GoalWeek() {
           <CardGoalStore user={user} store='sopocachi' goal='180' />
         </Grid>
       )}
+      {(user === 'patrick' ||
+        user === 'kathryn' ||
+        user === 'laura' ||
+        user === 'fabio' ||
+        user === '6-de-marzo') && (
+        <Grid item xs={12} md={3} lg={6}>
+          <CardGoalStore user={user} store='6-de-marzo' goal='180' />
+        </Grid>
+      )}
       {/*uss: ventaslapaz*/}
       {/*Contraseña: ventaslapaz1*/}
 
