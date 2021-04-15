@@ -174,7 +174,7 @@ const Ventas = () => {
                   }}>
                   {[
                     'sopocachi',
-                    'san miguel',
+                    'san-miguel',
                     'miraflores',
                     '6-de-marzo',
                     'patrick',
