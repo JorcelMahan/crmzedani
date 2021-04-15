@@ -5,7 +5,9 @@ import { setContext } from 'apollo-link-context';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
 
 let uri = '';
-if (process.env.NODE_ENV) {
+const environment = process.env.NODE_ENV;
+// console.log(environment);
+if (environment === 'development') {
   uri = 'http://localhost:4000/';
 } else {
   uri = 'https://warm-island-75318.herokuapp.com/';

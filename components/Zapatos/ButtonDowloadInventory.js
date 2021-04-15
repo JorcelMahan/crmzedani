@@ -58,49 +58,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const csvData = [
-  [
-    '#',
-    'codigo',
-    'color',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '32',
-    '33',
-    '34',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
-    '46',
-    'stock',
-  ],
-];
+let csvData = [];
 
 const addProductsToDowload = (zapatos) => {
+  csvData = [
+    [
+      '#',
+      'codigo',
+      'color',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31',
+      '32',
+      '33',
+      '34',
+      '35',
+      '36',
+      '37',
+      '38',
+      '39',
+      '40',
+      '41',
+      '42',
+      '43',
+      '44',
+      '45',
+      '46',
+      'stock',
+    ],
+  ];
   if (zapatos.length > 0) {
     zapatos.forEach((zapato, i) => {
       csvData.push([
         ++i,
-        zapato.almacen,
         zapato.codigo,
         zapato.color,
         zapato.tallas['t19'] ? zapato.tallas['t19'] : 0,
@@ -136,7 +136,7 @@ const addProductsToDowload = (zapatos) => {
     });
   }
 };
-const ButtonDowloadInventory = ({ almacen, tipo }) => {
+const ButtonDowloadInventory = React.memo(({ almacen, tipo }) => {
   const classes = useStyles();
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS_TO_DOWLOAD,
@@ -148,7 +148,7 @@ const ButtonDowloadInventory = ({ almacen, tipo }) => {
     }
   );
   useEffect(() => {
-    startPolling(5000);
+    startPolling(1000);
     return () => {
       stopPolling();
     };
@@ -168,6 +168,6 @@ const ButtonDowloadInventory = ({ almacen, tipo }) => {
       </CSVLink>
     </Button>
   );
-};
+});
 
 export default ButtonDowloadInventory;

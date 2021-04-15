@@ -175,7 +175,7 @@ const LoadShoes = ({
           control={<Switch checked={tableMode} onChange={handleTableMode} />}
           label='Cambiar Vista'
         />
-        {/* <ButtonDowloadInventory almacen={almacen} tipo={tipo} /> */}
+        <ButtonDowloadInventory almacen={almacen} tipo={tipo} />
       </Box>
 
       <Tabs value={value} onChange={handleChange}>
