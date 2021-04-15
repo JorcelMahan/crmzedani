@@ -4,10 +4,15 @@ import { setContext } from 'apollo-link-context';
 // import { relayStylePagination } from '@apollo/client/utilities';
 // import { offsetLimitPagination } from '@apollo/client/utilities';
 
-// const uridevelop = 'http://localhost:4000/';
-const uriproduction = 'https://warm-island-75318.herokuapp.com/';
+let uri = '';
+if (process.env.NODE_ENV) {
+  uri = 'http://localhost:4000/';
+} else {
+  uri = 'https://warm-island-75318.herokuapp.com/';
+}
+
 const httpLink = createHttpLink({
-  uri: uriproduction,
+  uri: uri,
   // fetch,
 });
 
@@ -42,6 +47,11 @@ const client = new ApolloClient({
             },
           },
           zapatosAlmacen: {
+            merge(existing, incomming) {
+              return incomming;
+            },
+          },
+          zapatosToDownload: {
             merge(existing, incomming) {
               return incomming;
             },
