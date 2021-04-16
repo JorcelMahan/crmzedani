@@ -4,6 +4,7 @@ import { useQuery, gql } from '@apollo/client';
 import {
   Box,
   Button,
+  Fade,
   FormControlLabel,
   Grid,
   Switch,
@@ -185,23 +186,35 @@ const LoadShoes = ({
       </Tabs>
       <TabPanel value={value} index={0}>
         {!tableMode ? (
-          <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          </Fade>
         ) : (
-          <ListZapatos zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListZapatos zapatos={zapatosCodigo.shoes} />
+          </Fade>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {!tableMode ? (
-          <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          </Fade>
         ) : (
-          <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
+          </Fade>
         )}
       </TabPanel>
       <TabPanel value={value} index={2}>
         {!tableMode ? (
-          <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListCardViewProducts zapatos={zapatosCodigo.shoes} />
+          </Fade>
         ) : (
-          <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
+          <Fade in={!loading}>
+            <ListZapatosChildren zapatos={zapatosCodigo.shoes} />
+          </Fade>
         )}
       </TabPanel>
       <Box m={3}>

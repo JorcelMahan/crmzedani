@@ -10,7 +10,6 @@ import { FormControl, InputLabel, Select } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import axios from 'axios';
 import Loader from '../../components/Loader';
 
 const useStyles = makeStyles({
@@ -92,20 +91,23 @@ const WrapperZapato = ({ zapato, id }) => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', file, file.name);
-    const res = await axios.post(
-      'https://zedanibackend.herokuapp.com/api/images',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        onUploadProgress: (e) => {
-          console.log(e.loaded);
-        },
+    formData.append('upload_preset', 'zd-products');
+    formData.append('file', file);
+    const cloudURL = 'https://api.cloudinary.com/v1_1/zedani/upload';
+    try {
+      const resp = await fetch(cloudURL, {
+        method: 'POST',
+        body: formData,
+      });
+      if (resp.ok) {
+        const cloudRes = await resp.json();
+        setImage(cloudRes.secure_url);
+      } else {
+        throw await resp.json();
       }
-    );
-    setImage(res.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const [editZapato] = useMutation(UPDATE_SHOE);
   const updateShoe = async (values) => {

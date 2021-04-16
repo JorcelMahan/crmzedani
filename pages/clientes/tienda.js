@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Input, Paper, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { gql, useQuery } from '@apollo/client';
+import Loader from '../../components/Loader';
 
+const SEARCH_VENTA_BY_NIT_CODIGO = gql`
+  query customerPurchases($nitoci: String, $codigo: String) {
+    customerPurchases(nitoci: $nitoci, codigo: $codigo) {
+      productos {
+        codigo
+        color
+        sizeSale
+        quantity
+        precioPublico
+        precioPromocion
+      }
+      montoEfectivo
+      factura
+      cliente {
+        nitoci
+        razonSocial
+      }
+    }
+  }
+`;
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(3),
@@ -31,6 +53,23 @@ const useStyles = makeStyles((theme) => ({
 
 const tienda = () => {
   const classes = useStyles();
+  const [nitoci, setNitoci] = useState('');
+  // const [codigo, setCodigo] = useState('');
+  const [value, setValue] = useState('');
+  const { loading, error, data } = useQuery(SEARCH_VENTA_BY_NIT_CODIGO, {
+    variables: {
+      nitoci,
+    },
+  });
+
+  if (loading) return <Loader />;
+  if (error) return `${error.message}`;
+  const { customerPurchases } = data;
+  const handleKeyUp = (e) => {
+    if (e.key === 'Enter') {
+      setNitoci(value);
+    }
+  };
   return (
     <div className={classes.root}>
       <div className={classes.content}>
@@ -42,12 +81,22 @@ const tienda = () => {
             <Paper className={classes.paper}>
               <SearchIcon className={classes.icon} />
               <Input
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                onKeyUp={handleKeyUp}
                 type='text'
                 className={classes.input}
                 disableUnderline
                 placeholder='NIT o CI'
               />
             </Paper>
+          </Grid>
+          <Grid item xs={12} md={12}>
+            {customerPurchases ? (
+              customerPurchases.map((c) => <p>{c.factura}</p>)
+            ) : (
+              <p>No hay datos</p>
+            )}
           </Grid>
         </Grid>
       </div>

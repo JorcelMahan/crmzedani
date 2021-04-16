@@ -4,7 +4,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import { useFormik } from 'formik';
-import axios from 'axios';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
@@ -187,21 +186,20 @@ const NewZapato = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', file, file.name);
+    formData.append('upload_preset', 'zd-products');
+    formData.append('file', file);
+    const cloudURL = 'https://api.cloudinary.com/v1_1/zedani/upload';
     try {
-      const res = await axios.post(
-        'https://zedanibackend.herokuapp.com/api/images',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-          onUploadProgress: (e) => {
-            console.log(e.loaded);
-          },
-        }
-      );
-      setImage(res.data);
+      const resp = await fetch(cloudURL, {
+        method: 'POST',
+        body: formData,
+      });
+      if (resp.ok) {
+        const cloudRes = await resp.json();
+        setImage(cloudRes.secure_url);
+      } else {
+        throw await resp.json();
+      }
     } catch (e) {
       console.log(e);
     }

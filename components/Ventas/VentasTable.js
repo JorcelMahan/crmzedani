@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Table,
   TableHead,
@@ -9,20 +9,20 @@ import {
   CardContent,
   Box,
   Collapse,
-} from "@material-ui/core";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
-import ModalDeleteVenta from "./ModalDeleteVenta";
-import AuthContext from "../../context/auth/AuthContext";
-import ModalCancelarVenta from "./ModalCancelarVenta";
-import IconButton from "@material-ui/core/IconButton";
-import { Edit, KeyboardArrowDown, KeyboardArrowUp } from "@material-ui/icons";
-import Typography from "@material-ui/core/Typography";
-import ModalCancelarZapatoVenta from "./ModalCancelarZapatoVenta";
-import CierreContext from "../../context/cierre/CierreContext";
-import Button from "@material-ui/core/Button";
-import { useRouter } from "next/router";
+} from '@material-ui/core';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
+import ModalDeleteVenta from './ModalDeleteVenta';
+import AuthContext from '../../context/auth/AuthContext';
+import ModalCancelarVenta from './ModalCancelarVenta';
+import IconButton from '@material-ui/core/IconButton';
+import { Edit, KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import Typography from '@material-ui/core/Typography';
+import ModalCancelarZapatoVenta from './ModalCancelarZapatoVenta';
+import CierreContext from '../../context/cierre/CierreContext';
+import Button from '@material-ui/core/Button';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 1050,
   },
   tableRow: {
-    textDecoration: "none",
+    textDecoration: 'none',
   },
   tableRowCancelado: {
-    textDecoration: "line-through",
+    textDecoration: 'line-through',
   },
 }));
 
@@ -62,52 +62,51 @@ const VentaRow = ({
     <>
       <TableRow
         className={clsx(
-          venta.status === "COMPLET0"
+          venta.status === 'COMPLET0'
             ? classes.tableRow
             : classes.tableRowCancelado
-        )}
-      >
+        )}>
         <TableCell>
-          <IconButton size="small" onClick={() => setOpen(!open)}>
+          <IconButton size='small' onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
         </TableCell>
         <TableCell>{++i}</TableCell>
 
         <TableCell>
-          {venta.factura ? venta.factura : "-"}
+          {venta.factura ? venta.factura : '-'}
           {/* {formatDate.toLocaleDateString('es-MX')} */}
         </TableCell>
-        <TableCell>{venta.vendedor ? venta.vendedor.name : "-"}</TableCell>
+        <TableCell>{venta.vendedor ? venta.vendedor.name : '-'}</TableCell>
         <TableCell>
           {venta.idPromotora !== null
             ? venta.idPromotora.nombres.toUpperCase()
-            : "Cliente"}
+            : 'Cliente'}
         </TableCell>
         <TableCell>{venta.productos.length}</TableCell>
         <TableCell>
-          {venta.metodo === "EFECTIVO"
+          {venta.metodo === 'EFECTIVO'
             ? venta.total
-            : venta.metodo === "EFECTIVO-TARJETA" ||
-              venta.metodo === "DEPOSITO-EFECTIVO"
+            : venta.metodo === 'EFECTIVO-TARJETA' ||
+              venta.metodo === 'DEPOSITO-EFECTIVO'
             ? venta.montoEfectivo
-            : "-"}
+            : '-'}
         </TableCell>
         <TableCell>
-          {venta.metodo === "TARJETA"
+          {venta.metodo === 'TARJETA'
             ? venta.total
-            : venta.metodo === "EFECTIVO-TARJETA" ||
-              venta.metodo === "DEPOSITO-TARJETA"
+            : venta.metodo === 'EFECTIVO-TARJETA' ||
+              venta.metodo === 'DEPOSITO-TARJETA'
             ? venta.montoTarjeta
-            : "-"}
+            : '-'}
         </TableCell>
         <TableCell>
-          {venta.metodo === "DEPOSITO"
+          {venta.metodo === 'DEPOSITO'
             ? venta.total
-            : venta.metodo === "DEPOSITO-TARJETA" ||
-              venta.metodo === "DEPOSITO-EFECTIVO"
+            : venta.metodo === 'DEPOSITO-TARJETA' ||
+              venta.metodo === 'DEPOSITO-EFECTIVO'
             ? venta.montoDeposito
-            : "-"}
+            : '-'}
         </TableCell>
         <TableCell>{totalEfectivo}</TableCell>
         <TableCell>{totalTarjeta}</TableCell>
@@ -115,16 +114,15 @@ const VentaRow = ({
           <Button
             onClick={() => {
               router.push({
-                pathname: "/ventas/[id]",
+                pathname: '/ventas/[id]',
                 query: { id: venta.id },
               });
-            }}
-          >
+            }}>
             <Edit />
           </Button>
         </TableCell>
-        {venta.status === "COMPLET0" &&
-        !venta.productos.find((el) => el.estado === "CANCELADO") ? (
+        {venta.status === 'COMPLET0' &&
+        !venta.productos.find((el) => el.estado === 'CANCELADO') ? (
           <TableCell>
             <ModalCancelarVenta id={venta.id} anularVenta={anularVenta} />
           </TableCell>
@@ -140,28 +138,27 @@ const VentaRow = ({
       </TableRow>
       <TableRow
         className={clsx(
-          venta.status === "COMPLET0"
+          venta.status === 'COMPLET0'
             ? classes.tableRow
             : classes.tableRowCancelado
-        )}
-      >
+        )}>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={13}>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={open} timeout='auto' unmountOnExit>
             <Box m={1}>
-              <Typography variant="h6" gutterBottom component="div">
+              <Typography variant='h6' gutterBottom component='div'>
                 Productos
               </Typography>
-              <Table size="small" aria-label="purchases">
+              <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
                     <TableCell>#</TableCell>
                     <TableCell>Codigo</TableCell>
-                    <TableCell align="right">Color</TableCell>
-                    <TableCell align="right">Talla</TableCell>
-                    <TableCell align="right">Precio</TableCell>
-                    <TableCell align="right">Precio de Venta</TableCell>
-                    <TableCell align="right">Cantidad</TableCell>
-                    <TableCell align="right">Anular</TableCell>
+                    <TableCell align='right'>Color</TableCell>
+                    <TableCell align='right'>Talla</TableCell>
+                    <TableCell align='right'>Precio</TableCell>
+                    <TableCell align='right'>Precio de Venta</TableCell>
+                    <TableCell align='right'>Cantidad</TableCell>
+                    <TableCell align='right'>Anular</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -169,29 +166,29 @@ const VentaRow = ({
                     <TableRow
                       key={`${product.id}-${i}`}
                       className={clsx(
-                        product.estado === "COMPLETO"
+                        product.estado === 'COMPLETO'
                           ? classes.tableRow
                           : classes.tableRowCancelado
-                      )}
-                    >
-                      <TableCell component="th" scope="row">
+                      )}>
+                      <TableCell component='th' scope='row'>
                         {product.estado}
                       </TableCell>
                       <TableCell>{product.codigo}</TableCell>
-                      <TableCell align="right">{product.color}</TableCell>
-                      <TableCell align="right">{product.sizeSale}</TableCell>
-                      <TableCell align="right">
+                      <TableCell align='right'>{product.color}</TableCell>
+                      <TableCell align='right'>{product.sizeSale}</TableCell>
+                      <TableCell align='right'>
                         {product.precioPublico}
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell align='right'>
                         {!product?.precioPromocion ||
                         product?.precioPromocion === 0
                           ? product.precioPublico
                           : product.precioPromocion}
                       </TableCell>
-                      <TableCell align="right">{product.quantity}</TableCell>
-                      {product.estado === "COMPLETO" ? (
-                        <TableCell align="right">
+                      <TableCell align='right'>{product.quantity}</TableCell>
+                      {venta.status === 'COMPLET0' &&
+                      product.estado === 'COMPLETO' ? (
+                        <TableCell align='right'>
                           <ModalCancelarZapatoVenta
                             arZapatoVenta
                             idVenta={venta.id}
@@ -202,7 +199,7 @@ const VentaRow = ({
                           />
                         </TableCell>
                       ) : (
-                        <TableCell align="right">ANULADO</TableCell>
+                        <TableCell align='right'>ANULADO</TableCell>
                       )}
                     </TableRow>
                   ))}
@@ -217,7 +214,7 @@ const VentaRow = ({
 };
 
 const verifyProduct = (products) => {
-  return products.some((el) => el.estado === "CANCELADO");
+  return products.some((el) => el.estado === 'CANCELADO');
 };
 const VentasTable = ({
   ventas,
@@ -269,25 +266,25 @@ const VentasTable = ({
                   <TableCell>Total Tarjeta</TableCell>
                   <TableCell>Editar</TableCell>
                   <TableCell>Anular</TableCell>
-                  {user === "johan" && <TableCell>Eliminar</TableCell>}
+                  {user === 'johan' && <TableCell>Eliminar</TableCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {ventas.map((venta, i) => {
                   if (
-                    venta.status === "COMPLET0" &&
+                    venta.status === 'COMPLET0' &&
                     !verifyProduct(venta.productos)
                   ) {
-                    if (venta.metodo === "EFECTIVO") {
+                    if (venta.metodo === 'EFECTIVO') {
                       totalEfectivo += venta.total;
-                    } else if (venta.metodo === "EFECTIVO-TARJETA") {
+                    } else if (venta.metodo === 'EFECTIVO-TARJETA') {
                       totalEfectivo += venta.montoEfectivo;
                       totalTarjeta += venta.montoTarjeta;
-                    } else if (venta.metodo === "TARJETA") {
+                    } else if (venta.metodo === 'TARJETA') {
                       totalTarjeta += venta.total;
-                    } else if (venta.metodo === "DEPOSITO-EFECTIVO") {
+                    } else if (venta.metodo === 'DEPOSITO-EFECTIVO') {
                       totalEfectivo += venta.montoEfectivo;
-                    } else if (venta.metodo === "DEPOSITO-TARJETA") {
+                    } else if (venta.metodo === 'DEPOSITO-TARJETA') {
                       totalTarjeta += venta.montoTarjeta;
                     }
                   }
