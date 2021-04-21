@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 const GET_VENTAS_DAY_BY_STORE = gql`
   query salesDayByStore($store: String!, $date: String!) {
     salesDayByStore(store: $store, date: $date)
-    moneyDayByStore(store: $store)
+    moneyDayByStore(store: $store, date: $date)
   }
 `;
 const CountDayStore = ({ store }) => {
