@@ -64,7 +64,7 @@ const VentaRow = ({
     (acc, product) => acc + product.quantity,
     0
   );
-  console.log(totalProductsSale);
+
   return (
     <>
       <TableRow

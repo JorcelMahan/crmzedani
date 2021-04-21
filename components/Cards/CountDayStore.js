@@ -27,7 +27,7 @@ const CountDayStore = ({ store }) => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
-      month: 'numeric',
+      month: '2-digit',
       day: '2-digit',
     })
     .split('/');
@@ -50,6 +50,7 @@ const CountDayStore = ({ store }) => {
 
   if (loading) return 'Loading';
   if (error) return `Error ${error.message}`;
+
   return (
     <>
       <Avatar className={classes.red2}>

@@ -33,7 +33,7 @@ const Seller = ({ emp, store }) => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
-      month: 'numeric',
+      month: '2-digit',
       day: '2-digit',
     })
     .split('/');

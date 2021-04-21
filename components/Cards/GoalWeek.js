@@ -10,13 +10,8 @@ import CardGoalStore from './CardGoalStore';
 import CardSalesEmployee from './CardSalesEmployee';
 
 const GET_VENTAS = gql`
-  query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
-    allventas(month: $month, startDay: $startDay, endDay: $endDay)
-  }
-`;
-const GET_VENTAS_BY_RANGE_OF_DATES = gql`
-  query salesByRangeOfDate($initial: String!, $finish: String!) {
-    salesByRangeOfDate(initial: $initial, finish: $finish)
+  query allventasCurrentMonth {
+    allventasCurrentMonth
   }
 `;
 
@@ -60,51 +55,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Count2 = ({ initial, finish }) => {
-  const classes = useStyles();
+const Count = () => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_VENTAS_BY_RANGE_OF_DATES,
-    {
-      variables: {
-        initial,
-        finish,
-      },
-    }
-  );
-  useEffect(() => {
-    startPolling(5000);
-    return () => {
-      stopPolling();
-    };
-  }, [startPolling, stopPolling]);
-
-  if (loading) return 'Loading';
-  if (error) return `Error: ${error}`;
-  return (
-    <div className={classes.cardGoal2}>
-      <div style={{ marginBottom: '2px' }}>
-        <i>
-          "Trabajar en equipo divide el trabajo y multiplica los resultados"
-        </i>
-      </div>
-      <hr />
-      <p style={{ marginTop: '5px' }}>
-        Meta: {data.salesByRangeOfDate} de 3600
-      </p>
-      <p>Falta: {3600 - data.salesByRangeOfDate}</p>
-    </div>
-  );
-};
-const Count = ({ month, startDay, endDay }) => {
-  const { loading, error, data, startPolling, stopPolling } = useQuery(
-    GET_VENTAS,
-    {
-      variables: {
-        month: Number(month),
-        startDay: Number(startDay),
-        endDay: Number(endDay),
-      },
-    }
+    GET_VENTAS
   );
 
   useEffect(() => {
@@ -116,11 +69,11 @@ const Count = ({ month, startDay, endDay }) => {
 
   if (loading) return 'Loading';
   if (error) return `error: ${error.message}`;
-  const { allventas } = data;
+  const { allventasCurrentMonth } = data;
   return (
     <div>
-      Zapatos = <b>{allventas[0]}</b>
-      <br /> Accesorios = <b>{allventas[1]}</b>
+      Zapatos = <b>{allventasCurrentMonth[0]}</b>
+      <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
     </div>
   );
 };
@@ -212,7 +165,7 @@ export default function GoalWeek() {
                 {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
 
-              <Count month='3' startDay='1' endDay='30' />
+              <Count />
             </CardContent>
           </Card>
         </Grid>

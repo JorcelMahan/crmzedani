@@ -39,7 +39,7 @@ const Review = ({ setActiveBtn }) => {
   const formatDate = fecha
     .toLocaleString('es-MX', {
       year: 'numeric',
-      month: 'numeric',
+      month: '2-digit',
       day: '2-digit',
     })
     .split('/');
