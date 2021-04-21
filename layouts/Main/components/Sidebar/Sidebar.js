@@ -8,6 +8,9 @@ import ExitToApp from '@material-ui/icons/ExitToApp';
 import SidebarNav from './SidebarNav/SidebarNav';
 import clsx from 'clsx';
 import Profile from './Profile/Profile';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
@@ -46,12 +49,12 @@ const Sidebar = ({ open, variant, onClose, className }) => {
     {
       title: 'Ventas',
       href: '/ventas',
-      icon: <ShoppingBasketIcon />,
+      icon: <ReceiptIcon />,
     },
     {
       title: 'Cierre del Dia',
       href: '/cierre',
-      icon: <DashboardIcon />,
+      icon: <AssignmentTurnedInIcon />,
     },
     {
       title: 'Salidas',

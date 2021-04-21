@@ -55,7 +55,10 @@ const Main = ({ children }) => {
   const shouldOpenSidebar = isDesktop ? true : openSidebar;
   useEffect(() => {
     if (data) {
-      if (data.getUser !== null) addUsername(data.getUser.name);
+      if (data.getUser !== null) {
+        localStorage.setItem('user', data.getUser.name);
+        addUsername(data.getUser.name);
+      }
     }
   }, [data]);
   if (loading) return <Loader />;
@@ -66,9 +69,10 @@ const Main = ({ children }) => {
   }
 
   const closeSession = async () => {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     localStorage.removeItem('totalEfectivo');
     localStorage.removeItem('totalTarjeta');
+    localStorage.removeItem('user');
     deselectUsername();
     await router.push('/login');
     return null;

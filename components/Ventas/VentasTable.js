@@ -9,8 +9,9 @@ import {
   CardContent,
   Box,
   Collapse,
+  TableContainer,
+  Paper,
 } from '@material-ui/core';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ModalDeleteVenta from './ModalDeleteVenta';
@@ -29,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: 0,
   },
-  inner: {
-    minWidth: 1050,
+  table: {
+    minWidth: 500,
   },
   tableRow: {
     textDecoration: 'none',
@@ -58,6 +59,12 @@ const VentaRow = ({
   useEffect(() => {
     addTotalTarjeta(totalTarjeta);
   }, [totalTarjeta]);
+  const formatDate = new Date(Number(venta.fechaDeCompra));
+  const totalProductsSale = venta.productos.reduce(
+    (acc, product) => acc + product.quantity,
+    0
+  );
+  console.log(totalProductsSale);
   return (
     <>
       <TableRow
@@ -72,18 +79,15 @@ const VentaRow = ({
           </IconButton>
         </TableCell>
         <TableCell>{++i}</TableCell>
-
-        <TableCell>
-          {venta.factura ? venta.factura : '-'}
-          {/* {formatDate.toLocaleDateString('es-MX')} */}
-        </TableCell>
+        <TableCell>{formatDate.toLocaleDateString('es-MX')}</TableCell>
+        <TableCell>{venta.factura ? venta.factura : '-'}</TableCell>
         <TableCell>{venta.vendedor ? venta.vendedor.name : '-'}</TableCell>
         <TableCell>
           {venta.idPromotora !== null
             ? venta.idPromotora.nombres.toUpperCase()
             : 'Cliente'}
         </TableCell>
-        <TableCell>{venta.productos.length}</TableCell>
+        <TableCell>{totalProductsSale}</TableCell>
         <TableCell>
           {venta.metodo === 'EFECTIVO'
             ? venta.total
@@ -129,7 +133,6 @@ const VentaRow = ({
         ) : (
           <TableCell> - </TableCell>
         )}
-
         {/*{user === "johan" && (*/}
         {/*  <TableCell>*/}
         {/*    <ModalDeleteVenta id={venta.id} cancelarVenta={cancelarVenta} />*/}
@@ -248,13 +251,14 @@ const VentasTable = ({
     <Card className={classes.root}>
       <CardContent className={classes.content}>
         <Box m={3} />
-        <PerfectScrollbar>
-          <div className={classes.inner}>
-            <Table>
+        <>
+          <TableContainer component={Paper}>
+            <Table className={classes.table}>
               <TableHead>
                 <TableRow>
                   <TableCell>-</TableCell>
                   <TableCell>#</TableCell>
+                  <TableCell>Fecha</TableCell>
                   <TableCell>Factura o Nota</TableCell>
                   <TableCell>Vendedor</TableCell>
                   <TableCell>Cliente o promotora</TableCell>
@@ -288,7 +292,6 @@ const VentasTable = ({
                       totalTarjeta += venta.montoTarjeta;
                     }
                   }
-                  const formatDate = new Date(Number(venta.fechaDeCompra));
                   return (
                     <VentaRow
                       key={venta.id}
@@ -305,8 +308,8 @@ const VentasTable = ({
                 })}
               </TableBody>
             </Table>
-          </div>
-        </PerfectScrollbar>
+          </TableContainer>
+        </>
       </CardContent>
     </Card>
   );

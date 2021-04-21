@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql } from '@apollo/client';
-import Grid from '@material-ui/core/Grid';
-import CardSalida from '../components/Salidas/CardSalida';
 import Loader from '../components/Loader';
 // import Link from 'next/link';
 import { useRouter } from 'next/router';

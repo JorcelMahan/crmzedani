@@ -73,7 +73,7 @@ function Login() {
         //save token in localstorage
         setTimeout(() => {
           const { token } = data.authUser;
-          sessionStorage.setItem('token', token);
+          localStorage.setItem('token', token);
         }, 1000);
         // delete message
         setTimeout(() => {
@@ -134,8 +134,7 @@ function Login() {
             fullWidth
             variant='contained'
             color='primary'
-            className={classes.submit}
-          >
+            className={classes.submit}>
             Iniciar Sesion
           </Button>
         </form>

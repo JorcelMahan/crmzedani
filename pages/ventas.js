@@ -93,8 +93,10 @@ const useStyles = makeStyles((theme) => ({
     width: '50%',
   },
 }));
+
 const Ventas = () => {
-  const { user } = useContext(AuthContext);
+  let { user } = useContext(AuthContext);
+  user = user ? user : localStorage.getItem('user');
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
@@ -161,7 +163,6 @@ const Ventas = () => {
             user === 'fabio' ||
             user === 'laura') && (
             <div>
-              Tienda:
               <FormControl className={classes.formControl} variant='outlined'>
                 <InputLabel id='store'>Tienda</InputLabel>
                 <Select

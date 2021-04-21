@@ -16,6 +16,8 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Link from 'next/link';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
+import AssessmentIcon from '@material-ui/icons/Assessment';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -80,14 +82,24 @@ const SidebarNav = (props) => {
           </ListItem>
         ))}
       {user === 'patrick' && (
-        <ListItem button className={classes.item} disableGutters>
-          <div className={classes.icon}>
-            <AccountBoxIcon />
-          </div>
-          <Link href='/new-zapato'>
-            <a className={classes.button}>Nuevo Producto</a>
-          </Link>
-        </ListItem>
+        <>
+          <ListItem button className={classes.item} disableGutters>
+            <div className={classes.icon}>
+              <AddBoxIcon />
+            </div>
+            <Link href='/new-zapato'>
+              <a className={classes.button}>Nuevo Producto</a>
+            </Link>
+          </ListItem>
+          <ListItem button className={classes.item} disableGutters>
+            <div className={classes.icon}>
+              <AssessmentIcon />
+            </div>
+            <Link href='/money'>
+              <a className={classes.button}>Reportes</a>
+            </Link>
+          </ListItem>
+        </>
       )}
 
       {user !== 'elenap' && (

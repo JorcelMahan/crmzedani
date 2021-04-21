@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { gql, useQuery } from '@apollo/client';
 import AuthContext from '../../context/auth/AuthContext';
 import CardGoalStore from './CardGoalStore';
+import CardSalesEmployee from './CardSalesEmployee';
 
 const GET_VENTAS = gql`
   query allventas($month: Int!, $startDay: Int!, $endDay: Int!) {
@@ -180,7 +181,22 @@ export default function GoalWeek() {
           <CardGoalStore user={user} store='patrick' goal='1000' />
         </Grid>
       )}
-
+      {user === 'ventascbba' && (
+        <Grid item xs={12} md={3} lg={6}>
+          <CardSalesEmployee
+            employee='60468e365e39640015e6b6be'
+            name='Nelson'
+          />
+        </Grid>
+      )}
+      {user === 'ventaslapaz' && (
+        <Grid item xs={12} md={3} lg={6}>
+          <CardSalesEmployee
+            employee='60468e735e39640015e6b6bf'
+            name='Giovanny'
+          />
+        </Grid>
+      )}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||

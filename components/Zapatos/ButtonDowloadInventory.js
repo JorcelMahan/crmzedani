@@ -8,6 +8,8 @@ const GET_ZAPATOS_TO_DOWLOAD = gql`
   query zapatosToDownload($almacen: String, $tipo: String) {
     zapatosToDownload(almacen: $almacen, tipo: $tipo) {
       codigo
+      almacen
+      tipo
       stock
       color
       tallas {
@@ -64,8 +66,10 @@ const addProductsToDowload = (zapatos) => {
   csvData = [
     [
       '#',
+      'almacen',
       'codigo',
       'color',
+      'tipo',
       '19',
       '20',
       '21',
@@ -101,8 +105,10 @@ const addProductsToDowload = (zapatos) => {
     zapatos.forEach((zapato, i) => {
       csvData.push([
         ++i,
+        zapato.almacen,
         zapato.codigo,
         zapato.color,
+        zapato.tipo,
         zapato.tallas['t19'] ? zapato.tallas['t19'] : 0,
         zapato.tallas['t20'] ? zapato.tallas['t20'] : 0,
         zapato.tallas['t21'] ? zapato.tallas['t21'] : 0,

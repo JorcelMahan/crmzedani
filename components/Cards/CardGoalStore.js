@@ -9,7 +9,7 @@ import CountSalesMonthStore from '../Cards/CountSalesMonthStore';
 import CardMedia from '@material-ui/core/CardMedia';
 import StoreIcon from '@material-ui/icons/Store';
 import SellersList from '../SellersList';
-import { Avatar, Box, Divider, Paper } from '@material-ui/core';
+import { Box, Divider, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,10 +24,6 @@ const useStyles = makeStyles((theme) => ({
   },
   depositContext: {
     flex: 1,
-  },
-  red: {
-    color: theme.palette.white,
-    backgroundColor: theme.palette.primary.main,
   },
 
   title: {
@@ -53,13 +49,16 @@ const CardGoalStore = ({ user, store, goal }) => {
         gutterBottom>
         {store === 'patrick' ? 'Sandder TNT' : store}
       </Typography>
-      <Box display='flex' justifyContent='space-between'>
+      <Box
+        display='flex'
+        justifyContent='space-between'
+        my={1}
+        alignItems='center'>
         <Typography className={classes.monthTitle} component='p' variant='h4'>
           {new Date().toLocaleString('es-MX', { month: 'long' })}
         </Typography>
-        <Avatar className={classes.red}>
-          <CountDayStore store={store} />
-        </Avatar>
+
+        <CountDayStore store={store} />
       </Box>
       <Typography color='textSecondary' className={classes.depositContext}>
         <span className={classes.monthTitle}>
@@ -71,7 +70,7 @@ const CardGoalStore = ({ user, store, goal }) => {
       <Box>
         <SellersList store={store} />
       </Box>
-      <Box mt={2} display='flex' justifyContent='space-between'>
+      <Box mt={2}>
         <CountSalesMonthStore store={store} goal={goal} />
       </Box>
     </Paper>

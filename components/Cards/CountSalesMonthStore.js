@@ -1,37 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Box } from '@material-ui/core';
-
+import { Grid } from '@material-ui/core';
+import AuthContext from '../../context/auth/AuthContext';
 const GET_SALES_MONTH_BY_STORE = gql`
   query salesMonthByStore($store: String!) {
     salesMonthByStore(store: $store)
   }
 `;
 
-const Goal2 = ({ store, goal, sales }) => {
-  let goal2 = 0;
-  if (store === 'sopocachi') {
-    goal2 = 64;
-  } else if (store === 'miraflores') {
-    goal2 = 150;
-  } else if (store === 'san miguel') {
-    goal2 = 72;
-  }
-  const newGoal = Number(goal) + goal2;
-  return (
-    <>
-      <h4>FELICIDADES</h4>
-      <p>
-        Meta 2: {sales} de {newGoal}
-      </p>
-      <p>+ {goal2} pares</p>
-      <p>Bono + 100Bs</p>
-      <p>Falta: {newGoal - sales}</p>
-    </>
-  );
-};
-
 const CountSalesMonthStore = ({ store, goal }) => {
+  const { user } = useContext(AuthContext);
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_SALES_MONTH_BY_STORE,
     {
@@ -52,25 +30,31 @@ const CountSalesMonthStore = ({ store, goal }) => {
   if (error) return `Error ${error.message}`;
 
   return (
-    <>
-      {/* {data.salesMonthByStore >= Number(goal) ? (
-        <Goal2 store={store} goal={goal} sales={data.salesMonthByStore} />
-      ) : (
-        <>
-          <p>
-            Meta1: {data.salesMonthByStore} de {goal}
-          </p>
-          <p>Falta: {Number(goal) - data.salesMonthByStore}</p>
-        </>
-      )} */}
-      <Box>
+    <Grid container spacing={2}>
+      <Grid item xs={6}>
         Zapatos <b>{data.salesMonthByStore ? data.salesMonthByStore[0] : 0}</b>
-      </Box>
-      <Box>
+      </Grid>
+      <Grid item xs={6}>
         Accesorios{' '}
         <b>{data.salesMonthByStore ? data.salesMonthByStore[1] : 0}</b>
-      </Box>
-    </>
+      </Grid>
+      {(user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
+        <>
+          <Grid item xs={4}>
+            Total Efectivo:{' '}
+            <b>{data.salesMonthByStore ? data.salesMonthByStore[2] : 0}</b>
+          </Grid>
+          <Grid item xs={4}>
+            Total Tarjeta:{' '}
+            <b>{data.salesMonthByStore ? data.salesMonthByStore[3] : 0}</b>
+          </Grid>
+          <Grid item xs={4}>
+            Total Deposito:{' '}
+            <b>{data.salesMonthByStore ? data.salesMonthByStore[4] : 0}</b>
+          </Grid>
+        </>
+      )}
+    </Grid>
   );
 };
 
