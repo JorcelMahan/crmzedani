@@ -43,12 +43,12 @@ const client = new ApolloClient({
               return incomming;
             },
           },
-          allventas: {
+          allventasCurrentMonth: {
             merge(existing, incomming) {
               return incomming;
             },
           },
-          zapatosAlmacen: {
+          zapatosCodigo: {
             merge(existing, incomming) {
               return incomming;
             },
@@ -67,10 +67,12 @@ const client = new ApolloClient({
   onError: (error) => {
     const { networkError } = error;
     if (networkError && networkError.result.code === 'invalid_token') {
-      sessionStorage.removeItem('token');
+      localStorage.removeItem('token');
       location.href = '/';
     }
   },
 });
 
 export default client;
+
+// ctrl + p = search between files

@@ -39,7 +39,7 @@ const SALES_EMPLOYEE = gql`
     salesMonthByEmployee(employee: $employee)
   }
 `;
-const CardSalesEmployee = ({ employee, name }) => {
+const CardSalesEmployee = ({ employee, name, goal }) => {
   const { loading, error, data } = useQuery(SALES_EMPLOYEE, {
     variables: {
       employee,
@@ -71,6 +71,13 @@ const CardSalesEmployee = ({ employee, name }) => {
 
         <Grid item xs={12}>
           <Divider />
+          <Box my={2}>
+            <b>
+              Meta: {salesMonthByEmployee[0]} de {goal}
+            </b>
+            <br />
+            Falta: {goal - salesMonthByEmployee[0]}
+          </Box>
           <Box my={2}>
             <Typography variant='h5'>
               Zapatos: {salesMonthByEmployee[0]}

@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { CSVLink } from 'react-csv';
 import { makeStyles } from '@material-ui/styles';
 import { Button, CircularProgress } from '@material-ui/core';
 import { useQuery, gql } from '@apollo/client';
+import AuthContext from '../../context/auth/AuthContext';
 
 const GET_ZAPATOS_TO_DOWLOAD = gql`
   query zapatosToDownload($almacen: String, $tipo: String) {
@@ -12,6 +13,8 @@ const GET_ZAPATOS_TO_DOWLOAD = gql`
       tipo
       stock
       color
+      precioPublico
+      costo
       tallas {
         t19
         t20
@@ -62,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
 
 let csvData = [];
 
-const addProductsToDowload = (zapatos) => {
+const addProductsToDowload = (zapatos, user) => {
   csvData = [
     [
       '#',
@@ -70,6 +73,8 @@ const addProductsToDowload = (zapatos) => {
       'codigo',
       'color',
       'tipo',
+      'precio',
+      user === 'patrick' ? 'costo' : '-',
       '19',
       '20',
       '21',
@@ -109,6 +114,8 @@ const addProductsToDowload = (zapatos) => {
         zapato.codigo,
         zapato.color,
         zapato.tipo,
+        zapato.precioPublico,
+        user === 'patrick' ? zapato.costo : '-',
         zapato.tallas['t19'] ? zapato.tallas['t19'] : 0,
         zapato.tallas['t20'] ? zapato.tallas['t20'] : 0,
         zapato.tallas['t21'] ? zapato.tallas['t21'] : 0,
@@ -143,6 +150,7 @@ const addProductsToDowload = (zapatos) => {
   }
 };
 const ButtonDowloadInventory = React.memo(({ almacen, tipo }) => {
+  const { user } = useContext(AuthContext);
   const classes = useStyles();
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_ZAPATOS_TO_DOWLOAD,
@@ -162,7 +170,7 @@ const ButtonDowloadInventory = React.memo(({ almacen, tipo }) => {
   if (loading) return <CircularProgress />;
   if (error) return `${error.message}`;
   const { zapatosToDownload } = data;
-  addProductsToDowload(zapatosToDownload);
+  addProductsToDowload(zapatosToDownload, user);
 
   return (
     <Button className={classes.exportButton}>

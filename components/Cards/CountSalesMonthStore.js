@@ -31,6 +31,15 @@ const CountSalesMonthStore = ({ store, goal }) => {
 
   return (
     <Grid container spacing={2}>
+      <Grid item xs={12}>
+        <b>
+          Meta: {data.salesMonthByStore ? data.salesMonthByStore[0] : 0} de{' '}
+          {goal}
+        </b>
+        <br />
+        Falta {goal - data.salesMonthByStore[0]}
+        <hr />
+      </Grid>
       <Grid item xs={6}>
         Zapatos <b>{data.salesMonthByStore ? data.salesMonthByStore[0] : 0}</b>
       </Grid>

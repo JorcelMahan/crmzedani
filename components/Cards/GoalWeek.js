@@ -8,6 +8,7 @@ import { gql, useQuery } from '@apollo/client';
 import AuthContext from '../../context/auth/AuthContext';
 import CardGoalStore from './CardGoalStore';
 import CardSalesEmployee from './CardSalesEmployee';
+import { Box } from '@material-ui/core';
 
 const GET_VENTAS = gql`
   query allventasCurrentMonth {
@@ -55,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Count = () => {
+const Count = ({ user }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS
   );
@@ -72,8 +73,25 @@ const Count = () => {
   const { allventasCurrentMonth } = data;
   return (
     <div>
-      Zapatos = <b>{allventasCurrentMonth[0]}</b>
-      <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
+      <Box my={2}>
+        <b>Meta: {allventasCurrentMonth[0]} de 3100</b>
+        <br />
+        Falta: {3100 - allventasCurrentMonth[0]}
+      </Box>
+      <Box my={2}>
+        <Typography variant='h3' component='h2'>
+          <i>Si crees que puedes, ya estás a medio camino</i>
+        </Typography>
+      </Box>
+      {(user === 'patrick' ||
+        user === 'kathryn' ||
+        user === 'laura' ||
+        user === 'fabio') && (
+        <div>
+          Zapatos = <b>{allventasCurrentMonth[0]}</b>
+          <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
+        </div>
+      )}
     </div>
   );
 };
@@ -90,7 +108,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'miraflores') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='miraflores' goal='390 ' />
+          <CardGoalStore user={user} store='miraflores' goal={650} />
         </Grid>
       )}
       {(user === 'patrick' ||
@@ -99,7 +117,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'san-miguel') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='san-miguel' goal='180' />
+          <CardGoalStore user={user} store='san-miguel' goal={384} />
         </Grid>
       )}
       {(user === 'patrick' ||
@@ -108,7 +126,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'sopocachi') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='sopocachi' goal='180' />
+          <CardGoalStore user={user} store='sopocachi' goal={231} />
         </Grid>
       )}
       {(user === 'patrick' ||
@@ -117,7 +135,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === '6-de-marzo') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='6-de-marzo' goal='180' />
+          <CardGoalStore user={user} store='6-de-marzo' goal={550} />
         </Grid>
       )}
       {/*uss: ventaslapaz*/}
@@ -131,7 +149,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio') && (
         <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='patrick' goal='1000' />
+          <CardGoalStore user={user} store='patrick' goal={800} />
         </Grid>
       )}
       {user === 'ventascbba' && (
@@ -139,6 +157,7 @@ export default function GoalWeek() {
           <CardSalesEmployee
             employee='60468e365e39640015e6b6be'
             name='Nelson'
+            goal={200}
           />
         </Grid>
       )}
@@ -147,10 +166,24 @@ export default function GoalWeek() {
           <CardSalesEmployee
             employee='60468e735e39640015e6b6bf'
             name='Giovanny'
+            goal={600}
           />
         </Grid>
       )}
-      {(user === 'patrick' ||
+      <Grid item xs={12} md={3} lg={6}>
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography
+              className={classes.title}
+              color='textSecondary'
+              gutterBottom>
+              Mes: {new Date().toLocaleString('es-MX', { month: 'long' })}
+            </Typography>
+            <Count user={user} />
+          </CardContent>
+        </Card>
+      </Grid>
+      {/* {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
@@ -165,11 +198,11 @@ export default function GoalWeek() {
                 {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
 
-              <Count />
+              <Count user={user} />
             </CardContent>
           </Card>
         </Grid>
-      )}
+      )} */}
     </Grid>
   );
 }

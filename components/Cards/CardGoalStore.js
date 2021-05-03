@@ -67,6 +67,7 @@ const CardGoalStore = ({ user, store, goal }) => {
         {new Date().toLocaleDateString('es-MX')}
       </Typography>
       <Divider />
+
       <Box>
         <SellersList store={store} />
       </Box>
