@@ -1,6 +1,6 @@
-import React, { useReducer } from "react";
-import VentasContext from "./VentasContext";
-import VentasReducer from "./VentasReducer";
+import React, { useReducer } from 'react';
+import VentasContext from './VentasContext';
+import VentasReducer from './VentasReducer';
 
 import {
   SELECT_PRODUCT,
@@ -20,22 +20,24 @@ import {
   ADD_MONTO_TARJETA,
   ADD_VENDEDOR,
   ADD_MONTO_DEPOSITO,
-} from "../../types";
+  ADD_GIFT_CARD,
+} from '../../types';
 
 const VentasState = ({ children }) => {
   const initialState = {
     products: [],
-    total: "0",
-    promotora: "",
-    cliente: "",
+    total: '0',
+    promotora: '',
+    cliente: '',
     fecha: new Date(),
-    metodo: "EFECTIVO",
-    factura: "",
-    reciboNota: "",
-    montoEfectivo: "0",
-    montoTarjeta: "0",
-    montoDeposito: "0",
-    vendedor: "",
+    metodo: 'EFECTIVO',
+    factura: '',
+    reciboNota: '',
+    montoEfectivo: '0',
+    montoTarjeta: '0',
+    montoDeposito: '0',
+    vendedor: '',
+    giftCard: null,
   };
 
   const [state, dispatch] = useReducer(VentasReducer, initialState);
@@ -144,6 +146,13 @@ const VentasState = ({ children }) => {
       payload: vendedor,
     });
   };
+
+  const addGiftCard = (giftCard) => {
+    dispatch({
+      type: ADD_GIFT_CARD,
+      payload: giftCard,
+    });
+  };
   return (
     <VentasContext.Provider
       value={{
@@ -159,6 +168,7 @@ const VentasState = ({ children }) => {
         montoTarjeta: state.montoTarjeta,
         montoDeposito: state.montoDeposito,
         vendedor: state.vendedor,
+        giftCard: state.giftCard,
         resetState,
         addProduct,
         selectPromotora,
@@ -176,8 +186,8 @@ const VentasState = ({ children }) => {
         addMontoTarjeta,
         addMontoDeposito,
         addVendedor,
-      }}
-    >
+        addGiftCard,
+      }}>
       {children}
     </VentasContext.Provider>
   );

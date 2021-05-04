@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import Profile from './Profile/Profile';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import ReceiptIcon from '@material-ui/icons/Receipt';
-
+import CardGiftcardIcon from '@material-ui/icons/CardGiftcard';
 const useStyles = makeStyles((theme) => ({
   drawer: {
     width: 240,
@@ -60,6 +60,11 @@ const Sidebar = ({ open, variant, onClose, className }) => {
       title: 'Salidas',
       href: '/salidas',
       icon: <ExitToApp />,
+    },
+    {
+      title: 'Gift Cards',
+      href: '/products',
+      icon: <CardGiftcardIcon />,
     },
   ];
   return (

@@ -1,20 +1,20 @@
-import React, { useContext, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import DataClients from "../components/Ventas/DataClients";
-import DataSale from "../components/Ventas/DataSale";
-import Review from "../components/Ventas/Review";
-import { useRouter } from "next/router";
-import VentasContext from "../context/ventas/VentasContext";
-import { useMutation, gql } from "@apollo/client";
-import Loader from "../components/Loader";
-import Alert from "@material-ui/lab/Alert";
+import React, { useContext, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Paper from '@material-ui/core/Paper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import DataClients from '../components/Ventas/DataClients';
+import DataSale from '../components/Ventas/DataSale';
+import Review from '../components/Ventas/Review';
+import { useRouter } from 'next/router';
+import VentasContext from '../context/ventas/VentasContext';
+import { useMutation, gql } from '@apollo/client';
+import Loader from '../components/Loader';
+import Alert from '@material-ui/lab/Alert';
 
 const ADD_VENTA = gql`
   mutation addVenta($input: VentasInput) {
@@ -24,13 +24,13 @@ const ADD_VENTA = gql`
 
 const useStyles = makeStyles((theme) => ({
   layout: {
-    width: "auto",
+    width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 1000,
-      marginLeft: "auto",
-      marginRight: "auto",
+      marginLeft: 'auto',
+      marginRight: 'auto',
     },
   },
   paper: {
@@ -47,8 +47,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3, 0, 5),
   },
   buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   button: {
     marginTop: theme.spacing(3),
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ["Datos del comprador", "Datos de la factura", "Revisa"];
+const steps = ['Datos del comprador', 'Datos de la factura', 'Revisa'];
 
 function getStepContent(step, setActiveBtn) {
   switch (step) {
@@ -68,7 +68,7 @@ function getStepContent(step, setActiveBtn) {
       return <Review setActiveBtn={setActiveBtn} />;
 
     default:
-      throw new Error("Unknown step");
+      throw new Error('Unknown step');
   }
 }
 
@@ -91,6 +91,7 @@ function Checkout() {
     montoTarjeta,
     montoDeposito,
     vendedor,
+    giftCard,
   } = ventasContext;
   const [addVenta, { loading, error }] = useMutation(ADD_VENTA);
   const handleClick = async () => {
@@ -109,11 +110,12 @@ function Checkout() {
             montoTarjeta: Number(montoTarjeta),
             montoDeposito: Number(montoDeposito),
             vendedor,
+            giftCard,
           },
         },
       });
       resetState();
-      router.push("/ventas");
+      router.push('/ventas');
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +135,7 @@ function Checkout() {
         {loading && <Loader />}
 
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component='h1' variant='h4' align='center'>
             Checkout
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -143,7 +145,7 @@ function Checkout() {
               </Step>
             ))}
           </Stepper>
-          {error && <Alert severity="error">{error.message}</Alert>}
+          {error && <Alert severity='error'>{error.message}</Alert>}
           <>
             {getStepContent(activeStep, setActiveBtn)}
             <div className={classes.buttons}>
@@ -154,22 +156,20 @@ function Checkout() {
               )}
               {activeStep === steps.length - 1 ? (
                 <Button
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={handleClick}
                   className={classes.button}
-                  disabled={activeBtn}
-                >
+                  disabled={activeBtn}>
                   Confirmar Venta
                 </Button>
               ) : (
                 <Button
-                  variant="contained"
-                  color="primary"
+                  variant='contained'
+                  color='primary'
                   onClick={handleNext}
                   className={classes.button}
-                  disabled={activeBtn}
-                >
+                  disabled={activeBtn}>
                   Siguiente
                 </Button>
               )}

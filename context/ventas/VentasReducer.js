@@ -16,7 +16,8 @@ import {
   ADD_MONTO_TARJETA,
   ADD_MONTO_DEPOSITO,
   ADD_VENDEDOR,
-} from "../../types";
+  ADD_GIFT_CARD,
+} from '../../types';
 
 const addQuantity = (shoes, newShoe) => {
   const shoeFind = shoes.find(
@@ -66,15 +67,17 @@ const VentasReducer = (state, action) => {
     case AMOUNT_PRODUCTS:
       return {
         ...state,
-        total: state.products.reduce(
-          (acum, obj) =>
-            acum +
-            (obj.precioPromocion === 0 || obj.precioPromocion === null
-              ? obj.precioPublico
-              : obj.precioPromocion) *
-              obj.quantity,
-          0
-        ),
+        total:
+          state.products.reduce(
+            (acum, obj) =>
+              acum +
+              (obj.precioPromocion === 0 || obj.precioPromocion === null
+                ? obj.precioPublico
+                : obj.precioPromocion) *
+                obj.quantity,
+            0
+          ) -
+          (state.giftCard !== null ? Number(state.giftCard.split('-')[2]) : 0),
       };
     case ADD_QUANTITY:
       return {
@@ -178,6 +181,12 @@ const VentasReducer = (state, action) => {
       return {
         ...state,
         vendedor: action.payload,
+      };
+    }
+    case ADD_GIFT_CARD: {
+      return {
+        ...state,
+        giftCard: action.payload,
       };
     }
     default:
