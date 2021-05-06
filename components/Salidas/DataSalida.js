@@ -5,6 +5,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import SalidaContext from '../../context/salidas/SalidaContext';
+import AuthContext from '../../context/auth/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -20,18 +21,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const nombres = [
+  'Patrick Fernandez',
+  'Santos Sinka',
+  'Laura Fernandez',
   'Fabio Fernandez',
   'Kathryn Fernandez',
-  'Patrick Fernandez',
-  'Laura Fernandez',
-  'Santos Sinka',
+  'miraflores',
+  'san-miguel',
+  '6-de-marzo',
+  'sopocachi',
 ];
+
+const getNames = (user) => {
+  if (user === 'patrick') return nombres;
+  if (user === 'central') return ['Santos Sinka'];
+  if (nombres.find((op) => op === user)) {
+    return [nombres.find((op) => op === user)];
+  } else {
+    return [];
+  }
+};
 
 const DataSalida = ({ setActiveBtn }) => {
   const classes = useStyles();
   const [retiradoPor, setRetiradoPor] = useState('');
   // context
   const salidaContext = useContext(SalidaContext);
+  const { user } = useContext(AuthContext);
+  const names = getNames(user);
   const { almacen, selectRetiradoPor } = salidaContext;
   useEffect(() => {
     if (almacen !== '' && retiradoPor !== '') {
@@ -59,7 +76,7 @@ const DataSalida = ({ setActiveBtn }) => {
               setRetiradoPor(e.target.value);
               selectRetiradoPor(e.target.value);
             }}>
-            {nombres.map((item) => (
+            {names.map((item) => (
               <MenuItem key={item} value={item}>
                 {item}
               </MenuItem>

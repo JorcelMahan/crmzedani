@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql } from '@apollo/client';
 import Loader from '../components/Loader';
@@ -16,10 +16,11 @@ import {
   Box,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import AuthContext from '../context/auth/AuthContext';
 
 const GET_SALIDAS = gql`
-  query salidasByDate($date: String!) {
-    salidasByDate(date: $date) {
+  query salidasByDate($date: String!, $store: String) {
+    salidasByDate(date: $date, store: $store) {
       id
       codigo
       products {
@@ -54,6 +55,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Salidas = () => {
+  const { user } = useContext(AuthContext);
+
   const classes = useStyles();
   const router = useRouter();
   const currentDate = new Date()
@@ -72,6 +75,7 @@ const Salidas = () => {
     {
       variables: {
         date: initialDate,
+        store: user,
       },
     }
   );

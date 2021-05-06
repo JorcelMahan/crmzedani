@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Size from './Size';
 import { useRouter } from 'next/router';
+import AuthContext from '../../context/auth/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,6 +73,7 @@ const Sizes = ({ zapato, almacen }) => {
 // };
 export default function CardZapato({ zapato, i }) {
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
   const { codigo, image, color, stock, tallas, id, precioPublico } = zapato;
   const [expanded, setExpanded] = useState(false);
   const router = useRouter();
@@ -101,8 +103,16 @@ export default function CardZapato({ zapato, i }) {
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          <Typography paragraph>Tallas Disponibles</Typography>
-          <Sizes zapato={zapato} almacen={router.pathname.slice(11)} />
+          {user === router.pathname.substr(11) || user === 'patrick' ? (
+            <>
+              <Typography paragraph>Tallas Disponibles</Typography>
+              <Sizes zapato={zapato} almacen={router.pathname.slice(11)} />
+            </>
+          ) : (
+            <Typography paragraph>
+              No puedes hacer salidas de zapatos que no estan en tu almacen
+            </Typography>
+          )}
         </CardContent>
       </Collapse>
     </Card>
