@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Table,
   TableBody,
@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
+import AuthContext from '../../context/auth/AuthContext';
 
 const RETURN_SALIDA = gql`
   mutation returnSalida($id: ID!) {
@@ -131,7 +132,7 @@ const SimpleDialog = ({ salida, open, onClose }) => {
       {tranferLoading && 'Loading'}
       {transferError && <p>{transferError.message}</p>}
       <Button
-        disabled={salida.status}
+        disabled={selectedAlmacen === ''}
         onClick={handleTransfer}
         variant='contained'
         color='secondary'
@@ -144,6 +145,7 @@ const SimpleDialog = ({ salida, open, onClose }) => {
 const ShowSalida = () => {
   const router = useRouter();
   const classes = useStyles();
+  const { user } = useContext(AuthContext);
   const {
     query: { id },
   } = router;
@@ -201,27 +203,35 @@ const ShowSalida = () => {
               </Typography>
               <Typography>Retirado por: {salida.retiradoPor}</Typography>
             </Box>
-            <Box>
-              {returnLoading && <CircularProgress />}
-              {returnError && <p>{returnError.message}</p>}
-              <Button
-                onClick={handleReturnSalida}
-                disabled={salida.status}
-                variant='contained'
-                color='primary'>
-                Devolver
-              </Button>
-            </Box>
-            <Box>
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={handleClickOpen}
-                disabled={salida.status}>
-                Transferir
-              </Button>
-              <SimpleDialog salida={salida} open={open} onClose={handleClose} />
-            </Box>
+            {returnLoading && <CircularProgress />}
+            {returnError && <p>{returnError.message}</p>}
+            {!salida.status && salida.almacen === user && (
+              <>
+                <Box>
+                  <Button
+                    onClick={handleReturnSalida}
+                    disabled={salida.status}
+                    variant='contained'
+                    color='primary'>
+                    Devolver
+                  </Button>
+                </Box>
+                <Box>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleClickOpen}
+                    disabled={salida.status}>
+                    Transferir
+                  </Button>
+                  <SimpleDialog
+                    salida={salida}
+                    open={open}
+                    onClose={handleClose}
+                  />
+                </Box>
+              </>
+            )}
           </Box>
           <Box width='50%'>
             <PerfectScrollbar>
