@@ -205,7 +205,7 @@ const ShowSalida = () => {
             </Box>
             {returnLoading && <CircularProgress />}
             {returnError && <p>{returnError.message}</p>}
-            {!salida.status && salida.almacen === user && (
+            {!salida.status && (salida.almacen === user || user === 'patrick') && (
               <>
                 <Box>
                   <Button
