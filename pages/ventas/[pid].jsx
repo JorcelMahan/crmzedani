@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import {
   Box,
+  CircularProgress,
   Collapse,
   InputLabel,
   MenuItem,
@@ -12,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { gql, useMutation, useQuery } from '@apollo/client';
 import Loader from '../../components/Loader';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -177,6 +178,9 @@ const EditVenta = () => {
       console.log(error);
     }
   };
+
+
+
   useEffect(() => {
     if (data) {
       setSelectedSeller(getVenta.vendedor);
@@ -195,6 +199,13 @@ const EditVenta = () => {
   if (error) return `Error, ${error.message}`;
 
   const { getVenta } = data;
+  const handleMetodo = e => {
+    setMetodo(e.target.value);
+    setMontoDeposito(0);
+    setMontoEfectivo(0);
+    setMontoTarjeta(0);
+    setTotal(getVenta.total);
+  }
 
   return (
     <div className={classes.root}>
@@ -244,7 +255,7 @@ const EditVenta = () => {
                         labelId='metodo'
                         id='metodo'
                         value={metodo}
-                        onChange={(e) => setMetodo(e.target.value)}>
+                        onChange={handleMetodo}>
                         <MenuItem value='EFECTIVO'>Efectivo</MenuItem>
                         <MenuItem value='TARJETA'>Tarjeta</MenuItem>
                         <MenuItem value='DEPOSITO'>Deposito</MenuItem>
@@ -257,6 +268,14 @@ const EditVenta = () => {
                         <MenuItem value='DEPOSITO-TARJETA'>
                           Deposito-Tarjeta
                         </MenuItem>
+                        {/* <MenuItem value='GIFT-CARD'>Gift-Card</MenuItem>
+                        <MenuItem value='GIFT-CARD-EFECTIVO'>
+                          Gift-Card-Efectivo
+                        </MenuItem>
+                        <MenuItem value='GIFT-CARD-TARJETA'>Gift-Card-Tarjeta</MenuItem>
+                        <MenuItem value='GIFT-CARD-DEPOSITO'>
+                          Gift-Card-Deposito
+                        </MenuItem> */}
                       </Select>
                     </FormControl>
                   </TableCell>
@@ -265,10 +284,11 @@ const EditVenta = () => {
                       value={montoEfectivo}
                       onChange={(e) => {
                         setMontoEfectivo(e.target.value);
+
                         setTotal(
                           Number(montoTarjeta) +
-                            Number(e.target.value) +
-                            Number(montoDeposito)
+                          Number(e.target.value) +
+                          Number(montoDeposito)
                         );
                       }}
                       disabled={
@@ -284,10 +304,11 @@ const EditVenta = () => {
                       value={montoTarjeta}
                       onChange={(e) => {
                         setMontoTarjeta(e.target.value);
+
                         setTotal(
                           Number(e.target.value) +
-                            Number(montoEfectivo) +
-                            Number(montoDeposito)
+                          Number(montoEfectivo) +
+                          Number(montoDeposito)
                         );
                       }}
                       disabled={
@@ -303,10 +324,11 @@ const EditVenta = () => {
                       value={montoDeposito}
                       onChange={(e) => {
                         setMontoDeposito(e.target.value);
+
                         setTotal(
                           Number(montoTarjeta) +
-                            Number(montoEfectivo) +
-                            Number(e.target.value)
+                          Number(montoEfectivo) +
+                          Number(e.target.value)
                         );
                       }}
                       disabled={
@@ -356,7 +378,7 @@ const EditVenta = () => {
               </TableBody>
             </Table>
           </TableContainer>
-          {loading2 && 'LOADING'}
+          {loading2 && <CircularProgress />}
           {error2 && <div>{error2.message}</div>}
           <Box m={5}>
             <Button color='secondary' variant='contained' onClick={handleClick}>

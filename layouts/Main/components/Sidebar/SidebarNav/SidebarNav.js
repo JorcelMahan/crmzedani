@@ -160,7 +160,7 @@ const SidebarNav = (props) => {
       </ListItem>
       <Collapse in={open} timeout='auto' unmountOnExit>
         <List component='div' disablePadding>
-          {user === 'patrick' || user === 'kathryn' || user === 'fabio' ? (
+          {user === 'patrick' || user === 'kathryn' || user === 'fabio' || user === 'central' ? (
             <ListItem button className={classes.nested}>
               <Link href='/productos/zapatos'>
                 <a className={classes.button} activeclassname={classes.active}>

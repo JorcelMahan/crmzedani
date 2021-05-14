@@ -19,7 +19,6 @@ import {
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import PerfectScrollbar from 'react-perfect-scrollbar';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthContext from '../../context/auth/AuthContext';
 
@@ -185,14 +184,14 @@ const ShowSalida = () => {
   if (error) return `${error}`;
 
   const { salida } = data;
-  // almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
+
 
   return (
     <div className={classes.root}>
       <div className={classes.content}>
         <Box display='flex' flexDirection='column' alignItems='center'>
-          <Box display='flex' justifyContent='space-around' width='50%' m={2}>
-            <Box>
+          <Box display='flex' justifyContent='space-around' width='100%' m={2}>
+            <Box flexGrow={1}>
               <Typography>{salida.codigo}</Typography>
               <Typography>De: {salida.almacen.toUpperCase()}</Typography>
               <Typography>
@@ -207,7 +206,7 @@ const ShowSalida = () => {
             {returnError && <p>{returnError.message}</p>}
             {!salida.status && (salida.almacen === user || user === 'patrick') && (
               <>
-                <Box>
+                <Box flexGrow={1}>
                   <Button
                     onClick={handleReturnSalida}
                     disabled={salida.status}
@@ -233,8 +232,7 @@ const ShowSalida = () => {
               </>
             )}
           </Box>
-          <Box width='50%'>
-            <PerfectScrollbar>
+          <Box width='100%'>
               <TableContainer component={Paper}>
                 <Table
                   className={classes.table}
@@ -260,7 +258,6 @@ const ShowSalida = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </PerfectScrollbar>
           </Box>
         </Box>
       </div>
