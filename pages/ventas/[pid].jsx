@@ -2,8 +2,6 @@ import { useRouter } from 'next/router';
 import {
   Box,
   CircularProgress,
-  Collapse,
-  InputLabel,
   MenuItem,
   Select,
   TableCell,
@@ -22,10 +20,10 @@ import TableBody from '@material-ui/core/TableBody';
 import AuthContext from '../../context/auth/AuthContext';
 import SelectReact from 'react-select';
 import FormControl from '@material-ui/core/FormControl';
-import clsx from 'clsx';
 import Typography from '@material-ui/core/Typography';
-import ModalCancelarZapatoVenta from '../../components/Ventas/ModalCancelarZapatoVenta';
 import Button from '@material-ui/core/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ChangesModal from '../../components/Ventas/ChangesModal';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +72,7 @@ const GET_VENTA = gql`
         sizeSale
         quantity
         estado
+        image
       }
     }
   }
@@ -110,13 +109,14 @@ const ListSellers = ({ selectedSeller, setSelectedSeller }) => {
   );
 };
 
-const Product = ({ product }) => {
+const Product = ({ product, i }) => {
   const [producto, setProducto] = useState(product);
   return (
     <TableRow>
       <TableCell component='th' scope='row'>
-        {product.estado}
+        {i}
       </TableCell>
+      <TableCell align='right'>{product.estado}</TableCell>
       <TableCell>{producto.codigo}</TableCell>
       <TableCell align='right'>{producto.color}</TableCell>
       <TableCell align='right'>{producto.sizeSale}</TableCell>
@@ -127,6 +127,9 @@ const Product = ({ product }) => {
           : producto.precioPromocion}
       </TableCell>
       <TableCell align='right'>{producto.quantity}</TableCell>
+      <TableCell align='right'>
+        <ChangesModal product={product} />
+      </TableCell>
     </TableRow>
   );
 };
@@ -134,13 +137,10 @@ const Product = ({ product }) => {
 const EditVenta = () => {
   const classes = useStyles();
   const router = useRouter();
-  const {
-    query: { id },
-  } = router;
-
+  const { pid } = router.query;
   const { loading, error, data } = useQuery(GET_VENTA, {
     variables: {
-      id,
+      id: pid,
     },
     fetchPolicy: 'no-cache',
   });
@@ -179,8 +179,6 @@ const EditVenta = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (data) {
       setSelectedSeller(getVenta.vendedor);
@@ -199,18 +197,23 @@ const EditVenta = () => {
   if (error) return `Error, ${error.message}`;
 
   const { getVenta } = data;
-  const handleMetodo = e => {
+  const handleMetodo = (e) => {
     setMetodo(e.target.value);
     setMontoDeposito(0);
     setMontoEfectivo(0);
     setMontoTarjeta(0);
     setTotal(getVenta.total);
-  }
+  };
 
   return (
     <div className={classes.root}>
       <div className={classes.content}>
         <Box>
+          <Box my={2}>
+            <Button variant='contained' onClick={() => router.back()}>
+              <ArrowBackIcon /> Volver
+            </Button>
+          </Box>
           <TableContainer>
             <Table>
               <TableHead>
@@ -287,8 +290,8 @@ const EditVenta = () => {
 
                         setTotal(
                           Number(montoTarjeta) +
-                          Number(e.target.value) +
-                          Number(montoDeposito)
+                            Number(e.target.value) +
+                            Number(montoDeposito)
                         );
                       }}
                       disabled={
@@ -307,8 +310,8 @@ const EditVenta = () => {
 
                         setTotal(
                           Number(e.target.value) +
-                          Number(montoEfectivo) +
-                          Number(montoDeposito)
+                            Number(montoEfectivo) +
+                            Number(montoDeposito)
                         );
                       }}
                       disabled={
@@ -327,8 +330,8 @@ const EditVenta = () => {
 
                         setTotal(
                           Number(montoTarjeta) +
-                          Number(montoEfectivo) +
-                          Number(e.target.value)
+                            Number(montoEfectivo) +
+                            Number(e.target.value)
                         );
                       }}
                       disabled={
@@ -355,12 +358,14 @@ const EditVenta = () => {
                         <TableHead>
                           <TableRow>
                             <TableCell>#</TableCell>
-                            <TableCell>Codigo</TableCell>
+                            <TableCell align='right'>Estado</TableCell>
+                            <TableCell align='right'>Codigo</TableCell>
                             <TableCell align='right'>Color</TableCell>
                             <TableCell align='right'>Talla</TableCell>
                             <TableCell align='right'>Precio</TableCell>
                             <TableCell align='right'>Precio de Venta</TableCell>
                             <TableCell align='right'>Cantidad</TableCell>
+                            <TableCell align='right'>Acciones</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -368,6 +373,7 @@ const EditVenta = () => {
                             <Product
                               key={`${product.id}-${i}`}
                               product={product}
+                              i={++i}
                             />
                           ))}
                         </TableBody>

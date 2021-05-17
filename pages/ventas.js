@@ -162,35 +162,35 @@ const Ventas = () => {
             user === 'kathryn' ||
             user === 'fabio' ||
             user === 'laura') && (
-            <div>
-              <FormControl className={classes.formControl} variant='outlined'>
-                <InputLabel id='store'>Tienda</InputLabel>
-                <Select
-                  id='store'
-                  name='store'
-                  labelId='store'
-                  value={store}
-                  onChange={(e) => {
-                    setStore(e.target.value);
-                  }}>
-                  {[
-                    'sopocachi',
-                    'san-miguel',
-                    'miraflores',
-                    '6-de-marzo',
-                    'patrick',
-                  ].map((e) => (
-                    <MenuItem key={e} value={e}>
-                      {e}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-          )}
+              <div>
+                <FormControl className={classes.formControl} variant='outlined'>
+                  <InputLabel id='store'>Tienda</InputLabel>
+                  <Select
+                    id='store'
+                    name='store'
+                    labelId='store'
+                    value={store}
+                    onChange={(e) => {
+                      setStore(e.target.value);
+                    }}>
+                    {[
+                      'sopocachi',
+                      'san-miguel',
+                      'miraflores',
+                      '6-de-marzo',
+                      'patrick',
+                    ].map((e) => (
+                      <MenuItem key={e} value={e}>
+                        {e}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            )}
         </div>
         {/* <BoxCaja /> */}
-
+        {/* add modal to changes */}
         <VentasTable
           ventas={salesDate}
           cancelarVenta={cancelarVenta}

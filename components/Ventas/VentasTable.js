@@ -93,24 +93,24 @@ const VentaRow = ({
             ? venta.total
             : venta.metodo === 'EFECTIVO-TARJETA' ||
               venta.metodo === 'DEPOSITO-EFECTIVO'
-            ? venta.montoEfectivo
-            : '-'}
+              ? venta.montoEfectivo
+              : '-'}
         </TableCell>
         <TableCell>
           {venta.metodo === 'TARJETA'
             ? venta.total
             : venta.metodo === 'EFECTIVO-TARJETA' ||
               venta.metodo === 'DEPOSITO-TARJETA'
-            ? venta.montoTarjeta
-            : '-'}
+              ? venta.montoTarjeta
+              : '-'}
         </TableCell>
         <TableCell>
           {venta.metodo === 'DEPOSITO'
             ? venta.total
             : venta.metodo === 'DEPOSITO-TARJETA' ||
               venta.metodo === 'DEPOSITO-EFECTIVO'
-            ? venta.montoDeposito
-            : '-'}
+              ? venta.montoDeposito
+              : '-'}
         </TableCell>
         <TableCell>{totalEfectivo}</TableCell>
         <TableCell>{totalTarjeta}</TableCell>
@@ -118,15 +118,15 @@ const VentaRow = ({
           <Button
             onClick={() => {
               router.push({
-                pathname: '/ventas/[id]',
-                query: { id: venta.id },
+                pathname: '/ventas/[pid]',
+                query: { pid: venta.id },
               });
             }}>
             <Edit />
           </Button>
         </TableCell>
         {venta.status === 'COMPLET0' &&
-        !venta.productos.find((el) => el.estado === 'CANCELADO') ? (
+          !venta.productos.find((el) => el.estado === 'CANCELADO') ? (
           <TableCell>
             <ModalCancelarVenta id={venta.id} anularVenta={anularVenta} />
           </TableCell>
@@ -184,13 +184,13 @@ const VentaRow = ({
                       </TableCell>
                       <TableCell align='right'>
                         {!product?.precioPromocion ||
-                        product?.precioPromocion === 0
+                          product?.precioPromocion === 0
                           ? product.precioPublico
                           : product.precioPromocion}
                       </TableCell>
                       <TableCell align='right'>{product.quantity}</TableCell>
                       {venta.status === 'COMPLET0' &&
-                      product.estado === 'COMPLETO' ? (
+                        product.estado === 'COMPLETO' ? (
                         <TableCell align='right'>
                           <ModalCancelarZapatoVenta
                             arZapatoVenta
@@ -302,7 +302,7 @@ const VentasTable = ({
                       anularZapatoVenta={anularZapatoVenta}
                       totalEfectivo={totalEfectivo}
                       totalTarjeta={totalTarjeta}
-                      // caja={caja}
+                    // caja={caja}
                     />
                   );
                 })}
