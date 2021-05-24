@@ -130,8 +130,8 @@ const Zapato = ({ zapato, i, children }) => {
         stock === 0 ? classes.tableRowStockZero : classes.tableRow
       )}>
       <TableCell>
-        {(user === 'patrick' || user === 'kathryn') &&
-        router.pathname.split('/')[2] === 'zapatos'
+        {(user === 'patrick' || user === 'kathryn' || user === 'fabio' || user === 'central') &&
+          router.pathname.split('/')[2] === 'zapatos'
           ? almacen
           : i}
       </TableCell>

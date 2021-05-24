@@ -49,8 +49,8 @@ const ListZapatos = (props) => {
               aria-label='sticky table'>
               <TableHead>
                 <TableRow>
-                  {(user === 'patrick' || user === 'kathryn') &&
-                  router.pathname.split('/')[2] === 'zapatos' ? (
+                  {(user === 'patrick' || user === 'kathryn' || user === 'fabio' || user === 'central') &&
+                    router.pathname.split('/')[2] === 'zapatos' ? (
                     <TableCell>Tienda </TableCell>
                   ) : (
                     <TableCell>#</TableCell>

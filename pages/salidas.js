@@ -54,11 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Salidas = () => {
-  const { user } = useContext(AuthContext);
-
-  const classes = useStyles();
-  const router = useRouter();
+const getCurrentDateFormat = () => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
@@ -67,14 +63,23 @@ const Salidas = () => {
     })
     .split('/');
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
-  const [initialDate, setDate] = useState(currDateStr);
+  return currDateStr;
+}
+
+const Salidas = () => {
+  const { user } = useContext(AuthContext);
+
+  const classes = useStyles();
+  const router = useRouter();
+
+  const [initialDate, setDate] = useState(getCurrentDateFormat());
   const [salidasDate, setSalidasDate] = useState([]);
   //calendar
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_SALIDAS,
     {
       variables: {
-        date: initialDate,
+        date: sessionStorage.getItem('localSalida') ? sessionStorage.getItem('localSalida') : initialDate,
         store: user,
       },
     }
@@ -99,8 +104,11 @@ const Salidas = () => {
           Fecha:
           <input
             type='date'
-            value={initialDate}
-            onChange={(e) => setDate(e.target.value)}
+            value={sessionStorage.getItem('localSalida') ? sessionStorage.getItem('localSalida') : initialDate}
+            onChange={(e) => {
+              setDate(e.target.value);
+              sessionStorage.setItem('localSalida', e.target.value)
+            }}
           />
         </div>
         {/* <Grid container spacing={1} wrap='wrap'>

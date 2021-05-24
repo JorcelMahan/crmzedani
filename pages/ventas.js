@@ -94,9 +94,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Ventas = () => {
-  let { user } = useContext(AuthContext);
-  user = user ? user : localStorage.getItem('user');
+const getCurrentDateFormat = () => {
   const currentDate = new Date()
     .toLocaleString('es-MX', {
       year: 'numeric',
@@ -105,7 +103,13 @@ const Ventas = () => {
     })
     .split('/');
   const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
-  const [initialDate, setDate] = useState(currDateStr);
+  return currDateStr;
+}
+const Ventas = () => {
+  let { user } = useContext(AuthContext);
+  user = user ? user : sessionStorage.getItem('user');
+
+  const [initialDate, setDate] = useState(getCurrentDateFormat());
   const [salesDate, setSalesDate] = useState([]);
   const [store, setStore] = useState(
     user === 'kathryn' || user === 'fabio' || user === 'laura'
@@ -117,7 +121,7 @@ const Ventas = () => {
     {
       variables: {
         store: store,
-        date: initialDate,
+        date: sessionStorage.getItem('localSale') ? sessionStorage.getItem('localSale') : initialDate
       },
     }
   );
@@ -142,6 +146,7 @@ const Ventas = () => {
     };
   }, [data, cancelarVenta, startPolling, stopPolling]);
 
+
   if (loading || loading2 || loading3 || loading4) return <Loader />;
   if (error || error2 || error3) return `Error, ${error.message}`;
   if (error4) return `Error, ${error4.message}`;
@@ -154,8 +159,11 @@ const Ventas = () => {
             Fecha:
             <input
               type='date'
-              value={initialDate}
-              onChange={(e) => setDate(e.target.value)}
+              value={sessionStorage.getItem('localSale') ? sessionStorage.getItem('localSale') : initialDate}
+              onChange={(e) => {
+                setDate(e.target.value)
+                sessionStorage.setItem('localSale', e.target.value)
+              }}
             />
           </div>
           {(user === 'patrick' ||
@@ -196,6 +204,7 @@ const Ventas = () => {
           cancelarVenta={cancelarVenta}
           anularVenta={anularVenta}
           anularZapatoVenta={anularZapatoVenta}
+          store={store}
         />
       </div>
     </CajaState>

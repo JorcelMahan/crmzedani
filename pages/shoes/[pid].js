@@ -440,6 +440,7 @@ const WrapperZapato = ({ zapato, id }) => {
                         'central',
                         'cochabamba',
                         '6-de-marzo',
+                        'fallas'
                       ].map((e) => (
                         <MenuItem key={e} value={e}>
                           {e}

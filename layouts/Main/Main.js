@@ -56,7 +56,7 @@ const Main = ({ children }) => {
   useEffect(() => {
     if (data) {
       if (data.getUser !== null) {
-        localStorage.setItem('user', data.getUser.name);
+        sessionStorage.setItem('user', data.getUser.name);
         addUsername(data.getUser.name);
       }
     }
@@ -69,10 +69,10 @@ const Main = ({ children }) => {
   }
 
   const closeSession = async () => {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     localStorage.removeItem('totalEfectivo');
     localStorage.removeItem('totalTarjeta');
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     deselectUsername();
     await router.push('/login');
     return null;

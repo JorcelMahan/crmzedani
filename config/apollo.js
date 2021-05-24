@@ -19,7 +19,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
+  const token = sessionStorage.getItem('token');
   return {
     headers: {
       ...headers,
@@ -67,7 +67,7 @@ const client = new ApolloClient({
   onError: (error) => {
     const { networkError } = error;
     if (networkError && networkError.result.code === 'invalid_token') {
-      localStorage.removeItem('token');
+      sessionStorage.removeItem('token');
       location.href = '/';
     }
   },

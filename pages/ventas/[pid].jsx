@@ -85,10 +85,9 @@ const UPDATE_SALE = gql`
 `;
 const ListSellers = ({ selectedSeller, setSelectedSeller }) => {
   const { user } = useContext(AuthContext);
-  const aux = user === 'patrick' ? 'sopocachi' : user;
   const { data, loading, error } = useQuery(EMPLOYEES_STORE, {
     variables: {
-      store: aux,
+      store: user,
     },
   });
   if (loading) return 'Loading';
@@ -109,7 +108,7 @@ const ListSellers = ({ selectedSeller, setSelectedSeller }) => {
   );
 };
 
-const Product = ({ product, i }) => {
+const Product = ({ product, i, store, vendedor }) => {
   const [producto, setProducto] = useState(product);
   return (
     <TableRow>
@@ -128,7 +127,7 @@ const Product = ({ product, i }) => {
       </TableCell>
       <TableCell align='right'>{producto.quantity}</TableCell>
       <TableCell align='right'>
-        <ChangesModal product={product} />
+        <ChangesModal product={product} store={store} vendedor={vendedor} />
       </TableCell>
     </TableRow>
   );
@@ -137,7 +136,7 @@ const Product = ({ product, i }) => {
 const EditVenta = () => {
   const classes = useStyles();
   const router = useRouter();
-  const { pid } = router.query;
+  const { pid, store } = router.query;
   const { loading, error, data } = useQuery(GET_VENTA, {
     variables: {
       id: pid,
@@ -161,7 +160,7 @@ const EditVenta = () => {
     try {
       await editVenta({
         variables: {
-          id,
+          id: pid,
           input: {
             vendedor: selectedSeller.id,
             total: Number(total),
@@ -170,6 +169,7 @@ const EditVenta = () => {
             montoDeposito: Number(montoDeposito),
             montoTarjeta: Number(montoTarjeta),
             montoEfectivo: Number(montoEfectivo),
+            metodo,
           },
         },
       });
@@ -374,6 +374,8 @@ const EditVenta = () => {
                               key={`${product.id}-${i}`}
                               product={product}
                               i={++i}
+                              store={store}
+                              vendedor={selectedSeller.name}
                             />
                           ))}
                         </TableBody>

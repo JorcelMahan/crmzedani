@@ -70,10 +70,10 @@ function Login() {
           },
         });
         setMsg('Autenticando');
-        //save token in localstorage
+
         setTimeout(() => {
           const { token } = data.authUser;
-          localStorage.setItem('token', token);
+          sessionStorage.setItem('token', token);
         }, 1000);
         // delete message
         setTimeout(() => {

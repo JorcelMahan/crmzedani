@@ -21,6 +21,8 @@ import { useRouter } from 'next/router';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthContext from '../../context/auth/AuthContext';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+
 
 const RETURN_SALIDA = gql`
   mutation returnSalida($id: ID!) {
@@ -82,6 +84,7 @@ let almacenes = [
   'comercial',
   'cochabamba',
   '6-de-marzo',
+  'fallas'
 ];
 
 const SimpleDialog = ({ salida, open, onClose }) => {
@@ -189,6 +192,13 @@ const ShowSalida = () => {
   return (
     <div className={classes.root}>
       <div className={classes.content}>
+
+        <Box my={2}>
+          <Button variant='contained' onClick={() => router.back()}>
+            <ArrowBackIcon /> Volver
+            </Button>
+        </Box>
+
         <Box display='flex' flexDirection='column' alignItems='center'>
           <Box display='flex' justifyContent='space-around' width='100%' m={2}>
             <Box flexGrow={1}>
@@ -233,31 +243,31 @@ const ShowSalida = () => {
             )}
           </Box>
           <Box width='100%'>
-              <TableContainer component={Paper}>
-                <Table
-                  className={classes.table}
-                  size='small'
-                  aria-label='a dense table'>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Codigo</TableCell>
-                      <TableCell>Color</TableCell>
-                      <TableCell>Talla</TableCell>
-                      <TableCell>Cantidad</TableCell>
+            <TableContainer component={Paper}>
+              <Table
+                className={classes.table}
+                size='small'
+                aria-label='a dense table'>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Codigo</TableCell>
+                    <TableCell>Color</TableCell>
+                    <TableCell>Talla</TableCell>
+                    <TableCell>Cantidad</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {salida.products.map((p, i) => (
+                    <TableRow key={`${p.id}-${i}`}>
+                      <TableCell>{p.codigo}</TableCell>
+                      <TableCell>{p.color}</TableCell>
+                      <TableCell>{p.sizeSale}</TableCell>
+                      <TableCell>{p.quantity}</TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {salida.products.map((p, i) => (
-                      <TableRow key={`${p.id}-${i}`}>
-                        <TableCell>{p.codigo}</TableCell>
-                        <TableCell>{p.color}</TableCell>
-                        <TableCell>{p.sizeSale}</TableCell>
-                        <TableCell>{p.quantity}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>
         </Box>
       </div>

@@ -73,7 +73,7 @@ const randomDateStr = `${randomDate[2]}-${randomDate[1]}-${randomDate[0]}`;
 const money = () => {
   const classes = useStyles();
   let { user } = useContext(AuthContext);
-  user = user ? user : localStorage.getItem('user');
+  user = user ? user : sessionStorage.getItem('user');
   const [store, setStore] = useState(
     user === 'kathryn' || user === 'fabio' || user === 'laura'
       ? 'patrick'

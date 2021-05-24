@@ -49,6 +49,7 @@ const VentaRow = ({
   anularZapatoVenta,
   totalEfectivo,
   totalTarjeta,
+  store
 }) => {
   const { user } = useContext(AuthContext);
   const router = useRouter();
@@ -119,7 +120,7 @@ const VentaRow = ({
             onClick={() => {
               router.push({
                 pathname: '/ventas/[pid]',
-                query: { pid: venta.id },
+                query: { pid: venta.id, store },
               });
             }}>
             <Edit />
@@ -224,6 +225,7 @@ const VentasTable = ({
   cancelarVenta,
   anularVenta,
   anularZapatoVenta,
+  store
 }) => {
   const { user } = useContext(AuthContext);
 
@@ -302,6 +304,7 @@ const VentasTable = ({
                       anularZapatoVenta={anularZapatoVenta}
                       totalEfectivo={totalEfectivo}
                       totalTarjeta={totalTarjeta}
+                      store={store}
                     // caja={caja}
                     />
                   );

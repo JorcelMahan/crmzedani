@@ -61,6 +61,10 @@ const CountSalesMonthStore = ({ store, goal }) => {
             Total Deposito:{' '}
             <b>{data.salesMonthByStore ? data.salesMonthByStore[4] : 0}</b>
           </Grid>
+          <Grid item xs={4}>
+            TOTAL: {' '}
+            <b>{data.salesMonthByStore ? data.salesMonthByStore[5] : 0}</b>
+          </Grid>
         </>
       )}
     </Grid>
