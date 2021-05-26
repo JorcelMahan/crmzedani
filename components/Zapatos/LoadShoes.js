@@ -220,8 +220,9 @@ const LoadShoes = ({
       <Box m={3}>
         <Grid container spacing={2} justify='flex-end'>
           <Grid item xs={6} md={4}>
-            Pagina: {page} <br /> Paginas: {totalofpages} <br /> Codigos:{' '}
-            {total}
+            Pagina: {page} <br />
+            Paginas: {totalofpages} <br />
+            Codigos: {total}
           </Grid>
           <Grid item xs={6} md={4}>
             <TotalItems
@@ -230,6 +231,7 @@ const LoadShoes = ({
               color={color}
               talla={talla}
               stock={stock}
+              codigo={codigo}
             />
           </Grid>
           <Grid item xs={12} md={4}>

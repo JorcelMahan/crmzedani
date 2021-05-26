@@ -107,7 +107,7 @@ export default function ChangesModal({ product, store, vendedor }) {
 
   if (loading) return <CircularProgress />;
   if (error) return `${error.message}`;
-  console.log('entersize', enterSize)
+  console.log('item', item)
   const { zapatosByAlmacen } = data;
   const body = (
     <div className={classes.paper}>
@@ -145,8 +145,8 @@ export default function ChangesModal({ product, store, vendedor }) {
                     // onChange={e => setEnterQuantity(e.target.value)}
                     >
                       {
-                        product?.quantity && range(+product.quantity, 1).map(n => (
-                          <option>{n}</option>
+                        product?.quantity && range(+product.quantity, 1).map((n, i) => (
+                          <option key={`${i}-${n}`}>{n}</option>
                         ))
                       }
                     </Select>
@@ -219,9 +219,9 @@ export default function ChangesModal({ product, store, vendedor }) {
                       onChange={e => setEnterQuantity(e.target.value)}
                     >
                       {
-                        (item?.tallas) ? range(item.tallas[enterSize], 1).map(n => (
-                          <option>{n}</option>
-                        )) : <option>NO LLEGO</option>
+                        (item?.tallas) ? range(item.tallas[enterSize], 1).map((n, i) => (
+                          <option key={`${n}-${i}`}>{n}</option>
+                        )) : <option key='666'>NO LLEGO</option>
                       }
                     </Select>
                   </FormControl>

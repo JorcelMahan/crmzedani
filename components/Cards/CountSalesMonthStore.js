@@ -1,12 +1,31 @@
 import React, { useEffect, useContext } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { Grid } from '@material-ui/core';
+import { Box, Grid, LinearProgress, Typography } from '@material-ui/core';
 import AuthContext from '../../context/auth/AuthContext';
 const GET_SALES_MONTH_BY_STORE = gql`
   query salesMonthByStore($store: String!) {
     salesMonthByStore(store: $store)
   }
 `;
+
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+const percentage = (goal, current) => {
+  return ((current * 100) / goal)
+}
 
 const CountSalesMonthStore = ({ store, goal }) => {
   const { user } = useContext(AuthContext);
@@ -39,6 +58,9 @@ const CountSalesMonthStore = ({ store, goal }) => {
         <br />
         Falta {goal - data.salesMonthByStore[0]}
         <hr />
+      </Grid>
+      <Grid item xs={12}>
+        <LinearProgressWithLabel value={percentage(goal, data.salesMonthByStore[0])} />
       </Grid>
       <Grid item xs={6}>
         Zapatos <b>{data.salesMonthByStore ? data.salesMonthByStore[0] : 0}</b>

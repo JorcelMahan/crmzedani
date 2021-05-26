@@ -14,6 +14,7 @@ import DataSalida from '../components/Salidas/DataSalida';
 import SalidaReview from '../components/Salidas/SalidaReview';
 import Loader from '../components/Loader';
 import Alert from '@material-ui/lab/Alert';
+import { Today } from '@material-ui/icons';
 
 const ADD_SALIDA = gql`
   mutation addSalida($input: SalidaInput) {
@@ -42,6 +43,18 @@ const GET_SALIDAS = gql`
     }
   }
 `;
+
+const getCurrentDateFormat = () => {
+  const currentDate = new Date()
+    .toLocaleString('es-MX', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .split('/');
+  const currDateStr = `${currentDate[2]}-${currentDate[1]}-${currentDate[0]}`;
+  return currDateStr;
+}
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -118,7 +131,10 @@ function SalidaCheckout() {
         },
       });
       resetState();
+      // put the salidas in the date of Today
+      sessionStorage.setItem('localSalida', getCurrentDateFormat())
       await router.push('/salidas');
+
     } catch (error) {
       console.log('Error', error);
     }

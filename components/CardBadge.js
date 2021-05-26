@@ -27,7 +27,7 @@ export default function CardBadge() {
   }, [products, amount]);
   return (
     <IconButton aria-label='cart' color='inherit'>
-      <StyledBadge badgeContent={amount}>
+      <StyledBadge max={999} badgeContent={amount}>
         <ShoppingCartIcon />
       </StyledBadge>
     </IconButton>

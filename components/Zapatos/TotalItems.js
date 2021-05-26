@@ -9,6 +9,7 @@ const TOTALSHOESANDACCESSORIES = gql`
     $color: String
     $talla: String
     $stock: Boolean
+    $codigo: String
   ) {
     totalShoesAndAccessories(
       almacen: $almacen
@@ -16,11 +17,12 @@ const TOTALSHOESANDACCESSORIES = gql`
       color: $color
       talla: $talla
       stock: $stock
+      codigo: $codigo
     )
   }
 `;
 
-const TotalItems = ({ almacen, tipo, color, talla, stock }) => {
+const TotalItems = ({ almacen, tipo, color, talla, stock, codigo }) => {
   const { loading, error, data } = useQuery(TOTALSHOESANDACCESSORIES, {
     variables: {
       almacen,
@@ -28,6 +30,7 @@ const TotalItems = ({ almacen, tipo, color, talla, stock }) => {
       color,
       talla,
       stock,
+      codigo
     },
   });
   if (loading) return <CircularProgress color='primary' />;

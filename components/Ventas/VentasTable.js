@@ -231,24 +231,9 @@ const VentasTable = ({
 
   let totalEfectivo = 0;
   let totalTarjeta = 0;
-  // const caja =
-  //   user === "sopocachi"
-  //     ? 250
-  //     : user === "miraflores" || user === "san miguel"
-  //     ? 500
-  //     : 0;
+
   const classes = useStyles();
-  // useEffect(() => {
-  //   if (localStorage.totalEfectivo && localStorage.totalTarjeta) {
-  //     localStorage.totalEfectivo = totalEfectivo;
-  //     localStorage.totalTarjeta = totalTarjeta;
-  //     addTotalTarjeta(totalTarjeta);
-  //   } else {
-  //     localStorage.setItem("totalEfectivo", totalEfectivo.toString());
-  //     localStorage.setItem("totalTarjeta", totalTarjeta.toString());
-  //     addTotalTarjeta(totalTarjeta);
-  //   }
-  // }, [totalTarjeta, totalEfectivo]);
+
   return (
     <Card className={classes.root}>
       <CardContent className={classes.content}>

@@ -1,6 +1,6 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Badge from "@material-ui/core/Badge";
-import {withStyles} from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import IconButton from "@material-ui/core/IconButton";
 import WorkOutline from "@material-ui/icons/WorkOutline"
 import SalidaContext from "../../context/salidas/SalidaContext";
@@ -16,7 +16,7 @@ const StyledBadge = withStyles((theme) => ({
 
 const SalidaBadge = () => {
     const salidaContext = useContext(SalidaContext);
-    const {products} = salidaContext;
+    const { products } = salidaContext;
     const [amount, setAmount] = useState(0);
     useEffect(() => {
         if (products.length > 0) {
@@ -28,8 +28,8 @@ const SalidaBadge = () => {
 
     return (
         <IconButton aria-label='cart' color='inherit'>
-            <StyledBadge badgeContent={amount}>
-                <WorkOutline/>
+            <StyledBadge max={999} badgeContent={amount} overlap='circle'>
+                <WorkOutline />
             </StyledBadge>
         </IconButton>
     )

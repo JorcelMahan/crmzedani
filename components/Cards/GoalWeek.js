@@ -8,7 +8,7 @@ import { gql, useQuery } from '@apollo/client';
 import AuthContext from '../../context/auth/AuthContext';
 import CardGoalStore from './CardGoalStore';
 import CardSalesEmployee from './CardSalesEmployee';
-import { Box } from '@material-ui/core';
+import { Box, LinearProgress } from '@material-ui/core';
 
 const GET_VENTAS = gql`
   query allventasCurrentMonth {
@@ -56,6 +56,24 @@ const useStyles = makeStyles({
   },
 });
 
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
+
+const percentage = (goal, current) => {
+  return ((current * 100) / goal)
+}
 const Count = ({ user }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS
@@ -83,15 +101,27 @@ const Count = ({ user }) => {
           <i>Si crees que puedes, ya estás a medio camino</i>
         </Typography>
       </Box>
+      <Box my={1}>
+        <LinearProgressWithLabel value={percentage(3100, allventasCurrentMonth[0])} />
+      </Box>
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <div>
-          Zapatos = <b>{allventasCurrentMonth[0]}</b>
-          <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
-        </div>
-      )}
+          <div>
+            Zapatos = <b>{allventasCurrentMonth[0]}</b>
+            <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
+          </div>
+        )}
+      {
+        (user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
+          <Box my={1} display='flex' flexDirection='column' flexWrap='wrap'>
+            <p>Total Efectivo = <b>{allventasCurrentMonth[2]}</b></p>
+            <p>Total Tarjeta = <b>{allventasCurrentMonth[3]}</b></p>
+            <p>Total Deposito = <b>{allventasCurrentMonth[4]}</b></p>
+          </Box>
+        )
+      }
     </div>
   );
 };
@@ -107,37 +137,37 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio' ||
         user === 'miraflores') && (
-        <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='miraflores' goal={650} />
-        </Grid>
-      )}
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='miraflores' goal={650} />
+          </Grid>
+        )}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio' ||
         user === 'san-miguel') && (
-        <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='san-miguel' goal={384} />
-        </Grid>
-      )}
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='san-miguel' goal={384} />
+          </Grid>
+        )}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio' ||
         user === 'sopocachi') && (
-        <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='sopocachi' goal={231} />
-        </Grid>
-      )}
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='sopocachi' goal={231} />
+          </Grid>
+        )}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio' ||
         user === '6-de-marzo') && (
-        <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='6-de-marzo' goal={550} />
-        </Grid>
-      )}
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='6-de-marzo' goal={550} />
+          </Grid>
+        )}
       {/*uss: ventaslapaz*/}
       {/*Contraseña: ventaslapaz1*/}
 
@@ -148,10 +178,10 @@ export default function GoalWeek() {
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-        <Grid item xs={12} md={3} lg={6}>
-          <CardGoalStore user={user} store='patrick' goal={800} />
-        </Grid>
-      )}
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='patrick' goal={800} />
+          </Grid>
+        )}
       {user === 'ventascbba' && (
         <Grid item xs={12} md={3} lg={6}>
           <CardSalesEmployee
