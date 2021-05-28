@@ -93,7 +93,8 @@ const VentaRow = ({
           {venta.metodo === 'EFECTIVO'
             ? venta.total
             : venta.metodo === 'EFECTIVO-TARJETA' ||
-              venta.metodo === 'DEPOSITO-EFECTIVO'
+              venta.metodo === 'DEPOSITO-EFECTIVO' ||
+              venta.metodo === 'GIFT-CARD-EFECTIVO'
               ? venta.montoEfectivo
               : '-'}
         </TableCell>
@@ -101,7 +102,8 @@ const VentaRow = ({
           {venta.metodo === 'TARJETA'
             ? venta.total
             : venta.metodo === 'EFECTIVO-TARJETA' ||
-              venta.metodo === 'DEPOSITO-TARJETA'
+              venta.metodo === 'DEPOSITO-TARJETA' ||
+              venta.metodo === 'GIFT-CARD-TARJETA'
               ? venta.montoTarjeta
               : '-'}
         </TableCell>
@@ -109,7 +111,8 @@ const VentaRow = ({
           {venta.metodo === 'DEPOSITO'
             ? venta.total
             : venta.metodo === 'DEPOSITO-TARJETA' ||
-              venta.metodo === 'DEPOSITO-EFECTIVO'
+              venta.metodo === 'DEPOSITO-EFECTIVO' ||
+              venta.metodo === 'GIFT-CARD-DEPOSITO'
               ? venta.montoDeposito
               : '-'}
         </TableCell>
@@ -277,6 +280,10 @@ const VentasTable = ({
                       totalEfectivo += venta.montoEfectivo;
                     } else if (venta.metodo === 'DEPOSITO-TARJETA') {
                       totalTarjeta += venta.montoTarjeta;
+                    } else if (venta.metodo === 'GIFT-CARD-EFECTIVO') {
+                      totalEfectivo += venta.montoEfectivo
+                    } else if (venta.metodo === 'GIFT-CARD-TARJETA') {
+                      totalTarjeta += venta.montoTarjeta
                     }
                   }
                   return (

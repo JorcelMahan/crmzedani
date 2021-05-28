@@ -4,8 +4,9 @@ import { CircularProgress } from '@material-ui/core';
 import VentasContext from '../../context/ventas/VentasContext';
 import ReactSelect from 'react-select';
 const GIFT_CARDS = gql`
-  query giftCards($status: String) {
-    giftCards(status: $status) {
+  query giftCards($status: String, $first: Int) {
+    giftCards(status: $status, first: $first) {
+      products {
       id
       codigo
       almacen
@@ -15,6 +16,8 @@ const GIFT_CARDS = gql`
       status
       stock
       image
+      }
+     
     }
   }
 `;
@@ -22,6 +25,7 @@ const GiftCard = () => {
   const { loading, error, data } = useQuery(GIFT_CARDS, {
     variables: {
       status: 'VENDIDO',
+      first: 50
     },
   });
   const { addGiftCard, giftCard, calcTotal } = useContext(VentasContext);
@@ -29,6 +33,7 @@ const GiftCard = () => {
   if (loading) return <CircularProgress />;
   if (error) return `${error.message}`;
   const { giftCards } = data;
+  // console.log(giftCards)
 
   const handleChange = (op) => {
     if (op) {
@@ -42,7 +47,7 @@ const GiftCard = () => {
   return (
     <div style={{ width: '250px' }}>
       <ReactSelect
-        options={giftCards}
+        options={giftCards.products}
         getOptionLabel={(op) => op.codigo}
         getOptionValue={(op) => op}
         placeholder='Seleccione gift card'

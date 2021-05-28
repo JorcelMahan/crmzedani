@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Input, Paper } from '@material-ui/core';
+import { Box, Input, Paper } from '@material-ui/core';
 
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 import Loader from '../components/Loader';
@@ -103,6 +103,13 @@ const products = () => {
           onKeyUp={handleKeyUp}
         />
       </Paper>
+
+      {/* from server return the data */}
+      {/* <Box m={2}>
+        <p>Total = 200 </p>
+        <p>Disponibles = 123</p>
+        <p>Vendidas = 3</p>
+      </Box> */}
       <div className={classes.content}>
         {data && <TableProducts giftCards={data.giftCards.products} />}
       </div>

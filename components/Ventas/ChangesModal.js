@@ -23,6 +23,7 @@ import ValidSizes from './ValidSizes';
 
 
 function range(size, startAt = 0) {
+  console.log('range', [...Array(size).keys()].map(i => i + startAt))
   return [...Array(size).keys()].map(i => i + startAt);
 }
 
@@ -85,6 +86,89 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+const SelectChangeProduct = ({ zapatos, item, setItem, enterSize, setEnterSize, enterQuantity, setEnterQuantity }) => {
+  const classes = useStyles();
+  console.log('size', enterSize);
+  console.log('quantity', enterQuantity)
+  return (
+    <>
+      <ReactSelect
+        options={zapatos}
+        getOptionLabel={(op) => `${op.codigo} - ${op.color}`}
+        getOptionValue={(op) => op.id}
+        placeholder='Seleccione Producto'
+        noOptionsMessage={() => 'No existe ese producto'}
+        isClearable
+        onChange={(op) => {
+          setItem(op);
+          setEnterSize('')
+          setEnterQuantity('')
+        }}
+      />
+      {/* <TextField variant='outlined' type='text' placeholder='Introduce codigo del calzado' /> */}
+      <Card style={{ maxWidth: 245 }}>
+        <CardHeader
+          title='SALE'
+          className={classes.cardHeader}
+          titleTypographyProps={{ variant: 'h2' }}
+        />
+        <CardActionArea>
+          <CardMedia
+            component='img'
+            alt='shoe'
+            width='100%'
+            image={
+              item?.image
+                ? item.image
+                : 'https://www.vippng.com/png/detail/7-76841_shoe-icon-shoes-png.png'
+            }
+            title={`${item?.codigo ? item.codigo : 'CODIGO'} - ${item?.color ? item.color : 'COLOR'
+              }`}
+          />
+          <CardContent>
+            <Box>
+              {
+                `${item?.codigo ? item.codigo : 'CODIGO'} - ${item?.color ? item.color : 'COLOR'
+                }`
+              }
+            </Box>
+            <Box>
+              <FormControl>
+                <InputLabel>Tallas</InputLabel>
+                <Select
+                  native
+                  value={enterSize}
+                  onChange={e => setEnterSize(e.target.value)}
+                >
+                  {
+                    item?.tallas && <ValidSizes tallas={item.tallas} />
+                  }
+                </Select>
+              </FormControl>
+            </Box>
+            <Box>
+              <FormControl>
+                <InputLabel>Cantidad</InputLabel>
+                <Select
+                  native
+                  value={enterQuantity}
+                  onChange={e => setEnterQuantity(e.target.value)}
+                >
+                  {
+                    (item?.tallas) ? range(item.tallas[enterSize], 1).map((n, i) => (
+                      <option key={`${n}-${i}`}>{n}</option>
+                    )) : <option key='666'>NO LLEGO</option>
+                  }
+                </Select>
+              </FormControl>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </>
+  )
+}
 export default function ChangesModal({ product, store, vendedor }) {
   const classes = useStyles();
   const [item, setItem] = useState({});
@@ -121,7 +205,7 @@ export default function ChangesModal({ product, store, vendedor }) {
         <Grid item>
           <Card style={{ maxWidth: 245 }}>
             <CardHeader
-              title='SALE'
+              title='ENTRA'
               className={classes.cardHeader}
               titleTypographyProps={{ variant: 'h2' }}
             />
@@ -160,75 +244,7 @@ export default function ChangesModal({ product, store, vendedor }) {
           <ArrowForwardIcon fontSize='large' />
         </Grid>
         <Grid item>
-          <ReactSelect
-            options={zapatosByAlmacen}
-            getOptionLabel={(op) => `${op.codigo} - ${op.color}`}
-            getOptionValue={(op) => op.id}
-            placeholder='Seleccione Producto'
-            noOptionsMessage={() => 'No existe ese producto'}
-            isClearable
-            onChange={(op) => {
-              setItem(op);
-              setEnterSize('')
-              setEnterQuantity('')
-            }}
-          />
-          {/* <TextField variant='outlined' type='text' placeholder='Introduce codigo del calzado' /> */}
-          <Card style={{ maxWidth: 245 }}>
-            <CardHeader
-              title='ENTRA'
-              className={classes.cardHeader}
-              titleTypographyProps={{ variant: 'h2' }}
-            />
-            <CardActionArea>
-              <CardMedia
-                component='img'
-                alt='shoe'
-                width='100%'
-                image={
-                  item?.image
-                    ? item.image
-                    : 'https://www.vippng.com/png/detail/7-76841_shoe-icon-shoes-png.png'
-                }
-                title={`${item?.codigo ? item.codigo : 'CODIGO'} - ${item?.color ? item.color : 'COLOR'
-                  }`}
-              />
-              <CardContent>
-                <Box>{`${item?.codigo ? item.codigo : 'CODIGO'} - ${item?.color ? item.color : 'COLOR'
-                  }`}</Box>
-                <Box>
-                  <FormControl>
-                    <InputLabel>Tallas</InputLabel>
-                    <Select
-                      native
-                      value={enterSize}
-                      onChange={e => setEnterSize(e.target.value)}
-                    >
-                      {
-                        item?.tallas && <ValidSizes tallas={item.tallas} />
-                      }
-                    </Select>
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl>
-                    <InputLabel>Cantidad</InputLabel>
-                    <Select
-                      native
-                      value={enterQuantity}
-                      onChange={e => setEnterQuantity(e.target.value)}
-                    >
-                      {
-                        (item?.tallas) ? range(item.tallas[enterSize], 1).map((n, i) => (
-                          <option key={`${n}-${i}`}>{n}</option>
-                        )) : <option key='666'>NO LLEGO</option>
-                      }
-                    </Select>
-                  </FormControl>
-                </Box>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+          <SelectChangeProduct zapatos={zapatosByAlmacen} item={item} setItem={setItem} enterSize={enterSize} setEnterSize={setEnterSize} enterQuantity={enterQuantity} setEnterQuantity={setEnterQuantity} />
         </Grid>
       </Grid>
       <Box my={2} display='flex' justifyContent='center'>
@@ -243,7 +259,7 @@ export default function ChangesModal({ product, store, vendedor }) {
 
   return (
     <div>
-      <Button type='button' variant='contained' onClick={handleOpen} disabled={true}>
+      <Button type='button' variant='contained' onClick={handleOpen}>
         Cambiar
       </Button>
       <Modal open={open} onClose={handleClose}>
