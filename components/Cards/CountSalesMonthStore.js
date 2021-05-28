@@ -62,30 +62,34 @@ const CountSalesMonthStore = ({ store, goal }) => {
       <Grid item xs={12}>
         <LinearProgressWithLabel value={percentage(goal, data.salesMonthByStore[0])} />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         Zapatos <b>{data.salesMonthByStore ? data.salesMonthByStore[0] : 0}</b>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={4}>
         Accesorios{' '}
         <b>{data.salesMonthByStore ? data.salesMonthByStore[1] : 0}</b>
+      </Grid>
+      <Grid item xs={4}>
+        Gift Card{' '}
+        <b>{data.salesMonthByStore ? data.salesMonthByStore[2] : 0}</b>
       </Grid>
       {(user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
         <>
           <Grid item xs={4}>
             Total Efectivo:{' '}
-            <b>{data.salesMonthByStore ? data.salesMonthByStore[2] : 0}</b>
-          </Grid>
-          <Grid item xs={4}>
-            Total Tarjeta:{' '}
             <b>{data.salesMonthByStore ? data.salesMonthByStore[3] : 0}</b>
           </Grid>
           <Grid item xs={4}>
-            Total Deposito:{' '}
+            Total Tarjeta:{' '}
             <b>{data.salesMonthByStore ? data.salesMonthByStore[4] : 0}</b>
           </Grid>
           <Grid item xs={4}>
-            TOTAL: {' '}
+            Total Deposito:{' '}
             <b>{data.salesMonthByStore ? data.salesMonthByStore[5] : 0}</b>
+          </Grid>
+          <Grid item xs={4}>
+            TOTAL: {' '}
+            <b>{data.salesMonthByStore ? data.salesMonthByStore[6] : 0}</b>
           </Grid>
         </>
       )}

@@ -1,13 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CountDayStore from './CountDayStore';
 import CountSalesMonthStore from '../Cards/CountSalesMonthStore';
-import CardMedia from '@material-ui/core/CardMedia';
-import StoreIcon from '@material-ui/icons/Store';
 import SellersList from '../SellersList';
 import { Box, Divider, Paper } from '@material-ui/core';
 

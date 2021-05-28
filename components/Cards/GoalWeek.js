@@ -111,14 +111,15 @@ const Count = ({ user }) => {
           <div>
             Zapatos = <b>{allventasCurrentMonth[0]}</b>
             <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
+            <br /> Gift Cards = <b>{allventasCurrentMonth[2]}</b>
           </div>
         )}
       {
         (user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
           <Box my={1} display='flex' flexDirection='column' flexWrap='wrap'>
-            <p>Total Efectivo = <b>{allventasCurrentMonth[2]}</b></p>
-            <p>Total Tarjeta = <b>{allventasCurrentMonth[3]}</b></p>
-            <p>Total Deposito = <b>{allventasCurrentMonth[4]}</b></p>
+            <p>Total Efectivo = <b>{allventasCurrentMonth[3]}</b></p>
+            <p>Total Tarjeta = <b>{allventasCurrentMonth[4]}</b></p>
+            <p>Total Deposito = <b>{allventasCurrentMonth[5]}</b></p>
           </Box>
         )
       }
