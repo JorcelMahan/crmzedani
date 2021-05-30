@@ -51,6 +51,13 @@ const CountSalesMonthStore = ({ store, goal }) => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12}>
+        {
+          data.salesMonthByStore[0] >= goal && (
+            <Box my={2} display='flex' flexDirection='column'>
+              <b>🎉🎉🎉¡FELICITACIONES!🎉🎉🎉</b>
+              <i>Gracias a su esfuerzo y trabajo en equipo lograron la meta alcanzada, sigan con esa dedicación y entusiasmo</i>
+            </Box>)
+        }
         <b>
           Meta: {data.salesMonthByStore ? data.salesMonthByStore[0] : 0} de{' '}
           {goal}
