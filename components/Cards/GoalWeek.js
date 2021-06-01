@@ -92,17 +92,17 @@ const Count = ({ user }) => {
   return (
     <div>
       <Box my={2}>
-        <b>Meta: {allventasCurrentMonth[0]} de 3100</b>
+        <b>Meta: {allventasCurrentMonth[0]} de 2650</b>
         <br />
-        Falta: {3100 - allventasCurrentMonth[0]}
+        Falta: {2650 - allventasCurrentMonth[0]}
       </Box>
-      <Box my={2}>
+      {/* <Box my={2}>
         <Typography variant='h3' component='h2'>
           <i>Si crees que puedes, ya estás a medio camino</i>
         </Typography>
-      </Box>
+      </Box> */}
       <Box my={1}>
-        <LinearProgressWithLabel value={percentage(3100, allventasCurrentMonth[0])} />
+        <LinearProgressWithLabel value={percentage(2650, allventasCurrentMonth[0])} />
       </Box>
       {(user === 'patrick' ||
         user === 'kathryn' ||
@@ -201,7 +201,12 @@ export default function GoalWeek() {
           />
         </Grid>
       )}
-      <Grid item xs={12} md={3} lg={6}>
+      {
+        (user === 'patrick' ||
+        user === 'kathryn' ||
+        user === 'laura' ||
+        user === 'fabio') && (
+     <Grid item xs={12} md={3} lg={6}>
         <Card className={classes.card}>
           <CardContent>
             <Typography
@@ -214,6 +219,9 @@ export default function GoalWeek() {
           </CardContent>
         </Card>
       </Grid>
+        )
+      }
+ 
       {/* {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
