@@ -19,6 +19,7 @@ const GET_VENTAS = gql`
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
+    marginTop: '1rem'
   },
   card: {
     // minWidth: 275,
@@ -89,30 +90,40 @@ const Count = ({ user }) => {
   if (loading) return 'Loading';
   if (error) return `error: ${error.message}`;
   const { allventasCurrentMonth } = data;
+  const goalMonth = 2296;
   return (
     <div>
+      <Box my={2} display='flex' flexDirection='column'>
+        <b>Meta: {allventasCurrentMonth[0]} de {allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550}</b>
+        <p>Falta: {(allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550) - allventasCurrentMonth[0]}</p>
+      </Box>
       <Box my={2}>
-        <b>Meta: {allventasCurrentMonth[0]} de 2650</b>
-        <br />
-        Falta: {2650 - allventasCurrentMonth[0]}
-      </Box>
-      {/* <Box my={2}>
         <Typography variant='h3' component='h2'>
-          <i>Si crees que puedes, ya estás a medio camino</i>
+          <i>"La tragedia no es no alcanzar tus objetivos, la tragedia es no tener objetivos que alcanzar."</i>
         </Typography>
-      </Box> */}
-      <Box my={1}>
-        <LinearProgressWithLabel value={percentage(2650, allventasCurrentMonth[0])} />
       </Box>
+
+      {/* if goal is reached then new goal */}
+      {
+        allventasCurrentMonth[0] < goalMonth ? (
+          <Box my={1}>
+            <LinearProgressWithLabel value={percentage(goalMonth, allventasCurrentMonth[0])} />
+          </Box>
+        ) : (
+          <Box my={1}>
+            <LinearProgressWithLabel value={percentage(2550, allventasCurrentMonth[0])} />
+          </Box>
+        )
+      }
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
         user === 'fabio') && (
-          <div>
-            Zapatos = <b>{allventasCurrentMonth[0]}</b>
-            <br /> Accesorios = <b>{allventasCurrentMonth[1]}</b>
-            <br /> Gift Cards = <b>{allventasCurrentMonth[2]}</b>
-          </div>
+          <Box my={1} display='flex' flexDirection='column' flexWrap='wrap'>
+            <Typography variant='h5'>Zapatos = <b>{allventasCurrentMonth[0]}</b></Typography>
+            <Typography variant='h5'> Accesorios = <b>{allventasCurrentMonth[1]}</b></Typography>
+            <Typography variant='h5'> Gift Cards = <b>{allventasCurrentMonth[2]}</b></Typography>
+          </Box>
         )}
       {
         (user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
@@ -139,7 +150,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'miraflores') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='miraflores' goal={650} />
+            <CardGoalStore user={user} store='miraflores' goal={499} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -148,7 +159,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'san-miguel') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='san-miguel' goal={384} />
+            <CardGoalStore user={user} store='san-miguel' goal={284} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -157,7 +168,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'sopocachi') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='sopocachi' goal={231} />
+            <CardGoalStore user={user} store='sopocachi' goal={120} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -166,7 +177,15 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === '6-de-marzo') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='6-de-marzo' goal={550} />
+            <CardGoalStore user={user} store='6-de-marzo' goal={358} />
+          </Grid>
+        )}
+      {(user === 'patrick' ||
+        user === 'kathryn' ||
+        user === 'laura' ||
+        user === 'cochabamba') && (
+          <Grid item xs={12} md={3} lg={6}>
+            <CardGoalStore user={user} store='cochabamba' goal={185} />
           </Grid>
         )}
       {/*uss: ventaslapaz*/}
@@ -180,7 +199,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='patrick' goal={800} />
+            <CardGoalStore user={user} store='patrick' goal={850} />
           </Grid>
         )}
       {user === 'ventascbba' && (
@@ -197,35 +216,11 @@ export default function GoalWeek() {
           <CardSalesEmployee
             employee='60468e735e39640015e6b6bf'
             name='Giovanny'
-            goal={600}
+            goal={650}
           />
         </Grid>
       )}
       {
-        (user === 'patrick' ||
-        user === 'kathryn' ||
-        user === 'laura' ||
-        user === 'fabio') && (
-     <Grid item xs={12} md={3} lg={6}>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography
-              className={classes.title}
-              color='textSecondary'
-              gutterBottom>
-              Mes: {new Date().toLocaleString('es-MX', { month: 'long' })}
-            </Typography>
-            <Count user={user} />
-          </CardContent>
-        </Card>
-      </Grid>
-        )
-      }
- 
-      {/* {(user === 'patrick' ||
-        user === 'kathryn' ||
-        user === 'laura' ||
-        user === 'fabio') && (
         <Grid item xs={12} md={3} lg={6}>
           <Card className={classes.card}>
             <CardContent>
@@ -233,15 +228,13 @@ export default function GoalWeek() {
                 className={classes.title}
                 color='textSecondary'
                 gutterBottom>
-                Mes:
-                {new Date().toLocaleString('es-MX', { month: 'long' })}
+                Mes: {new Date().toLocaleString('es-MX', { month: 'long' })}
               </Typography>
-
               <Count user={user} />
             </CardContent>
           </Card>
         </Grid>
-      )} */}
+      }
     </Grid>
   );
 }

@@ -29,14 +29,17 @@ const useStyles = makeStyles((theme) => ({
   monthTitle: {
     textTransform: 'capitalize',
   },
+  paper: {
+    padding: '1.25em'
+  }
 }));
 
 const CardGoalStore = ({ user, store, goal }) => {
   const classes = useStyles();
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
+  // const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  // paper = className = { fixedHeightPaper }
   return (
-    <Paper className={fixedHeightPaper}>
+    <Paper className={classes.paper}>
       <Typography
         className={classes.title}
         component='h2'

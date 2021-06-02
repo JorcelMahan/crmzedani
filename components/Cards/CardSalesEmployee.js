@@ -4,6 +4,7 @@ import {
   CircularProgress,
   Divider,
   Grid,
+  LinearProgress,
   Paper,
   Typography,
 } from '@material-ui/core';
@@ -39,6 +40,23 @@ const SALES_EMPLOYEE = gql`
     salesMonthByEmployee(employee: $employee)
   }
 `;
+const percentage = (goal, current) => {
+  return ((current * 100) / goal)
+}
+function LinearProgressWithLabel(props) {
+  return (
+    <Box display="flex" alignItems="center">
+      <Box width="100%" mr={1}>
+        <LinearProgress variant="determinate" {...props} />
+      </Box>
+      <Box minWidth={35}>
+        <Typography variant="body2" color="textSecondary">{`${Math.round(
+          props.value,
+        )}%`}</Typography>
+      </Box>
+    </Box>
+  );
+}
 const CardSalesEmployee = ({ employee, name, goal }) => {
   const { loading, error, data } = useQuery(SALES_EMPLOYEE, {
     variables: {
@@ -71,13 +89,16 @@ const CardSalesEmployee = ({ employee, name, goal }) => {
 
         <Grid item xs={12}>
           <Divider />
-          {/* <Box my={2}>
+          <Box my={2}>
             <b>
               Meta: {salesMonthByEmployee[0]} de {goal}
             </b>
             <br />
             Falta: {goal - salesMonthByEmployee[0]}
-          </Box> */}
+          </Box>
+          <Box my={2}>
+            <LinearProgressWithLabel value={percentage(goal, salesMonthByEmployee[0])} />
+          </Box>
           <Box my={2}>
             <Typography variant='h5'>
               Zapatos: {salesMonthByEmployee[0]}

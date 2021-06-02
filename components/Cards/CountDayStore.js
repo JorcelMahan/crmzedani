@@ -54,18 +54,18 @@ const CountDayStore = ({ store }) => {
   return (
     <>
       <Avatar className={classes.red2}>
-        <span>{data.salesDayByStore} </span>
+        <span>{data.salesDayByStore ? data.salesDayByStore : 0} </span>
       </Avatar>
       {(user === 'patrick' || user === 'kathryn' || user === 'fabio') && (
         <>
           <Avatar className={classes.red}>
-            <span>{data.moneyDayByStore[0]} </span>
+            <span>{data?.moneyDayByStore ? data.moneyDayByStore[0] : 0} </span>
           </Avatar>
           <Avatar className={classes.red}>
-            <span>{data.moneyDayByStore[1]} </span>
+            <span>{data?.moneyDayByStore ? data.moneyDayByStore[1] : 0} </span>
           </Avatar>
           <Avatar className={classes.red}>
-            <span>{data.moneyDayByStore[2]} </span>
+            <span>{data?.moneyDayByStore ? data.moneyDayByStore[2] : 0} </span>
           </Avatar>
         </>
       )}
