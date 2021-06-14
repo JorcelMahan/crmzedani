@@ -78,12 +78,14 @@ const GET_SALIDA = gql`
 let almacenes = [
   'sopocachi',
   'san-miguel',
-  'satelite',
   'miraflores',
   'central',
-  'comercial',
-  'cochabamba',
   '6-de-marzo',
+  'cochabamba',
+  'comercial-La-Paz',
+  'comercial-Cochabamba',
+  'satelite',
+  'muestras',
   'fallas'
 ];
 
@@ -196,7 +198,7 @@ const ShowSalida = () => {
         <Box my={2}>
           <Button variant='contained' onClick={() => router.back()}>
             <ArrowBackIcon /> Volver
-            </Button>
+          </Button>
         </Box>
 
         <Box display='flex' flexDirection='column' alignItems='center'>

@@ -222,9 +222,9 @@ const SidebarNav = (props) => {
             </ListItem>
           ) : null}
 
-          {user !== 'elenap' &&
-            user !== 'ventascbba' &&
-            user !== 'ventaslapaz' && (
+          {(user === 'patrick' ||
+            user === 'kathryn' ||
+            user === 'fabio') && (
               <>
                 <ListItem button className={classes.nested}>
                   <Link href='/productos/satelite'>
@@ -236,11 +236,25 @@ const SidebarNav = (props) => {
                   </Link>
                 </ListItem>
                 <ListItem button className={classes.nested}>
-                  <Link href='/productos/comercial'>
+                  <Link href='/productos/comercialLaPaz'>
                     <a
                       className={classes.button}
                       activeclassname={classes.active}>
-                      <ListItemText primary='Comercial' />
+                      <ListItemText primary='Comercial La Paz' />
+                    </a>
+                  </Link>
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <Link href='/productos/comercialCochabamba'>
+                    <a className={classes.button} activeclassname={classes.active}>
+                      <ListItemText primary='Comercial Cochabamba' />
+                    </a>
+                  </Link>
+                </ListItem>
+                <ListItem button className={classes.nested}>
+                  <Link href='/productos/muestras'>
+                    <a className={classes.button} activeclassname={classes.active}>
+                      <ListItemText primary='Muestras' />
                     </a>
                   </Link>
                 </ListItem>

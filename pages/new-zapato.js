@@ -334,11 +334,13 @@ const NewZapato = () => {
                         'sopocachi',
                         'san-miguel',
                         'miraflores',
-                        'comercial',
-                        'satelite',
                         'central',
-                        'cochabamba',
                         '6-de-marzo',
+                        'cochabamba',
+                        'comercial-La-Paz',
+                        'comercial-Cochabamba',
+                        'satelite',
+                        'muestras',
                         'fallas'
                       ].map((e) => (
                         <MenuItem key={e} value={e}>
@@ -398,11 +400,11 @@ const NewZapato = () => {
                     <span>
                       Precio Promotora:
                       {Math.round(
-                      formik.values.precioPublico -
-                      (formik.values.precioPublico *
-                        Number(formik.values.descuentoPromotora)) /
-                      100
-                    )}
+                        formik.values.precioPublico -
+                        (formik.values.precioPublico *
+                          Number(formik.values.descuentoPromotora)) /
+                        100
+                      )}
                     </span>
                   </FormControl>
                   <FormControl className={classes.formControl}>

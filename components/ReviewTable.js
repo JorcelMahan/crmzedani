@@ -133,7 +133,7 @@ const ReviewTable = ({ setActiveBtn }) => {
                 <TableCell align='right'>
                   Bs.{' '}
                   {product.precioPromocion === 0 ||
-                  product.precioPromocion === null
+                    product.precioPromocion === null
                     ? product.quantity * product.precioPublico
                     : product.quantity * product.precioPromocion}
                 </TableCell>

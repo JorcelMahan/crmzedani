@@ -259,7 +259,7 @@ export default function ChangesModal({ product, store, vendedor }) {
 
   return (
     <div>
-      <Button type='button' variant='contained' onClick={handleOpen}>
+      <Button type='button' variant='contained' onClick={handleOpen} disabled={true}>
         Cambiar
       </Button>
       <Modal open={open} onClose={handleClose}>

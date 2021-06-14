@@ -435,11 +435,13 @@ const WrapperZapato = ({ zapato, id }) => {
                         'sopocachi',
                         'san-miguel',
                         'miraflores',
-                        'comercial',
-                        'satelite',
                         'central',
-                        'cochabamba',
                         '6-de-marzo',
+                        'cochabamba',
+                        'comercial-La-Paz',
+                        'comercial-Cochabamba',
+                        'satelite',
+                        'muestras',
                         'fallas'
                       ].map((e) => (
                         <MenuItem key={e} value={e}>
