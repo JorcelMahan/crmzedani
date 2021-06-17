@@ -74,7 +74,7 @@ const VentasReducer = (state, action) => {
               (obj.precioPromocion === 0 || obj.precioPromocion === null
                 ? obj.precioPublico
                 : obj.precioPromocion) *
-                obj.quantity,
+              obj.quantity,
             0
           ) -
           (state.giftCard !== null ? Number(state.giftCard.split('-')[2]) : 0),
@@ -120,7 +120,7 @@ const VentasReducer = (state, action) => {
             product.utilidad =
               product.precioPromocion !== 0 && product.precioPromocion > 0
                 ? Math.round((product.precioPromocion - product.costo) * 100) /
-                  100
+                100
                 : product.precioPublico - product.costo;
           }
           return product;

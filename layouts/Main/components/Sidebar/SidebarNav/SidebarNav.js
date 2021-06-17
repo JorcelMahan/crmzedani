@@ -224,7 +224,8 @@ const SidebarNav = (props) => {
 
           {(user === 'patrick' ||
             user === 'kathryn' ||
-            user === 'fabio') && (
+            user === 'fabio' ||
+            user === 'central') && (
               <>
                 <ListItem button className={classes.nested}>
                   <Link href='/productos/satelite'>
