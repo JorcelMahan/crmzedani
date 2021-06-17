@@ -30,6 +30,7 @@ const nombres = [
   'san-miguel',
   '6-de-marzo',
   'sopocachi',
+  'cochabamba'
 ];
 
 const getNames = (user) => {
