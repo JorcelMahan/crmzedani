@@ -186,6 +186,7 @@ const Ventas = () => {
                       'san-miguel',
                       'miraflores',
                       '6-de-marzo',
+                      'cochabamba',
                       'patrick',
                     ].map((e) => (
                       <MenuItem key={e} value={e}>
