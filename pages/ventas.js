@@ -166,10 +166,11 @@ const Ventas = () => {
               }}
             />
           </div>
-          {(user === 'patrick' ||
-            user === 'kathryn' ||
-            user === 'fabio' ||
-            user === 'laura') && (
+          {
+            (user === 'patrick' ||
+              user === 'kathryn' ||
+              user === 'fabio' ||
+              user === 'laura') && (
               <div>
                 <FormControl className={classes.formControl} variant='outlined'>
                   <InputLabel id='store'>Tienda</InputLabel>
@@ -196,7 +197,8 @@ const Ventas = () => {
                   </Select>
                 </FormControl>
               </div>
-            )}
+            )
+          }
         </div>
         {/* <BoxCaja /> */}
         {/* add modal to changes */}

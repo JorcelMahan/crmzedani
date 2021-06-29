@@ -81,22 +81,26 @@ const VentaRow = ({
         </TableCell>
         <TableCell>{++i}</TableCell>
         <TableCell>{formatDate.toLocaleDateString('es-MX')}</TableCell>
-        <TableCell>{venta.factura ? venta.factura : '-'}</TableCell>
+        <TableCell>{venta.factura ? venta.factura : venta.reciboNota}</TableCell>
         <TableCell>{venta.vendedor ? venta.vendedor.name : '-'}</TableCell>
         <TableCell>
-          {venta.idPromotora !== null
-            ? venta.idPromotora.nombres.toUpperCase()
-            : 'Cliente'}
+          {
+            venta.idPromotora !== null
+              ? venta.idPromotora.nombres.toUpperCase()
+              : 'Cliente'
+          }
         </TableCell>
         <TableCell>{totalProductsSale}</TableCell>
         <TableCell>
-          {venta.metodo === 'EFECTIVO'
-            ? venta.total
-            : venta.metodo === 'EFECTIVO-TARJETA' ||
-              venta.metodo === 'DEPOSITO-EFECTIVO' ||
-              venta.metodo === 'GIFT-CARD-EFECTIVO'
-              ? venta.montoEfectivo
-              : '-'}
+          {
+            venta.metodo === 'EFECTIVO'
+              ? venta.total
+              : venta.metodo === 'EFECTIVO-TARJETA' ||
+                venta.metodo === 'DEPOSITO-EFECTIVO' ||
+                venta.metodo === 'GIFT-CARD-EFECTIVO'
+                ? venta.montoEfectivo
+                : '-'
+          }
         </TableCell>
         <TableCell>
           {venta.metodo === 'TARJETA'
@@ -108,13 +112,15 @@ const VentaRow = ({
               : '-'}
         </TableCell>
         <TableCell>
-          {venta.metodo === 'DEPOSITO'
-            ? venta.total
-            : venta.metodo === 'DEPOSITO-TARJETA' ||
-              venta.metodo === 'DEPOSITO-EFECTIVO' ||
-              venta.metodo === 'GIFT-CARD-DEPOSITO'
-              ? venta.montoDeposito
-              : '-'}
+          {
+            venta.metodo === 'DEPOSITO'
+              ? venta.total
+              : venta.metodo === 'DEPOSITO-TARJETA' ||
+                venta.metodo === 'DEPOSITO-EFECTIVO' ||
+                venta.metodo === 'GIFT-CARD-DEPOSITO'
+                ? venta.montoDeposito
+                : '-'
+          }
         </TableCell>
         <TableCell>{totalEfectivo}</TableCell>
         <TableCell>{totalTarjeta}</TableCell>
@@ -129,14 +135,16 @@ const VentaRow = ({
             <Edit />
           </Button>
         </TableCell>
-        {venta.status === 'COMPLET0' &&
-          !venta.productos.find((el) => el.estado === 'CANCELADO') ? (
-          <TableCell>
-            <ModalCancelarVenta id={venta.id} anularVenta={anularVenta} />
-          </TableCell>
-        ) : (
-          <TableCell> - </TableCell>
-        )}
+        {
+          venta.status === 'COMPLET0' &&
+            !venta.productos.find((el) => el.estado === 'CANCELADO') ? (
+            <TableCell>
+              <ModalCancelarVenta id={venta.id} anularVenta={anularVenta} />
+            </TableCell>
+          ) : (
+            <TableCell> - </TableCell>
+          )
+        }
         {/*{user === "johan" && (*/}
         {/*  <TableCell>*/}
         {/*    <ModalDeleteVenta id={venta.id} cancelarVenta={cancelarVenta} />*/}
@@ -264,43 +272,45 @@ const VentasTable = ({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {ventas.map((venta, i) => {
-                  if (
-                    venta.status === 'COMPLET0' &&
-                    !verifyProduct(venta.productos)
-                  ) {
-                    if (venta.metodo === 'EFECTIVO') {
-                      totalEfectivo += venta.total;
-                    } else if (venta.metodo === 'EFECTIVO-TARJETA') {
-                      totalEfectivo += venta.montoEfectivo;
-                      totalTarjeta += venta.montoTarjeta;
-                    } else if (venta.metodo === 'TARJETA') {
-                      totalTarjeta += venta.total;
-                    } else if (venta.metodo === 'DEPOSITO-EFECTIVO') {
-                      totalEfectivo += venta.montoEfectivo;
-                    } else if (venta.metodo === 'DEPOSITO-TARJETA') {
-                      totalTarjeta += venta.montoTarjeta;
-                    } else if (venta.metodo === 'GIFT-CARD-EFECTIVO') {
-                      totalEfectivo += venta.montoEfectivo
-                    } else if (venta.metodo === 'GIFT-CARD-TARJETA') {
-                      totalTarjeta += venta.montoTarjeta
+                {
+                  ventas.map((venta, i) => {
+                    if (
+                      venta.status === 'COMPLET0' &&
+                      !verifyProduct(venta.productos)
+                    ) {
+                      if (venta.metodo === 'EFECTIVO') {
+                        totalEfectivo += venta.total;
+                      } else if (venta.metodo === 'EFECTIVO-TARJETA') {
+                        totalEfectivo += venta.montoEfectivo;
+                        totalTarjeta += venta.montoTarjeta;
+                      } else if (venta.metodo === 'TARJETA') {
+                        totalTarjeta += venta.total;
+                      } else if (venta.metodo === 'DEPOSITO-EFECTIVO') {
+                        totalEfectivo += venta.montoEfectivo;
+                      } else if (venta.metodo === 'DEPOSITO-TARJETA') {
+                        totalTarjeta += venta.montoTarjeta;
+                      } else if (venta.metodo === 'GIFT-CARD-EFECTIVO') {
+                        totalEfectivo += venta.montoEfectivo
+                      } else if (venta.metodo === 'GIFT-CARD-TARJETA') {
+                        totalTarjeta += venta.montoTarjeta
+                      }
                     }
-                  }
-                  return (
-                    <VentaRow
-                      key={venta.id}
-                      venta={venta}
-                      i={i}
-                      cancelarVenta={cancelarVenta}
-                      anularVenta={anularVenta}
-                      anularZapatoVenta={anularZapatoVenta}
-                      totalEfectivo={totalEfectivo}
-                      totalTarjeta={totalTarjeta}
-                      store={store}
-                    // caja={caja}
-                    />
-                  );
-                })}
+                    return (
+                      <VentaRow
+                        key={venta.id}
+                        venta={venta}
+                        i={i}
+                        cancelarVenta={cancelarVenta}
+                        anularVenta={anularVenta}
+                        anularZapatoVenta={anularZapatoVenta}
+                        totalEfectivo={totalEfectivo}
+                        totalTarjeta={totalTarjeta}
+                        store={store}
+                      // caja={caja}
+                      />
+                    );
+                  })
+                }
               </TableBody>
             </Table>
           </TableContainer>
