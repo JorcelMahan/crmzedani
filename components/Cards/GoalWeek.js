@@ -8,7 +8,7 @@ import { gql, useQuery } from '@apollo/client';
 import AuthContext from '../../context/auth/AuthContext';
 import CardGoalStore from './CardGoalStore';
 import CardSalesEmployee from './CardSalesEmployee';
-import { Box, LinearProgress } from '@material-ui/core';
+import { Box, Divider, LinearProgress } from '@material-ui/core';
 
 const GET_VENTAS = gql`
   query allventasCurrentMonth {
@@ -16,6 +16,11 @@ const GET_VENTAS = gql`
   }
 `;
 
+const GET_SALES_DAY = gql`
+  query salesTotalDay {
+    salesTotalDay
+  }
+`
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
@@ -74,6 +79,61 @@ function LinearProgressWithLabel(props) {
 
 const percentage = (goal, current) => {
   return ((current * 100) / goal)
+}
+
+const CountTotalSales = () => {
+  const { loading, error, data, startPolling, stopPolling } = useQuery(GET_SALES_DAY);
+
+
+
+  useEffect(() => {
+    startPolling(1000);
+    return () => {
+      stopPolling();
+    }
+  }, [startPolling, stopPolling])
+
+  if (loading) return 'Loading'
+  if (error) return `${error.message}`;
+
+  const { salesTotalDay } = data
+
+  return (
+    <Box display='flex' flexDirection='column'>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Zapatos</Typography>
+        <Typography><b>{salesTotalDay[0]}</b></Typography>
+      </Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Accesorios</Typography>
+        <Typography><b>{salesTotalDay[1]}</b></Typography>
+      </Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Gift Card</Typography>
+        <Typography><b>{salesTotalDay[2]}</b></Typography>
+      </Box>
+      <Divider />
+
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Efectivo</Typography>
+        <Typography> <b>{salesTotalDay[3]}</b></Typography>
+      </Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Tarjeta</Typography>
+        <Typography><b>{salesTotalDay[4]}</b></Typography>
+      </Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Deposito</Typography>
+        <Typography><b>{salesTotalDay[5]}</b></Typography>
+      </Box>
+      <Box display='flex' flexDirection='row' justifyContent='space-between' p={1}>
+        <Typography>Total </Typography>
+        <Typography><b>{salesTotalDay[6]}</b></Typography>
+      </Box>
+
+
+    </Box>
+  )
 }
 const Count = ({ user }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
@@ -234,6 +294,23 @@ export default function GoalWeek() {
             </CardContent>
           </Card>
         </Grid>
+      }
+      {
+        (user === 'patrick' || user === 'fabio' || user === 'kathryn') && (
+          <Grid item xs={12} md={3} lg={6}>
+            <Card className={classes.card}>
+              <CardContent>
+                <Typography variant='h5' color='primary'>
+                  <span style={{ textTransform: 'capitalize' }}>
+                    {new Date().toLocaleDateString('es-MX', { weekday: 'long' })} - {' '}
+                  </span>
+                  {new Date().toLocaleDateString('es-MX')}
+                </Typography>
+                <CountTotalSales />
+              </CardContent>
+            </Card>
+          </Grid>
+        )
       }
     </Grid>
   );
