@@ -153,7 +153,7 @@ const Count = ({ user }) => {
   const goalMonth = 2296;
   return (
     <div>
-      <Box my={2} display='flex' flexDirection='column'>
+      {/* <Box my={2} display='flex' flexDirection='column'>
         <b>Meta: {allventasCurrentMonth[0]} de {allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550}</b>
         <p>Falta: {(allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550) - allventasCurrentMonth[0]}</p>
       </Box>
@@ -161,10 +161,10 @@ const Count = ({ user }) => {
         <Typography variant='h3' component='h2'>
           <i>"La tragedia no es no alcanzar tus objetivos, la tragedia es no tener objetivos que alcanzar."</i>
         </Typography>
-      </Box>
+      </Box> */}
 
       {/* if goal is reached then new goal */}
-      {
+      {/* {
         allventasCurrentMonth[0] < goalMonth ? (
           <Box my={1}>
             <LinearProgressWithLabel value={percentage(goalMonth, allventasCurrentMonth[0])} />
@@ -174,7 +174,7 @@ const Count = ({ user }) => {
             <LinearProgressWithLabel value={percentage(2550, allventasCurrentMonth[0])} />
           </Box>
         )
-      }
+      } */}
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||

@@ -113,6 +113,7 @@ const SimpleDialog = ({ salida, open, onClose }) => {
       console.log(e);
     }
   };
+
   almacenes = almacenes.filter((almacen) => almacen !== salida.almacen);
 
   return (
@@ -133,16 +134,23 @@ const SimpleDialog = ({ salida, open, onClose }) => {
           ))}
         </Select>
       </FormControl>
-      {tranferLoading && 'Loading'}
+      {/* // hidden button if is clicked, maybe I can hidden jf the Shoe is no showing on */}
+
+      {
+        tranferLoading ?
+          <CircularProgress /> :
+          <Button
+            disabled={selectedAlmacen === ''}
+            onClick={handleTransfer}
+            variant='contained'
+            color='secondary'
+            size='small'>
+            Transferir
+          </Button>
+      }
       {transferError && <p>{transferError.message}</p>}
-      <Button
-        disabled={selectedAlmacen === ''}
-        onClick={handleTransfer}
-        variant='contained'
-        color='secondary'
-        size='small'>
-        Transferir
-      </Button>
+
+
     </Dialog>
   );
 };
