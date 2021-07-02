@@ -89,7 +89,7 @@ const CardSalesEmployee = ({ employee, name, goal }) => {
 
         <Grid item xs={12}>
           <Divider />
-          {/* <Box my={2}>
+          <Box my={2}>
             <b>
               Meta: {salesMonthByEmployee[0]} de {goal}
             </b>
@@ -98,7 +98,7 @@ const CardSalesEmployee = ({ employee, name, goal }) => {
           </Box>
           <Box my={2}>
             <LinearProgressWithLabel value={percentage(goal, salesMonthByEmployee[0])} />
-          </Box> */}
+          </Box>
           <Box my={2}>
             <Typography variant='h5'>
               Zapatos: {salesMonthByEmployee[0]}

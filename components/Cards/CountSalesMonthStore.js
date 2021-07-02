@@ -50,7 +50,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
 
   return (
     <Grid container spacing={2}>
-      {/* <Grid item xs={12}>
+      <Grid item xs={12}>
         {
           (data.salesMonthByStore ? data.salesMonthByStore[0] : 0) >= goal && (
             <Box my={2} display='flex' flexDirection='column'>
@@ -65,7 +65,7 @@ const CountSalesMonthStore = ({ store, goal }) => {
         <br />
         Falta {goal - (data.salesMonthByStore ? data.salesMonthByStore[0] : 0)}
         <hr />
-      </Grid> */}
+      </Grid>
       <Grid item xs={12}>
         <LinearProgressWithLabel value={percentage(goal, (data.salesMonthByStore ? data.salesMonthByStore[0] : 0))} />
       </Grid>

@@ -135,6 +135,8 @@ const CountTotalSales = () => {
     </Box>
   )
 }
+const goalMonth = 2658;
+const extraGoal = 3000;
 const Count = ({ user }) => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(
     GET_VENTAS
@@ -150,31 +152,31 @@ const Count = ({ user }) => {
   if (loading) return 'Loading';
   if (error) return `error: ${error.message}`;
   const { allventasCurrentMonth } = data;
-  const goalMonth = 2296;
+
   return (
     <div>
-      {/* <Box my={2} display='flex' flexDirection='column'>
-        <b>Meta: {allventasCurrentMonth[0]} de {allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550}</b>
-        <p>Falta: {(allventasCurrentMonth[0] < goalMonth ? goalMonth : 2550) - allventasCurrentMonth[0]}</p>
+      <Box my={2} display='flex' flexDirection='column'>
+        <b>Meta: {allventasCurrentMonth[0]} de {allventasCurrentMonth[0] < goalMonth ? goalMonth : extraGoal}</b>
+        <p>Falta: {(allventasCurrentMonth[0] < goalMonth ? goalMonth : extraGoal) - allventasCurrentMonth[0]}</p>
       </Box>
       <Box my={2}>
         <Typography variant='h3' component='h2'>
           <i>"La tragedia no es no alcanzar tus objetivos, la tragedia es no tener objetivos que alcanzar."</i>
         </Typography>
-      </Box> */}
+      </Box>
 
       {/* if goal is reached then new goal */}
-      {/* {
+      {
         allventasCurrentMonth[0] < goalMonth ? (
           <Box my={1}>
             <LinearProgressWithLabel value={percentage(goalMonth, allventasCurrentMonth[0])} />
           </Box>
         ) : (
           <Box my={1}>
-            <LinearProgressWithLabel value={percentage(2550, allventasCurrentMonth[0])} />
+            <LinearProgressWithLabel value={percentage(extraGoal, allventasCurrentMonth[0])} />
           </Box>
         )
-      } */}
+      }
       {(user === 'patrick' ||
         user === 'kathryn' ||
         user === 'laura' ||
@@ -210,7 +212,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'miraflores') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='miraflores' goal={499} />
+            <CardGoalStore user={user} store='miraflores' goal={596} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -219,7 +221,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'san-miguel') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='san-miguel' goal={284} />
+            <CardGoalStore user={user} store='san-miguel' goal={296} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -228,7 +230,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === 'sopocachi') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='sopocachi' goal={120} />
+            <CardGoalStore user={user} store='sopocachi' goal={105} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -237,7 +239,7 @@ export default function GoalWeek() {
         user === 'fabio' ||
         user === '6-de-marzo') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='6-de-marzo' goal={358} />
+            <CardGoalStore user={user} store='6-de-marzo' goal={461} />
           </Grid>
         )}
       {(user === 'patrick' ||
@@ -245,7 +247,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'cochabamba') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='cochabamba' goal={185} />
+            <CardGoalStore user={user} store='cochabamba' goal={200} />
           </Grid>
         )}
       {/*uss: ventaslapaz*/}
@@ -259,7 +261,7 @@ export default function GoalWeek() {
         user === 'laura' ||
         user === 'fabio') && (
           <Grid item xs={12} md={3} lg={6}>
-            <CardGoalStore user={user} store='patrick' goal={850} />
+            <CardGoalStore user={user} store='patrick' goal={1000} />
           </Grid>
         )}
       {user === 'ventascbba' && (
@@ -267,7 +269,7 @@ export default function GoalWeek() {
           <CardSalesEmployee
             employee='60468e365e39640015e6b6be'
             name='Nelson'
-            goal={200}
+            goal={150}
           />
         </Grid>
       )}
@@ -276,7 +278,7 @@ export default function GoalWeek() {
           <CardSalesEmployee
             employee='60468e735e39640015e6b6bf'
             name='Giovanny'
-            goal={650}
+            goal={850}
           />
         </Grid>
       )}
