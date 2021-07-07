@@ -84,8 +84,6 @@ const percentage = (goal, current) => {
 const CountTotalSales = () => {
   const { loading, error, data, startPolling, stopPolling } = useQuery(GET_SALES_DAY);
 
-
-
   useEffect(() => {
     startPolling(1000);
     return () => {

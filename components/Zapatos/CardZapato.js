@@ -52,6 +52,9 @@ const Sizes = ({ zapato, almacen }) => {
   );
 };
 
+const condition = (almacen, user) => (almacen === 'fallas' || almacen === 'muestras') && user === 'central'
+
+
 // const SizesAvailables = ({ zapato }) => {
 //   const { tallas } = zapato;
 //   const availableSizes = [];
@@ -103,7 +106,7 @@ export default function CardZapato({ zapato, i }) {
       </CardActions>
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent>
-          {user === router.pathname.substr(11) || user === 'patrick' ? (
+          {user === router.pathname.substr(11) || user === 'patrick' || condition(router.pathname.substr(11), user) ? (
             <>
               <Typography paragraph>Tallas Disponibles</Typography>
               <Sizes zapato={zapato} almacen={router.pathname.slice(11)} />
