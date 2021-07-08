@@ -1,10 +1,19 @@
-<svg width="82" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill="url(#prefix__paint0_linear)" d="M9.018 0l9.019 16H0L9.018 0z"/>
-    <path fill="#333" fill-rule="evenodd" d="M51.634 12.028h-6.492V2.052h6.492v1.256H46.61v3.007h4.37V7.57h-4.37v3.202h5.024v1.255zm-14.063 0h-7.235v-1.096l5.342-7.624h-5.253V2.052h7.058v1.097l-5.342 7.623h5.43v1.256zm21.88 0h6.333v-1.256h-2.423V3.308h2.423V2.052h-6.332v1.256h2.441v7.465h-2.441v1.255zm18.22 0h-1.468v-8.72h-3.36V2.052h8.225v1.256H77.67v8.72z" clip-rule="evenodd"/>
-    <defs>
-        <linearGradient id="prefix__paint0_linear" x1="28.022" x2="16.189" y1="22.991" y2="8.569" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#fff"/>
-            <stop offset="1"/>
-        </linearGradient>
-    </defs>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="260.000000pt" height="260.000000pt" viewBox="0 0 260.000000 260.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,260.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M1360 1823 c-560 -106 -680 -112 -828 -43 -62 29 -63 29 -56 7 10
+-36 63 -84 118 -108 43 -20 72 -24 190 -27 77 -2 183 1 235 8 105 13 316 47
+344 56 11 3 17 0 17 -9 0 -22 -102 -111 -301 -263 -238 -182 -351 -277 -443
+-375 -95 -101 -136 -169 -136 -226 l0 -42 38 17 c56 26 277 21 532 -12 428
+-56 466 -59 665 -60 214 -1 277 9 367 55 46 24 37 38 -13 20 -72 -25 -235 -35
+-361 -22 -123 12 -356 55 -497 91 -100 25 -320 66 -398 75 -35 4 -63 12 -63
+17 0 22 189 197 320 298 209 161 314 255 382 340 71 88 127 185 114 197 -8 9
+-186 14 -226 6z"/>
+</g>
 </svg>

@@ -213,14 +213,16 @@ const ShowSalida = () => {
           <Box display='flex' justifyContent='space-around' width='100%' m={2}>
             <Box flexGrow={1}>
               <Typography>{salida.codigo}</Typography>
-              <Typography>De: {salida.almacen.toUpperCase()}</Typography>
+              <Typography>De: <b>{salida.almacen.toUpperCase()}</b></Typography>
               <Typography>
-                Hacia:
-                {salida?.retiradoHacia !== null
-                  ? salida.retiradoHacia.toUpperCase()
-                  : 'No transferido'}
+                Hacia:{' '}
+                <b>
+                  {salida?.retiradoHacia !== null
+                    ? salida.retiradoHacia.toUpperCase()
+                    : 'No transferido'}
+                </b>
               </Typography>
-              <Typography>Retirado por: {salida.retiradoPor}</Typography>
+              <Typography>Retirado por: <b>{salida.retiradoPor.toUpperCase()}</b></Typography>
             </Box>
             {returnLoading && <CircularProgress />}
             {returnError && <p>{returnError.message}</p>}
@@ -253,6 +255,7 @@ const ShowSalida = () => {
             )}
           </Box>
           <Box width='100%'>
+            {/* Search bar, look for codigox */}
             <TableContainer component={Paper}>
               <Table
                 className={classes.table}

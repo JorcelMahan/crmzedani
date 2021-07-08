@@ -12,10 +12,16 @@ import CierreState from "../context/cierre/CierreState";
 import "../assets/index.css";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Main from "../layouts/Main/Main";
+import Head from 'next/head';
+
 const MyApp = ({ Component, pageProps, router }) => {
   if (router.pathname.startsWith("/login")) {
     return (
       <ApolloProvider client={client}>
+        <Head>
+          <title>Zedani</title>
+          <meta name='viewport' content="initial-scale=1, width=device-width" />
+        </Head>
         <ThemeProvider theme={theme}>
           <AuthState>
             <VentasState>
@@ -36,6 +42,10 @@ const MyApp = ({ Component, pageProps, router }) => {
   ) {
     return (
       <ApolloProvider client={client}>
+        <Head>
+          <title>Zedani</title>
+          <meta name='viewport' content="initial-scale=1, width=device-width" />
+        </Head>
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
@@ -44,6 +54,10 @@ const MyApp = ({ Component, pageProps, router }) => {
   }
   return (
     <ApolloProvider client={client}>
+      <Head>
+        <title>Zedani</title>
+        <meta name='viewport' content="initial-scale=1, width=device-width" />
+      </Head>
       <ThemeProvider theme={theme}>
         <AuthState>
           <VentasState>

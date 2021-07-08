@@ -1,6 +1,11 @@
 import palette from './palette';
 
+const FONT_PRIMARY = 'Poppins, sans-serif';
 export default {
+  fontFamily: FONT_PRIMARY,
+  fontWeightRegular: 400,
+  fontWeightMedium: 600,
+  fontWeightBold: 700,
   h1: {
     color: palette.text.primary,
     fontWeight: 500,
