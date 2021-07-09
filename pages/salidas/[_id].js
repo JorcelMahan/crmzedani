@@ -16,12 +16,15 @@ import {
   Select,
   MenuItem,
   Dialog,
+  Input
 } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useQuery, useMutation, gql } from '@apollo/client';
 import { makeStyles } from '@material-ui/core/styles';
 import AuthContext from '../../context/auth/AuthContext';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import SearchIcon from '@material-ui/icons/Search';
+import { useSearch2 } from '../../hooks/useSearch';
 
 
 const RETURN_SALIDA = gql`
@@ -47,10 +50,24 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
-  table: {
-    // width: 300,
-    // minWidth: 650,
+  paper: {
+    borderRadius: '4px',
+    alignItems: 'center',
+    padding: theme.spacing(1),
+    display: 'flex',
+    flexBasis: 420,
   },
+  icon: {
+    marginRight: theme.spacing(1),
+    color: theme.palette.text.secondary,
+  },
+  input: {
+    flexGrow: 1,
+    fontSize: '14px',
+    lineHeight: '16px',
+    letterSpacing: '-0.05px',
+  },
+
 }));
 
 const GET_SALIDA = gql`
@@ -154,6 +171,54 @@ const SimpleDialog = ({ salida, open, onClose }) => {
     </Dialog>
   );
 };
+
+const ProductTable = ({ salida }) => {
+
+  const classes = useStyles();
+  const { query, setQuery, filteredItems } = useSearch2(salida.products)
+
+  return (
+    <Box width='100%'>
+      {/* Search bar, look for codigox */}
+      <Paper className={classes.paper}>
+        <SearchIcon className={classes.icon} />
+        <Input
+          type='text'
+          className={classes.input}
+          disableUnderline
+          placeholder='Codigo...'
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+      </Paper>
+      <TableContainer component={Paper}>
+        <Table
+          size='small'
+          aria-label='a dense table'>
+          <TableHead>
+            <TableRow>
+              <TableCell>Codigo</TableCell>
+              <TableCell>Color</TableCell>
+              <TableCell>Talla</TableCell>
+              <TableCell>Cantidad</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredItems.map((p, i) => (
+              <TableRow key={`${p.id}-${i}`}>
+                <TableCell>{p.codigo}</TableCell>
+                <TableCell>{p.color}</TableCell>
+                <TableCell>{p.sizeSale}</TableCell>
+                <TableCell>{p.quantity}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
+
+  )
+}
 const ShowSalida = () => {
   const router = useRouter();
   const classes = useStyles();
@@ -168,6 +233,8 @@ const ShowSalida = () => {
     fetchPolicy: 'no-cache',
   });
   const [open, setOpen] = useState(false);
+
+  // new array with the filter values
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -254,34 +321,8 @@ const ShowSalida = () => {
               </>
             )}
           </Box>
-          <Box width='100%'>
-            {/* Search bar, look for codigox */}
-            <TableContainer component={Paper}>
-              <Table
-                className={classes.table}
-                size='small'
-                aria-label='a dense table'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Codigo</TableCell>
-                    <TableCell>Color</TableCell>
-                    <TableCell>Talla</TableCell>
-                    <TableCell>Cantidad</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {salida.products.map((p, i) => (
-                    <TableRow key={`${p.id}-${i}`}>
-                      <TableCell>{p.codigo}</TableCell>
-                      <TableCell>{p.color}</TableCell>
-                      <TableCell>{p.sizeSale}</TableCell>
-                      <TableCell>{p.quantity}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Box>
+          {/* here componet of table */}
+          <ProductTable salida={salida} />
         </Box>
       </div>
     </div>

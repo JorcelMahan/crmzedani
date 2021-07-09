@@ -12,6 +12,19 @@ export const useSearch = (items, x) => {
   return { query, setQuery, filteredItems };
 };
 
+// search by code in exits 
+export const useSearch2 = (items) => {
+  const [query, setQuery] = useState('');
+  const [filteredItems, setfilteredItems] = useState(items);
+  useMemo(() => {
+    const result = items.filter((item) => {
+      return item.codigo.toLowerCase().includes(query.toLowerCase());
+    });
+    setfilteredItems(result);
+  }, [items, query]);
+  return { query, setQuery, filteredItems };
+};
+
 export const useSearchMore = (items, x, y, z) => {
   const [query, setQuery] = useState('');
   const [filteredItems, setfilteredItems] = useState(items);
